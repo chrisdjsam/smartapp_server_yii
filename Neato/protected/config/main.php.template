@@ -1,0 +1,135 @@
+<?php
+
+// uncomment the following to define a path alias
+// Yii::setPathOfAlias('local','path/to/local-folder');
+
+// This is the main Web application configuration. Any writable
+// CWebApplication properties can be configured here.
+return array(
+	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+	'name'=>'Neato Robotics',
+
+	// preloading 'log' component
+	'preload'=>array('log'),
+
+	// autoloading model and component classes
+	'import'=>array(
+		'application.models.*',
+		'application.models.user.*',
+		'application.models.robot.*',
+		'application.components.*',
+		'ext.giix-components.*', // giix components
+		'ext.yii-mail.YiiMailMessage',
+	),
+
+	'modules'=>array(
+		'api',
+	),
+
+	// application components
+	'components'=>array(
+		'user'=>array(
+			// enable cookie-based authentication
+			'allowAutoLogin'=>true,
+			'class' => 'WebUser', // Use our overridden class to get more access to the user object
+		),
+		// uncomment the following to enable URLs in path-format
+		
+		'urlManager'=>array(
+			'urlFormat'=>'path',
+			'showScriptName'=>false,
+			'rules'=>array(
+				'<controller:\w+>'=>'<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+			),
+		),
+		
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=neato',
+			'emulatePrepare' => true,
+			'username' => '<YOUR_DB_USERNAME_HERE>',
+			'password' => '<YOUR_DB_PASSWORD_HERE>',
+			'charset' => 'utf8',
+		),
+		'facebook' => array(
+                    'class' => 'ext.yii-facebook-opengraph.SFacebook',
+                    'appId' => '<YOUR_FACEBOOK_APP_ID_HERE>', // needed for JS SDK, Social Plugins and PHP SDK
+                    'secret' => '<YOUR_FACEBOOK_APP_SECRET_HERE>', // needed for the PHP SDK 
+                    'locale' => 'en_US', // override locale setting (defaults to en_US)
+                    'frictionlessRequests' => true,
+                    'async' => true, // load JS SDK asynchronously
+                    'jsCallback' => true, // declare if you are going to be inserting any JS callbacks to the async JS SDK loader
+                    'status' => true, // JS SDK - check login status
+                    'cookie' => true, // JS SDK - enable cookies to allow the server to access the session
+                    'oauth' => true, // JS SDK -enable OAuth 2.0
+                    //'xfbml'=>true,  // JS SDK - parse XFBML / html5 Social Plugins
+                    'html5' => true, // use html5 Social Plugins instead of XFBML
+                //'ogTags'=>array(  // set default OG tags
+                //'title'=>'MY_WEBSITE_NAME',
+                //'description'=>'AHHHH',
+                //'image'=>'URL_TO_WEBSITE_LOGO'
+        ),		
+		'errorHandler'=>array(
+			// use 'site/error' action to display errors
+			'errorAction'=>'site/error',
+		),
+		'log'=>array(
+			'class'=>'CLogRouter',
+			'routes'=>array(
+				array(
+					'class'=>'CFileLogRoute',
+					'levels'=>'error, warning',
+				),
+				// uncomment the following to show log messages on web pages
+				/*
+				array(
+					'class'=>'CWebLogRoute',
+				),
+				*/
+			),
+		),
+		'mail'=>array(
+        	'class'=>'ext.yii-mail.YiiMail',
+			'transportType' => 'smtp',
+            'transportOptions'=>array(
+	            'host'=>'<YOUR_SMTP_HOST_HERE>',
+	            //'encryption'=>'tls',
+	            'username'=>'<YOUR_SMTP_USER_NAME_HERE>',
+	            'password'=>'<YOUR_SMTP_PASSWORD_HERE>',
+	            'port'=>465,
+            ),
+            'viewPath' => 'application.views.mail',
+            'logging' => true,
+            'dryRun' => false
+   		 ),
+	),
+
+	// application-level parameters that can be accessed
+	// using Yii::app()->params['paramName']
+	'params'=>array(
+		// this is used in contact page
+		'adminEmail'=>'webmaster@neato.com',
+		'environment' => 'Production',
+        'fb-app-name' => '<YOUR_FACEBOOK_APP_NAME_HERE>',
+        'isProduction' => true,
+        'apiHostname' => '<YOUR_HOST_NAME>',
+        'apiProtocol' => '<YOUR_HOST_PROTOCOL>',
+        'apiKey' => '<YOUR_API_KEY>',
+		'ejabberdhost' => '<YOUR_JABBER_HOST_HERE>',
+		'isjabbersetup' => true,
+		'autoEmailVerification' => true,
+		'enablewebservicelogging' => true,
+		'fb-permissions' => 'email',
+		'user-auth-token-valid-till' => 30,
+		'app-version-no' => 114,
+		'two-way-encrypt-key' => '<YOUR_ENCRYPTION_KEY_HERE>',
+		'robot-data-directory-name' => 'robot_data',
+		'robot-blob-data-directory-name' => 'blob',
+		'robot-xml-data-directory-name' => 'xml',
+		'robot-schedule_data-directory-name' => 'robot_schedule_data',
+		'robot-schedule_blob-data-directory-name' => 'blob',
+		'robot-schedule_xml-data-directory-name' => 'xml',
+		'robot-custom-data-directory-name' => 'robot_custom_data',
+	),
+);

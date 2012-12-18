@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_Mime_Headers_MailboxHeader</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Swift_Mime_Headers_MailboxHeader</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A Mailbox Address MIME Header for something like From or Sender.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---Mime---Headers---MailboxHeader.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Mime/Headers/MailboxHeader.php</a> (line <span class="field">20</span>)
+		</p>
+		
+				
+		<pre><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html">Swift_Mime_Headers_AbstractHeader</a>
+   |
+   --Swift_Mime_Headers_MailboxHeader</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																				
+												<div class="method-definition">
+											<span class="method-result">Swift_Mime_Headers_MailboxHeader</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"><a href="../../Swift/Mime/Swift_Mime_HeaderEncoder.html">Swift_Mime_HeaderEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#createDisplayNameString" title="details" class="method-name">createDisplayNameString</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$displayName</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$shorten</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#createMailboxListString" title="details" class="method-name">createMailboxListString</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$mailboxes</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#getAddresses" title="details" class="method-name">getAddresses</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getFieldBody" title="details" class="method-name">getFieldBody</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getFieldBodyModel" title="details" class="method-name">getFieldBodyModel</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getFieldType" title="details" class="method-name">getFieldType</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#getNameAddresses" title="details" class="method-name">getNameAddresses</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#getNameAddressStrings" title="details" class="method-name">getNameAddressStrings</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#normalizeMailboxes" title="details" class="method-name">normalizeMailboxes</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$mailboxes</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#removeAddresses" title="details" class="method-name">removeAddresses</a>
+											(<span class="var-type">string|string[]</span>&nbsp;<span class="var-name">$addresses</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setAddresses" title="details" class="method-name">setAddresses</a>
+											(<span class="var-type">string[]</span>&nbsp;<span class="var-name">$addresses</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setFieldBodyModel" title="details" class="method-name">setFieldBodyModel</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$model</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setNameAddresses" title="details" class="method-name">setNameAddresses</a>
+											(<span class="var-type">string|string[]</span>&nbsp;<span class="var-name">$mailboxes</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">35</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Creates a new MailboxHeader with $name.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Swift_Mime_Headers_MailboxHeader</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"><a href="../../Swift/Mime/Swift_Mime_HeaderEncoder.html">Swift_Mime_HeaderEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: of Header</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_HeaderEncoder.html">Swift_Mime_HeaderEncoder</a></span>
+				<span class="var-name">$encoder</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreateDisplayNameString" id="createDisplayNameString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">createDisplayNameString</span> (line <span class="line-number">253</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Produces a compliant, formatted display-name based on the string given.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			createDisplayNameString
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$displayName</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$shorten</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$displayName</span><span class="var-description">: as displayed</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$shorten</span><span class="var-description">: the first line to make remove for header name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreateMailboxListString" id="createMailboxListString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">createMailboxListString</span> (line <span class="line-number">267</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Creates a string form of all the mailboxes in the passed array.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			createMailboxListString
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$mailboxes</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">$mailboxes</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetAddresses" id="getAddresses"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAddresses</span> (line <span class="line-number">179</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get all email addresses in this Header.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodgetNameAddresses">Swift_Mime_Headers_MailboxHeader::getNameAddresses()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			getAddresses
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetFieldBody" id="getFieldBody"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFieldBody</span> (line <span class="line-number">205</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the string value of the body in this Header.</p>
+<p class="description"><p>This is not necessarily RFC 2822 compliant since folding white space will  not be added at this stage (see <a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodtoString">toString()</a> for that).</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodtoString">Swift_Mime_Headers_AbstractHeader::toString()</a></li>
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getFieldBody
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetFieldBodyModel" id="getFieldBodyModel"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFieldBodyModel</span> (line <span class="line-number">70</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the model for the field body.</p>
+<p class="description"><p>This method returns an associative array like <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodgetNameAddresses">getNameAddresses()</a></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getFieldBodyModel
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetFieldType" id="getFieldType"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFieldType</span> (line <span class="line-number">48</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the type of Header that this instance represents.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> TYPE_TEXT, TYPE_PARAMETERIZED, TYPE_MAILBOX</li>
+				<li><span class="field">see:</span> TYPE_DATE, TYPE_ID, TYPE_PATH</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getFieldType
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetNameAddresses" id="getNameAddresses"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getNameAddresses</span> (line <span class="line-number">148</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get all mailboxes in this Header as key=&gt;value pairs.</p>
+<p class="description"><p>The key is the address and the value is the name (or null if none set).  Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$header&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html">Swift_Mime_Headers_MailboxHeader</a></span><span class="src-sym">(</span><span class="src-str">'From'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'chris@swiftmailer.org'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Chris&nbsp;Corbyn'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-str">'mark@swiftmailer.org'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Mark&nbsp;Corbyn'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<a href="http://www.php.net/print_r">print_r</a><span class="src-sym">(</span><span class="src-var">$header</span><span class="src-sym">-&gt;</span><a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodgetNameAddresses">getNameAddresses</a><span class="src-sym">(</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;array&nbsp;(</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;chris@swiftmailer.org&nbsp;=&gt;&nbsp;Chris&nbsp;Corbyn,</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;mark@swiftmailer.org&nbsp;=&gt;&nbsp;Mark&nbsp;Corbyn</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;)</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-php">?&gt;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodgetAddresses">Swift_Mime_Headers_MailboxHeader::getAddresses()</a></li>
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodgetNameAddressStrings">Swift_Mime_Headers_MailboxHeader::getNameAddressStrings()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			getNameAddresses
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetNameAddressStrings" id="getNameAddressStrings"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getNameAddressStrings</span> (line <span class="line-number">122</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the full mailbox list of this Header as an array of valid RFC 2822 strings.</p>
+<p class="description"><p>Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$header&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html">Swift_Mime_Headers_MailboxHeader</a></span><span class="src-sym">(</span><span class="src-str">'From'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'chris@swiftmailer.org'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Chris&nbsp;Corbyn'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-str">'mark@swiftmailer.org'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Mark&nbsp;Corbyn'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<a href="http://www.php.net/print_r">print_r</a><span class="src-sym">(</span><span class="src-var">$header</span><span class="src-sym">-&gt;</span><a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodgetNameAddressStrings">getNameAddressStrings</a><span class="src-sym">(</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;array&nbsp;(</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;0&nbsp;=&gt;&nbsp;Chris&nbsp;Corbyn&nbsp;&lt;chris@swiftmailer.org&gt;,</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;1&nbsp;=&gt;&nbsp;Mark&nbsp;Corbyn&nbsp;&lt;mark@swiftmailer.org&gt;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//&nbsp;)</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-php">?&gt;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodtoString">Swift_Mime_Headers_AbstractHeader::toString()</a></li>
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodgetNameAddresses">Swift_Mime_Headers_MailboxHeader::getNameAddresses()</a></li>
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			getNameAddressStrings
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodnormalizeMailboxes" id="normalizeMailboxes"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">normalizeMailboxes</span> (line <span class="line-number">223</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalizes a user-input list of mailboxes into consistent key=&gt;value pairs.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			normalizeMailboxes
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$mailboxes</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">$mailboxes</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodremoveAddresses" id="removeAddresses"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">removeAddresses</span> (line <span class="line-number">188</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Remove one or more addresses from this Header.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			removeAddresses
+		</span>
+					(<span class="var-type">string|string[]</span>&nbsp;<span class="var-name">$addresses</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|string[]</span>
+				<span class="var-name">$addresses</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetAddresses" id="setAddresses"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setAddresses</span> (line <span class="line-number">169</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Makes this Header represent a list of plain email addresses with no names.</p>
+<p class="description"><p>Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//Sets&nbsp;three&nbsp;email&nbsp;addresses&nbsp;as&nbsp;the&nbsp;Header&nbsp;data</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$header</span><span class="src-sym">-&gt;</span><a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodsetAddresses">setAddresses</a><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'one@domain.tld'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'two@domain.tld'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'three@domain.tld'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-php">?&gt;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> setValue()</li>
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodsetNameAddresses">Swift_Mime_Headers_MailboxHeader::setNameAddresses()</a></li>
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setAddresses
+		</span>
+					(<span class="var-type">string[]</span>&nbsp;<span class="var-name">$addresses</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">$addresses</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetFieldBodyModel" id="setFieldBodyModel"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setFieldBodyModel</span> (line <span class="line-number">59</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the model for the field body.</p>
+<p class="description"><p>This method takes a string, or an array of addresses.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setFieldBodyModel
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$model</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$model</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetNameAddresses" id="setNameAddresses"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setNameAddresses</span> (line <span class="line-number">95</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a list of mailboxes to be shown in this Header.</p>
+<p class="description"><p>The mailboxes can be a simple array of addresses, or an array of  key=&gt;value pairs where (email =&gt; personalName).  Example:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-comm">//Sets&nbsp;two&nbsp;mailboxes&nbsp;in&nbsp;the&nbsp;Header,&nbsp;one&nbsp;with&nbsp;a&nbsp;personal&nbsp;name</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$header</span><span class="src-sym">-&gt;</span><a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodsetNameAddresses">setNameAddresses</a><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-str">'chris@swiftmailer.org'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'Chris&nbsp;Corbyn'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-str">'mark@swiftmailer.org'&nbsp;</span><span class="src-comm">//No&nbsp;associated&nbsp;personal&nbsp;name</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-php">?&gt;</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> setValue()</li>
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#methodsetAddresses">Swift_Mime_Headers_MailboxHeader::setAddresses()</a></li>
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_Headers_MailboxHeader.html#method__construct">Swift_Mime_Headers_MailboxHeader::__construct()</a></li>
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setNameAddresses
+		</span>
+					(<span class="var-type">string|string[]</span>&nbsp;<span class="var-name">$mailboxes</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|string[]</span>
+				<span class="var-name">$mailboxes</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html">Swift_Mime_Headers_AbstractHeader</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodclearCachedValueIf">Swift_Mime_Headers_AbstractHeader::clearCachedValueIf()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodcreatePhrase">Swift_Mime_Headers_AbstractHeader::createPhrase()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodencodeWords">Swift_Mime_Headers_AbstractHeader::encodeWords()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodescapeSpecials">Swift_Mime_Headers_AbstractHeader::escapeSpecials()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgenerateTokenLines">Swift_Mime_Headers_AbstractHeader::generateTokenLines()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetCachedValue">Swift_Mime_Headers_AbstractHeader::getCachedValue()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetCharset">Swift_Mime_Headers_AbstractHeader::getCharset()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetEncodableWordTokens">Swift_Mime_Headers_AbstractHeader::getEncodableWordTokens()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetEncoder">Swift_Mime_Headers_AbstractHeader::getEncoder()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetFieldName">Swift_Mime_Headers_AbstractHeader::getFieldName()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetGrammar">Swift_Mime_Headers_AbstractHeader::getGrammar()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetLanguage">Swift_Mime_Headers_AbstractHeader::getLanguage()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetMaxLineLength">Swift_Mime_Headers_AbstractHeader::getMaxLineLength()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodgetTokenAsEncodedWord">Swift_Mime_Headers_AbstractHeader::getTokenAsEncodedWord()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodinitializeGrammar">Swift_Mime_Headers_AbstractHeader::initializeGrammar()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodsetCachedValue">Swift_Mime_Headers_AbstractHeader::setCachedValue()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodsetCharset">Swift_Mime_Headers_AbstractHeader::setCharset()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodsetEncoder">Swift_Mime_Headers_AbstractHeader::setEncoder()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodsetFieldName">Swift_Mime_Headers_AbstractHeader::setFieldName()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodsetLanguage">Swift_Mime_Headers_AbstractHeader::setLanguage()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodsetMaxLineLength">Swift_Mime_Headers_AbstractHeader::setMaxLineLength()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodtokenNeedsEncoding">Swift_Mime_Headers_AbstractHeader::tokenNeedsEncoding()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodtoString">Swift_Mime_Headers_AbstractHeader::toString()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#methodtoTokens">Swift_Mime_Headers_AbstractHeader::toTokens()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Mime/Swift_Mime_Headers_AbstractHeader.html#method__toString">Swift_Mime_Headers_AbstractHeader::__toString()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:32 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

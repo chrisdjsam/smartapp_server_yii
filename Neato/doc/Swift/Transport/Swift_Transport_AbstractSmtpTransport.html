@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_Transport_AbstractSmtpTransport</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Swift_Transport_AbstractSmtpTransport</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../../Swift/Transport/Swift_Transport.html">Swift_Transport</a></li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sends Messages over SMTP.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---Transport---AbstractSmtpTransport.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/AbstractSmtpTransport.php</a> (line <span class="field">26</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/Transport/Swift_Transport_EsmtpTransport.html">Swift_Transport_EsmtpTransport</a></td>
+					<td>
+											Sends Messages over SMTP with ESMTP support.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/Transport/Swift_Transport_SendmailTransport.html">Swift_Transport_SendmailTransport</a></td>
+					<td>
+											SendmailTransport for sending mail through a sendmail/postfix (etc..) binary.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_buffer" title="details" class="var-name">$_buffer</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_domain" title="details" class="var-name">$_domain</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_eventDispatcher" title="details" class="var-name">$_eventDispatcher</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_started" title="details" class="var-name">$_started</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">Swift_Transport_AbstractSmtpTransport</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>&nbsp;<span class="var-name">$buf</span>, <span class="var-type"><a href="../../Swift/Events/Swift_Events_EventDispatcher.html">Swift_Events_EventDispatcher</a></span>&nbsp;<span class="var-name">$dispatcher</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__destruct" title="details" class="method-name">__destruct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#executeCommand" title="details" class="method-name">executeCommand</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$command</span>, [<span class="var-type">int[]</span>&nbsp;<span class="var-name">$codes</span> = <span class="var-default">array()</span>], [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failures</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>
+										<a href="#getBuffer" title="details" class="method-name">getBuffer</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getLocalDomain" title="details" class="method-name">getLocalDomain</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">boolean</span>
+										<a href="#isStarted" title="details" class="method-name">isStarted</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#registerPlugin" title="details" class="method-name">registerPlugin</a>
+											(<span class="var-type"><a href="../../Swift/Events/Swift_Events_EventListener.html">Swift_Events_EventListener</a></span>&nbsp;<span class="var-name">$plugin</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#reset" title="details" class="method-name">reset</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#send" title="details" class="method-name">send</a>
+											(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setLocalDomain" title="details" class="method-name">setLocalDomain</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$domain</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#start" title="details" class="method-name">start</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#stop" title="details" class="method-name">stop</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_assertResponseCode" title="details" class="method-name">_assertResponseCode</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$response</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$wanted</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_doDataCommand" title="details" class="method-name">_doDataCommand</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_doHeloCommand" title="details" class="method-name">_doHeloCommand</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_doMailFromCommand" title="details" class="method-name">_doMailFromCommand</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_doRcptToCommand" title="details" class="method-name">_doRcptToCommand</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getBufferParams" title="details" class="method-name">_getBufferParams</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getFullResponse" title="details" class="method-name">_getFullResponse</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$seq</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getReversePath" title="details" class="method-name">_getReversePath</a>
+											(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_readGreeting" title="details" class="method-name">_readGreeting</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_streamMessage" title="details" class="method-name">_streamMessage</a>
+											(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_throwException" title="details" class="method-name">_throwException</a>
+											(<span class="var-type"><a href="../../Swift/Transport/Swift_TransportException.html">Swift_TransportException</a></span>&nbsp;<span class="var-name">$e</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$_buffer" id="$_buffer"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_buffer</span>
+						(line <span class="line-number">31</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Input-Output buffer for sending/receiving SMTP commands and responses</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_domain" id="$_domain"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_domain</span>
+			 = <span class="var-default"> '[127.0.0.1]'</span>			(line <span class="line-number">37</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The domain name to use in HELO command</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_eventDispatcher" id="$_eventDispatcher"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_eventDispatcher</span>
+						(line <span class="line-number">40</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The event dispatching layer</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_started" id="$_started"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_started</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">34</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Connection status</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			
+<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">51</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Creates a new EsmtpTransport using the given I/O buffer.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Swift_Transport_AbstractSmtpTransport</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>&nbsp;<span class="var-name">$buf</span>, <span class="var-type"><a href="../../Swift/Events/Swift_Events_EventDispatcher.html">Swift_Events_EventDispatcher</a></span>&nbsp;<span class="var-name">$dispatcher</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>
+				<span class="var-name">$buf</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../Swift/Events/Swift_Events_EventDispatcher.html">Swift_Events_EventDispatcher</a></span>
+				<span class="var-name">$dispatcher</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_EsmtpTransport.html#method__construct">Swift_Transport_EsmtpTransport::__construct()</a>
+								: Creates a new EsmtpTransport using the given I/O buffer.
+							</li>
+					<li>
+				<a href="../../Swift/Transport/Swift_SmtpTransport.html#method__construct">Swift_SmtpTransport::__construct()</a>
+								: Create a new SmtpTransport, optionally with $host, $port and $security.
+							</li>
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_SendmailTransport.html#method__construct">Swift_Transport_SendmailTransport::__construct()</a>
+								: Create a new SendmailTransport with $buf for I/O.
+							</li>
+					<li>
+				<a href="../../Swift/Transport/Swift_SendmailTransport.html#method__construct">Swift_SendmailTransport::__construct()</a>
+								: Create a new SendmailTransport, optionally using $command for sending.
+							</li>
+				</ul>
+	</div>
+<a name="method__destruct" id="__destruct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">538</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Destructor.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__destruct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodexecuteCommand" id="executeCommand"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">executeCommand</span> (line <span class="line-number">281</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Run a command against the buffer, expecting the given response codes.</p>
+<p class="description"><p>If no response codes are given, the response will not be validated.  If codes are given, an exception will be thrown on an invalid response.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			executeCommand
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$command</span>, [<span class="var-type">int[]</span>&nbsp;<span class="var-name">$codes</span> = <span class="var-default">array()</span>], [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failures</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$command</span>			</li>
+					<li>
+				<span class="var-type">int[]</span>
+				<span class="var-name">$codes</span>			</li>
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">&$failures</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_EsmtpTransport.html#methodexecuteCommand">Swift_Transport_EsmtpTransport::executeCommand()</a>
+								: Run a command against the buffer, expecting the given response codes.
+							</li>
+				</ul>
+	</div>
+<a name="methodgetBuffer" id="getBuffer"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getBuffer</span> (line <span class="line-number">265</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the IoBuffer where read/writes are occurring.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>
+		<span class="method-name">
+			getBuffer
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetLocalDomain" id="getLocalDomain"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLocalDomain</span> (line <span class="line-number">78</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the name of the domain Swift will identify as.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getLocalDomain
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodisStarted" id="isStarted"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">isStarted</span> (line <span class="line-number">124</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Test if an SMTP connection has been established.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			isStarted
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport.html#methodisStarted">Swift_Transport::isStarted()</a></dt>
+						<dd>Test if this Transport mechanism has started.</dd>
+					</dl>
+			
+	</div>
+<a name="methodregisterPlugin" id="registerPlugin"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">registerPlugin</span> (line <span class="line-number">247</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Register a plugin.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			registerPlugin
+		</span>
+					(<span class="var-type"><a href="../../Swift/Events/Swift_Events_EventListener.html">Swift_Events_EventListener</a></span>&nbsp;<span class="var-name">$plugin</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Events/Swift_Events_EventListener.html">Swift_Events_EventListener</a></span>
+				<span class="var-name">$plugin</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport.html#methodregisterPlugin">Swift_Transport::registerPlugin()</a></dt>
+						<dd>Register a plugin in the Transport.</dd>
+					</dl>
+			
+	</div>
+<a name="methodreset" id="reset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">reset</span> (line <span class="line-number">255</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset the current mail transaction.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			reset
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsend" id="send"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">send</span> (line <span class="line-number">139</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send the given Message.</p>
+<p class="description"><p>Recipient/sender data will be retreived from the Message API.  The return value is the number of recipients who were accepted for delivery.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			send
+		</span>
+					(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>
+				<span class="var-name">$message</span>			</li>
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">&$failedRecipients</span><span class="var-description">: to collect failures by-reference</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport.html#methodsend">Swift_Transport::send()</a></dt>
+						<dd>Send the given Message.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_SendmailTransport.html#methodsend">Swift_Transport_SendmailTransport::send()</a>
+								: Send the given Message.
+							</li>
+				</ul>
+	</div>
+<a name="methodsetLocalDomain" id="setLocalDomain"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setLocalDomain</span> (line <span class="line-number">67</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the name of the local domain which Swift will identify itself as.</p>
+<p class="description"><p>This should be a fully-qualified domain name and should be truly the domain  you're using.  If your server doesn't have a domain name, use the IP in square  brackets (i.e. [127.0.0.1]).</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setLocalDomain
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$domain</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$domain</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodstart" id="start"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">start</span> (line <span class="line-number">86</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Start the SMTP connection.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			start
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport.html#methodstart">Swift_Transport::start()</a></dt>
+						<dd>Start this Transport mechanism.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_SendmailTransport.html#methodstart">Swift_Transport_SendmailTransport::start()</a>
+								: Start the standalone SMTP session if running in -bs mode.
+							</li>
+				</ul>
+	</div>
+<a name="methodstop" id="stop"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">stop</span> (line <span class="line-number">206</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Stop the SMTP connection.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			stop
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport.html#methodstop">Swift_Transport::stop()</a></dt>
+						<dd>Stop this Transport mechanism.</dd>
+					</dl>
+			
+	</div>
+<a name="method_assertResponseCode" id="_assertResponseCode"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_assertResponseCode</span> (line <span class="line-number">392</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Throws an Exception if a response code is incorrect</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_assertResponseCode
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$response</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$wanted</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$response</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$wanted</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_doDataCommand" id="_doDataCommand"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_doDataCommand</span> (line <span class="line-number">327</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send the DATA command</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_doDataCommand
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_doHeloCommand" id="_doHeloCommand"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_doHeloCommand</span> (line <span class="line-number">303</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send the HELO welcome</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_doHeloCommand
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_EsmtpTransport.html#method_doHeloCommand">Swift_Transport_EsmtpTransport::_doHeloCommand()</a>
+								: Overridden to perform EHLO instead
+							</li>
+				</ul>
+	</div>
+<a name="method_doMailFromCommand" id="_doMailFromCommand"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_doMailFromCommand</span> (line <span class="line-number">311</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send the MAIL FROM command</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_doMailFromCommand
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$address</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_EsmtpTransport.html#method_doMailFromCommand">Swift_Transport_EsmtpTransport::_doMailFromCommand()</a>
+								: Overridden to add Extension support
+							</li>
+				</ul>
+	</div>
+<a name="method_doRcptToCommand" id="_doRcptToCommand"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_doRcptToCommand</span> (line <span class="line-number">319</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send the RCPT TO command</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_doRcptToCommand
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$address</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_EsmtpTransport.html#method_doRcptToCommand">Swift_Transport_EsmtpTransport::_doRcptToCommand()</a>
+								: Overridden to add Extension support
+							</li>
+				</ul>
+	</div>
+<a name="method_getBufferParams" id="_getBufferParams"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getBufferParams</span> (line <span class="line-number">43</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return an array of params for the Buffer</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getBufferParams
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_EsmtpTransport.html#method_getBufferParams">Swift_Transport_EsmtpTransport::_getBufferParams()</a>
+								: Get the params to initialize the buffer
+							</li>
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_SendmailTransport.html#method_getBufferParams">Swift_Transport_SendmailTransport::_getBufferParams()</a>
+								: Get the params to initialize the buffer
+							</li>
+				</ul>
+	</div>
+<a name="method_getFullResponse" id="_getFullResponse"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getFullResponse</span> (line <span class="line-number">415</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get an entire multi-line response using its sequence number</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getFullResponse
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$seq</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$seq</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_getReversePath" id="_getReversePath"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getReversePath</span> (line <span class="line-number">350</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Determine the best-use reverse path for this message</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getReversePath
+		</span>
+					(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>
+				<span class="var-name">$message</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_readGreeting" id="_readGreeting"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_readGreeting</span> (line <span class="line-number">297</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Read the opening SMTP greeting</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_readGreeting
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_streamMessage" id="_streamMessage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_streamMessage</span> (line <span class="line-number">333</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Stream the contents of the message over the buffer</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_streamMessage
+		</span>
+					(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>
+				<span class="var-name">$message</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_throwException" id="_throwException"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_throwException</span> (line <span class="line-number">375</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Throw a TransportException, first sending it to any listeners</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_throwException
+		</span>
+					(<span class="var-type"><a href="../../Swift/Transport/Swift_TransportException.html">Swift_TransportException</a></span>&nbsp;<span class="var-name">$e</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Transport/Swift_TransportException.html">Swift_TransportException</a></span>
+				<span class="var-name">$e</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:15 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

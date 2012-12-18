@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class YiiMail</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class YiiMail</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">YiiMail is an application component used for sending email.</p>
+<p class="description"><p>You may configure it as below.  Check the public attributes and setter  methods of this class for more options.  <pre> return array(
+ 	...
+ 	'import => array(
+ 		...
+ 		'ext.mail.YiiMailMessage',
+ 	),
+ 	'components' => array(
+ 		'mail' => array(
+ 			'class' => 'ext.yii-mail.YiiMail',
+ 			'transportType' => 'php',
+ 			'viewPath' => 'application.views.mail',
+ 			'logging' => true,
+ 			'dryRun' => false
+ 		),
+ 		...
+ 	)
+ );</pre></p><p>Example usage:  <pre> $message = new YiiMailMessage;
+ $message->setBody('Message content here with HTML', 'text/html');
+ $message->subject = 'My Subject';
+ $message->addTo('johnDoe@domain.com');
+ $message->from = Yii::app()->params['adminEmail'];
+ Yii::app()->mail->send($message);</pre></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---YiiMail.php.html">/extensions/yii-mail/YiiMail.php</a> (line <span class="field">45</span>)
+		</p>
+		
+				
+		<pre>CApplicationComponent
+   |
+   --YiiMail</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																								<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$dryRun" title="details" class="var-name">$dryRun</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$logging" title="details" class="var-name">$logging</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$mailer" title="details" class="var-name">$mailer</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$transport" title="details" class="var-name">$transport</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$transportOptions" title="details" class="var-name">$transportOptions</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$transportType" title="details" class="var-name">$transportType</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$viewPath" title="details" class="var-name">$viewPath</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																												<div class="method-definition">
+					static 						<span class="method-result">string</span>
+										<a href="#log" title="details" class="method-name">log</a>
+											(<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>&nbsp;<span class="var-name">$message</span>)
+									</div>
+																																
+												<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#batchSend" title="details" class="method-name">batchSend</a>
+											(<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>], [<span class="var-type">Swift_Mailer_RecipientIterator</span>&nbsp;<span class="var-name">$it</span> = <span class="var-default">null</span>], <span class="var-type">array</span>&nbsp;<span class="var-name">&$failedRecipients,</span>, <span class="var-type"><a href="../Swift/Mailer/Swift_Mailer_RecipientIterator.html">Swift_Mailer_RecipientIterator</a></span>&nbsp;<span class="var-name">$it,</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../Swift/Swift_Mailer.html">Swift_Mailer</a></span>
+										<a href="#getMailer" title="details" class="method-name">getMailer</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getTransport" title="details" class="method-name">getTransport</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#init" title="details" class="method-name">init</a>
+										()
+									</div>
+																								<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#registerScripts" title="details" class="method-name">registerScripts</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#send" title="details" class="method-name">send</a>
+											(<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>], <span class="var-type">array</span>&nbsp;<span class="var-name">&$failedRecipients,</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#sendSimple" title="details" class="method-name">sendSimple</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$from</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$to</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$subject</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$body</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$dryRun" id="$dryRun"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$dryRun</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">57</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether to disable actually sending mail.  Defaults to false.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$logging" id="$logging"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$logging</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">51</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether to log messages using Yii::log().  Defaults to true.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$mailer" id="$mailer"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$mailer</span>
+						(line <span class="line-number">98</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Holds the SwiftMailer mailer</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$transport" id="$transport"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$transport</span>
+						(line <span class="line-number">93</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Holds the SwiftMailer transport</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$transportOptions" id="$transportOptions"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$transportOptions</span>
+						(line <span class="line-number">88</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> options specific to the transport type being used.  To set options for STMP, set this attribute to an array where the keys  are the option names and the values are their values.  Possible options for SMTP are:  <ul><li>host</li><li>username</li><li>password</li><li>port</li><li>encryption</li><li>timeout</li><li>extensionHandlers</li></ul>  See the SwiftMailer documentaion for the option meanings.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$transportType" id="$transportType"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$transportType</span>
+			 = <span class="var-default"> 'php'</span>			(line <span class="line-number">64</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> the delivery type.  Can be either 'php' or 'smtp'.  When  using 'php', PHP's <a href="http://www.php.net/mail">http://www.php.net/mail</a> function will be used.  Defaults to 'php'.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$viewPath" id="$viewPath"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$viewPath</span>
+			 = <span class="var-default"> 'application.views.mail'</span>			(line <span class="line-number">70</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> the path to the location where mail views are stored.  Defaults to 'application.views.mail'.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodlog" id="log"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method log</span> (line <span class="line-number">188</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Logs a YiiMailMessage in a (hopefully) readable way using Yii::log.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> log message</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">string</span>
+		<span class="method-name">
+			log
+		</span>
+					(<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>&nbsp;<span class="var-name">$message</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>
+				<span class="var-name">$message</span>			</li>
+				</ul>
+		
+			
+	</div>
+
+<a name="methodbatchSend" id="batchSend"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">batchSend</span> (line <span class="line-number">158</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send the given <a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a> to all recipients individually.</p>
+<p class="description"><p>This differs from <a href="../Yii-Mail/YiiMail.html#methodsend">send()</a> in the way headers are presented to the  recipient.  The only recipient in the &quot;To:&quot; field will be the individual  recipient it was sent to.</p><p>If an iterator is provided, recipients will be read from the iterator  one-by-one, otherwise recipient data will be retreived from the  <a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a> object.</p><p>Sender information is always read from the <a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a> object.</p><p>The return value is the number of recipients who were accepted for  delivery.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../Yii-Mail/YiiMail.html#methodsend">YiiMail::send()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			batchSend
+		</span>
+					(<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>], [<span class="var-type">Swift_Mailer_RecipientIterator</span>&nbsp;<span class="var-name">$it</span> = <span class="var-default">null</span>], <span class="var-type">array</span>&nbsp;<span class="var-name">&$failedRecipients,</span>, <span class="var-type"><a href="../Swift/Mailer/Swift_Mailer_RecipientIterator.html">Swift_Mailer_RecipientIterator</a></span>&nbsp;<span class="var-name">$it,</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>
+				<span class="var-name">$message</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">&$failedRecipients,</span><span class="var-description">: optional</span>			</li>
+					<li>
+				<span class="var-type"><a href="../Swift/Mailer/Swift_Mailer_RecipientIterator.html">Swift_Mailer_RecipientIterator</a></span>
+				<span class="var-name">$it,</span><span class="var-description">: optional</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$failedRecipients</span>			</li>
+					<li>
+				<span class="var-type"><a href="../Swift/Mailer/Swift_Mailer_RecipientIterator.html">Swift_Mailer_RecipientIterator</a></span>
+				<span class="var-name">$it</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetMailer" id="getMailer"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMailer</span> (line <span class="line-number">225</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the SwiftMailer <a href="../Swift/Swift_Mailer.html">Swift_Mailer</a> class instance</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../Swift/Swift_Mailer.html">Swift_Mailer</a></span>
+		<span class="method-name">
+			getMailer
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetTransport" id="getTransport"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTransport</span> (line <span class="line-number">202</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the SwiftMailer transport class instance, initializing it if it has</p>
+<p class="description"><p>not been created yet</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> <a href="../Swift/Transport/Swift_MailTransport.html">Swift_MailTransport</a> or <a href="../Swift/Transport/Swift_SmtpTransport.html">Swift_SmtpTransport</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getTransport
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodinit" id="init"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">init</span> (line <span class="line-number">105</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Calls the registerScripts() method.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			init
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodregisterScripts" id="registerScripts"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">registerScripts</span> (line <span class="line-number">235</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Registers swiftMailer autoloader and includes the required files</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			registerScripts
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsend" id="send"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">send</span> (line <span class="line-number">130</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send a <a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a> as it would be sent in a mail client.</p>
+<p class="description"><p>All recipients (with the exception of Bcc) will be able to see the other  recipients this message was sent to.</p><p>If you need to send to each recipient without disclosing details about the  other recipients see <a href="../Yii-Mail/YiiMail.html#methodbatchSend">batchSend()</a>.</p><p>Recipient/sender data will be retreived from the <a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a>  object.</p><p>The return value is the number of recipients who were accepted for  delivery.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../Yii-Mail/YiiMail.html#methodbatchSend">YiiMail::batchSend()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			send
+		</span>
+					(<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>], <span class="var-type">array</span>&nbsp;<span class="var-name">&$failedRecipients,</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../Yii-Mail/YiiMailMessage.html">YiiMailMessage</a></span>
+				<span class="var-name">$message</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">&$failedRecipients,</span><span class="var-description">: optional</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$failedRecipients</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsendSimple" id="sendSimple"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">sendSimple</span> (line <span class="line-number">172</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sends a message in an extremly simple but less extensive way.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			sendSimple
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$from</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$to</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$subject</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$body</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$from</span><span class="var-description">: from address, string or array of the form $address =&gt; $name</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$to</span><span class="var-description">: to address, string or array of the form $address =&gt; $name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$subject</span><span class="var-description">: subject</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$body</span><span class="var-description">: body</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:47 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

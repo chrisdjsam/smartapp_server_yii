@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_CharacterReader</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Interface Swift_CharacterReader</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Analyzes characters for a specific character set.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+				<li><span class="field">author:</span> Xavier De Cock &lt;<a href="mailto:xdecock@gmail.com">xdecock@gmail.com</a>&gt;</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---CharacterReader.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/CharacterReader.php</a> (line <span class="field">18</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+	<a name="sec-const-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constant Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Constants</span> (<a href="#sec-consts">details</a>)
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<div class="const-summary">
+								<div class="const-title">
+					<a href="#MAP_TYPE_FIXED_LEN" title="details" class="const-name">MAP_TYPE_FIXED_LEN</a> = 					<span class="var-type"> 0x02</span>
+
+				</div>
+								<div class="const-title">
+					<a href="#MAP_TYPE_INVALID" title="details" class="const-name">MAP_TYPE_INVALID</a> = 					<span class="var-type"> 0x01</span>
+
+				</div>
+								<div class="const-title">
+					<a href="#MAP_TYPE_POSITIONS" title="details" class="const-name">MAP_TYPE_POSITIONS</a> = 					<span class="var-type"> 0x03</span>
+
+				</div>
+							</div>
+		</div>
+	</div>
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+							
+									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																				
+												<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getCharPositions" title="details" class="method-name">getCharPositions</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$startOffset</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$currentMap</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$ignoredChars</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$currentMap</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$ignoredChars</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getInitialByteSize" title="details" class="method-name">getInitialByteSize</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getMapType" title="details" class="method-name">getMapType</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#validateByteSequence" title="details" class="method-name">validateByteSequence</a>
+											(<span class="var-type">int[]</span>&nbsp;<span class="var-name">$bytes</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$size</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+							
+										<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodgetCharPositions" id="getCharPositions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getCharPositions</span> (line <span class="line-number">33</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns the complete charactermap</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getCharPositions
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$startOffset</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$currentMap</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$ignoredChars</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$currentMap</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$ignoredChars</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$string</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$startOffset</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$currentMap</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$ignoredChars</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$currentMap</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$ignoredChars</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetInitialByteSize" id="getInitialByteSize"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getInitialByteSize</span> (line <span class="line-number">58</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns the number of bytes which should be read to start each character.</p>
+<p class="description"><p>For fixed width character sets this should be the number of  octets-per-character. For multibyte character sets this will probably be 1.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getInitialByteSize
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMapType" id="getMapType"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMapType</span> (line <span class="line-number">39</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns mapType</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getMapType
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodvalidateByteSequence" id="validateByteSequence"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">validateByteSequence</span> (line <span class="line-number">50</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns an integer which specifies how many more bytes to read.</p>
+<p class="description"><p>A positive integer indicates the number of more bytes to fetch before invoking  this method again.  A value of zero means this is already a valid character.  A value of -1 means this cannot possibly be a valid character.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			validateByteSequence
+		</span>
+					(<span class="var-type">int[]</span>&nbsp;<span class="var-name">$bytes</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$size</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int[]</span>
+				<span class="var-name">$bytes</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$size</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="constMAP_TYPE_FIXED_LEN" id="MAP_TYPE_FIXED_LEN"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<span class="const-title">
+			<span class="const-name">MAP_TYPE_FIXED_LEN</span>
+			 = <span class="const-default"> 0x02</span>
+			(line <span class="line-number">21</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constMAP_TYPE_INVALID" id="MAP_TYPE_INVALID"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<span class="const-title">
+			<span class="const-name">MAP_TYPE_INVALID</span>
+			 = <span class="const-default"> 0x01</span>
+			(line <span class="line-number">20</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constMAP_TYPE_POSITIONS" id="MAP_TYPE_POSITIONS"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<span class="const-title">
+			<span class="const-name">MAP_TYPE_POSITIONS</span>
+			 = <span class="const-default"> 0x03</span>
+			(line <span class="line-number">22</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+						
+		</div>
+	</div>
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:25 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

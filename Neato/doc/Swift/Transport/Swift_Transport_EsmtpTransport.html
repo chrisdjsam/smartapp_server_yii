@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_Transport_EsmtpTransport</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Swift_Transport_EsmtpTransport</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html">Swift_Transport_SmtpAgent</a></li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sends Messages over SMTP with ESMTP support.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---Transport---EsmtpTransport.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/EsmtpTransport.php</a> (line <span class="field">25</span>)
+		</p>
+		
+				
+		<pre><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html">Swift_Transport_AbstractSmtpTransport</a>
+   |
+   --Swift_Transport_EsmtpTransport</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/Transport/Swift_SmtpTransport.html">Swift_SmtpTransport</a></td>
+					<td>
+											Sends Messages over SMTP with ESMTP support.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">Swift_Transport_EsmtpTransport</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>&nbsp;<span class="var-name">$buf</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$extensionHandlers</span>, <span class="var-type"><a href="../../Swift/Events/Swift_Events_EventDispatcher.html">Swift_Events_EventDispatcher</a></span>&nbsp;<span class="var-name">$dispatcher</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#executeCommand" title="details" class="method-name">executeCommand</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$command</span>, [<span class="var-type">int[]</span>&nbsp;<span class="var-name">$codes</span> = <span class="var-default">array()</span>], [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failures</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getEncryption" title="details" class="method-name">getEncryption</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Swift_Transport_EsmtpHandler[]</span>
+										<a href="#getExtensionHandlers" title="details" class="method-name">getExtensionHandlers</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getHost" title="details" class="method-name">getHost</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getPort" title="details" class="method-name">getPort</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getTimeout" title="details" class="method-name">getTimeout</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setEncryption" title="details" class="method-name">setEncryption</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$enc</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$encryption</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setExtensionHandlers" title="details" class="method-name">setExtensionHandlers</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$handlers</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setHost" title="details" class="method-name">setHost</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$host</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setPort" title="details" class="method-name">setPort</a>
+											(<span class="var-type">int</span>&nbsp;<span class="var-name">$port</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setTimeout" title="details" class="method-name">setTimeout</a>
+											(<span class="var-type">int</span>&nbsp;<span class="var-name">$timeout</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_doHeloCommand" title="details" class="method-name">_doHeloCommand</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_doMailFromCommand" title="details" class="method-name">_doMailFromCommand</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_doRcptToCommand" title="details" class="method-name">_doRcptToCommand</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getBufferParams" title="details" class="method-name">_getBufferParams</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__call" title="details" class="method-name">__call</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$method</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$args</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html">Swift_Transport_AbstractSmtpTransport</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#var$_buffer">Swift_Transport_AbstractSmtpTransport::$_buffer</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#var$_domain">Swift_Transport_AbstractSmtpTransport::$_domain</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#var$_eventDispatcher">Swift_Transport_AbstractSmtpTransport::$_eventDispatcher</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#var$_started">Swift_Transport_AbstractSmtpTransport::$_started</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">64</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Creates a new EsmtpTransport using the given I/O buffer.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Swift_Transport_EsmtpTransport</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>&nbsp;<span class="var-name">$buf</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$extensionHandlers</span>, <span class="var-type"><a href="../../Swift/Events/Swift_Events_EventDispatcher.html">Swift_Events_EventDispatcher</a></span>&nbsp;<span class="var-name">$dispatcher</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_IoBuffer.html">Swift_Transport_IoBuffer</a></span>
+				<span class="var-name">$buf</span>			</li>
+					<li>
+				<span class="var-type">Swift_Transport_EsmtpHandler[]</span>
+				<span class="var-name">$extensionHandlers</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../Swift/Events/Swift_Events_EventDispatcher.html">Swift_Events_EventDispatcher</a></span>
+				<span class="var-name">$dispatcher</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method__construct">Swift_Transport_AbstractSmtpTransport::__construct()</a></dt>
+						<dd>Creates a new EsmtpTransport using the given I/O buffer.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Transport/Swift_SmtpTransport.html#method__construct">Swift_SmtpTransport::__construct()</a>
+								: Create a new SmtpTransport, optionally with $host, $port and $security.
+							</li>
+				</ul>
+	</div>
+<a name="methodexecuteCommand" id="executeCommand"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">executeCommand</span> (line <span class="line-number">182</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Run a command against the buffer, expecting the given response codes.</p>
+<p class="description"><p>If no response codes are given, the response will not be validated.  If codes are given, an exception will be thrown on an invalid response.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			executeCommand
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$command</span>, [<span class="var-type">int[]</span>&nbsp;<span class="var-name">$codes</span> = <span class="var-default">array()</span>], [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failures</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$command</span>			</li>
+					<li>
+				<span class="var-type">int[]</span>
+				<span class="var-name">$codes</span>			</li>
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">&$failures</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodexecuteCommand">Swift_Transport_AbstractSmtpTransport::executeCommand()</a></dt>
+						<dd>Run a command against the buffer, expecting the given response codes.</dd>
+					</dl>
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html#methodexecuteCommand">Swift_Transport_SmtpAgent::executeCommand()</a></dt>
+						<dd>Run a command against the buffer, expecting the given response codes.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetEncryption" id="getEncryption"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getEncryption</span> (line <span class="line-number">142</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the encryption type.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getEncryption
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetExtensionHandlers" id="getExtensionHandlers"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getExtensionHandlers</span> (line <span class="line-number">168</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get ESMTP extension handlers.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Swift_Transport_EsmtpHandler[]</span>
+		<span class="method-name">
+			getExtensionHandlers
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetHost" id="getHost"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHost</span> (line <span class="line-number">85</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the host to connect to.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getHost
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetPort" id="getPort"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPort</span> (line <span class="line-number">104</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the port to connect to.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getPort
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetTimeout" id="getTimeout"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTimeout</span> (line <span class="line-number">123</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the connection timeout.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getTimeout
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetEncryption" id="setEncryption"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setEncryption</span> (line <span class="line-number">132</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the encryption type (tls or ssl)</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setEncryption
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$enc</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$encryption</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$encryption</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$enc</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetExtensionHandlers" id="setExtensionHandlers"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setExtensionHandlers</span> (line <span class="line-number">151</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set ESMTP extension handlers.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setExtensionHandlers
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$handlers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Swift_Transport_EsmtpHandler[]</span>
+				<span class="var-name">$handlers</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetHost" id="setHost"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setHost</span> (line <span class="line-number">75</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the host to connect to.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setHost
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$host</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$host</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetPort" id="setPort"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setPort</span> (line <span class="line-number">94</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the port to connect to.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setPort
+		</span>
+					(<span class="var-type">int</span>&nbsp;<span class="var-name">$port</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$port</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetTimeout" id="setTimeout"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setTimeout</span> (line <span class="line-number">113</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the connection timeout.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setTimeout
+		</span>
+					(<span class="var-type">int</span>&nbsp;<span class="var-name">$timeout</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$timeout</span><span class="var-description">: seconds</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_doHeloCommand" id="_doHeloCommand"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_doHeloCommand</span> (line <span class="line-number">235</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Overridden to perform EHLO instead</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_doHeloCommand
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_doHeloCommand">Swift_Transport_AbstractSmtpTransport::_doHeloCommand()</a></dt>
+						<dd>Send the HELO welcome</dd>
+					</dl>
+			
+	</div>
+<a name="method_doMailFromCommand" id="_doMailFromCommand"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_doMailFromCommand</span> (line <span class="line-number">257</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Overridden to add Extension support</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_doMailFromCommand
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$address</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_doMailFromCommand">Swift_Transport_AbstractSmtpTransport::_doMailFromCommand()</a></dt>
+						<dd>Send the MAIL FROM command</dd>
+					</dl>
+			
+	</div>
+<a name="method_doRcptToCommand" id="_doRcptToCommand"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_doRcptToCommand</span> (line <span class="line-number">272</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Overridden to add Extension support</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_doRcptToCommand
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$address</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$address</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_doRcptToCommand">Swift_Transport_AbstractSmtpTransport::_doRcptToCommand()</a></dt>
+						<dd>Send the RCPT TO command</dd>
+					</dl>
+			
+	</div>
+<a name="method_getBufferParams" id="_getBufferParams"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getBufferParams</span> (line <span class="line-number">229</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the params to initialize the buffer</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getBufferParams
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_getBufferParams">Swift_Transport_AbstractSmtpTransport::_getBufferParams()</a></dt>
+						<dd>Return an array of params for the Buffer</dd>
+					</dl>
+			
+	</div>
+<a name="method__call" id="__call"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">__call</span> (line <span class="line-number">203</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Mixin handling method for ESMTP handlers</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__call
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$method</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$args</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$method</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$args</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html">Swift_Transport_AbstractSmtpTransport</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method__construct">Swift_Transport_AbstractSmtpTransport::__construct()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodexecuteCommand">Swift_Transport_AbstractSmtpTransport::executeCommand()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodgetBuffer">Swift_Transport_AbstractSmtpTransport::getBuffer()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodgetLocalDomain">Swift_Transport_AbstractSmtpTransport::getLocalDomain()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodisStarted">Swift_Transport_AbstractSmtpTransport::isStarted()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodregisterPlugin">Swift_Transport_AbstractSmtpTransport::registerPlugin()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodreset">Swift_Transport_AbstractSmtpTransport::reset()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodsend">Swift_Transport_AbstractSmtpTransport::send()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodsetLocalDomain">Swift_Transport_AbstractSmtpTransport::setLocalDomain()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodstart">Swift_Transport_AbstractSmtpTransport::start()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#methodstop">Swift_Transport_AbstractSmtpTransport::stop()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_assertResponseCode">Swift_Transport_AbstractSmtpTransport::_assertResponseCode()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_doDataCommand">Swift_Transport_AbstractSmtpTransport::_doDataCommand()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_doHeloCommand">Swift_Transport_AbstractSmtpTransport::_doHeloCommand()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_doMailFromCommand">Swift_Transport_AbstractSmtpTransport::_doMailFromCommand()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_doRcptToCommand">Swift_Transport_AbstractSmtpTransport::_doRcptToCommand()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_getBufferParams">Swift_Transport_AbstractSmtpTransport::_getBufferParams()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_getFullResponse">Swift_Transport_AbstractSmtpTransport::_getFullResponse()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_getReversePath">Swift_Transport_AbstractSmtpTransport::_getReversePath()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_readGreeting">Swift_Transport_AbstractSmtpTransport::_readGreeting()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_streamMessage">Swift_Transport_AbstractSmtpTransport::_streamMessage()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method_throwException">Swift_Transport_AbstractSmtpTransport::_throwException()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Transport/Swift_Transport_AbstractSmtpTransport.html#method__destruct">Swift_Transport_AbstractSmtpTransport::__destruct()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:28 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

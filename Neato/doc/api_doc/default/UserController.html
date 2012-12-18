@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class UserController</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class UserController</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The API UserController is meant for all user related API actions.</p>
+		<p class="notes">
+			Located in <a class="field" href="_controllers---UserController.php.html">/controllers/UserController.php</a> (line <span class="field">6</span>)
+		</p>
+		
+				
+		<pre>Controller
+   |
+   --<a href="../default/APIController.html">APIController</a>
+      |
+      --UserController</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																				
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionCreate" title="details" class="method-name">actionCreate</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionDisAssociateRobot" title="details" class="method-name">actionDisAssociateRobot</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionFBLogin" title="details" class="method-name">actionFBLogin</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionGetAccountDetails" title="details" class="method-name">actionGetAccountDetails</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionGetAssociatedRobot" title="details" class="method-name">actionGetAssociatedRobot</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionGetAuthToken" title="details" class="method-name">actionGetAuthToken</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionLogoutAuthToken" title="details" class="method-name">actionLogoutAuthToken</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionSetAccountDetails" title="details" class="method-name">actionSetAccountDetails</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionUpdateAuthTokenExpiry" title="details" class="method-name">actionUpdateAuthTokenExpiry</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#update_facebook_social_service" title="details" class="method-name">update_facebook_social_service</a>
+											(<span class="var-type">int</span>&nbsp;<span class="var-name">$user_id</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$user_social_id</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$user_social_additional_attributes</span> = <span class="var-default">array()</span>])
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodactionCreate" id="actionCreate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionCreate</span> (line <span class="line-number">588</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to create new user</p>
+<p class="description"><p>Parameters: <ul><li><strong>name</strong> :Name of the user</li><li><strong>email</strong> :Email of the user</li><li><strong>password</strong> :Password of the user. It does not need to be
+		unique.</li><li><strong>account_type</strong> :Native OR Facebook (OR Google etc)</li><li><strong>external_social_id</strong> :External Social ID (e.g. Facebook
+		ID (numeric value) that is returned by the Facebook). This is
+		required ONLY when the account type is NOT Native.</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;guid&quot;:1074,&quot;user_handle&quot;:&quot;d8828e4ef9596dd0be3b8c4cf0de9502&quot;}}</li></ul></li><li>If email does exist but the social information does not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;guid&quot;:55,&quot;message&quot;:&quot;Merged
+				user&quot;,&quot;user_handle&quot;:&quot;ce475c5c9b84938f368efe99100b2a11&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If unsupported account type is passed
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Account Type is NOT supported.&quot;}</li></ul></li><li>If a parameter is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter name in method
+				user.create&quot;}</li></ul></li><li>If Email does not valid
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;The email address you provided does
+				not appear to be a valid email address.&quot;}</li></ul></li><li>If email already exists and account type is native
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;This email address has already been
+				registered.&quot;}</li></ul></li><li>If Social information exists and the account type is Facebook
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;This social information already
+				exists.&quot;}</li></ul></li><li>If Jabber service does not able to create chat user
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;User could not be created because
+				jabber service in not responding.&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionCreate
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionDisAssociateRobot" id="actionDisAssociateRobot"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionDisAssociateRobot</span> (line <span class="line-number">484</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to DisAssociate robots from user</p>
+<p class="description"><p>Parameters: <ul><li><strong>email</strong> :User's email</li><li><strong>serial_number</strong> :Serial Number of robot (If this field
+		is empty, it would delete all robot association for this
+		particular user)</li></ul> Success Response: <ul><li>If everything goes fine, robot serial number provided and
+		user robot association exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;User Robot
+				association removed successfully.&quot;}}</li></ul></li><li>If everything goes fine, robot serial number not provided
+		and user-robot association exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;User
+				association with all robot removed successfully.&quot;}}</li></ul></li><li>If everything goes fine and robot association does not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;There is no
+				association between provided user and robot&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If Email does not exist:
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Email does not exist.&quot;}</li></ul></li><li>If serial number does not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Serial number does not exist&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionDisAssociateRobot
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionFBLogin" id="actionFBLogin"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionFBLogin</span> (line <span class="line-number">11</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Log in the user given a valid Facebook login object</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionFBLogin
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionGetAccountDetails" id="actionGetAccountDetails"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionGetAccountDetails</span> (line <span class="line-number">256</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to get user details</p>
+<p class="description"><p>Parameters: <ul><li><strong>email</strong> :User's email (Optional)</li><li><strong>auth_token</strong> :User's auth token (received from get user
+		handle call)</li></ul> Success Response: <ul><li>If everything goes fine and social information does not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;id&quot;:367,&quot;name&quot;:&quot;pradip37&quot;,&quot;email&quot;:&quot;pradip_patro378@gmail.com&quot;,&quot;chat_id&quot;:&quot;1350922773_user@rajatogo&quot;,&quot;chat_pwd&quot;:&quot;1350922773_user&quot;,&quot;social_networks&quot;:[]}}</li></ul></li><li>If everything goes fine and social information exists
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;id&quot;:357,&quot;name&quot;:&quot;pradip3&quot;,&quot;email&quot;:&quot;pradip_patro3@gmail.com&quot;,&quot;chat_id&quot;:&quot;1350911036_user@rajatogo&quot;,&quot;chat_pwd&quot;:&quot;1350911036_user&quot;,&quot;social_networks&quot;:[{&quot;provider&quot;:&quot;Facebook&quot;},{&quot;external_social_id&quot;:&quot;123456789&quot;}]}}</li></ul></li><li>If everything goes fine,social information does not exist and robot association exists
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;id&quot;:542,&quot;name&quot;:&quot;pradip&quot;,&quot;email&quot;:&quot;pradip@gmail.com&quot;,&quot;chat_id&quot;:&quot;1351499916_user@rajatogo&quot;,&quot;chat_pwd&quot;:&quot;1351499916_user&quot;,&quot;social_networks&quot;:[],&quot;robots&quot;:[{&quot;id&quot;:&quot;68&quot;,&quot;name&quot;:&quot;room
+				cleaner1&quot;,&quot;serial_number&quot;:&quot;robo5&quot;,&quot;chat_id&quot;:&quot;1350987452_robot@rajatogo&quot;},{&quot;id&quot;:&quot;69&quot;,&quot;name&quot;:&quot;desk
+				cleaner60&quot;,&quot;serial_number&quot;:&quot;robo6&quot;,&quot;chat_id&quot;:&quot;1350991375_robot@rajatogo&quot;}]}}</li></ul></li><li>If everything goes fine and both social information and robot association do not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;id&quot;:543,&quot;name&quot;:&quot;pradip&quot;,&quot;email&quot;:&quot;pradip1@gmail.com&quot;,&quot;chat_id&quot;:&quot;1351500158_user@rajatogo&quot;,&quot;chat_pwd&quot;:&quot;1351500158_user&quot;,&quot;social_networks&quot;:[],&quot;robots&quot;:[]}}</li></ul></li></ul> Failure Responses: <ul><li>If Auth token Key is missing or not correct:
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Method call failed the Auth token
+				Authentication&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionGetAccountDetails
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionGetAssociatedRobot" id="actionGetAssociatedRobot"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionGetAssociatedRobot</span> (line <span class="line-number">323</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to get user associated robot list and details</p>
+<p class="description"><p>Parameters: <ul><li><strong>email</strong> :User's email (Optional)</li><li><strong>auth_token</strong> :User's auth token (received from get user
+		handle call)</li></ul> Success Response: <ul><li>If everything goes fine and robot association exists
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:[{&quot;id&quot;:&quot;68&quot;,&quot;name&quot;:&quot;room
+				cleaner1&quot;,&quot;serial_number&quot;:&quot;robo5&quot;,&quot;chat_id&quot;:&quot;1350987452_robot@rajatogo&quot;},{&quot;id&quot;:&quot;69&quot;,&quot;name&quot;:&quot;desk
+				cleaner60&quot;,&quot;serial_number&quot;:&quot;robo6&quot;,&quot;chat_id&quot;:&quot;1350991375_robot@rajatogo&quot;}]}</li></ul></li><li>If everything goes fine and robot association does not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:[]}</li></ul></li></ul> Failure Responses: <ul><li>If Auth token Key is missing or not correct:
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Method call failed the Auth token
+				Authentication&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionGetAssociatedRobot
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionGetAuthToken" id="actionGetAuthToken"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionGetAuthToken</span> (line <span class="line-number">154</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to get auth token</p>
+<p class="description"><p>Parameters: <ul><li><strong>account_type</strong> :Account type</li><li>If account type is native
+		<ul><li><strong>email</strong> :User's Email</li><li><strong>password</strong> :User's Password</li></ul></li><li>If account type is Facebook
+		<ul><li><strong>external_social_id</strong> :User's External Social ID</li></ul></li></ul> Success Response: <ul><li>{&quot;status&quot;:0,&quot;result&quot;:&quot;d769de7939af3e76a54ac4a4368e88af&quot;}</li></ul> Failure Responses: <ul><li>If incorrect email/password combination and account type is
+		Native
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;User could not be authenticated&quot;}</li></ul></li><li>If incorrect external social ID and account type is Facebook
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;User could not be authenticated&quot;}</li></ul></li><li>If unsupported account type is passed (e.g. Google, for the
+		time being)
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Account Type is not supported&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionGetAuthToken
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionLogoutAuthToken" id="actionLogoutAuthToken"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionLogoutAuthToken</span> (line <span class="line-number">373</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to logging out auth token</p>
+<p class="description"><p>Parameters: <ul><li><strong>email</strong> :User's email (Optional)</li><li><strong>auth_token</strong> :User's auth token (received from get user
+		handle call)</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;You are
+				successfully logged out.&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If Auth token against provided email does not exist:
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;User could not be authenticated&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionLogoutAuthToken
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionSetAccountDetails" id="actionSetAccountDetails"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionSetAccountDetails</span> (line <span class="line-number">742</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to set user account details</p>
+<p class="description"><p>Parameters: <ul><li><strong>email</strong> :User's email (Optional)</li><li><strong>auth_token</strong> :User's auth token (received from get user
+		handle call)</li><li><strong>profile</strong> :Map of key=&gt;value pairs, e.g.
+		profile{'name'=&gt;'james bond',
+		'facebook_external_social_id'='12312111'}</li></ul> Success Response: <ul><li>{&quot;status&quot;:0,&quot;result&quot;:&quot;1&quot;}</li></ul> Failure Responses: <ul><li>If Auth token Key is missing or not correct:
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Method call failed the Auth token
+				Authentication&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionSetAccountDetails
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionUpdateAuthTokenExpiry" id="actionUpdateAuthTokenExpiry"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionUpdateAuthTokenExpiry</span> (line <span class="line-number">417</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to updating auth token expiry</p>
+<p class="description"><p>Parameters: <ul><li><strong>auth_token</strong> :User's auth token (received from get user
+		handle call)</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;You are
+				successfully updated auth token expiry date.&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If Auth token is missing or not correct:
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Method call failed the User
+				Authentication&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionUpdateAuthTokenExpiry
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodupdate_facebook_social_service" id="update_facebook_social_service"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">update_facebook_social_service</span> (line <span class="line-number">780</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Used to update facebook details</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			update_facebook_social_service
+		</span>
+					(<span class="var-type">int</span>&nbsp;<span class="var-name">$user_id</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$user_social_id</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$user_social_additional_attributes</span> = <span class="var-default">array()</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$user_id</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$user_social_id</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$user_social_additional_attributes</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../default/APIController.html">APIController</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../default/APIController.html#methoderror">APIController::error()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodsuccess">APIController::success()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodterminate">APIController::terminate()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_custom_id_existence">APIController::verify_for_robot_custom_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_map_id_existence">APIController::verify_for_robot_map_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_schedule_id_existence">APIController::verify_for_robot_schedule_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_serial_number_existence">APIController::verify_for_robot_serial_number_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_robot_schedule_type">APIController::verify_robot_schedule_type()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodyii_api_echo">APIController::yii_api_echo()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:29:58 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

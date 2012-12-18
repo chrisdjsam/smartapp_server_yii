@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/Neato_Server/Server_Yii/Neato/user/login" />
+<title>New Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/Neato_Server/Server_Yii/Neato/user/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>My Account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Email can not be blank.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Password can not be blank.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Register</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.section_right &gt; a.neato-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=RegisterForm_email</td>
+	<td>000@neatorobotics.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=RegisterForm_name</td>
+	<td>000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=RegisterForm_password</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=RegisterForm_confirm_password</td>
+	<td>123456</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Re-enter password must be repeated exactly.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=RegisterForm_confirm_password</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>000 you have successfully registered.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=000</td>
+	<td>000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=My Profile</td>
+	<td>My Profile</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Change Password</td>
+	<td>Change Password</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=Log Out</td>
+	<td>Log Out</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>000@neatorobotics.com</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Change Password</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Current password can not be blank.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>New password can not be blank.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Re-enter new password can not be blank.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ChangePasswordForm_password</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ChangePasswordForm_newpassword</td>
+	<td>456</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ChangePasswordForm_confirm_password</td>
+	<td>456</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Your password is changed successfully.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log Out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_email</td>
+	<td>admin@neatorobotics.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>neatorsl123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Logged in as admin (Administrator)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=admin</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=000@neatorobotics.com</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=deleteSelected</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteSelected</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Select at least one row to delete.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Robots</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=Robots</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>User-Robot Associations</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Change Password</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Add Robot</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Serial Number can not be blank.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Robot_serial_number</td>
+	<td>000_vc</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Robot_name</td>
+	<td>000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You have successfully added a robot having serial number: 000_vc .</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[title=&quot;List of all User-Robot Associations&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=UsersRobot_id_user</td>
+	<td>label=000@neatorobotics.com</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Add User-Robot Association</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=UsersRobot_id_robot</td>
+	<td>label=000_vc</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You have successfully created user robot association.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=000@neatorobotics.com</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=000_vc</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=000_vc</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=000@neatorobotics.com</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log Out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_email</td>
+	<td>000@neatorobotics.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>456</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=000_vc</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>000@neatorobotics.com</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log Out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_email</td>
+	<td>admin@neatorobotics.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=LoginForm_password</td>
+	<td>neatorsl123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=yt0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a[title=&quot;List of all User-Robot Associations&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=chooseoption[]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteSelected</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Are you sure you want to delete selected user-robot associations ?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Robots</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=chooseoption[]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteSelected</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Are you sure you want to delete selected robots?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You have deleted 1 robot successfully</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=chooseoption[]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=deleteSelected</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Are you sure you want to delete selected users?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>You have deleted 1 user successfully</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log Out</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
