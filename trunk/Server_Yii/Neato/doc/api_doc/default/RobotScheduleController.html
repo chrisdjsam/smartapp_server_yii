@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class RobotScheduleController</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class RobotScheduleController</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The API RobotScheduleController is meant for all robot-schedule related API actions.</p>
+		<p class="notes">
+			Located in <a class="field" href="_controllers---RobotScheduleController.php.html">/controllers/RobotScheduleController.php</a> (line <span class="field">6</span>)
+		</p>
+		
+				
+		<pre>Controller
+   |
+   --<a href="../default/APIController.html">APIController</a>
+      |
+      --RobotScheduleController</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																				
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actiondeleteSchedule" title="details" class="method-name">actiondeleteSchedule</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionDeleteScheduleData" title="details" class="method-name">actionDeleteScheduleData</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionGetData" title="details" class="method-name">actionGetData</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionGetSchedules" title="details" class="method-name">actionGetSchedules</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionPostData" title="details" class="method-name">actionPostData</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionUpdateData" title="details" class="method-name">actionUpdateData</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodactiondeleteSchedule" id="actiondeleteSchedule"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actiondeleteSchedule</span> (line <span class="line-number">681</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Deletes a particular robot schedule.</p>
+<p class="description"><p>It is called by ajax call.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actiondeleteSchedule
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionDeleteScheduleData" id="actionDeleteScheduleData"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionDeleteScheduleData</span> (line <span class="line-number">661</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to delete robot schedule data</p>
+<p class="description"><p>Parameters: <ul><li><strong>robot_schedule_id</strong> :Robot Schedule Id</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;You have
+				successfully deleted robot schedule data.&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If robot schedule id is not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Robot schedule id does not exist&quot;}</li></ul></li><li>If a parameter is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter robot_schedule_id in method robotschedule.delete_data&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionDeleteScheduleData
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionGetData" id="actionGetData"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionGetData</span> (line <span class="line-number">622</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to get robot schedule data</p>
+<p class="description"><p>Parameters: <ul><li><strong>robot_schedule_id</strong> :Robot Schedule Id</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;schedule_type&quot;:&quot;Basic&quot;,&quot;xml_data_url&quot;:&quot;http:\/\/localhost\/Neato_Server\/Server_Yii\/Neato\/robot_data\/34\/xml\/1353061075.xml&quot;,&quot;blob_data_url&quot;:&quot;http:\/\/localhost\/Neato_Server\/Server_Yii\/Neato\/robot_data\/34\/blob\/Koala.jpg&quot;}}</li></ul></li><li>If everything goes fine and blob data file is not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;schedule_type&quot;:&quot;Advanced&quot;,&quot;xml_data_url&quot;:&quot;http:\/\/localhost\/Neato_Server\/Server_Yii\/Neato\/robot_data\/34\/xml\/1353397443.xml&quot;,&quot;blob_data_url&quot;:&quot;&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If robot schedule id is not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Robot schedule id does not exist&quot;}</li></ul></li><li>If a parameter is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter robot_schedule_id
+				in method robotschedule.get_data&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionGetData
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionGetSchedules" id="actionGetSchedules"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionGetSchedules</span> (line <span class="line-number">566</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to get robot schedules</p>
+<p class="description"><p>Parameters: <ul><li><strong>serial_number</strong> :Serial number of robot</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:[{&quot;id&quot;:&quot;1&quot;,&quot;schedule_type&quot;:&quot;Advanced&quot;,&quot;xml_data_version&quot;:&quot;1&quot;,&quot;blob_data_version&quot;:&quot;1&quot;},{&quot;id&quot;:&quot;6&quot;,&quot;schedule_type&quot;:&quot;Basic&quot;,&quot;xml_data_version&quot;:&quot;1&quot;,&quot;blob_data_version&quot;:&quot;1&quot;}]}</li></ul></li><li>If everything goes fine and schedule does not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:[]}</li></ul></li></ul> Failure Responses: <ul><li>If serial number is not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;&quot;Serial number does not exist&quot;&quot;}</li></ul></li><li>If a serial number is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter serial_number in
+				method robotschedule.get_schedules&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionGetSchedules
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionPostData" id="actionPostData"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionPostData</span> (line <span class="line-number">105</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to add new schedule data</p>
+<p class="description"><p>Parameters: <ul><li><strong>serial_number</strong> :Serial Number of robot</li><li><strong>schedule_type</strong> :Basic OR Advanced</li><li><strong>xml_data</strong> :XML data for robot schedule (Optional)</li><li><strong>encoded_blob_data</strong> :Base 64 encoded string (Optional) . You can generate base 64 encoded string for a file using this &lt;a href='robot_data_encode.php' target='_blank'&gt;link&lt;/a&gt;</li><li><strong>blob_data</strong> :Blob data for robot schedule (Optional)</li></ul> Scenarios: <ul><li>If xml data is not provided
+		<ul><li>It would create xml file with blank data</li></ul></li></ul> <ul><li>If both blob_data and encoded_blob_data are not provided
+		<ul><li>It would not create blob file.</li></ul></li></ul> <ul><li>If only blob_data is provided
+		<ul><li>It would create blob file with provided blob_data file.</li></ul></li></ul> <ul><li>If only encoded_blob_data is provided
+		<ul><li>It would create blob file with provided encoded_blob_data.</li></ul></li></ul> <ul><li>If both blob_data and encoded_blob_data are provided
+		<ul><li>It would create blob file with provided encoded_blob_data.</li></ul></li></ul> <ul><li>If encoded_blob_data is provided
+		<ul><li>Blob data check for file mime type,
+				<ul><li>if file mime type is image it will check for file extension (jpg/jpeg/gif/png)</li><li>if file mime type is other than image it will store file with default extension <strong>jpg</strong></li></ul></li></ul></li></ul> <ul><li>If blob_data is provided
+		<ul><li>It would create blob file with provided blob_data file extension.</li></ul></li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;robot_schedule_id&quot;:&quot;5&quot;,&quot;schedule_type&quot;:&quot;Advanced&quot;,&quot;xml_data_version&quot;:1,&quot;blob_data_version&quot;:1}}</li></ul></li></ul> Failure Responses: <ul><li>If serial no is not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Serial number does not exist&quot;}</li></ul></li><li>If a serial number is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter serial_number in
+				method robotschedule.post_data&quot;}</li></ul></li><li>If schdule type not valid or missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Robot schedule type is not valid&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionPostData
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionUpdateData" id="actionUpdateData"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionUpdateData</span> (line <span class="line-number">374</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to update schedule data</p>
+<p class="description"><p>Parameters: <ul><li><strong>robot_schedule_id</strong> :Robot Schedule Id</li><li><strong>schedule_type</strong> :Basic OR Advanced (Optional)</li><li><strong>xml_data_version</strong> :XML data version</li><li><strong>xml_data</strong> :XML data for robot schedule (Optional)</li><li><strong>blob_ata_version</strong> :Blob data version</li><li><strong>encoded_blob_data</strong> :Base 64 encoded string (Optional) . You can generate base 64 encoded string for a file using this &lt;a href='robot_data_encode.php' target='_blank'&gt;link&lt;/a&gt;</li><li><strong>blob_data</strong> :Blob data for robot schedule (Optional)</li></ul> Scenarios: <ul><li>If xml data version provided and xml data field is blank
+		<ul><li>It would update previous xml data with blank data</li></ul></li></ul> <ul><li>If blob data version provided and both blob_data and encoded_blob_data are not provided
+		<ul><li>It would not create blob file.</li></ul></li></ul> <ul><li>If blob data version provided and only blob_data is provided
+		<ul><li>It would create blob file with provided blob_data file.</li></ul></li></ul> <ul><li>If blob data version provided and only encoded_blob_data is provided
+		<ul><li>It would create blob file with provided encoded_blob_data.</li></ul></li></ul> <ul><li>If blob data version provided and both blob_data and encoded_blob_data are provided
+		<ul><li>It would create blob file with provided encoded_blob_data.</li></ul></li></ul> <ul><li>If blob data version provided and encoded_blob_data is provided
+		<ul><li>Blob data check for file mime type,
+				<ul><li>if file mime type is image it will check for file extension (jpg/jpeg/gif/png)</li><li>if file mime type is other than image it will store file with default extension <strong>jpg</strong></li></ul></li></ul></li></ul> <ul><li>If blob data version provided and blob_data is provided
+		<ul><li>It would create blob file with provided blob_data file extension.</li></ul></li></ul> <ul><li>If xml data version and blob data version are provided but
+		schedule type is same as previous schedule type
+		<ul><li>It would not change anything and you will get message as
+				&quot;Robot schedule data is upto date&quot;</li></ul></li></ul> Success Response: <ul><li>If xml data version provided and goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;You have
+				successfully updated robot schedule data.&quot;}}</li></ul></li><li>If blob data version provided and goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;You have
+				successfully updated robot schedule data.&quot;}}</li></ul></li><li>If both xml and blob data version provided,everything goes
+		fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;You have
+				successfully updated robot schedule data.&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If robot schedule id is not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Robot schedule id does not exist&quot;}</li></ul></li><li>If parameter robot schedule id is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter robot_schedule_id
+				in method robotschedule.update_data&quot;}</li></ul></li><li>If schdule type not valid or missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Robot schedule type is not valid&quot;}</li></ul></li><li>If both the data versions are missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Provide at least one data
+				version(xml or blob) or schedule type.&quot;}</li></ul></li><li>If xml data version is provided, not matching with latest xml
+		data version
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Version mismatch for xml data.&quot;}</li></ul></li><li>If blob data version is provided, not matching with latest
+		blob data version
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Version mismatch for blob data.&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionUpdateData
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../default/APIController.html">APIController</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../default/APIController.html#methoderror">APIController::error()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodsuccess">APIController::success()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodterminate">APIController::terminate()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_custom_id_existence">APIController::verify_for_robot_custom_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_map_id_existence">APIController::verify_for_robot_map_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_schedule_id_existence">APIController::verify_for_robot_schedule_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_serial_number_existence">APIController::verify_for_robot_serial_number_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_robot_schedule_type">APIController::verify_robot_schedule_type()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodyii_api_echo">APIController::yii_api_echo()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:29:58 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

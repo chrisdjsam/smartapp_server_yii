@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class SFacebook</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class SFacebook</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">SFacebook class file.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Evan Johnson &lt;<a href="mailto:thaddeusmt">- A T - gmail.com thaddeusmt - A T - gmail.com</a>&gt;</li>
+				<li><span class="field">copyright:</span> Copyright &amp;copy; 2011 SplashLab Social  http://splashlabsocial.com</li>
+				<li><span class="field">link:</span> <a href="https://github.com/splashlab/yii-facebook-opengraph">https://github.com/splashlab/yii-facebook-opengraph</a></li>
+				<li><span class="field">license:</span> <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License, version 2</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-facebook-opengraph---SFacebook.php.html">/extensions/yii-facebook-opengraph/SFacebook.php</a> (line <span class="field">13</span>)
+		</p>
+		
+				
+		<pre>CApplicationComponent
+   |
+   --SFacebook</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																																																																																								<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$appId" title="details" class="var-name">$appId</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$async" title="details" class="var-name">$async</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$cookie" title="details" class="var-name">$cookie</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$fileUpload" title="details" class="var-name">$fileUpload</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$frictionlessRequests" title="details" class="var-name">$frictionlessRequests</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$html5" title="details" class="var-name">$html5</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$jsCallback" title="details" class="var-name">$jsCallback</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$jsSdk" title="details" class="var-name">$jsSdk</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$locale" title="details" class="var-name">$locale</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$locales" title="details" class="var-name">$locales</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$oauth" title="details" class="var-name">$oauth</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$ogTags" title="details" class="var-name">$ogTags</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$secret" title="details" class="var-name">$secret</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$status" title="details" class="var-name">$status</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$xfbml" title="details" class="var-name">$xfbml</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addJsCallback" title="details" class="method-name">addJsCallback</a>
+											(<span class="var-type">JavaScript</span>&nbsp;<span class="var-name">$script</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">the</span>
+										<a href="#api" title="details" class="method-name">api</a>
+											(<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#destroySession" title="details" class="method-name">destroySession</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">String</span>
+										<a href="#getAccessToken" title="details" class="method-name">getAccessToken</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getChannelUrl" title="details" class="method-name">getChannelUrl</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getInfo" title="details" class="method-name">getInfo</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getInfoById" title="details" class="method-name">getInfoById</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getLocale" title="details" class="method-name">getLocale</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getLoginStatusUrl" title="details" class="method-name">getLoginStatusUrl</a>
+											([<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">array()</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getLoginUrl" title="details" class="method-name">getLoginUrl</a>
+											([<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">array()</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getLogoutUrl" title="details" class="method-name">getLogoutUrl</a>
+											([<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">array()</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">url</span>
+										<a href="#getProfilePicture" title="details" class="method-name">getProfilePicture</a>
+											([<span class="var-type">size</span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">url</span>
+										<a href="#getProfilePictureById" title="details" class="method-name">getProfilePictureById</a>
+											(<span class="var-type">id</span>&nbsp;<span class="var-name">$id</span>, [<span class="var-type">size</span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getProtocol" title="details" class="method-name">getProtocol</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">String</span>
+										<a href="#getSignedRequest" title="details" class="method-name">getSignedRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Array</span>
+										<a href="#getUser" title="details" class="method-name">getUser</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#initJs" title="details" class="method-name">initJs</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$output</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#insertFbRoot" title="details" class="method-name">insertFbRoot</a>
+											(<span class="var-type">$output</span>&nbsp;<span class="var-name">&$output</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#registerAsyncCallback" title="details" class="method-name">registerAsyncCallback</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#registerOpenGraph" title="details" class="method-name">registerOpenGraph</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$property</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#registerSDKScript" title="details" class="method-name">registerSDKScript</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$method</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$args</span> = <span class="var-default">array()</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#renderOGMetaTags" title="details" class="method-name">renderOGMetaTags</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">instance</span>
+										<a href="#_getFacebook" title="details" class="method-name">_getFacebook</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$appId" id="$appId"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$appId</span>
+						(line <span class="line-number">23</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Facebook Application ID</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$async" id="$async"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$async</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">86</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> <p>Load the Facebook init script asynchronously.</p><p>This speeds up page loads because loading the plugin does not block  loading other elements of the page.</p></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$cookie" id="$cookie"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$cookie</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">43</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether or not use a cookie</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$fileUpload" id="$fileUpload"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$fileUpload</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">33</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Indicates if the CURL based @ syntax for file uploads is enabled in the PHP SDK</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$frictionlessRequests" id="$frictionlessRequests"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$frictionlessRequests</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">53</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether or not to use frictionless requests</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$html5" id="$html5"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$html5</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">78</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether or not to use html5 social plugins instead of xfbml</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$jsCallback" id="$jsCallback"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$jsCallback</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">63</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether or not to look for an run JS callbacks in the async JS loader</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$jsSdk" id="$jsSdk"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$jsSdk</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">73</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> turn on or off the Facebook JS</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$locale" id="$locale"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$locale</span>
+						(line <span class="line-number">94</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> <p>Override default locale for the widget.</p><p>Normally locale is set automatically based on the Yii language settings,  setting it here allows a specific locale to be used.</p></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$locales" id="$locales"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$locales</span>
+			 = <span class="var-default">array(<br />        'az_AZ',<br />        'be_BY',<br />        'bg_BG',<br />        'bn_IN',<br />        'bs_BA',<br />        'ca_ES',<br />        'ck_US',<br />        'cs_CZ',<br />        'cy_GB',<br />        'da_DK',<br />        'de_DE',<br />        'eu_ES',<br />        'en_GB',<br />        'en_PI',<br />        'en_UD',<br />        'en_US',<br />        'es_LA',<br />        'es_CL',<br />        'es_CO',<br />        'es_ES',<br />        'es_MX',<br />        'es_VE',<br />        'fb_FI',<br />        'fi_FI',<br />        'fr_FR',<br />        'gl_ES',<br />        'hu_HU',<br />        'it_IT',<br />        'ja_JP',<br />        'ko_KR',<br />        'nb_NO',<br />        'nn_NO',<br />        'nl_NL',<br />        'pl_PL',<br />        'pt_BR',<br />        'pt_PT',<br />        'ro_RO',<br />        'ru_RU',<br />        'sk_SK',<br />        'sl_SI',<br />        'sv_SE',<br />        'th_TH',<br />        'tr_TR',<br />        'ku_TR',<br />        'zh_CN',<br />        'zh_HK',<br />        'zh_TW',<br />        'fb_LT',<br />        'af_ZA',<br />        'sq_AL',<br />        'hy_AM',<br />        'hr_HR',<br />        'nl_BE',<br />        'eo_EO',<br />        'et_EE',<br />        'fo_FO',<br />        'fr_CA',<br />        'ka_GE',<br />        'el_GR',<br />        'gu_IN',<br />        'hi_IN',<br />        'is_IS',<br />        'id_ID',<br />        'ga_IE',<br />        'jv_ID',<br />        'kn_IN',<br />        'kk_KZ',<br />        'la_VA',<br />        'lv_LV',<br />        'li_NL',<br />        'lt_LT',<br />        'mk_MK',<br />        'mg_MG',<br />        'ms_MY',<br />        'mt_MT',<br />        'mr_IN',<br />        'mn_MN',<br />        'ne_NP',<br />        'pa_IN',<br />        'rm_CH',<br />        'sa_IN',<br />        'sr_RS',<br />        'so_SO',<br />        'sw_KE',<br />        'tl_PH',<br />        'ta_IN',<br />        'tt_RU',<br />        'te_IN',<br />        'ml_IN',<br />        'uk_UA',<br />        'uz_UZ',<br />        'vi_VN',<br />        'xh_ZA',<br />        'zu_ZA',<br />        'km_KH',<br />        'tg_TJ',<br />        'ar_AR',<br />        'he_IL',<br />        'ur_PK',<br />        'fa_IR',<br />        'sy_SY',<br />        'yi_DE',<br />        'gn_PY',<br />        'qu_PE',<br />        'ay_BO',<br />        'se_NO',<br />        'ps_AF',<br />        'tl_ST',<br />    )</span>			(line <span class="line-number">105</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Valid Facebook locales.</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$oauth" id="$oauth"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$oauth</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">48</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether or not to enable OAuth 2.0</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$ogTags" id="$ogTags"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$ogTags</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number">100</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Open Graph Meta Tags</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$secret" id="$secret"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$secret</span>
+						(line <span class="line-number">28</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Facebook Application secret</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$status" id="$status"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$status</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">38</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether or not to check login status</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$xfbml" id="$xfbml"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$xfbml</span>
+			 = <span class="var-default"> true</span>			(line <span class="line-number">58</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> whether or not to parse XFBML tags with the JS library (will render Plugins with iframes if false)</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodaddJsCallback" id="addJsCallback"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addJsCallback</span> (line <span class="line-number">315</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add JS to run after Facebook initalizes</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addJsCallback
+		</span>
+					(<span class="var-type">JavaScript</span>&nbsp;<span class="var-name">$script</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">JavaScript</span>
+				<span class="var-name">$script</span><span class="var-description">: that needs to run right after the Facebook Asynchronous loader finishes</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodapi" id="api"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">api</span> (line <span class="line-number">545</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Make an API call - direct pass-through to the facebook SDK</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> decoded response</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">the</span>
+		<span class="method-name">
+			api
+		</span>
+					(<span class="var-type">Array</span>&nbsp;<span class="var-name">$params</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Array</span>
+				<span class="var-name">$params</span><span class="var-description">: the API call parameters</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddestroySession" id="destroySession"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">destroySession</span> (line <span class="line-number">473</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Destroy the current session</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			destroySession
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetAccessToken" id="getAccessToken"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAccessToken</span> (line <span class="line-number">482</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets a OAuth access token.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the access token</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">String</span>
+		<span class="method-name">
+			getAccessToken
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetChannelUrl" id="getChannelUrl"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getChannelUrl</span> (line <span class="line-number">289</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">http://developers.facebook.com/docs/reference/javascript/</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> url of the FB JS SDK channel file</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getChannelUrl
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetInfo" id="getInfo"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getInfo</span> (line <span class="line-number">589</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the Facebook Open Graph info for the current user</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> of Facebook Open Graph user data for the logged in user &quot;me&quot;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getInfo
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetInfoById" id="getInfoById"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getInfoById</span> (line <span class="line-number">597</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getInfoById
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetLocale" id="getLocale"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLocale</span> (line <span class="line-number">370</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Determine the script locale to load</p>
+<p class="description"><p>Looks at $locale variable declared in this file first  Then looks at the Yii application language  Defaults to en_US</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> locale code</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getLocale
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetLoginStatusUrl" id="getLoginStatusUrl"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLoginStatusUrl</span> (line <span class="line-number">535</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a login status URL to fetch the status from Facebook.</p>
+<p class="description"><p>The parameters: <ul><li>ok_session: the URL to go to if a session is found</li><li>no_session: the URL to go to if the user is not connected</li><li>no_user: the URL to go to if the user is not signed into facebook</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The URL for the logout flow</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getLoginStatusUrl
+		</span>
+					([<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">array()</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$params</span><span class="var-description">: Provide custom parameters</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetLoginUrl" id="getLoginUrl"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLoginUrl</span> (line <span class="line-number">507</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a Login URL for use with redirects. By default, full page redirect is  assumed. If you are using the generated URL with a window.open() call in  JavaScript, you can pass in display=popup as part of the $params.</p>
+<p class="description"><p>The parameters: <ul><li>redirect_uri: the url to go to after a successful login</li><li>scope: comma separated list of requested extended perms</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The URL for the login flow</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getLoginUrl
+		</span>
+					([<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">array()</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$params</span><span class="var-description">: Provide custom parameters</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetLogoutUrl" id="getLogoutUrl"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLogoutUrl</span> (line <span class="line-number">520</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a Logout URL suitable for use with redirects.</p>
+<p class="description"><p>The parameters: <ul><li>next: the url to go to after a successful logout</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The URL for the logout flow</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getLogoutUrl
+		</span>
+					([<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">array()</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$params</span><span class="var-description">: Provide custom parameters</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetProfilePicture" id="getProfilePicture"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getProfilePicture</span> (line <span class="line-number">564</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the Facebook profile picture for the currently logged in user</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> of Facebook profile picture</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">url</span>
+		<span class="method-name">
+			getProfilePicture
+		</span>
+					([<span class="var-type">size</span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">size</span>
+				<span class="var-name">$size</span><span class="var-description">: facebook image size (square, small, normal, large)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetProfilePictureById" id="getProfilePictureById"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getProfilePictureById</span> (line <span class="line-number">576</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the Facebook user profile picture for a given Open Graph object</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> of Facebook profile picture</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">url</span>
+		<span class="method-name">
+			getProfilePictureById
+		</span>
+					(<span class="var-type">id</span>&nbsp;<span class="var-name">$id</span>, [<span class="var-type">size</span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">id</span>
+				<span class="var-name">$id</span><span class="var-description">: Facebook user id</span>			</li>
+					<li>
+				<span class="var-type">size</span>
+				<span class="var-name">$size</span><span class="var-description">: (optional) size of the facebook image to return (square, small, normal, large)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetProtocol" id="getProtocol"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getProtocol</span> (line <span class="line-number">221</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the proper http URL prefix depending on if this was a secure page request or not</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> https or https</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getProtocol
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetSignedRequest" id="getSignedRequest"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSignedRequest</span> (line <span class="line-number">491</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the data from a signed_request token</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the base domain</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">String</span>
+		<span class="method-name">
+			getSignedRequest
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetUser" id="getUser"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUser</span> (line <span class="line-number">466</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the user object. This will automatically look for a signed session  sent via the signed_request, Cookie or Query Parameters if needed.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the session</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Array</span>
+		<span class="method-name">
+			getUser
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodinitJs" id="initJs"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">initJs</span> (line <span class="line-number">233</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load Facebook JS and Open Graph meta tags</p>
+<p class="description"><p>http://developers.facebook.com/docs/reference/javascript/  http://developers.facebook.com/docs/opengraph/</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			initJs
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$output</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$output</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodinsertFbRoot" id="insertFbRoot"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">insertFbRoot</span> (line <span class="line-number">275</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This function adds the fb-root div tag to the bottom of the &lt;body&gt; tag</p>
+<p class="description"><p>THe code is borrowed from Yii's own CClientScript::renderBodyEnd() function</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			insertFbRoot
+		</span>
+					(<span class="var-type">$output</span>&nbsp;<span class="var-name">&$output</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$output</span>
+				<span class="var-name">&$output</span><span class="var-description">: (passed by reference) the final page HTML render, so insert the tag into</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodregisterAsyncCallback" id="registerAsyncCallback"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">registerAsyncCallback</span> (line <span class="line-number">339</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method adds your scripts to the callback method</p>
+<p class="description"><p>Call this function in afterRender after you have added scripts with the addScript method</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			registerAsyncCallback
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodregisterOpenGraph" id="registerOpenGraph"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">registerOpenGraph</span> (line <span class="line-number">353</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Register an opengraph property.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			registerOpenGraph
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$property</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$property</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodregisterSDKScript" id="registerSDKScript"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">registerSDKScript</span> (line <span class="line-number">325</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Creates the Facebook JS init call</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the js created</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			registerSDKScript
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$method</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$args</span> = <span class="var-default">array()</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$method</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$args</span><span class="var-description">: args to use in the method</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodrenderOGMetaTags" id="renderOGMetaTags"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">renderOGMetaTags</span> (line <span class="line-number">297</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Registers all of the Open Graph meta tags declared</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			renderOGMetaTags
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_getFacebook" id="_getFacebook"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getFacebook</span> (line <span class="line-number">437</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> of Facebook PHP SDK class</li>
+				<li><span class="field">throws:</span> CException if the Facebook PHP SDK cannot be loaded</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">instance</span>
+		<span class="method-name">
+			_getFacebook
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:41 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

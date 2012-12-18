@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_ByteStream_AbstractFilterableInputStream</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Swift_ByteStream_AbstractFilterableInputStream</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|													<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></li><li><a href="../../Swift/Swift_Filterable.html">Swift_Filterable</a></li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides the base functionality for an InputStream supporting filters.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---ByteStream---AbstractFilterableInputStream.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/ByteStream/AbstractFilterableInputStream.php</a> (line <span class="field">21</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/ByteStream/Swift_ByteStream_FileByteStream.html">Swift_ByteStream_FileByteStream</a></td>
+					<td>
+											Allows reading and writing of bytes to and from a file.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/Transport/Swift_Transport_StreamBuffer.html">Swift_Transport_StreamBuffer</a></td>
+					<td>
+											A generic IoBuffer implementation supporting remote sockets and local processes.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																												
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addFilter" title="details" class="method-name">addFilter</a>
+											(<span class="var-type"><a href="../../Swift/Swift_StreamFilter.html">Swift_StreamFilter</a></span>&nbsp;<span class="var-name">$filter</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#bind" title="details" class="method-name">bind</a>
+											(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#commit" title="details" class="method-name">commit</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#flushBuffers" title="details" class="method-name">flushBuffers</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#removeFilter" title="details" class="method-name">removeFilter</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#unbind" title="details" class="method-name">unbind</a>
+											(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#write" title="details" class="method-name">write</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$bytes</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_commit" title="details" class="method-name">_commit</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$bytes</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_flush" title="details" class="method-name">_flush</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			
+<A NAME='method_detail'></A>
+
+<a name="methodaddFilter" id="addFilter"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addFilter</span> (line <span class="line-number">55</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a StreamFilter to this InputByteStream.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addFilter
+		</span>
+					(<span class="var-type"><a href="../../Swift/Swift_StreamFilter.html">Swift_StreamFilter</a></span>&nbsp;<span class="var-name">$filter</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Swift_StreamFilter.html">Swift_StreamFilter</a></span>
+				<span class="var-name">$filter</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$key</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Swift_Filterable.html#methodaddFilter">Swift_Filterable::addFilter()</a></dt>
+						<dd>Add a new StreamFilter, referenced by $key.</dd>
+					</dl>
+			
+	</div>
+<a name="methodbind" id="bind"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">bind</span> (line <span class="line-number">106</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Attach $is to this stream.</p>
+<p class="description"><p>The stream acts as an observer, receiving all data that is written.  All <a href="../../Swift/ByteStream/Swift_ByteStream_AbstractFilterableInputStream.html#methodwrite">write()</a> and <a href="../../Swift/ByteStream/Swift_ByteStream_AbstractFilterableInputStream.html#methodflushBuffers">flushBuffers()</a> operations will be mirrored.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			bind
+		</span>
+					(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>
+				<span class="var-name">$is</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodbind">Swift_InputByteStream::bind()</a></dt>
+						<dd>Attach $is to this stream.</dd>
+					</dl>
+			
+	</div>
+<a name="methodcommit" id="commit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">commit</span> (line <span class="line-number">94</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">For any bytes that are currently buffered inside the stream, force them  off the buffer.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Swift_IoException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			commit
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodcommit">Swift_InputByteStream::commit()</a></dt>
+						<dd>For any bytes that are currently buffered inside the stream, force them  off the buffer.</dd>
+					</dl>
+			
+	</div>
+<a name="methodflushBuffers" id="flushBuffers"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">flushBuffers</span> (line <span class="line-number">139</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Flush the contents of the stream (empty it) and set the internal pointer  to the beginning.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Swift_IoException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			flushBuffers
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodflushBuffers">Swift_InputByteStream::flushBuffers()</a></dt>
+						<dd>Flush the contents of the stream (empty it) and set the internal pointer  to the beginning.</dd>
+					</dl>
+			
+	</div>
+<a name="methodremoveFilter" id="removeFilter"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">removeFilter</span> (line <span class="line-number">64</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Remove an already present StreamFilter based on its $key.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			removeFilter
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$key</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Swift_Filterable.html#methodremoveFilter">Swift_Filterable::removeFilter()</a></dt>
+						<dd>Remove an existing filter using $key.</dd>
+					</dl>
+			
+	</div>
+<a name="methodunbind" id="unbind"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">unbind</span> (line <span class="line-number">119</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Remove an already bound stream.</p>
+<p class="description"><p>If $is is not bound, no errors will be raised.  If the stream currently has any buffered data it will be written to $is  before unbinding occurs.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			unbind
+		</span>
+					(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>
+				<span class="var-name">$is</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodunbind">Swift_InputByteStream::unbind()</a></dt>
+						<dd>Remove an already bound stream.</dd>
+					</dl>
+			
+	</div>
+<a name="methodwrite" id="write"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">write</span> (line <span class="line-number">74</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Writes $bytes to the end of the stream.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Swift_IoException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			write
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$bytes</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$bytes</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodwrite">Swift_InputByteStream::write()</a></dt>
+						<dd>Writes $bytes to the end of the stream.</dd>
+					</dl>
+			
+	</div>
+<a name="method_commit" id="_commit"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_commit</span> (line <span class="line-number">42</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit the given bytes to the storage medium immediately.</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_commit
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$bytes</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$bytes</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/ByteStream/Swift_ByteStream_FileByteStream.html#method_commit">Swift_ByteStream_FileByteStream::_commit()</a>
+								: Just write the bytes to the file
+							</li>
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_StreamBuffer.html#method_commit">Swift_Transport_StreamBuffer::_commit()</a>
+								: Write this bytes to the stream
+							</li>
+				</ul>
+	</div>
+<a name="method_flush" id="_flush"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_flush</span> (line <span class="line-number">48</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Flush any buffers/content with immediate effect.</p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_flush
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/ByteStream/Swift_ByteStream_FileByteStream.html#method_flush">Swift_ByteStream_FileByteStream::_flush()</a>
+								: Not used
+							</li>
+					<li>
+				<a href="../../Swift/Transport/Swift_Transport_StreamBuffer.html#method_flush">Swift_Transport_StreamBuffer::_flush()</a>
+								: Flush the stream contents
+							</li>
+				</ul>
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:15 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

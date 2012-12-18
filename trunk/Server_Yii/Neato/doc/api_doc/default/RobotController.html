@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class RobotController</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class RobotController</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The API RobotController is meant for all robot related API actions.</p>
+		<p class="notes">
+			Located in <a class="field" href="_controllers---RobotController.php.html">/controllers/RobotController.php</a> (line <span class="field">6</span>)
+		</p>
+		
+				
+		<pre>Controller
+   |
+   --<a href="../default/APIController.html">APIController</a>
+      |
+      --RobotController</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																												
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionCreate" title="details" class="method-name">actionCreate</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionDisAssociateUser" title="details" class="method-name">actionDisAssociateUser</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionGetAssociatedUser" title="details" class="method-name">actionGetAssociatedUser</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionGetDetails" title="details" class="method-name">actionGetDetails</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#actionSetUsers" title="details" class="method-name">actionSetUsers</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodactionCreate" id="actionCreate"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionCreate</span> (line <span class="line-number">43</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to create new robot</p>
+<p class="description"><p>Parameters: <ul><li><strong>name</strong> :Name of the robot</li><li><strong>serial_number</strong> :Serial Number of the robot</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;Robot
+				created successfully.&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If Robot serial number is duplicate
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;This robot serial number already
+				exists.&quot;}</li></ul></li><li>If Jabber service is not able to create chat user
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Robot could not be created because
+				jabber service in not responding.&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionCreate
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionDisAssociateUser" id="actionDisAssociateUser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionDisAssociateUser</span> (line <span class="line-number">288</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to disassociate users from robot</p>
+<p class="description"><p>Parameters: <ul><li><strong>serial_number</strong> :Serial Number of robot</li><li><strong>email</strong> :User's Email (If this field is empty, it will
+		delete all user association for this particular robot)</li></ul> Success Response: <ul><li>If everything goes fine, user email provided and robot user
+		association exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;Robot User
+				association removed successfully.&quot;}}</li></ul></li><li>If everything goes fine, user email not provided and robot
+		user association exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;Robot
+				association with all user removed successfully.&quot;}}</li></ul></li><li>If everything goes fine and robot user association does not
+		exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;There is no
+				association between provided robot and user&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If serial number does not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Serial number does not exist&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionDisAssociateUser
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionGetAssociatedUser" id="actionGetAssociatedUser"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionGetAssociatedUser</span> (line <span class="line-number">164</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to get array of associated users with provided robot serial no</p>
+<p class="description"><p>Parameters: <ul><li><strong>serial_number</strong> :Serial Number of robot</li></ul> Success Response: <ul><li>If everything goes fine and user association exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:[{&quot;id&quot;:&quot;542&quot;,&quot;name&quot;:&quot;pradip&quot;,&quot;email&quot;:&quot;pradip@gmail.com&quot;,&quot;chat_id&quot;:&quot;1351499916_user@rajatogo&quot;},{&quot;id&quot;:&quot;543&quot;,&quot;name&quot;:&quot;pradip&quot;,&quot;email&quot;:&quot;pradip1@gmail.com&quot;,&quot;chat_id&quot;:&quot;1351500158_user@rajatogo&quot;}]}</li></ul></li><li>If everything goes fine and user association does not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:[]}</li></ul></li></ul> Failure Responses: <ul><li>If serial number does not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Serial number does not exist&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionGetAssociatedUser
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionGetDetails" id="actionGetDetails"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionGetDetails</span> (line <span class="line-number">116</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to get robots information</p>
+<p class="description"><p>Parameters: <ul><li><strong>serial_number</strong> :Serial Number of robot</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;id&quot;:&quot;65&quot;,&quot;name&quot;:&quot;desk
+				cleaner59&quot;,&quot;serial_number&quot;:&quot;robo1&quot;,&quot;chat_id&quot;:&quot;1350924155_robot@rajatogo&quot;,&quot;chat_pwd&quot;:&quot;1350924155_robot&quot;}}</li></ul></li><li>If everything goes fine and user association exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;id&quot;:&quot;68&quot;,&quot;name&quot;:&quot;room
+				cleaner1&quot;,&quot;serial_number&quot;:&quot;robo5&quot;,&quot;chat_id&quot;:&quot;1350987452_robot@rajatogo&quot;,&quot;chat_pwd&quot;:&quot;1350987452_robot&quot;,&quot;users&quot;:[{&quot;id&quot;:&quot;542&quot;,&quot;name&quot;:&quot;pradip&quot;,&quot;email&quot;:&quot;pradip@gmail.com&quot;,&quot;chat_id&quot;:&quot;1351499916_user@rajatogo&quot;},{&quot;id&quot;:&quot;543&quot;,&quot;name&quot;:&quot;pradip&quot;,&quot;email&quot;:&quot;pradip1@gmail.com&quot;,&quot;chat_id&quot;:&quot;1351500158_user@rajatogo&quot;}]}}</li></ul></li><li>If everything goes fine and user association does not exist
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;id&quot;:&quot;70&quot;,&quot;name&quot;:&quot;room
+				cleaner&quot;,&quot;serial_number&quot;:&quot;robo1&quot;,&quot;chat_id&quot;:&quot;1351501366_robot@rajatogo&quot;,&quot;chat_pwd&quot;:&quot;1351501366_robot&quot;,&quot;users&quot;:[]}}</li></ul></li></ul> Failure Responses: <ul><li>If serial number does not exist
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Serial number does not exist&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionGetDetails
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodactionSetUsers" id="actionSetUsers"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">actionSetUsers</span> (line <span class="line-number">218</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">API to set user and robot association</p>
+<p class="description"><p>Parameters: <ul><li><strong>email</strong> :User Email ID</li><li><strong>serial_number</strong> :Serial Number of robot</li></ul> Success Response: <ul><li>If everything goes fine
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;Robot
+				ownership established successfully.&quot;}}</li></ul></li><li>If ownership already exists.
+		<ul><li>{&quot;status&quot;:0,&quot;result&quot;:{&quot;success&quot;:true,&quot;message&quot;:&quot;This robot
+				ownership relation already exists.&quot;}}</li></ul></li></ul> Failure Responses: <ul><li>If Email is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter email in method
+				robot.set_user&quot;}</li></ul></li><li>If Robot serial number is missing
+		<ul><li>{&quot;status&quot;:-1,&quot;message&quot;:&quot;Missing parameter serial_number in
+				method robot.set_user&quot;}</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			actionSetUsers
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../default/APIController.html">APIController</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../default/APIController.html#methoderror">APIController::error()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodsuccess">APIController::success()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodterminate">APIController::terminate()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_custom_id_existence">APIController::verify_for_robot_custom_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_map_id_existence">APIController::verify_for_robot_map_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_schedule_id_existence">APIController::verify_for_robot_schedule_id_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_for_robot_serial_number_existence">APIController::verify_for_robot_serial_number_existence()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodverify_robot_schedule_type">APIController::verify_robot_schedule_type()</a></span><br>
+													<span class="method-name"><a href="../default/APIController.html#methodyii_api_echo">APIController::yii_api_echo()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:29:57 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

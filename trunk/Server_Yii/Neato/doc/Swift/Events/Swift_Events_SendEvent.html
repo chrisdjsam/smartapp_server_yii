@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_Events_SendEvent</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Swift_Events_SendEvent</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Generated when a message is being sent.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---Events---SendEvent.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Events/SendEvent.php</a> (line <span class="field">19</span>)
+		</p>
+		
+				
+		<pre><a href="../../Swift/Events/Swift_Events_EventObject.html">Swift_Events_EventObject</a>
+   |
+   --Swift_Events_SendEvent</pre>
+	
+			</div>
+</div>
+
+
+	<a name="sec-const-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constant Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Constants</span> (<a href="#sec-consts">details</a>)
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<div class="const-summary">
+								<div class="const-title">
+					<a href="#RESULT_FAILED" title="details" class="const-name">RESULT_FAILED</a> = 					<span class="var-type"> 0x1000</span>
+
+				</div>
+								<div class="const-title">
+					<a href="#RESULT_PENDING" title="details" class="const-name">RESULT_PENDING</a> = 					<span class="var-type"> 0x0001</span>
+
+				</div>
+								<div class="const-title">
+					<a href="#RESULT_SUCCESS" title="details" class="const-name">RESULT_SUCCESS</a> = 					<span class="var-type"> 0x0010</span>
+
+				</div>
+								<div class="const-title">
+					<a href="#RESULT_TENTATIVE" title="details" class="const-name">RESULT_TENTATIVE</a> = 					<span class="var-type"> 0x0100</span>
+
+				</div>
+							</div>
+		</div>
+	</div>
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+							
+									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																												
+												<div class="method-definition">
+											<span class="method-result">Swift_Events_SendEvent</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport.html">Swift_Transport</a></span>&nbsp;<span class="var-name">$source</span>, <span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#getFailedRecipients" title="details" class="method-name">getFailedRecipients</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>
+										<a href="#getMessage" title="details" class="method-name">getMessage</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getResult" title="details" class="method-name">getResult</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../../Swift/Transport/Swift_Transport.html">Swift_Transport</a></span>
+										<a href="#getTransport" title="details" class="method-name">getTransport</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setFailedRecipients" title="details" class="method-name">setFailedRecipients</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$recipients</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#setResult" title="details" class="method-name">setResult</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$result</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+							
+										<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">63</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a new SendEvent for $source and $message.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Swift_Events_SendEvent</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport.html">Swift_Transport</a></span>&nbsp;<span class="var-name">$source</span>, <span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>&nbsp;<span class="var-name">$message</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Transport/Swift_Transport.html">Swift_Transport</a></span>
+				<span class="var-name">$source</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>
+				<span class="var-name">$message</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Swift/Events/Swift_Events_EventObject.html#method__construct">Swift_Events_EventObject::__construct()</a></dt>
+						<dd>Create a new EventObject originating at $source.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetFailedRecipients" id="getFailedRecipients"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFailedRecipients</span> (line <span class="line-number">102</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get an recipient addresses which were not accepted for delivery.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			getFailedRecipients
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMessage" id="getMessage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMessage</span> (line <span class="line-number">84</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the Message being sent.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../Swift/Mime/Swift_Mime_Message.html">Swift_Mime_Message</a></span>
+		<span class="method-name">
+			getMessage
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetResult" id="getResult"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getResult</span> (line <span class="line-number">122</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the result of this Event.</p>
+<p class="description"><p>The return value is a bitmask from  <a href="../../Swift/Events/Swift_Events_SendEvent.html#constRESULT_PENDING">RESULT_PENDING</a>, <a href="../../Swift/Events/Swift_Events_SendEvent.html#constRESULT_SUCCESS">RESULT_SUCCESS</a>, <a href="../../Swift/Events/Swift_Events_SendEvent.html#constRESULT_TENTATIVE">RESULT_TENTATIVE</a>, <a href="../../Swift/Events/Swift_Events_SendEvent.html#constRESULT_FAILED">RESULT_FAILED</a></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getResult
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetTransport" id="getTransport"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTransport</span> (line <span class="line-number">75</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the Transport used to send the Message.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../Swift/Transport/Swift_Transport.html">Swift_Transport</a></span>
+		<span class="method-name">
+			getTransport
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetFailedRecipients" id="setFailedRecipients"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setFailedRecipients</span> (line <span class="line-number">93</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the array of addresses that failed in sending.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setFailedRecipients
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$recipients</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$recipients</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetResult" id="setResult"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setResult</span> (line <span class="line-number">111</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the result of sending.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			setResult
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$result</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$result</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Swift/Events/Swift_Events_EventObject.html">Swift_Events_EventObject</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../Swift/Events/Swift_Events_EventObject.html#method__construct">Swift_Events_EventObject::__construct()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Events/Swift_Events_EventObject.html#methodbubbleCancelled">Swift_Events_EventObject::bubbleCancelled()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Events/Swift_Events_EventObject.html#methodcancelBubble">Swift_Events_EventObject::cancelBubble()</a></span><br>
+													<span class="method-name"><a href="../../Swift/Events/Swift_Events_EventObject.html#methodgetSource">Swift_Events_EventObject::getSource()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="constRESULT_FAILED" id="RESULT_FAILED"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<span class="const-title">
+			<span class="const-name">RESULT_FAILED</span>
+			 = <span class="const-default"> 0x1000</span>
+			(line <span class="line-number">32</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sending failed</p>
+	
+	
+</div>
+<a name="constRESULT_PENDING" id="RESULT_PENDING"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<span class="const-title">
+			<span class="const-name">RESULT_PENDING</span>
+			 = <span class="const-default"> 0x0001</span>
+			(line <span class="line-number">23</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sending has yet to occur</p>
+	
+	
+</div>
+<a name="constRESULT_SUCCESS" id="RESULT_SUCCESS"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<span class="const-title">
+			<span class="const-name">RESULT_SUCCESS</span>
+			 = <span class="const-default"> 0x0010</span>
+			(line <span class="line-number">26</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sending was successful</p>
+	
+	
+</div>
+<a name="constRESULT_TENTATIVE" id="RESULT_TENTATIVE"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<span class="const-title">
+			<span class="const-name">RESULT_TENTATIVE</span>
+			 = <span class="const-default"> 0x0100</span>
+			(line <span class="line-number">29</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sending worked, but there were some failures</p>
+	
+	
+</div>
+						
+		</div>
+	</div>
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:40 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class AppCore</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class AppCore</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Common helper functions used across Neato Application</p>
+		<p class="notes">
+			Located in <a class="field" href="_components---AppCore.php.html">/components/AppCore.php</a> (line <span class="field">7</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+												<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#authenticate_api_key" title="details" class="method-name">authenticate_api_key</a>
+										()
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#authenticate_user_token" title="details" class="method-name">authenticate_user_token</a>
+										()
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#authenticate_user_token_with_user" title="details" class="method-name">authenticate_user_token_with_user</a>
+											(<span class="var-type">int</span>&nbsp;<span class="var-name">$user_id</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">array</span>
+										<a href="#create_chat_user_for_robot" title="details" class="method-name">create_chat_user_for_robot</a>
+										()
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">array</span>
+										<a href="#create_chat_user_for_user" title="details" class="method-name">create_chat_user_for_user</a>
+										()
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#create_user_auth_token" title="details" class="method-name">create_user_auth_token</a>
+											(<span class="var-type">int</span>&nbsp;<span class="var-name">$user_id</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">array</span>
+										<a href="#delete_chat_user" title="details" class="method-name">delete_chat_user</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$chat_user</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">void</span>
+										<a href="#delete_robot_map_data" title="details" class="method-name">delete_robot_map_data</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$robot_map_id_arr</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">void</span>
+										<a href="#delete_robot_schedule_data" title="details" class="method-name">delete_robot_schedule_data</a>
+											(<span class="var-type">unknown</span>&nbsp;<span class="var-name">$robot_schedule_id_arr</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">int</span>
+										<a href="#get_site_id" title="details" class="method-name">get_site_id</a>
+										()
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#validate_map_blob_data" title="details" class="method-name">validate_map_blob_data</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$blob_data</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#validate_map_xml_data" title="details" class="method-name">validate_map_xml_data</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$xml_data</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#validate_schedule_blob_data" title="details" class="method-name">validate_schedule_blob_data</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$blob_data</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#validate_schedule_xml_data" title="details" class="method-name">validate_schedule_xml_data</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$xml_data</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">void</span>
+										<a href="#ws_log_details" title="details" class="method-name">ws_log_details</a>
+											([<span class="var-type">int</span>&nbsp;<span class="var-name">$status</span> = <span class="var-default">1</span>], [<span class="var-type">array()</span>&nbsp;<span class="var-name">$result</span> = <span class="var-default">array()</span>], [<span class="var-type">array()</span>&nbsp;<span class="var-name">$request_type</span> = <span class="var-default">'post'</span>])
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">string</span>
+										<a href="#yii_echo" title="details" class="method-name">yii_echo</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$message_key</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$args</span> = <span class="var-default">array()</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$language</span> = <span class="var-default">&quot;ln&quot;</span>])
+									</div>
+								
+																																																																																																																																				</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodauthenticate_api_key" id="authenticate_api_key"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method authenticate_api_key</span> (line <span class="line-number">13</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticate Api Key</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			authenticate_api_key
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodauthenticate_user_token" id="authenticate_user_token"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method authenticate_user_token</span> (line <span class="line-number">59</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticate user tokens</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			authenticate_user_token
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodauthenticate_user_token_with_user" id="authenticate_user_token_with_user"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method authenticate_user_token_with_user</span> (line <span class="line-number">81</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authenticate user tokens for provided user id</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			authenticate_user_token_with_user
+		</span>
+					(<span class="var-type">int</span>&nbsp;<span class="var-name">$user_id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$user_id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreate_chat_user_for_robot" id="create_chat_user_for_robot"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method create_chat_user_for_robot</span> (line <span class="line-number">107</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create chat id and chat password for robot</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">array</span>
+		<span class="method-name">
+			create_chat_user_for_robot
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcreate_chat_user_for_user" id="create_chat_user_for_user"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method create_chat_user_for_user</span> (line <span class="line-number">141</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create chat id and chat password for user</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">array</span>
+		<span class="method-name">
+			create_chat_user_for_user
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcreate_user_auth_token" id="create_user_auth_token"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method create_user_auth_token</span> (line <span class="line-number">30</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create Auth Token for User</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			create_user_auth_token
+		</span>
+					(<span class="var-type">int</span>&nbsp;<span class="var-name">$user_id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$user_id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddelete_chat_user" id="delete_chat_user"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method delete_chat_user</span> (line <span class="line-number">175</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete chat user</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">array</span>
+		<span class="method-name">
+			delete_chat_user
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$chat_user</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$chat_user</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddelete_robot_map_data" id="delete_robot_map_data"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method delete_robot_map_data</span> (line <span class="line-number">705</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete all data for provided reobot map ids</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">void</span>
+		<span class="method-name">
+			delete_robot_map_data
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$robot_map_id_arr</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$robot_map_id_arr</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddelete_robot_schedule_data" id="delete_robot_schedule_data"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method delete_robot_schedule_data</span> (line <span class="line-number">717</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete all data for provided reobot schedule ids</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">void</span>
+		<span class="method-name">
+			delete_robot_schedule_data
+		</span>
+					(<span class="var-type">unknown</span>&nbsp;<span class="var-name">$robot_schedule_id_arr</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">unknown</span>
+				<span class="var-name">$robot_schedule_id_arr</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodget_site_id" id="get_site_id"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method get_site_id</span> (line <span class="line-number">661</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get site id (It is used by API calls)</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">int</span>
+		<span class="method-name">
+			get_site_id
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodvalidate_map_blob_data" id="validate_map_blob_data"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method validate_map_blob_data</span> (line <span class="line-number">679</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check for robot map blob data.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			validate_map_blob_data
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$blob_data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$blob_data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodvalidate_map_xml_data" id="validate_map_xml_data"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method validate_map_xml_data</span> (line <span class="line-number">670</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check for map xml data.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			validate_map_xml_data
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$xml_data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$xml_data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodvalidate_schedule_blob_data" id="validate_schedule_blob_data"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method validate_schedule_blob_data</span> (line <span class="line-number">697</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check for robot schedule blob data.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			validate_schedule_blob_data
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$blob_data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$blob_data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodvalidate_schedule_xml_data" id="validate_schedule_xml_data"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method validate_schedule_xml_data</span> (line <span class="line-number">688</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check for robot schedule xml data.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			validate_schedule_xml_data
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$xml_data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$xml_data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodws_log_details" id="ws_log_details"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method ws_log_details</span> (line <span class="line-number">603</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Store API call deatils</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ws_log_details
+		</span>
+					([<span class="var-type">int</span>&nbsp;<span class="var-name">$status</span> = <span class="var-default">1</span>], [<span class="var-type">array()</span>&nbsp;<span class="var-name">$result</span> = <span class="var-default">array()</span>], [<span class="var-type">array()</span>&nbsp;<span class="var-name">$request_type</span> = <span class="var-default">'post'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$status</span>			</li>
+					<li>
+				<span class="var-type">array()</span>
+				<span class="var-name">$result</span>			</li>
+					<li>
+				<span class="var-type">array()</span>
+				<span class="var-name">$request_type</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodyii_echo" id="yii_echo"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method yii_echo</span> (line <span class="line-number">199</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Given a message key, returns an appropriately translated full-text string</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Either the translated string, the English string,  or the original language string.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">string</span>
+		<span class="method-name">
+			yii_echo
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$message_key</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$args</span> = <span class="var-default">array()</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$language</span> = <span class="var-default">&quot;ln&quot;</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$message_key</span><span class="var-description">: The short message code</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$args</span><span class="var-description">: An array of arguments to pass through vsprintf().</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$language</span><span class="var-description">: Optionally, the standard language code                             (defaults to site/user default, then English)</span>			</li>
+				</ul>
+		
+			
+	</div>
+
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:17 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

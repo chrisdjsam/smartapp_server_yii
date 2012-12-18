@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_Plugins_BandwidthMonitorPlugin</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Swift_Plugins_BandwidthMonitorPlugin</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|													<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../../Swift/Events/Swift_Events_SendListener.html">Swift_Events_SendListener</a></li><li><a href="../../Swift/Events/Swift_Events_CommandListener.html">Swift_Events_CommandListener</a></li><li><a href="../../Swift/Events/Swift_Events_ResponseListener.html">Swift_Events_ResponseListener</a></li><li><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reduces network flooding when sending large amounts of mail.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---Plugins---BandwidthMonitorPlugin.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Plugins/BandwidthMonitorPlugin.php</a> (line <span class="field">25</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/Plugins/Swift_Plugins_ThrottlerPlugin.html">Swift_Plugins_ThrottlerPlugin</a></td>
+					<td>
+											Throttles the rate at which emails are sent.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																				
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#beforeSendPerformed" title="details" class="method-name">beforeSendPerformed</a>
+											(<span class="var-type"><a href="../../Swift/Events/Swift_Events_SendEvent.html">Swift_Events_SendEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#bind" title="details" class="method-name">bind</a>
+											(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#commandSent" title="details" class="method-name">commandSent</a>
+											(<span class="var-type"><a href="../../Swift/Events/Swift_Events_CommandEvent.html">Swift_Events_CommandEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#commit" title="details" class="method-name">commit</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#flushBuffers" title="details" class="method-name">flushBuffers</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getBytesIn" title="details" class="method-name">getBytesIn</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getBytesOut" title="details" class="method-name">getBytesOut</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#reset" title="details" class="method-name">reset</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#responseReceived" title="details" class="method-name">responseReceived</a>
+											(<span class="var-type"><a href="../../Swift/Events/Swift_Events_ResponseEvent.html">Swift_Events_ResponseEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#sendPerformed" title="details" class="method-name">sendPerformed</a>
+											(<span class="var-type"><a href="../../Swift/Events/Swift_Events_SendEvent.html">Swift_Events_SendEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#unbind" title="details" class="method-name">unbind</a>
+											(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#write" title="details" class="method-name">write</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$bytes</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodbeforeSendPerformed" id="beforeSendPerformed"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">beforeSendPerformed</span> (line <span class="line-number">50</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Not used.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			beforeSendPerformed
+		</span>
+					(<span class="var-type"><a href="../../Swift/Events/Swift_Events_SendEvent.html">Swift_Events_SendEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Events/Swift_Events_SendEvent.html">Swift_Events_SendEvent</a></span>
+				<span class="var-name">$evt</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Events/Swift_Events_SendListener.html#methodbeforeSendPerformed">Swift_Events_SendListener::beforeSendPerformed()</a></dt>
+						<dd>Invoked immediately before the Message is sent.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Plugins/Swift_Plugins_ThrottlerPlugin.html#methodbeforeSendPerformed">Swift_Plugins_ThrottlerPlugin::beforeSendPerformed()</a>
+								: Invoked immediately before the Message is sent.
+							</li>
+				</ul>
+	</div>
+<a name="methodbind" id="bind"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">bind</span> (line <span class="line-number">111</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Attach $is to this stream.</p>
+<p class="description"><p>The stream acts as an observer, receiving all data that is written.  All <a href="../../Swift/Plugins/Swift_Plugins_BandwidthMonitorPlugin.html#methodwrite">write()</a> and <a href="../../Swift/Plugins/Swift_Plugins_BandwidthMonitorPlugin.html#methodflushBuffers">flushBuffers()</a> operations will be mirrored.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			bind
+		</span>
+					(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>
+				<span class="var-name">$is</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodbind">Swift_InputByteStream::bind()</a></dt>
+						<dd>Attach $is to this stream.</dd>
+					</dl>
+			
+	</div>
+<a name="methodcommandSent" id="commandSent"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">commandSent</span> (line <span class="line-number">68</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Invoked immediately following a command being sent.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			commandSent
+		</span>
+					(<span class="var-type"><a href="../../Swift/Events/Swift_Events_CommandEvent.html">Swift_Events_CommandEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Events/Swift_Events_ResponseEvent.html">Swift_Events_ResponseEvent</a></span>
+				<span class="var-name">$evt</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Events/Swift_Events_CommandListener.html#methodcommandSent">Swift_Events_CommandListener::commandSent()</a></dt>
+						<dd>Invoked immediately following a command being sent.</dd>
+					</dl>
+			
+	</div>
+<a name="methodcommit" id="commit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">commit</span> (line <span class="line-number">100</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Not used.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			commit
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodcommit">Swift_InputByteStream::commit()</a></dt>
+						<dd>For any bytes that are currently buffered inside the stream, force them  off the buffer.</dd>
+					</dl>
+			
+	</div>
+<a name="methodflushBuffers" id="flushBuffers"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">flushBuffers</span> (line <span class="line-number">138</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Not used.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			flushBuffers
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodflushBuffers">Swift_InputByteStream::flushBuffers()</a></dt>
+						<dd>Flush the contents of the stream (empty it) and set the internal pointer  to the beginning.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetBytesIn" id="getBytesIn"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getBytesIn</span> (line <span class="line-number">159</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the total number of bytes received from the server.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getBytesIn
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetBytesOut" id="getBytesOut"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getBytesOut</span> (line <span class="line-number">150</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the total number of bytes sent to the server.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getBytesOut
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodreset" id="reset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">reset</span> (line <span class="line-number">167</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset the internal counters to zero.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			reset
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodresponseReceived" id="responseReceived"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">responseReceived</span> (line <span class="line-number">78</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Invoked immediately following a response coming back.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			responseReceived
+		</span>
+					(<span class="var-type"><a href="../../Swift/Events/Swift_Events_ResponseEvent.html">Swift_Events_ResponseEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Events/Swift_Events_ResponseEvent.html">Swift_Events_ResponseEvent</a></span>
+				<span class="var-name">$evt</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Events/Swift_Events_ResponseListener.html#methodresponseReceived">Swift_Events_ResponseListener::responseReceived()</a></dt>
+						<dd>Invoked immediately following a response coming back.</dd>
+					</dl>
+			
+	</div>
+<a name="methodsendPerformed" id="sendPerformed"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">sendPerformed</span> (line <span class="line-number">58</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Invoked immediately after the Message is sent.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			sendPerformed
+		</span>
+					(<span class="var-type"><a href="../../Swift/Events/Swift_Events_SendEvent.html">Swift_Events_SendEvent</a></span>&nbsp;<span class="var-name">$evt</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Events/Swift_Events_SendEvent.html">Swift_Events_SendEvent</a></span>
+				<span class="var-name">$evt</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Events/Swift_Events_SendListener.html#methodsendPerformed">Swift_Events_SendListener::sendPerformed()</a></dt>
+						<dd>Invoked immediately after the Message is sent.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Plugins/Swift_Plugins_ThrottlerPlugin.html#methodsendPerformed">Swift_Plugins_ThrottlerPlugin::sendPerformed()</a>
+								: Invoked when a Message is sent.
+							</li>
+				</ul>
+	</div>
+<a name="methodunbind" id="unbind"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">unbind</span> (line <span class="line-number">124</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Remove an already bound stream.</p>
+<p class="description"><p>If $is is not bound, no errors will be raised.  If the stream currently has any buffered data it will be written to $is  before unbinding occurs.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			unbind
+		</span>
+					(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>
+				<span class="var-name">$is</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodunbind">Swift_InputByteStream::unbind()</a></dt>
+						<dd>Remove an already bound stream.</dd>
+					</dl>
+			
+	</div>
+<a name="methodwrite" id="write"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">write</span> (line <span class="line-number">88</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Called when a message is sent so that the outgoing counter can be increased.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			write
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$bytes</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$bytes</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/ByteStream/Swift_InputByteStream.html#methodwrite">Swift_InputByteStream::write()</a></dt>
+						<dd>Writes $bytes to the end of the stream.</dd>
+					</dl>
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:19 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

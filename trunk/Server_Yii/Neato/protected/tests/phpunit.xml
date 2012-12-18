@@ -1,0 +1,22 @@
+<phpunit bootstrap="bootstrap.php" colors="false"
+	convertErrorsToExceptions="true" convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true" stopOnFailure="false">
+
+	<selenium>
+		<browser name="Internet Explorer" browser="*iexplore" />
+		<browser name="Firefox" browser="*firefox" />
+	</selenium>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../../protected/models</directory>
+			<directory suffix=".php">../../protected/components</directory>
+			<directory suffix=".php">../../protected/modules</directory>
+		</whitelist>
+
+		<blacklist>
+			<directory suffix=".php">../../yii-1.1.10.r3566</directory>
+			<directory suffix=".php">../../protected/tests</directory>
+			<directory suffix=".php">../../protected/extensions</directory>
+		</blacklist>
+	</filter>
+</phpunit>

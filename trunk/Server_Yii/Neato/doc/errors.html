@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>phpDocumentor Parser Errors and Warnings</title>
+			<link rel="stylesheet" href="media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<a href="#Post-parsing">Post-parsing</a><br>
+<a href="#ActivityFeed.php">ActivityFeed.php</a><br>
+<a href="#add.php">add.php</a><br>
+<a href="#APIController.php">APIController.php</a><br>
+<a href="#ApiModule.php">ApiModule.php</a><br>
+<a href="#ApiUser.php">ApiUser.php</a><br>
+<a href="#AppCore.php">AppCore.php</a><br>
+<a href="#AppEmail.php">AppEmail.php</a><br>
+<a href="#AppHelper.php">AppHelper.php</a><br>
+<a href="#Base64HeaderEncoder.php">Base64HeaderEncoder.php</a><br>
+<a href="#BaseApiUser.php">BaseApiUser.php</a><br>
+<a href="#BaseRobot.php">BaseRobot.php</a><br>
+<a href="#BaseRobotCustom.php">BaseRobotCustom.php</a><br>
+<a href="#BaseRobotCustomData.php">BaseRobotCustomData.php</a><br>
+<a href="#BaseRobotCustomDataType.php">BaseRobotCustomDataType.php</a><br>
+<a href="#BaseRobotMapBlobDataVersions.php">BaseRobotMapBlobDataVersions.php</a><br>
+<a href="#BaseRobotMaps.php">BaseRobotMaps.php</a><br>
+<a href="#BaseRobotMapXmlDataVersions.php">BaseRobotMapXmlDataVersions.php</a><br>
+<a href="#BaseRobotSchedule.php">BaseRobotSchedule.php</a><br>
+<a href="#BaseRobotScheduleBlobDataVersion.php">BaseRobotScheduleBlobDataVersion.php</a><br>
+<a href="#BaseRobotScheduleXmlDataVersion.php">BaseRobotScheduleXmlDataVersion.php</a><br>
+<a href="#BaseSite.php">BaseSite.php</a><br>
+<a href="#BaseSocialservicetype.php">BaseSocialservicetype.php</a><br>
+<a href="#BaseUser.php">BaseUser.php</a><br>
+<a href="#BaseUsersApiSession.php">BaseUsersApiSession.php</a><br>
+<a href="#BaseUsersRobot.php">BaseUsersRobot.php</a><br>
+<a href="#BaseUsersSocialservice.php">BaseUsersSocialservice.php</a><br>
+<a href="#BaseWsLogging.php">BaseWsLogging.php</a><br>
+<a href="#base_facebook.php">base_facebook.php</a><br>
+<a href="#bootstrap.php">bootstrap.php</a><br>
+<a href="#cache_deps.php">cache_deps.php</a><br>
+<a href="#changepassword.php">changepassword.php</a><br>
+<a href="#ChangePasswordForm.php">ChangePasswordForm.php</a><br>
+<a href="#CharacterReader.php">CharacterReader.php</a><br>
+<a href="#CharacterStream.php">CharacterStream.php</a><br>
+<a href="#column1.php">column1.php</a><br>
+<a href="#column2.php">column2.php</a><br>
+<a href="#Comments.php">Comments.php</a><br>
+<a href="#console.php">console.php</a><br>
+<a href="#contact.php">contact.php</a><br>
+<a href="#ContactForm.php">ContactForm.php</a><br>
+<a href="#Controller.php">Controller.php</a><br>
+<a href="#CrudCode.php">CrudCode.php</a><br>
+<a href="#DefaultController.php">DefaultController.php</a><br>
+<a href="#dev-example.php">dev-example.php</a><br>
+<a href="#dev.php">dev.php</a><br>
+<a href="#error.php">error.php</a><br>
+<a href="#facebook-channel.php">facebook-channel.php</a><br>
+<a href="#facebook.php">facebook.php</a><br>
+<a href="#Facepile.php">Facepile.php</a><br>
+<a href="#forgotpassword.php">forgotpassword.php</a><br>
+<a href="#ForgotPasswordForm.php">ForgotPasswordForm.php</a><br>
+<a href="#GenericFixedWidthReader.php">GenericFixedWidthReader.php</a><br>
+<a href="#GxActiveForm.php">GxActiveForm.php</a><br>
+<a href="#GxActiveRecord.php">GxActiveRecord.php</a><br>
+<a href="#GxController.php">GxController.php</a><br>
+<a href="#GxHtml.php">GxHtml.php</a><br>
+<a href="#LikeBox.php">LikeBox.php</a><br>
+<a href="#LikeButton.php">LikeButton.php</a><br>
+<a href="#list.php">list.php</a><br>
+<a href="#LiveStream.php">LiveStream.php</a><br>
+<a href="#login.php">login.php</a><br>
+<a href="#LoginButton.php">LoginButton.php</a><br>
+<a href="#LoginForm.php">LoginForm.php</a><br>
+<a href="#main.php">main.php</a><br>
+<a href="#mime_deps.php">mime_deps.php</a><br>
+<a href="#mime_types.php">mime_types.php</a><br>
+<a href="#ModelCode.php">ModelCode.php</a><br>
+<a href="#ModuleCode.php">ModuleCode.php</a><br>
+<a href="#neato_dev.php">neato_dev.php</a><br>
+<a href="#neato_staging.php">neato_staging.php</a><br>
+<a href="#permissionerror.php">permissionerror.php</a><br>
+<a href="#popup.php">popup.php</a><br>
+<a href="#preferences.php">preferences.php</a><br>
+<a href="#privacy.php">privacy.php</a><br>
+<a href="#QpHeaderEncoder.php">QpHeaderEncoder.php</a><br>
+<a href="#Recommendations.php">Recommendations.php</a><br>
+<a href="#register.php">register.php</a><br>
+<a href="#RegisterForm.php">RegisterForm.php</a><br>
+<a href="#Registration.php">Registration.php</a><br>
+<a href="#RegistrationParser.php">RegistrationParser.php</a><br>
+<a href="#RestController.php">RestController.php</a><br>
+<a href="#Robot.php">Robot.php</a><br>
+<a href="#RobotController.php">RobotController.php</a><br>
+<a href="#RobotCustom.php">RobotCustom.php</a><br>
+<a href="#RobotCustomController.php">RobotCustomController.php</a><br>
+<a href="#RobotCustomData.php">RobotCustomData.php</a><br>
+<a href="#RobotCustomDataType.php">RobotCustomDataType.php</a><br>
+<a href="#RobotMap.php">RobotMap.php</a><br>
+<a href="#RobotMapBlobDataVersion.php">RobotMapBlobDataVersion.php</a><br>
+<a href="#RobotMapController.php">RobotMapController.php</a><br>
+<a href="#RobotMapXmlDataVersion.php">RobotMapXmlDataVersion.php</a><br>
+<a href="#RobotSchedule.php">RobotSchedule.php</a><br>
+<a href="#RobotScheduleBlobDataVersion.php">RobotScheduleBlobDataVersion.php</a><br>
+<a href="#RobotScheduleController.php">RobotScheduleController.php</a><br>
+<a href="#RobotScheduleXmlDataVersion.php">RobotScheduleXmlDataVersion.php</a><br>
+<a href="#robot_popup_blob_data_view.php">robot_popup_blob_data_view.php</a><br>
+<a href="#robot_popup_view.php">robot_popup_view.php</a><br>
+<a href="#robot_popup_xml_data_view.php">robot_popup_xml_data_view.php</a><br>
+<a href="#SBaseFacebook.php">SBaseFacebook.php</a><br>
+<a href="#SendButton.php">SendButton.php</a><br>
+<a href="#SFacebook.php">SFacebook.php</a><br>
+<a href="#Site.php">Site.php</a><br>
+<a href="#SiteController.php">SiteController.php</a><br>
+<a href="#SiteTest.php">SiteTest.php</a><br>
+<a href="#Socialservicetype.php">Socialservicetype.php</a><br>
+<a href="#SPluginBase.php">SPluginBase.php</a><br>
+<a href="#SubscribeButton.php">SubscribeButton.php</a><br>
+<a href="#swift_init.php">swift_init.php</a><br>
+<a href="#swift_required.php">swift_required.php</a><br>
+<a href="#swift_required_pear.php">swift_required_pear.php</a><br>
+<a href="#terms.php">terms.php</a><br>
+<a href="#test.php">test.php</a><br>
+<a href="#transport_deps.php">transport_deps.php</a><br>
+<a href="#update.php">update.php</a><br>
+<a href="#UsAsciiReader.php">UsAsciiReader.php</a><br>
+<a href="#User.php">User.php</a><br>
+<a href="#UserAddForm.php">UserAddForm.php</a><br>
+<a href="#UserController.php">UserController.php</a><br>
+<a href="#UserIdentity.php">UserIdentity.php</a><br>
+<a href="#userprofile.php">userprofile.php</a><br>
+<a href="#userprofile_pop_up.php">userprofile_pop_up.php</a><br>
+<a href="#UsersApiSession.php">UsersApiSession.php</a><br>
+<a href="#UsersRobot.php">UsersRobot.php</a><br>
+<a href="#UsersRobotController.php">UsersRobotController.php</a><br>
+<a href="#UsersSocialservice.php">UsersSocialservice.php</a><br>
+<a href="#Utf8Reader.php">Utf8Reader.php</a><br>
+<a href="#view.php">view.php</a><br>
+<a href="#viewlogging.php">viewlogging.php</a><br>
+<a href="#WebTestCase.php">WebTestCase.php</a><br>
+<a href="#WebUser.php">WebUser.php</a><br>
+<a href="#WsLogging.php">WsLogging.php</a><br>
+<a href="#wsloggingDetails.php">wsloggingDetails.php</a><br>
+<a href="#yiic.php">yiic.php</a><br>
+<a href="#YiiMail.php">YiiMail.php</a><br>
+<a href="#YiiMailMessage.php">YiiMailMessage.php</a><br>
+<a href="#_add.php">_add.php</a><br>
+<a href="#_form.php">_form.php</a><br>
+<a href="#_register.php">_register.php</a><br>
+<a href="#_view.php">_view.php</a><br>
+<a name="Post-parsing"></a>
+<h1>Post-parsing</h1>
+<h2>Warnings:</h2><br>
+<b>Warning</b> - 
+duplicate class element "RobotMapController" in file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RobotMapController.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate class element "RobotScheduleController" in file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RobotScheduleController.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - Class RegisterForm parent CFormModel not found<br>
+<b>Warning</b> - Class UserAddForm parent CFormModel not found<br>
+<b>Warning</b> - Class SFacebook parent CApplicationComponent not found<br>
+<b>Warning</b> - Class UserIdentity parent CUserIdentity not found<br>
+<b>Warning</b> - Class GxActiveRecord parent CActiveRecord not found<br>
+<b>Warning</b> - Class ContactForm parent CFormModel not found<br>
+<b>Warning</b> - Class YiiMailMessage parent CComponent not found<br>
+<b>Warning</b> - Class WebUser parent CWebUser not found<br>
+<b>Warning</b> - Class GxActiveForm parent CActiveForm not found<br>
+<b>Warning</b> - Class SPluginBase parent CWidget not found<br>
+<b>Warning</b> - 
+duplicate class element "SiteController" in file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\SiteController.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - Class RegistrationParser parent CComponent not found<br>
+<b>Warning</b> - Class WebTestCase parent CWebTestCase not found<br>
+<b>Warning</b> - Class ApiModule parent CWebModule not found<br>
+<b>Warning</b> - Class YiiMail parent CApplicationComponent not found<br>
+<b>Warning</b> - Class GxHtml parent CHtml not found<br>
+<b>Warning</b> - 
+duplicate class element "RobotController" in file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RobotController.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - 
+duplicate class element "UserController" in file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\UserController.php will be ignored.
+Use an @ignore tag on the original if you want this case to be documented.<br>
+<b>Warning</b> - Class Controller parent CController not found<br>
+<b>Warning</b> - Class LoginForm parent CFormModel not found<br>
+<b>Warning</b> - Class ForgotPasswordForm parent CFormModel not found<br>
+<b>Warning</b> - Class ChangePasswordForm parent CFormModel not found<br>
+<a name="about_us.php"></a>
+<h1>about_us.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\about_us.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ActivityFeed.php"></a>
+<h1>ActivityFeed.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - no @package tag was used in a DocBlock for class ActivityFeed<br>
+<b>Warning on line 98</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\ActivityFeed.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="add.php"></a>
+<h1>add.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 10</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\add.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 10</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\usersRobot\add.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robot\add.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="APIController.php"></a>
+<h1>APIController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class APIController<br>
+<b>Warning on line 140</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\components\APIController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ApiModule.php"></a>
+<h1>ApiModule.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class ApiModule<br>
+<b>Warning on line 35</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\ApiModule.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ApiUser.php"></a>
+<h1>ApiUser.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class ApiUser<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\user\ApiUser.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="AppCore.php"></a>
+<h1>AppCore.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - no @package tag was used in a DocBlock for class AppCore<br>
+<b>Warning on line 726</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\components\AppCore.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="AppEmail.php"></a>
+<h1>AppEmail.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class AppEmail<br>
+<b>Warning on line 64</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\components\AppEmail.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="AppHelper.php"></a>
+<h1>AppHelper.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class AppHelper<br>
+<b>Warning on line 147</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\components\AppHelper.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Base64HeaderEncoder.php"></a>
+<h1>Base64HeaderEncoder.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 35</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\classes\Swift\Mime\HeaderEncoder\Base64HeaderEncoder.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseApiUser.php"></a>
+<h1>BaseApiUser.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for class BaseApiUser<br>
+<b>Warning on line 100</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseApiUser.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobot.php"></a>
+<h1>BaseRobot.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for class BaseRobot<br>
+<b>Warning on line 103</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobot.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotCustom.php"></a>
+<h1>BaseRobotCustom.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 15</b> - no @package tag was used in a DocBlock for class BaseRobotCustom<br>
+<b>Warning on line 94</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotCustom.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotCustomData.php"></a>
+<h1>BaseRobotCustomData.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 18</b> - no @package tag was used in a DocBlock for class BaseRobotCustomData<br>
+<b>Warning on line 104</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotCustomData.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotCustomDataType.php"></a>
+<h1>BaseRobotCustomDataType.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 14</b> - no @package tag was used in a DocBlock for class BaseRobotCustomDataType<br>
+<b>Warning on line 92</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotCustomDataType.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotMapBlobDataVersions.php"></a>
+<h1>BaseRobotMapBlobDataVersions.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 15</b> - no @package tag was used in a DocBlock for class BaseRobotMapBlobDataVersions<br>
+<b>Warning on line 95</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotMapBlobDataVersions.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotMaps.php"></a>
+<h1>BaseRobotMaps.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 19</b> - no @package tag was used in a DocBlock for class BaseRobotMaps<br>
+<b>Warning on line 107</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotMaps.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotMapXmlDataVersions.php"></a>
+<h1>BaseRobotMapXmlDataVersions.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 15</b> - no @package tag was used in a DocBlock for class BaseRobotMapXmlDataVersions<br>
+<b>Warning on line 95</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotMapXmlDataVersions.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotSchedule.php"></a>
+<h1>BaseRobotSchedule.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 20</b> - no @package tag was used in a DocBlock for class BaseRobotSchedule<br>
+<b>Warning on line 110</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotSchedule.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotScheduleBlobDataVersion.php"></a>
+<h1>BaseRobotScheduleBlobDataVersion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 15</b> - no @package tag was used in a DocBlock for class BaseRobotScheduleBlobDataVersion<br>
+<b>Warning on line 95</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotScheduleBlobDataVersion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseRobotScheduleXmlDataVersion.php"></a>
+<h1>BaseRobotScheduleXmlDataVersion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 15</b> - no @package tag was used in a DocBlock for class BaseRobotScheduleXmlDataVersion<br>
+<b>Warning on line 95</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseRobotScheduleXmlDataVersion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseSite.php"></a>
+<h1>BaseSite.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 17</b> - no @package tag was used in a DocBlock for class BaseSite<br>
+<b>Warning on line 99</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseSite.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseSocialservicetype.php"></a>
+<h1>BaseSocialservicetype.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for class BaseSocialservicetype<br>
+<b>Warning on line 98</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseSocialservicetype.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseUser.php"></a>
+<h1>BaseUser.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - no @package tag was used in a DocBlock for class BaseUser<br>
+<b>Warning on line 122</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseUser.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseUsersApiSession.php"></a>
+<h1>BaseUsersApiSession.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 17</b> - no @package tag was used in a DocBlock for class BaseUsersApiSession<br>
+<b>Warning on line 102</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseUsersApiSession.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseUsersRobot.php"></a>
+<h1>BaseUsersRobot.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 15</b> - no @package tag was used in a DocBlock for class BaseUsersRobot<br>
+<b>Warning on line 94</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseUsersRobot.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseUsersSocialservice.php"></a>
+<h1>BaseUsersSocialservice.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 20</b> - no @package tag was used in a DocBlock for class BaseUsersSocialservice<br>
+<b>Warning on line 112</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseUsersSocialservice.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="BaseWsLogging.php"></a>
+<h1>BaseWsLogging.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 23</b> - no @package tag was used in a DocBlock for class BaseWsLogging<br>
+<b>Warning on line 122</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\_base\BaseWsLogging.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="base_facebook.php"></a>
+<h1>base_facebook.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 29</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\php-sdk-3.1.1\base_facebook.php<br>
+<b>Warning on line 30</b> - no @package tag was used in a DocBlock for class FacebookApiException<br>
+<b>Warning on line 118</b> - no @package tag was used in a DocBlock for class BaseFacebook<br>
+<a name="bootstrap.php"></a>
+<h1>bootstrap.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - Page-level DocBlock precedes "require_once $yiit", use another DocBlock to document the source element<br>
+<b>Warning on line 9</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\tests\bootstrap.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="cache_deps.php"></a>
+<h1>cache_deps.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\dependency_maps\cache_deps.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="changepassword.php"></a>
+<h1>changepassword.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 59</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\changepassword.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ChangePasswordForm.php"></a>
+<h1>ChangePasswordForm.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class ChangePasswordForm<br>
+<b>Warning on line 34</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\user\ChangePasswordForm.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="CharacterReader.php"></a>
+<h1>CharacterReader.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 38</b> - Unknown tag "@int" used<br>
+<a name="CharacterStream.php"></a>
+<h1>CharacterStream.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 85</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\classes\Swift\CharacterStream.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="column1.php"></a>
+<h1>column1.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\layouts\column1.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="column2.php"></a>
+<h1>column2.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\layouts\column2.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Comments.php"></a>
+<h1>Comments.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - no @package tag was used in a DocBlock for class Comments<br>
+<b>Warning on line 50</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\Comments.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="console.php"></a>
+<h1>console.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 36</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\config\console.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="contact.php"></a>
+<h1>contact.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 88</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\contact.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ContactForm.php"></a>
+<h1>ContactForm.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class ContactForm<br>
+<b>Warning on line 41</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\ContactForm.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Controller.php"></a>
+<h1>Controller.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - no @package tag was used in a DocBlock for class Controller<br>
+<b>Warning on line 75</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\components\Controller.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="CrudCode.php"></a>
+<h1>CrudCode.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 4</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\runtime\gii-1.1.12\CrudCode.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="DefaultController.php"></a>
+<h1>DefaultController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - no @package tag was used in a DocBlock for class DefaultController<br>
+<b>Warning on line 15</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\DefaultController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="dev-example.php"></a>
+<h1>dev-example.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 69</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\config\dev-example.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="dev.php"></a>
+<h1>dev.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 74</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\config\dev.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="error.php"></a>
+<h1>error.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 13</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\error.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="facebook-channel.php"></a>
+<h1>facebook-channel.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\facebook-channel.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="facebook.php"></a>
+<h1>facebook.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - no @package tag was used in a DocBlock for class Facebook<br>
+<b>Warning on line 92</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\php-sdk-3.1.1\facebook.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Facepile.php"></a>
+<h1>Facepile.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - no @package tag was used in a DocBlock for class Facepile<br>
+<b>Warning on line 61</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\Facepile.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="forgotpassword.php"></a>
+<h1>forgotpassword.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 46</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\forgotpassword.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ForgotPasswordForm.php"></a>
+<h1>ForgotPasswordForm.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class ForgotPasswordForm<br>
+<b>Warning on line 48</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\ForgotPasswordForm.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="GenericFixedWidthReader.php"></a>
+<h1>GenericFixedWidthReader.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 63</b> - Unknown tag "@int" used<br>
+<a name="GxActiveForm.php"></a>
+<h1>GxActiveForm.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for class GxActiveForm<br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\giix-components\GxActiveForm.php<br>
+<a name="GxActiveRecord.php"></a>
+<h1>GxActiveRecord.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for class GxActiveRecord<br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\giix-components\GxActiveRecord.php<br>
+<a name="GxController.php"></a>
+<h1>GxController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\giix-components\GxController.php<br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for class GxController<br>
+<a name="GxHtml.php"></a>
+<h1>GxHtml.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for class GxHtml<br>
+<b>Warning on line 16</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\giix-components\GxHtml.php<br>
+<a name="LikeBox.php"></a>
+<h1>LikeBox.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 28</b> - no @package tag was used in a DocBlock for class LikeBox<br>
+<b>Warning on line 78</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\LikeBox.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="LikeButton.php"></a>
+<h1>LikeButton.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - no @package tag was used in a DocBlock for class LikeButton<br>
+<b>Warning on line 75</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\LikeButton.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="list.php"></a>
+<h1>list.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 79</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\usersRobot\list.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 92</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\list.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 108</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robot\list.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="LiveStream.php"></a>
+<h1>LiveStream.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - no @package tag was used in a DocBlock for class LiveStream<br>
+<b>Warning on line 58</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\LiveStream.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="login.php"></a>
+<h1>login.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 77</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\login.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="LoginButton.php"></a>
+<h1>LoginButton.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - no @package tag was used in a DocBlock for class LoginButton<br>
+<b>Warning on line 61</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\LoginButton.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="LoginForm.php"></a>
+<h1>LoginForm.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 9</b> - no @package tag was used in a DocBlock for class LoginForm<br>
+<b>Warning on line 83</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\LoginForm.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="main.php"></a>
+<h1>main.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 142</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\config\main.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 180</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\layouts\main.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="mime_deps.php"></a>
+<h1>mime_deps.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 96</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\dependency_maps\mime_deps.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="mime_types.php"></a>
+<h1>mime_types.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 75</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\mime_types.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ModelCode.php"></a>
+<h1>ModelCode.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\runtime\gii-1.1.12\ModelCode.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="ModuleCode.php"></a>
+<h1>ModuleCode.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 3</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\runtime\gii-1.1.12\ModuleCode.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="neato_dev.php"></a>
+<h1>neato_dev.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 55</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\config\neato_dev.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="neato_staging.php"></a>
+<h1>neato_staging.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 52</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\config\neato_staging.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="permissionerror.php"></a>
+<h1>permissionerror.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\permissionerror.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="popup.php"></a>
+<h1>popup.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 23</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\layouts\popup.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="preferences.php"></a>
+<h1>preferences.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 9</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\preferences.php<br>
+<a name="privacy.php"></a>
+<h1>privacy.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\privacy.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="QpHeaderEncoder.php"></a>
+<h1>QpHeaderEncoder.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 98</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\classes\Swift\Mime\HeaderEncoder\QpHeaderEncoder.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Recommendations.php"></a>
+<h1>Recommendations.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 20</b> - no @package tag was used in a DocBlock for class Recommendations<br>
+<b>Warning on line 89</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\Recommendations.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="register.php"></a>
+<h1>register.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\register.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RegisterForm.php"></a>
+<h1>RegisterForm.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class RegisterForm<br>
+<b>Warning on line 62</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\RegisterForm.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Registration.php"></a>
+<h1>Registration.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - no @package tag was used in a DocBlock for class Registration<br>
+<b>Warning on line 74</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\Registration.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RegistrationParser.php"></a>
+<h1>RegistrationParser.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 17</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\RegistrationParser.php<br>
+<b>Warning on line 18</b> - no @package tag was used in a DocBlock for class RegistrationParser<br>
+<a name="RestController.php"></a>
+<h1>RestController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - no @package tag was used in a DocBlock for class RestController<br>
+<b>Warning on line 642</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RestController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Robot.php"></a>
+<h1>Robot.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class Robot<br>
+<b>Warning on line 50</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\Robot.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotController.php"></a>
+<h1>RobotController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class RobotController<br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class RobotController<br>
+<b>Warning on line 316</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RobotController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 345</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\controllers\RobotController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotCustom.php"></a>
+<h1>RobotCustom.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotCustom<br>
+<b>Warning on line 33</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotCustom.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotCustomController.php"></a>
+<h1>RobotCustomController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class RobotCustomController<br>
+<b>Warning on line 727</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RobotCustomController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotCustomData.php"></a>
+<h1>RobotCustomData.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotCustomData<br>
+<b>Warning on line 33</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotCustomData.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotCustomDataType.php"></a>
+<h1>RobotCustomDataType.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotCustomDataType<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotCustomDataType.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotMap.php"></a>
+<h1>RobotMap.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotMap<br>
+<b>Warning on line 61</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotMap.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotMapBlobDataVersion.php"></a>
+<h1>RobotMapBlobDataVersion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotMapBlobDataVersion<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotMapBlobDataVersion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotMapController.php"></a>
+<h1>RobotMapController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 3</b> - no @package tag was used in a DocBlock for class RobotMapController<br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class RobotMapController<br>
+<b>Warning on line 49</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\controllers\RobotMapController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 659</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RobotMapController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotMapXmlDataVersion.php"></a>
+<h1>RobotMapXmlDataVersion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotMapXmlDataVersion<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotMapXmlDataVersion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotSchedule.php"></a>
+<h1>RobotSchedule.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotSchedule<br>
+<b>Warning on line 61</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotSchedule.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotScheduleBlobDataVersion.php"></a>
+<h1>RobotScheduleBlobDataVersion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotScheduleBlobDataVersion<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotScheduleBlobDataVersion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotScheduleController.php"></a>
+<h1>RobotScheduleController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 3</b> - no @package tag was used in a DocBlock for class RobotScheduleController<br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class RobotScheduleController<br>
+<b>Warning on line 49</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\controllers\RobotScheduleController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 698</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\RobotScheduleController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="RobotScheduleXmlDataVersion.php"></a>
+<h1>RobotScheduleXmlDataVersion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class RobotScheduleXmlDataVersion<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\robot\RobotScheduleXmlDataVersion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="robot_popup_blob_data_view.php"></a>
+<h1>robot_popup_blob_data_view.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 11</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robotMap\robot_popup_blob_data_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 11</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robotSchedule\robot_popup_blob_data_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="robot_popup_view.php"></a>
+<h1>robot_popup_view.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 66</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robot\robot_popup_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="robot_popup_xml_data_view.php"></a>
+<h1>robot_popup_xml_data_view.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 25</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robotSchedule\robot_popup_xml_data_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 27</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robotMap\robot_popup_xml_data_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="SBaseFacebook.php"></a>
+<h1>SBaseFacebook.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - no @package tag was used in a DocBlock for class SBaseFacebook<br>
+<b>Warning on line 110</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\SBaseFacebook.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="SendButton.php"></a>
+<h1>SendButton.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 28</b> - no @package tag was used in a DocBlock for class SendButton<br>
+<b>Warning on line 60</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\SendButton.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="SFacebook.php"></a>
+<h1>SFacebook.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 13</b> - no @package tag was used in a DocBlock for class SFacebook<br>
+<b>Warning on line 603</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\SFacebook.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Site.php"></a>
+<h1>Site.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class Site<br>
+<b>Warning on line 19</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\Site.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="SiteController.php"></a>
+<h1>SiteController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class SiteController<br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class SiteController<br>
+<b>Warning on line 31</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\SiteController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 154</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\controllers\SiteController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="SiteTest.php"></a>
+<h1>SiteTest.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 3</b> - no @package tag was used in a DocBlock for class SiteTest<br>
+<b>Warning on line 46</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\tests\functional\SiteTest.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Socialservicetype.php"></a>
+<h1>Socialservicetype.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class Socialservicetype<br>
+<b>Warning on line 19</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\Socialservicetype.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="SPluginBase.php"></a>
+<h1>SPluginBase.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 20</b> - no @package tag was used in a DocBlock for file C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\SPluginBase.php<br>
+<b>Warning on line 21</b> - no @package tag was used in a DocBlock for class SPluginBase<br>
+<a name="SubscribeButton.php"></a>
+<h1>SubscribeButton.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 28</b> - no @package tag was used in a DocBlock for class SubscribeButton<br>
+<b>Warning on line 64</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-facebook-opengraph\plugins\SubscribeButton.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="swift_init.php"></a>
+<h1>swift_init.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 20</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\swift_init.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="swift_required.php"></a>
+<h1>swift_required.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\swift_required.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="swift_required_pear.php"></a>
+<h1>swift_required_pear.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\swift_required_pear.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="terms.php"></a>
+<h1>terms.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\terms.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="test.php"></a>
+<h1>test.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\config\test.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="transport_deps.php"></a>
+<h1>transport_deps.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 61</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\extensions\yii-mail\vendors\swiftMailer\dependency_maps\transport_deps.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="update.php"></a>
+<h1>update.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 16</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robot\update.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UsAsciiReader.php"></a>
+<h1>UsAsciiReader.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 46</b> - Unknown tag "@int" used<br>
+<a name="User.php"></a>
+<h1>User.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class User<br>
+<b>Warning on line 38</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\user\User.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UserAddForm.php"></a>
+<h1>UserAddForm.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class UserAddForm<br>
+<b>Warning on line 60</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\user\UserAddForm.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UserController.php"></a>
+<h1>UserController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 5</b> - no @package tag was used in a DocBlock for class UserController<br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class UserController<br>
+<b>Warning on line 451</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\controllers\UserController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 805</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\modules\api\controllers\UserController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UserIdentity.php"></a>
+<h1>UserIdentity.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class UserIdentity<br>
+<b>Warning on line 62</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\components\UserIdentity.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="userprofile.php"></a>
+<h1>userprofile.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 105</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\userprofile.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="userprofile_pop_up.php"></a>
+<h1>userprofile_pop_up.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 57</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\userprofile_pop_up.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UsersApiSession.php"></a>
+<h1>UsersApiSession.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class UsersApiSession<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\user\UsersApiSession.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UsersRobot.php"></a>
+<h1>UsersRobot.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class UsersRobot<br>
+<b>Warning on line 21</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\user\UsersRobot.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UsersRobotController.php"></a>
+<h1>UsersRobotController.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - no @package tag was used in a DocBlock for class UsersRobotController<br>
+<b>Warning on line 197</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\controllers\UsersRobotController.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="UsersSocialservice.php"></a>
+<h1>UsersSocialservice.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class UsersSocialservice<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\user\UsersSocialservice.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="Utf8Reader.php"></a>
+<h1>Utf8Reader.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 147</b> - Unknown tag "@int" used<br>
+<a name="view.php"></a>
+<h1>view.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 27</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\usersRobot\view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 177</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robot\view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="viewlogging.php"></a>
+<h1>viewlogging.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 22</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\viewlogging.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="WebTestCase.php"></a>
+<h1>WebTestCase.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 14</b> - no @package tag was used in a DocBlock for class WebTestCase<br>
+<b>Warning on line 24</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\tests\WebTestCase.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="WebUser.php"></a>
+<h1>WebUser.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - no @package tag was used in a DocBlock for class WebUser<br>
+<b>Warning on line 61</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\components\WebUser.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="WsLogging.php"></a>
+<h1>WsLogging.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 8</b> - no @package tag was used in a DocBlock for class WsLogging<br>
+<b>Warning on line 18</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\models\WsLogging.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="wsloggingDetails.php"></a>
+<h1>wsloggingDetails.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 44</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\site\wsloggingDetails.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="yiic.php"></a>
+<h1>yiic.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\yiic.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="YiiMail.php"></a>
+<h1>YiiMail.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 45</b> - no @package tag was used in a DocBlock for class YiiMail<br>
+<a name="YiiMailMessage.php"></a>
+<h1>YiiMailMessage.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 35</b> - no @package tag was used in a DocBlock for class YiiMailMessage<br>
+<a name="_add.php"></a>
+<h1>_add.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 64</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\_add.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="_form.php"></a>
+<h1>_form.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 38</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robot\_form.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 48</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\usersRobot\_form.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="_register.php"></a>
+<h1>_register.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 66</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\_register.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="_view.php"></a>
+<h1>_view.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 19</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\robot\_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 20</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\usersRobot\_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 46</b> - File "C:\xampp\htdocs\Neato_Server\Server_Yii\Neato\protected\views\user\_view.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:47 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</body>
+</html>

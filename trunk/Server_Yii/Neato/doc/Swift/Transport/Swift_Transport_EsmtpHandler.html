@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_Transport_EsmtpHandler</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Interface Swift_Transport_EsmtpHandler</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">An ESMTP handler.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---Transport---EsmtpHandler.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/EsmtpHandler.php</a> (line <span class="field">19</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																												
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#afterEhlo" title="details" class="method-name">afterEhlo</a>
+											(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html">Swift_Transport_SmtpAgent</a></span>&nbsp;<span class="var-name">$agent</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#exposeMixinMethods" title="details" class="method-name">exposeMixinMethods</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">boolean</span>
+										<a href="#getHandledKeyword" title="details" class="method-name">getHandledKeyword</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#getMailParams" title="details" class="method-name">getMailParams</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getPriorityOver" title="details" class="method-name">getPriorityOver</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$esmtpKeyword</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string[]</span>
+										<a href="#getRcptParams" title="details" class="method-name">getRcptParams</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#onCommand" title="details" class="method-name">onCommand</a>
+											(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html">Swift_Transport_SmtpAgent</a></span>&nbsp;<span class="var-name">$agent</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$command</span>, [<span class="var-type">int[]</span>&nbsp;<span class="var-name">$codes</span> = <span class="var-default">array()</span>], [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">&$stop</span> = <span class="var-default">false</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#resetState" title="details" class="method-name">resetState</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setKeywordParams" title="details" class="method-name">setKeywordParams</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$parameters</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodafterEhlo" id="afterEhlo"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">afterEhlo</span> (line <span class="line-number">38</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Runs immediately after a EHLO has been issued.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			afterEhlo
+		</span>
+					(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html">Swift_Transport_SmtpAgent</a></span>&nbsp;<span class="var-name">$agent</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html">Swift_Transport_SmtpAgent</a></span>
+				<span class="var-name">$agent</span><span class="var-description">: to read/write</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodexposeMixinMethods" id="exposeMixinMethods"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">exposeMixinMethods</span> (line <span class="line-number">75</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns an array of method names which are exposed to the Esmtp class.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			exposeMixinMethods
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetHandledKeyword" id="getHandledKeyword"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHandledKeyword</span> (line <span class="line-number">26</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the name of the ESMTP extension this handles.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			getHandledKeyword
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMailParams" id="getMailParams"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMailParams</span> (line <span class="line-number">44</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get params which are appended to MAIL FROM:&lt;&gt;.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			getMailParams
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetPriorityOver" id="getPriorityOver"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPriorityOver</span> (line <span class="line-number">69</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns +1, -1 or 0 according to the rules for usort().</p>
+<p class="description"><p>This method is called to ensure extensions can be execute in an appropriate order.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getPriorityOver
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$esmtpKeyword</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$esmtpKeyword</span><span class="var-description">: to compare with</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetRcptParams" id="getRcptParams"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRcptParams</span> (line <span class="line-number">50</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get params which are appended to RCPT TO:&lt;&gt;.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string[]</span>
+		<span class="method-name">
+			getRcptParams
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodonCommand" id="onCommand"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">onCommand</span> (line <span class="line-number">60</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Runs when a command is due to be sent.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			onCommand
+		</span>
+					(<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html">Swift_Transport_SmtpAgent</a></span>&nbsp;<span class="var-name">$agent</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$command</span>, [<span class="var-type">int[]</span>&nbsp;<span class="var-name">$codes</span> = <span class="var-default">array()</span>], [<span class="var-type">string[]</span>&nbsp;<span class="var-name">&$failedRecipients</span> = <span class="var-default">null</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">&$stop</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Transport/Swift_Transport_SmtpAgent.html">Swift_Transport_SmtpAgent</a></span>
+				<span class="var-name">$agent</span><span class="var-description">: to read/write</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$command</span><span class="var-description">: to send</span>			</li>
+					<li>
+				<span class="var-type">int[]</span>
+				<span class="var-name">$codes</span><span class="var-description">: expected in response</span>			</li>
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">&$failedRecipients</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">&$stop</span><span class="var-description">: to be set true if the command is now sent</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodresetState" id="resetState"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">resetState</span> (line <span class="line-number">80</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Tells this handler to clear any buffers and reset its state.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			resetState
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetKeywordParams" id="setKeywordParams"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setKeywordParams</span> (line <span class="line-number">32</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the parameters which the EHLO greeting indicated.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setKeywordParams
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$parameters</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string[]</span>
+				<span class="var-name">$parameters</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:28 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>

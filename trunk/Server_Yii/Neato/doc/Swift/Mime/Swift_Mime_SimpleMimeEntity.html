@@ -1,0 +1,1486 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Swift_Mime_SimpleMimeEntity</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Swift_Mime_SimpleMimeEntity</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html">Swift_Mime_MimeEntity</a></li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A MIME entity, in a multipart message.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Chris Corbyn</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_extensions---yii-mail---vendors---swiftMailer---classes---Swift---Mime---SimpleMimeEntity.php.html">/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Mime/SimpleMimeEntity.php</a> (line <span class="field">22</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/Mime/Swift_Mime_Attachment.html">Swift_Mime_Attachment</a></td>
+					<td>
+											An attachment, in a multipart message.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Swift/Mime/Swift_Mime_MimePart.html">Swift_Mime_MimePart</a></td>
+					<td>
+											A MIME part, in a multipart message.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_userContentType" title="details" class="var-name">$_userContentType</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">Swift_Mime_SimpleMimeEntity</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_HeaderSet.html">Swift_Mime_HeaderSet</a></span>&nbsp;<span class="var-name">$headers</span>, <span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>, <span class="var-type"><a href="../../Swift/KeyCache/Swift_KeyCache.html">Swift_KeyCache</a></span>&nbsp;<span class="var-name">$cache</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__destruct" title="details" class="method-name">__destruct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#charsetChanged" title="details" class="method-name">charsetChanged</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$charset</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#encoderChanged" title="details" class="method-name">encoderChanged</a>
+											(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#generateId" title="details" class="method-name">generateId</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getBody" title="details" class="method-name">getBody</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getBoundary" title="details" class="method-name">getBoundary</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getChildren" title="details" class="method-name">getChildren</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getContentType" title="details" class="method-name">getContentType</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getDescription" title="details" class="method-name">getDescription</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>
+										<a href="#getEncoder" title="details" class="method-name">getEncoder</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../../Swift/Mime/Swift_Mime_HeaderSet.html">Swift_Mime_HeaderSet</a></span>
+										<a href="#getHeaders" title="details" class="method-name">getHeaders</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getId" title="details" class="method-name">getId</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getMaxLineLength" title="details" class="method-name">getMaxLineLength</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getNestingLevel" title="details" class="method-name">getNestingLevel</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getRandomId" title="details" class="method-name">getRandomId</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setBody" title="details" class="method-name">setBody</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$body</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$contentType</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setBoundary" title="details" class="method-name">setBoundary</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$boundary</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setChildren" title="details" class="method-name">setChildren</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$children</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$compoundLevel</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setContentType" title="details" class="method-name">setContentType</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setDescription" title="details" class="method-name">setDescription</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$description</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setEncoder" title="details" class="method-name">setEncoder</a>
+											(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setId" title="details" class="method-name">setId</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$id</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setMaxLineLength" title="details" class="method-name">setMaxLineLength</a>
+											(<span class="var-type">int</span>&nbsp;<span class="var-name">$length</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#toByteStream" title="details" class="method-name">toByteStream</a>
+											(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#toString" title="details" class="method-name">toString</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_clearCache" title="details" class="method-name">_clearCache</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_fixHeaders" title="details" class="method-name">_fixHeaders</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getCache" title="details" class="method-name">_getCache</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getHeaderFieldModel" title="details" class="method-name">_getHeaderFieldModel</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getHeaderParameter" title="details" class="method-name">_getHeaderParameter</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$parameter</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_getIdField" title="details" class="method-name">_getIdField</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_setHeaderFieldModel" title="details" class="method-name">_setHeaderFieldModel</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$model</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_setHeaderParameter" title="details" class="method-name">_setHeaderParameter</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$parameter</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$_userContentType" id="$_userContentType"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_userContentType</span>
+						(line <span class="line-number">75</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">83</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a new SimpleMimeEntity with $headers, $encoder and $cache.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Swift_Mime_SimpleMimeEntity</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_HeaderSet.html">Swift_Mime_HeaderSet</a></span>&nbsp;<span class="var-name">$headers</span>, <span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>, <span class="var-type"><a href="../../Swift/KeyCache/Swift_KeyCache.html">Swift_KeyCache</a></span>&nbsp;<span class="var-name">$cache</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_HeaderSet.html">Swift_Mime_HeaderSet</a></span>
+				<span class="var-name">$headers</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>
+				<span class="var-name">$encoder</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../Swift/KeyCache/Swift_KeyCache.html">Swift_KeyCache</a></span>
+				<span class="var-name">$cache</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_Attachment.html#method__construct">Swift_Mime_Attachment::__construct()</a>
+								: Create a new Attachment with $headers, $encoder and $cache.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Attachment.html#method__construct">Swift_Attachment::__construct()</a>
+								: Create a new Attachment.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_EmbeddedFile.html#method__construct">Swift_Mime_EmbeddedFile::__construct()</a>
+								: Creates a new Attachment with $headers and $encoder.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_EmbeddedFile.html#method__construct">Swift_EmbeddedFile::__construct()</a>
+								: Create a new EmbeddedFile.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Image.html#method__construct">Swift_Image::__construct()</a>
+								: Create a new EmbeddedFile.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_MimePart.html#method__construct">Swift_Mime_MimePart::__construct()</a>
+								: Create a new MimePart with $headers, $encoder and $cache.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_SimpleMessage.html#method__construct">Swift_Mime_SimpleMessage::__construct()</a>
+								: Create a new SimpleMessage with $headers, $encoder and $cache.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Message.html#method__construct">Swift_Message::__construct()</a>
+								: Create a new Message.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_MimePart.html#method__construct">Swift_MimePart::__construct()</a>
+								: Create a new MimePart.
+							</li>
+				</ul>
+	</div>
+<a name="method__destruct" id="__destruct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">798</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Empties it's own contents from the cache.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__destruct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcharsetChanged" id="charsetChanged"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">charsetChanged</span> (line <span class="line-number">418</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Receive notification that the charset of this entity, or a parent entity  has changed.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			charsetChanged
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$charset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$charset</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_CharsetObserver.html#methodcharsetChanged">Swift_Mime_CharsetObserver::charsetChanged()</a></dt>
+						<dd>Notify this observer that the entity's charset has changed.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_MimePart.html#methodcharsetChanged">Swift_Mime_MimePart::charsetChanged()</a>
+								: Receive notification that the charset has changed on this document, or a  parent document.
+							</li>
+				</ul>
+	</div>
+<a name="methodencoderChanged" id="encoderChanged"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">encoderChanged</span> (line <span class="line-number">428</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Receive notification that the encoder of this entity or a parent entity  has changed.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			encoderChanged
+		</span>
+					(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>
+				<span class="var-name">$encoder</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgenerateId" id="generateId"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">generateId</span> (line <span class="line-number">123</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Generate a new Content-ID or Message-ID for this MIME entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			generateId
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetBody" id="getBody"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getBody</span> (line <span class="line-number">334</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the body of this entity as a string.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getBody
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodgetBody">Swift_Mime_MimeEntity::getBody()</a></dt>
+						<dd>Get the body content of this entity as a string.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetBoundary" id="getBoundary"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getBoundary</span> (line <span class="line-number">392</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the boundary used to separate children in this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getBoundary
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetChildren" id="getChildren"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getChildren</span> (line <span class="line-number">244</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get all children added to this entity.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> of Swift_Mime_Entity</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getChildren
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodgetChildren">Swift_Mime_MimeEntity::getChildren()</a></dt>
+						<dd>Get all children nested inside this entity.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetContentType" id="getContentType"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getContentType</span> (line <span class="line-number">152</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the Content-type of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getContentType
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodgetContentType">Swift_Mime_MimeEntity::getContentType()</a></dt>
+						<dd>Get the qualified content-type of this mime entity.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetDescription" id="getDescription"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getDescription</span> (line <span class="line-number">201</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the description of this entity.</p>
+<p class="description"><p>This value comes from the Content-Description header if set.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getDescription
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetEncoder" id="getEncoder"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getEncoder</span> (line <span class="line-number">366</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the encoder used for the body of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>
+		<span class="method-name">
+			getEncoder
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetHeaders" id="getHeaders"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHeaders</span> (line <span class="line-number">133</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the <a href="../../Swift/Mime/Swift_Mime_HeaderSet.html">Swift_Mime_HeaderSet</a> for this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../Swift/Mime/Swift_Mime_HeaderSet.html">Swift_Mime_HeaderSet</a></span>
+		<span class="method-name">
+			getHeaders
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodgetHeaders">Swift_Mime_MimeEntity::getHeaders()</a></dt>
+						<dd>Get the collection of Headers in this Mime entity.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetId" id="getId"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getId</span> (line <span class="line-number">175</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the CID of this entity.</p>
+<p class="description"><p>The CID will only be present in headers if a Content-ID header is present.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getId
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodgetId">Swift_Mime_MimeEntity::getId()</a></dt>
+						<dd>Returns a unique ID for this entity.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetMaxLineLength" id="getMaxLineLength"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMaxLineLength</span> (line <span class="line-number">224</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the maximum line length of the body of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getMaxLineLength
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetNestingLevel" id="getNestingLevel"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getNestingLevel</span> (line <span class="line-number">143</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the nesting level of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> LEVEL_TOP, LEVEL_MIXED, LEVEL_RELATED, LEVEL_ALTERNATIVE</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getNestingLevel
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodgetNestingLevel">Swift_Mime_MimeEntity::getNestingLevel()</a></dt>
+						<dd>Get the level at which this entity shall be nested in final document.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_Attachment.html#methodgetNestingLevel">Swift_Mime_Attachment::getNestingLevel()</a>
+								: Get the nesting level used for this attachment.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_EmbeddedFile.html#methodgetNestingLevel">Swift_Mime_EmbeddedFile::getNestingLevel()</a>
+								: Get the nesting level of this EmbeddedFile.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_MimePart.html#methodgetNestingLevel">Swift_Mime_MimePart::getNestingLevel()</a>
+								: Get the nesting level of this entity.
+							</li>
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_SimpleMessage.html#methodgetNestingLevel">Swift_Mime_SimpleMessage::getNestingLevel()</a>
+								: Always returns LEVEL_TOP for a message instance.
+							</li>
+				</ul>
+	</div>
+<a name="methodgetRandomId" id="getRandomId"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRandomId</span> (line <span class="line-number">646</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns a random Content-ID or Message-ID.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getRandomId
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetBody" id="setBody"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setBody</span> (line <span class="line-number">347</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the body of this entity, either as a string, or as an instance of  <a href="../../Swift/ByteStream/Swift_OutputByteStream.html">Swift_OutputByteStream</a>.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setBody
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$body</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$contentType</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$body</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$contentType</span><span class="var-description">: optional</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodsetBody">Swift_Mime_MimeEntity::setBody()</a></dt>
+						<dd>Set the body content of this entity as a string.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_MimePart.html#methodsetBody">Swift_Mime_MimePart::setBody()</a>
+								: Set the body of this entity, either as a string, or as an instance of  <a href="../../Swift/ByteStream/Swift_OutputByteStream.html">Swift_OutputByteStream</a>.
+							</li>
+				</ul>
+	</div>
+<a name="methodsetBoundary" id="setBoundary"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setBoundary</span> (line <span class="line-number">406</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the boundary used to separate children in this entity.</p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Swift_RfcComplianceException</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setBoundary
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$boundary</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$boundary</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetChildren" id="setChildren"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setChildren</span> (line <span class="line-number">254</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set all children of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setChildren
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$children</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$compoundLevel</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$children</span><span class="var-description">: Swiift_Mime_Entity instances</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$compoundLevel</span><span class="var-description">: For internal use only</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodsetChildren">Swift_Mime_MimeEntity::setChildren()</a></dt>
+						<dd>Set all children nested inside this entity.</dd>
+					</dl>
+			
+	</div>
+<a name="methodsetContentType" id="setContentType"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setContentType</span> (line <span class="line-number">161</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the Content-type of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setContentType
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetDescription" id="setDescription"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setDescription</span> (line <span class="line-number">211</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the description of this entity.</p>
+<p class="description"><p>This method sets a value in the Content-ID header.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setDescription
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$description</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$description</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetEncoder" id="setEncoder"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setEncoder</span> (line <span class="line-number">375</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the encoder used for the body of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setEncoder
+		</span>
+					(<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/Mime/Swift_Mime_ContentEncoder.html">Swift_Mime_ContentEncoder</a></span>
+				<span class="var-name">$encoder</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetId" id="setId"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setId</span> (line <span class="line-number">186</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the CID of this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setId
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$id</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetMaxLineLength" id="setMaxLineLength"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setMaxLineLength</span> (line <span class="line-number">234</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the maximum line length of lines in this body.</p>
+<p class="description"><p>Though not enforced by the library, lines should not exceed 1000 chars.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setMaxLineLength
+		</span>
+					(<span class="var-type">int</span>&nbsp;<span class="var-name">$length</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$length</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodtoByteStream" id="toByteStream"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">toByteStream</span> (line <span class="line-number">487</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Write this entire entity to a <a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a>.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			toByteStream
+		</span>
+					(<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>&nbsp;<span class="var-name">$is</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a></span>
+				<span class="var-name">$is</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodtoByteStream">Swift_Mime_MimeEntity::toByteStream()</a></dt>
+						<dd>Get this entire entity as a ByteStream.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_SimpleMessage.html#methodtoByteStream">Swift_Mime_SimpleMessage::toByteStream()</a>
+								: Write this message to a <a href="../../Swift/ByteStream/Swift_InputByteStream.html">Swift_InputByteStream</a>.
+							</li>
+				</ul>
+	</div>
+<a name="methodtoString" id="toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">toString</span> (line <span class="line-number">437</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get this entire entity as a string.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			toString
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Swift/Mime/Swift_Mime_MimeEntity.html#methodtoString">Swift_Mime_MimeEntity::toString()</a></dt>
+						<dd>Get this entire entity in its string form.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_SimpleMessage.html#methodtoString">Swift_Mime_SimpleMessage::toString()</a>
+								: Get this message as a complete string.
+							</li>
+				</ul>
+	</div>
+<a name="method_clearCache" id="_clearCache"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_clearCache</span> (line <span class="line-number">637</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Empty the KeyCache for this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_clearCache
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_fixHeaders" id="_fixHeaders"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_fixHeaders</span> (line <span class="line-number">610</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Re-evaluate what content type and encoding should be used on this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_fixHeaders
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_MimePart.html#method_fixHeaders">Swift_Mime_MimePart::_fixHeaders()</a>
+								: Fix the content-type and encoding of this entity
+							</li>
+				</ul>
+	</div>
+<a name="method_getCache" id="_getCache"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getCache</span> (line <span class="line-number">629</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the KeyCache used in this entity.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getCache
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_getHeaderFieldModel" id="_getHeaderFieldModel"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getHeaderFieldModel</span> (line <span class="line-number">556</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the model data (usually an array or a string) for $field.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getHeaderFieldModel
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$field</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_getHeaderParameter" id="_getHeaderParameter"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getHeaderParameter</span> (line <span class="line-number">583</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the parameter value of $parameter on $field header.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getHeaderParameter
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$parameter</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$field</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$parameter</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_getIdField" id="_getIdField"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_getIdField</span> (line <span class="line-number">548</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the name of the header that provides the ID of this entity</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_getIdField
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_SimpleMessage.html#method_getIdField">Swift_Mime_SimpleMessage::_getIdField()</a>
+							</li>
+				</ul>
+	</div>
+<a name="method_setHeaderFieldModel" id="_setHeaderFieldModel"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_setHeaderFieldModel</span> (line <span class="line-number">567</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the model data for $field.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_setHeaderFieldModel
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$model</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$field</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$model</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_setHeaderParameter" id="_setHeaderParameter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_setHeaderParameter</span> (line <span class="line-number">594</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the parameter value of $parameter on $field header.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_setHeaderParameter
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$field</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$parameter</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$field</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$parameter</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">__toString</span> (line <span class="line-number">478</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns a string representation of this object.</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Swift/Mime/Swift_Mime_SimpleMimeEntity.html#methodtoString">Swift_Mime_SimpleMimeEntity::toString()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Swift/Mime/Swift_Mime_SimpleMessage.html#method__toString">Swift_Mime_SimpleMessage::__toString()</a>
+								: Returns a string representation of this object.
+							</li>
+				</ul>
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 10 Dec 2012 16:28:42 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>
