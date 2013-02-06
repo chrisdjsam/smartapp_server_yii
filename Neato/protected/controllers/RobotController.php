@@ -149,49 +149,7 @@ class RobotController extends Controller
 		));
 	}
 
-	/**
-	 * Deletes a set of robots that were selected by the user from the front end.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete()
-	{
-		self::check_for_admin_privileges();
-		if (isset($_REQUEST['chooseoption'])){
-			foreach ($_REQUEST['chooseoption'] as $robo_id){
-				$robot = Robot::model()->findByAttributes(array('id' => $robo_id));
-				if($robot !== null ){
-					$robot_map_id_arr = array();
-					$robot_schedule_id_arr = array();
-					foreach ($robot->robotMaps as $robot_map){
-						$robot_map_id_arr[] = $robot_map->id;
-					}
-					foreach ($robot->robotSchedules as $robot_schedule){
-						$robot_schedule_id_arr[] = $robot_schedule->id;
-					}
-
-					$chat_id = $robot->chat_id;
-					if($robot->delete()){
-						AppCore::delete_chat_user($chat_id);
-						AppCore::delete_robot_map_data($robot_map_id_arr);
-						AppCore::delete_robot_schedule_data($robot_schedule_id_arr);
-						AppCore::delete_robot_atlas_data($robot->id);
-					}
-				}
-			}
-
-			$count = count($_REQUEST['chooseoption']);
-			$message = AppCore::yii_echo("You have deleted %s robot successfully", $count);
-			if ($count > 1){
-				$message = AppCore::yii_echo("You have deleted %s robots successfully",$count);
-			}
-			Yii::app()->user->setFlash('success', $message);
-		}else{
-			Yii::app()->user->setFlash('error', AppCore::yii_echo("No robot selected to delete"));
-		}
-		$this->redirect(Yii::app()->request->baseUrl.'/robot/list');
-	}
-	
+		
 	/**
 	 * Lists all robots.
 	 */

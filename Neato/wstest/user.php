@@ -1,4 +1,101 @@
 <?php include_once 'common_header.php';?>
+
+
+<form action="<?php echo($baseURL)?>user.check_for_upgrades" method='POST'
+		id='applatestversion' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Check For Upgrades" colspan="2"><label>Check For Upgrades</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get application latest version number and download url.. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.check_for_upgrades<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>app_id</b> :Application ID</li>
+							<li><b>current_appversion</b> :Application version on device (Optional)</li>
+							<li><b>os_type</b> :Operating system on device (Optional)</li>
+							<li><b>os_version</b> :Operating system version on device (Optional)</li>
+							   
+						</ul>
+						Success Responses:
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>
+										{"status":0,"result":{"current_app_version":"1.0.0.1","latest_version":"0.5.1.00","latest_version_url":"http:\/\/rajatogo.com\/public_shared\/GTArena_0.5.1.00.apk","upgrade_status":"0"}}
+									</li>
+								</ul>
+							</li>
+							
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If Application details not found for given ID.
+								<ul>
+									<li>{"status":-1,"message":"App Id does not exist."}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			<tr>
+				<td>app_id</td>
+				<td><input type="text" name='app_id'></td>
+			</tr>
+
+			<tr>
+				<td>current_appversion</td>
+				<td><input type="text" name='current_appversion'></td>
+			</tr>
+			
+			<tr>
+				<td>os_type</td>
+				<td><input type="text" name='os_type'></td>
+			</tr>
+			<tr>
+				<td>os_version</td>
+				<td><input type="text" name='os_version'></td>
+			</tr>
+			
+			<tr>
+				<td><input type="button" name='submit' dummy='applatestversion'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
 	<form action="<?php echo($baseURL)?>user.create" method='POST'
 		id='usercreate' class='ajaxified_forms'>
 
@@ -346,6 +443,365 @@
 		</table>
 	</form>
 
+	
+	<form action="<?php echo($baseURL)?>user.set_attributes"
+		method='POST' id='usersetattributes' class='ajaxified_forms'>
+		<table class='custom_table'>
+			<tr>
+				<td id = "Set Attributes" colspan="2"><label>Set Attributes.</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to set user's attributes like device type and version. Supported profile keys are 'name', 'operating_system', 'version' <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.set_attributes<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>auth_token</b> :User's auth token (received from get user
+								handle call)</li>
+							<li><b>profile</b> :Map of key=>value pairs, e.g.
+								profile{'operating_system'=>'Android',
+								'version'='4.0'}</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>{"status":0,"result":{"success":true,"message":"User attributes are set successfully."}}</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If Auth token Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the User Authentication"}</li>
+								</ul>
+							</li>
+							
+							<li>If value not provided for profile key:
+								<ul>
+									<li>{"status":-1,"message":"Invalid value for key operating_system."}</li>
+								</ul>
+							</li>
+							
+							<li>If problem in setting user attributes:
+								<ul>
+									<li>{"status":-1,"message":"Error in setting user attributes."}</li>
+								</ul>
+							</li>
+							
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			
+			<tr>
+				<td>auth_token</td>
+				<td><input type="text" name='auth_token'></td>
+			</tr>
+			<tr>
+				<td id='labelPlaceholderRow1' colspan="2"></td>
+			</tr>
+			<tr>
+				<td><input type="text" name='labelName' value='' id='labelName1'
+					class='removeFromRequest'>
+				</td>
+				<td>
+					<div id='addLabelLink1'>Add device attribute Key (considered keys are
+						operating_system, version)</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td><input type="button" name='submit' dummy='usersetattributes'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	
+	<form action="<?php echo($baseURL)?>user.get_attributes"
+		method='POST' id='usergetattributes' class='ajaxified_forms'>
+		<table class='custom_table'>
+			<tr>
+				<td id = "Get Attributes" colspan="2"><label>Get Attributes.</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get user's attributes like device type and version. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.get_attributes<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>auth_token</b> :User's auth token (received from get user
+								handle call)</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>{"status":0,"result":{"success":true,"user_attributes":{"name":"mac","operating_system":"","version":""}}}</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If Auth token Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the User Authentication"}</li>
+								</ul>
+							</li>
+							
+							<li>If Attributes are not set:
+								<ul>
+									<li>{"status":-1,"message":"Attributes not found for this user"}</li>
+								</ul>
+							</li>
+							
+							
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			
+			<tr>
+				<td>auth_token</td>
+				<td><input type="text" name='auth_token'></td>
+			</tr>
+			
+			<tr>
+				<td><input type="button" name='submit' dummy='usergetattributes'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	
+	
+	<form action="<?php echo($baseURL)?>user.change_password"
+		method='POST' id='changepassword' class='ajaxified_forms'>
+		<table class='custom_table newaddition'>
+			<tr>
+				<td id = "Change Password" colspan="2"><label>Change Password</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to Change Password. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.change_password<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>auth_token</b> :User's auth_token</li>
+							<li><b>password_old</b> :User's old password</li>
+							<li><b>password_new</b> :User's new password</li>
+						</ul>
+						Success Response:
+
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"Your password is changed successfully."}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If Auth token does not exist:
+								<ul>
+									<li>{"status":-1,"message":"User could not be authenticated."}</li>
+								</ul>
+							</li>
+							<li>If old password does not match with user's existing password:
+								<ul>
+									<li>{"status":-1,"message":"Old password does not match with user password."}</li>
+								</ul>
+							</li>
+							
+							<li>If new password is empty or has only spaces:
+						 		<ul>
+						 			<li>{"status":-1,"message":"Password should contain atleast one character."}</li>
+						 		</ul>
+						 	</li>
+							
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+		
+			<tr>
+				<td>auth_token</td>
+				<td><input type="text" name='auth_token'>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>password_old</td>
+				<td><input type="text" name='password_old'>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>password_new</td>
+				<td><input type="text" name='password_new'>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input type="button" name='submit' dummy='changepassword'
+					value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	<form action="<?php echo($baseURL)?>user.forget_password"
+		method='POST' id='forgetpassword' class='ajaxified_forms'>
+		<table class='custom_table newaddition'>
+			<tr>
+				<td id = "Forget Password" colspan="2"><label>Forget Password</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to Forget Password. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.forget_password<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>email</b> :User's email address</li>
+						</ul>
+						Success Response:
+
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"New password is sent to your email."}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							
+							<li>If email address not found in database:
+								<ul>
+									<li>{"status":-1,"message":"Email does not exist."}</li>
+								</ul>
+							</li>
+							
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+		
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><input type="button" name='submit' dummy='forgetpassword'
+					value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	
+	
+	
 	<form action="<?php echo($baseURL)?>user.get_user_account_details"
 		method='POST' id='usergetuseraccountdetails' class='ajaxified_forms'>
 		<table class='custom_table newaddition'>

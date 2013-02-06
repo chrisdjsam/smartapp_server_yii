@@ -180,7 +180,159 @@ class RobotController extends APIController {
 		$response_data = array("id"=>$robot->id,"name"=>$robot->name,"serial_number"=>$robot->serial_number,"chat_id"=>$robot->chat_id,"chat_pwd"=>$robot->chat_pwd, "users"=>$users_arr);
 		self::success($response_data);
 	}
+	
+	
+/**
+	 * Deletes a set of robots that were selected by the user from the front end.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDeleteRobot()
+	{
+		self::check_for_admin_privileges();
+		if (isset($_REQUEST['chooseoption'])){
+			foreach ($_REQUEST['chooseoption'] as $robo_id){
+				$robot = Robot::model()->findByAttributes(array('id' => $robo_id));
 
+				$_POST['serial_number'] = $robot->serial_number;
+				self::actionDelete(true); 
+				
+			}
+
+			$count = count($_REQUEST['chooseoption']);
+			$message = AppCore::yii_echo("You have deleted %s robot successfully", $count);
+			if ($count > 1){
+				$message = AppCore::yii_echo("You have deleted %s robots successfully",$count);
+			}
+			Yii::app()->user->setFlash('success', $message);
+		}else{
+			Yii::app()->user->setFlash('error', AppCore::yii_echo("No robot selected to delete"));
+		}
+		$this->redirect(Yii::app()->request->baseUrl.'/robot/list');
+	}
+	
+	
+	/**
+	 * Metod to delete a robot for given serial number.
+	 * 
+	 * Parameters:
+	 * <ul>
+	 * 	<li><b>serial_number</b> :Serial number of robot</li> 
+	 * 	<ul>
+	 * Success Responses:
+	* <ul>
+	* 		<li>If everything goes fine
+	* 			<ul>
+	* 				<li>{"status":0,"result":{"success":true,"message":"You have deleted robot 123 successfully"}}
+	* 				</li>
+	* 			</ul>
+	* 		</li>
+	* 								
+	* 	</ul>
+	* 
+	* 	Failure Responses: <br />
+	* 	<ul>
+	* 		<li>If parameter serial_number is missing
+	* 			<ul>
+	* 				<li>{"status":-1,"message":"Missing parameter serial_number in
+	* 					method robot.get_details"}</li>
+	* 			</ul>
+	* 		
+	* 		<li>If serial number does not exist
+	* 			<ul>
+	* 				<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+	* 			</ul>
+	* 		</li>
+	* 	</ul>
+	 * 
+	 * 
+	 */
+	public function actionDelete($prevent_termination = false){
+		
+		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+		
+		if($robot !== null ){
+			$robot_map_id_arr = array();
+			$robot_schedule_id_arr = array();
+			foreach ($robot->robotMaps as $robot_map){
+				$robot_map_id_arr[] = $robot_map->id;
+			}
+			foreach ($robot->robotSchedules as $robot_schedule){
+				$robot_schedule_id_arr[] = $robot_schedule->id;
+			}
+		
+			$chat_id = $robot->chat_id;
+			if($robot->delete()){
+				AppCore::delete_chat_user($chat_id);
+				AppCore::delete_robot_map_data($robot_map_id_arr);
+				AppCore::delete_robot_schedule_data($robot_schedule_id_arr);
+				AppCore::delete_robot_atlas_data($robot->id);
+				
+				$response_message = "You have deleted robot $robot_serial_no successfully";
+				$response_data = array("success"=>true, "message"=>$response_message);
+				
+				if(!$prevent_termination){
+					self::success($response_data);
+				}
+				
+			}else if(!$prevent_termination){
+				$message = self::yii_api_echo("error deleting robot $robot_serial_no.");
+				self::terminate(-1, $message);
+			}
+		}
+			
+		
+	}
+	
+	/**
+	 * Method to set robot profile parameters and values.
+	 * 
+	 * Parameters:
+	* <ul>
+	* 		<li><b>api_key</b> :Your API Key</li>
+	* 		<li><b>serial_number</b> :Serial Number of robot</li>
+	* 		<li><b>profile</b> :Map of key=>value pairs, e.g.
+	* 			profile{'name'=>'room cleaner'}</li>
+	* 	</ul>
+	* 	Success Response:
+	* 	<ul>
+	* 		<li>{"status":0,"result":"1"}</li>
+	* 	</ul>
+	* 
+	* 	Failure Responses: <br />
+	* 	<ul>
+	* 
+	* 		<li>If API Key is missing or not correct:
+	* 			<ul>
+	* 				<li>{"status":-1,"message":"Method call failed the API
+	* 					Authentication"}</li>
+	* 			</ul>
+	* 		</li>
+	* 
+	* 		<li>If serial_number is not provided:
+	* 			<ul>
+	* 				<li>{"status":-1,"message":"Missing parameter serial_number in
+	* 					method robot.set_profile_details"}</li>
+	* 			</ul>
+	* 		</li>
+	* 
+	* 		<li>If profile key is not added:
+	* 			<ul>
+	* 				<li>{"status":-1,"message":"Missing parameter profile in method
+	* 					robot.set_profile_details"}</li>
+	* 			</ul>
+	* 		</li>
+	* 
+	* 		<li>If key is added but value is not provided :
+	* 			<ul>
+	* 				<li>{"status":-1,"message":"Invalid value for key name."}</li>
+	* 			</ul>
+	* 		</li>
+	* 	</ul>
+	* 
+	* 
+    */
 	
 	public function actionSetProfileDetails(){
 	
@@ -214,8 +366,6 @@ class RobotController extends APIController {
 		}
 	
 	}
-	
-	
 	
 	/**
 	 * API to get array of associated users with provided robot serial no

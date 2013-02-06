@@ -19,7 +19,7 @@ $this->breadcrumbs=array(
 		Please note that deleting a robot would also delete the user-robot
 		associations for that specific robot.
 	</p>
-	<form action="<?php echo $this->createUrl('robot/delete') ?>"
+	<form action="<?php echo $this->createUrl('api/robot/deleteRobot') ?>"
 		method="POST" id="robotsList">
 		<div class="action-button-container">
 			<a href="<?php echo $this->createUrl('robot/add')?>"

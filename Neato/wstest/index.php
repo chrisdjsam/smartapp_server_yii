@@ -78,17 +78,31 @@ padding-right: 50px;
 											</li>
 										   <li><a href="user.php#Get API Version">Get API Version</a>
 											</li>
+											<li><a href="user.php#Check For Upgrades"class="new-api">Check For Upgrades</a>
+											</li>
 											<li><a href="user.php#Create User">Create User</a>
 											</li>
 											<li><a href="user.php#Get User Auth Token">Get User Auth
 													Token</a>
 											</li>
+											<li><a href="user.php#Change Password" class="new-api">Change Password</a>
+											</li>
+											<li><a href="user.php#Forget Password" class="new-api">Forget Password</a>
+											</li>
+											
 											<li><a href="user.php#Set User Account Details">Set User
 													Account Details</a>
 											</li>
 											<li><a href="user.php#Get User Account Details">Get User
 													Account Details</a>
 											</li>
+											
+											<li><a href="user.php#Set Attributes" class="new-api">Set Attributes</a>
+											</li>
+											
+											<li><a href="user.php#Get Attributes" class="new-api">Get Attributes</a>
+											</li>							
+											
 											<li><a href="user.php#Get User associated robots">Get User
 													associated robots</a>
 											</li>
@@ -133,20 +147,23 @@ padding-right: 50px;
 										<ul>
 											<li><a href="robot.php#Create Robot">Create Robot</a>
 											</li>
-											<li><a href="robot.php#Check if robot is online" class="new-api">Check if robot is online</a>
+											<li><a href="robot.php#Check if robot is online" class="new-api">Check If Robot Is Online</a>
 											</li>
-											<li><a href="robot.php#Set Robot Profile Details" class="new-api">Set Robot Profile Details</a>
+											<li><a href="robot.php#Set Robot Profile Details">Set Robot Profile Details</a>
 											</li>
 											<li><a href="robot.php#Get Robot Details">Get Robot Details</a>
 											</li>
 											<li><a href="robot.php#Get Robot associated users details">Get
-													Robot associated users details</a>
+													Robot Associated Users Details</a>
 											</li>
 											<li><a href="robot.php#Set Robot User">Set Robot User</a>
 											</li>
 											<li><a href="robot.php#Disassociate Robot from User or Users">Disassociate
 													Robot from User or Users</a>
 											</li>
+											<li><a href="robot.php#Delete Robot">Delete Robot</a>
+											</li>
+											
 										</ul>
 									</td>
 								</tr>
@@ -158,6 +175,41 @@ padding-right: 50px;
 				</table>
 			</td>
 		</tr>
+		
+		
+		<tr>
+			<td class='entry-td'>
+				<table id='api_entry'>
+					<tr>
+						<td><a href="messages.php">Message test console</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table>
+								<tr>
+									<td>On this page, you can test all the web services APIs that
+										are used for messages in user and robot. Available methods are:</td>
+								</tr>
+								<tr>
+									<td>
+										<ul>
+											<li><a href="messages.php#Send Xmpp Message To Robot"  class="new-api">Send Xmpp Message To Robot</a></li>
+											<li><a href="messages.php#Send Message To Associated Users"  class="new-api">Send Message To Associated Users</a></li>
+										</ul>
+									</td>
+								</tr>
+							</table>
+
+						</td>
+					</tr>
+
+				</table>
+			</td>
+		</tr>
+		
+		
+		
 
 		<tr>
 			<td class='entry-td'>
@@ -176,8 +228,8 @@ padding-right: 50px;
 								<tr>
 									<td>
 										<ul>
-											<li><a href="robot_map.php#Post robot map data">Post robot
-													map data</a>
+											<li><a href="robot_map.php#Post robot map data">Post Robot
+													Map Data</a>
 											</li>
 											<li><a href="robot_map.php#Get Robot Maps">Get Robot Maps</a>
 											</li>
@@ -185,7 +237,7 @@ padding-right: 50px;
 													Data</a>
 											</li>
 											<li><a href="robot_map.php#Update robot map data">Update
-													robot map data</a>
+													Robot Map Data</a>
 											</li>
 											<li><a href="robot_map.php#Delete Robot Map">Delete Robot Map</a>
 											</li>

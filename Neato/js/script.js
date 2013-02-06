@@ -273,6 +273,9 @@ $(document).ready(function(){
 		alert("Not implemented yet!");
 		return false;
 	});
+
+	
+		
 	
 	$('.delete-single-robot-map').live('click', function(){
 		if(confirm("Are you sure you want to delete robot map?")){
@@ -411,7 +414,42 @@ $(document).ready(function(){
 	        return false;
 	    }
 	});
+
 	
+	$('.delete-single-app_version').live('click', function(){
+		if(confirm("Are you sure you want to delete app version?")){
+			var this_row_handle = $(this);
+			var urlToDeleteApp = $(this_row_handle).attr("href");
+			$.ajax({
+                type: 'POST',
+                url: urlToDeleteApp,
+                dataType: 'jsonp',
+                success: function(r) {
+                	hideWaitDialog();
+                    if (r.status === 0) {
+            	    	generate_noty("success", "You have successfully deleted a app version.");
+            	    	location.reload();
+                    } else { // Handle errors
+                        generate_noty("error", "Error while deleting app version.");
+                    }
+                },
+                error: function(r) {
+                	hideWaitDialog();
+                	 generate_noty("error", "Error while deleting app version.");
+                },
+                beforeSend: function(){
+                	showWaitDialog();
+                },
+                complete: function(){
+                	hideWaitDialog();
+                }
+            });
+			
+	    }else{
+	        return false;
+	    }
+	});
+
 	
 	
 });

@@ -106,5 +106,52 @@
 		<li>Updated: All test console for Demo Server.</li>
 	</ul>
 	<i>SVN Version Number: 154</i>
+	
+	<p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Modified: response for API robot.is_online.</li>
+		<li>Updated: All test console for Demo Server.</li>
+	</ul>
+	<i>SVN Version Number: 154</i>
+	
+	<p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Updated: common_header.php file for Demo base url</li>
+	</ul>
+	<i>SVN Version Number: 155</i>
+	
+	<p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Added: New APIs, $prevent_termination flag to some validation methods.</li>
+	</ul>
+	<i>SVN Version Number: 156</i>
+	
+	<p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Modified : Send message API for robot and user separated to one place.</li>
+	</ul>
+	<i>SVN Version Number: 157</i>
+	
+	
+	<p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Modified : Changes in Email details, corrections in documentation, code.</li>
+	</ul>
+	<i>SVN Version Number: 158</i>
 </body>
 </html>
