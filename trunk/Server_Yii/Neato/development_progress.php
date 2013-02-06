@@ -74,14 +74,6 @@
 		<li>Added: Reset password and delete user button for admin.</li>
 		<li>Added: encoded_blob_data field for robotschedule.post_data API.</li>
 		<li>Deleted: The Elgg related code base.</li>
-	</ul>
-	<i>SVN Version Number: 104</i>
-
-	<p>
-		<b>Dev:</b>
-	</p>
-	
-	<ul>
 		<li>Added :Models for robot custom data.</li>
 		<li>Added: PhpDoc for API controllers (rest, robot, user).</li>
 		<li>Added : APIs for robot custom data.</li>
@@ -90,7 +82,29 @@
 		<li>Added: API for robot custom data update.</li>
 		<li>Added : PhpDoc for all Controllers and Models.</li>
 		<li>Updated: css and HTML for W3C compliance.</li>
+		<li>Added: db schema, test script (selenium), php docs</li>
+		<li>Added: Web App functionality for adding/updating robot map data.</li>
+		<li>Added: Add map/schedule from UI, start/stop robot, listing online users/robots.</li>
+		<li>Added: Test console, and API for RobotAtlas</li>
+		<li>Added: Atlas-Grid API, test console.</li>
+		<li>Added: Add/update/Delete for Atlas Grid.</li>
+		<li>Modifications: Exposing Delete method for Atlas and Grid API.</li>
+		<li>Added: Index file to link all other api test console.</li>
+		<li>Added: Jabber Integration with 'Robot start/stop' functionality.</li>
+		<li>Modified: Rearranged grids on 'Robot details' page</li>
+		<li>Added: API to check if robot is online.</li>
+		<li>Modified : Method name changed from isRobotOnline to isOnline.</li>
 	</ul>
-	<i>SVN Version Number: 114</i>
+	<i>SVN Version Number: 152</i>
+
+	<p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Modified: response for API robot.is_online.</li>
+		<li>Updated: All test console for Demo Server.</li>
+	</ul>
+	<i>SVN Version Number: 154</i>
 </body>
 </html>

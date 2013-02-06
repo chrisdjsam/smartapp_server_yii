@@ -8,6 +8,8 @@ $this->breadcrumbs=array(
 		$model->name,
 );
 ?>
+
+		
 <fieldset
 	class='data-container static-data-container'>
 	<!-- 	<div class="action-button-container"> -->

@@ -17,6 +17,7 @@ return array(
 		'application.models.*',
 		'application.models.user.*',
 		'application.models.robot.*',
+		'application.models.atlas.*',
 		'application.components.*',
 		'ext.giix-components.*', // giix components
 		'ext.yii-mail.YiiMailMessage',
@@ -122,7 +123,7 @@ return array(
 		'enablewebservicelogging' => true,
 		'fb-permissions' => 'email',
 		'user-auth-token-valid-till' => 30,
-		'app-version-no' => 114,
+		'app-version-no' => 142,
 		'two-way-encrypt-key' => '<YOUR_ENCRYPTION_KEY_HERE>',
 		'robot-data-directory-name' => 'robot_data',
 		'robot-blob-data-directory-name' => 'blob',
@@ -131,5 +132,10 @@ return array(
 		'robot-schedule_blob-data-directory-name' => 'blob',
 		'robot-schedule_xml-data-directory-name' => 'xml',
 		'robot-custom-data-directory-name' => 'robot_custom_data',
+		'robot-atlas-data-directory-name' => 'robot_atlas_data',
+		'robot-atlas-xml-data-directory-name' => 'xml',
+		'robot-atlas-blob-data-directory-name' => 'blob',
+		'robot-start-cleaning-command' => '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>-889275714</signature></header><payload><command><commandid>101</commandid><commanddata/></command></payload></packet>',
+		'robot-stop-cleaning-command' => '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>-889275714</signature></header><payload><command><commandid>102</commandid><commanddata/></command></payload></packet>',
 	),
 );

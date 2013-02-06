@@ -48,4 +48,15 @@ class Robot extends BaseRobot
 		}
 		return false;
 	}
+	
+	/**
+	 * Check for existance of the robot atlas
+	 * @return boolean
+	 */
+	public function doesAtlasExist(){
+		if($this->robotAtlas){
+			return true;
+		}
+		return false;
+	}
 }

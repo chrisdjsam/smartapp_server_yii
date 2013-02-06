@@ -17,7 +17,7 @@ switch ($host_name) {
 
 	case "localhost":
 		//$blob_data_url = "http://localhost/Neato_Server/Server_Yii/Neato/robot_data/13/blob/1353487265.jpg";//for neato-yii localhost
-		$xml_data_url = "http://localhost/Neato_Server/Server_Yii/Neato/robot_data/13/xml/1353487265.xml";
+		$xml_data_url = "http://localhost/Neato_Server/Server_Yii/Neato/robot_map_data_test/robot-13.xml";
 		$blob_data_url = "http://neatostaging.rajatogo.com/robot_data/9/blob/1353516286.jpg";
 		$map_id = "13";
 		break;

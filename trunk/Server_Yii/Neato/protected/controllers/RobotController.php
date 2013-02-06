@@ -30,9 +30,16 @@ class RobotController extends Controller
 		}
 		$id = AppHelper::two_way_string_decrypt($h_id);
 		self::check_function_argument($id);
-
+		
+		$scroll_to = Yii::app()->request->getParam('scroll_to', '');
+		
+		$model =$this->loadModel($id);
+		$isOnline = in_array($model->chat_id, AppCore::getOnlineUsers()); 
+		 
 		$this->render('view',array(
-				'model'=>$this->loadModel($id),
+				'model'=>$model,
+				'isOnline'=>$isOnline,
+				'scroll_to'=>$scroll_to,
 		));
 	}
 
@@ -99,7 +106,7 @@ class RobotController extends Controller
 				'model'=>$model,
 		));
 	}
-
+	
 	/**
 	 * Updates a particular robot.
 	 * If update is successful, the browser will be redirected to the 'view' page of the robot.
@@ -159,8 +166,8 @@ class RobotController extends Controller
 					foreach ($robot->robotMaps as $robot_map){
 						$robot_map_id_arr[] = $robot_map->id;
 					}
-					foreach ($robot->robotSchedules as $robot_schedele){
-						$robot_schedule_id_arr[] = $robot_schedele->id;
+					foreach ($robot->robotSchedules as $robot_schedule){
+						$robot_schedule_id_arr[] = $robot_schedule->id;
 					}
 
 					$chat_id = $robot->chat_id;
@@ -168,6 +175,7 @@ class RobotController extends Controller
 						AppCore::delete_chat_user($chat_id);
 						AppCore::delete_robot_map_data($robot_map_id_arr);
 						AppCore::delete_robot_schedule_data($robot_schedule_id_arr);
+						AppCore::delete_robot_atlas_data($robot->id);
 					}
 				}
 			}
@@ -200,6 +208,7 @@ class RobotController extends Controller
 		));
 	}
 
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -246,6 +255,7 @@ class RobotController extends Controller
 		$id_e = Yii::app()->request->getParam('data_id', '');
 		$id = AppHelper::two_way_string_decrypt($id_e);
 		self::check_function_argument($id);
+		
 
 		$full_file_path = '';
 		switch ($requested_for) {
@@ -281,6 +291,47 @@ class RobotController extends Controller
 				}
 				break;
 
+			case 'atlas' :
+				$id_robot = Yii::app()->request->getParam('id_robot', '');
+				$id_robot = AppHelper::two_way_string_decrypt($id_robot);
+				self::check_function_argument($id_robot);
+				
+				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
+				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . $type;
+					
+				$robot_atlas_model = RobotAtlas::model()->findByAttributes(array('id' => $id));
+				if($robot_atlas_model !== null ){
+					if($type === Yii::app()->params['robot-atlas-xml-data-directory-name']){
+						$file_name= $robot_atlas_model->xml_data_file_name;
+					}
+					$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
+				}
+				break;
+			
+			case 'atlasGridImage' :
+				$id_robot = Yii::app()->request->getParam('id_robot', '');
+				$id_robot = AppHelper::two_way_string_decrypt($id_robot);
+				self::check_function_argument($id_robot);
+				
+				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
+				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . $type;
+
+				
+				$grid_image_model = AtlasGridImage::model()->findByAttributes(array('id' => $id));
+				
+				if($grid_image_model !== null ){
+					
+					if($type === Yii::app()->params['robot-atlas-blob-data-directory-name']){
+						
+						$file_name= $grid_image_model->blob_data_file_name;
+					}
+					$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
+				}
+				break;
+			
+				
 			default :
 		}
 
@@ -293,7 +344,6 @@ class RobotController extends Controller
 	 * @param string $fullPath.
 	 */
 	public function actionDownloadFile($fullPath){
-
 		if(headers_sent()){
 			die('Headers Sent');
 		}

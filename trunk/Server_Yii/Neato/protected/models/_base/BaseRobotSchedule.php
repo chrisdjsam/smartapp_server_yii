@@ -78,7 +78,7 @@ class BaseRobotSchedule extends GxActiveRecord
 				'id' => 'ID',
 				'id_robot' => 'Id Robot',
 				'type' => 'Type',
-				'xml_data_file_name' => 'Xml Data File Name',
+				'xml_data_file_name' => 'XML Data File Name',
 				'blob_data_file_name' => 'Blob Data File Name',
 				'created_on' => 'Created On',
 				'updated_on' => 'Updated On',

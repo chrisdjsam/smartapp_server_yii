@@ -142,18 +142,69 @@ $("#WaitingDialog").dialog({
 $(document).ready(function(){
 	createJQtip();
 	$('.robot-table').dataTable(
-			{"iDisplayLength": 25,
-				"aoColumnDefs": [{"bSortable":false, 'aTargets': [0, 2, 5]}],
+			{"bStateSave":true,
+				"fnStateSave": function (oSettings, oData) {
+		             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+		         },
+		         "fnStateLoad": function (oSettings) {
+		             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
+		         },
+				"iDisplayLength": 25,
+				"aoColumnDefs": [{"bSortable":false, 'aTargets': [0, 2, 7]}],
 				"aaSorting": [ [1,'asc']]}		
 	);
 
 	$('.user-table').dataTable(
-			{"iDisplayLength": 25,
+			{
+				"bStateSave":true,
+				"fnStateSave": function (oSettings, oData) {
+		             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+		         },
+		         "fnStateLoad": function (oSettings) {
+		             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
+		         },
+				"iDisplayLength": 25,
 				"aoColumnDefs": [{"bSortable":false, 'aTargets': [0, 3]}],
 				"aaSorting": [ [1,'asc']]}		
 	);
+	
+	$('.online-robot-table').dataTable(
+			{"bStateSave":true,
+				"fnStateSave": function (oSettings, oData) {
+		             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+		         },
+		         "fnStateLoad": function (oSettings) {
+		             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
+		         },
+				"iDisplayLength": 25,
+				"aoColumnDefs": [{"bSortable":false, 'aTargets': [3]}],
+				"aaSorting": [ [1,'asc']]}		
+	);
+
+	$('.online-user-table').dataTable(
+			{
+				"bStateSave":true,
+				"fnStateSave": function (oSettings, oData) {
+		             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+		         },
+		         "fnStateLoad": function (oSettings) {
+		             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
+		         },
+				"iDisplayLength": 25,
+				"aoColumnDefs": [{"bSortable":false, 'aTargets': [3]}],
+				"aaSorting": [ [1,'asc']]}		
+	);
+
+	
 	$('.user-robot-table').dataTable(
-			{"iDisplayLength": 25,
+			{"bStateSave":true,
+				"fnStateSave": function (oSettings, oData) {
+		             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+		         },
+		         "fnStateLoad": function (oSettings) {
+		             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
+		         },
+				"iDisplayLength": 25,
 				"aoColumnDefs": [{"bSortable":false, 'aTargets': [0]}],
 				"aaSorting": [ [1,'asc']]}		
 	);
@@ -162,16 +213,70 @@ $(document).ready(function(){
 				"aaSorting": [ [9,'desc']]}		
 	);
 	
-	var robot_map_table = $('.robot-map-table').dataTable(
-			{"iDisplayLength": 10,
-				"aoColumnDefs": [{"bSortable":false, 'aTargets': [5]}],
-				"aaSorting": [ [0,'desc']]}		
-	);
+	$('.send-start-command').live('click', function(){
+		var urlToSendStartCommand = $(this).attr("href");
+		$.ajax({
+               type: 'POST',
+               url: urlToSendStartCommand,
+               dataType: 'jsonp',
+               success: function(r) {
+               	hideWaitDialog();
+                   if (r.status === 0) {
+            	    	generate_noty("success", "You have successfully sent <b>start cleaning</b> command.");
+                    } else { // Handle errors
+                        generate_noty("error", "Error while sending start cleaning command.");
+                    }
+                },
+                error: function(r) {
+                	hideWaitDialog();
+                	 generate_noty("error", "Error while sending start cleaning command.");
+                },
+                beforeSend: function(){
+                	showWaitDialog();
+                },
+                complete: function(){
+                	hideWaitDialog();
+                }
+          });
+		return false;
+	});
+	
+	$('.send-stop-command').live('click', function(){
+		var urlToSendStartCommand = $(this).attr("href");
+		$.ajax({
+               type: 'POST',
+               url: urlToSendStartCommand,
+               dataType: 'jsonp',
+               success: function(r) {
+               	hideWaitDialog();
+                   if (r.status === 0) {
+            	    	generate_noty("success", "You have successfully sent <b>stop cleaning</b> command.");
+                    } else { // Handle errors
+                        generate_noty("error", "Error while sending stop cleaning command.");
+                    }
+                },
+                error: function(r) {
+                	hideWaitDialog();
+                	 generate_noty("error", "Error while sending stop cleaning command.");
+                },
+                beforeSend: function(){
+                	showWaitDialog();
+                },
+                complete: function(){
+                	hideWaitDialog();
+                }
+          });
+		return false;
+	});
+
+	$('.send-to-base-command').live('click', function(){
+		alert("Not implemented yet!");
+		return false;
+	});
 	
 	$('.delete-single-robot-map').live('click', function(){
 		if(confirm("Are you sure you want to delete robot map?")){
 			var urlToDeleteMap = $(this).attr("href");
-			var this_row_handle = $(this);
 			$.ajax({
                 type: 'POST',
                 url: urlToDeleteMap,
@@ -179,9 +284,8 @@ $(document).ready(function(){
                 success: function(r) {
                 	hideWaitDialog();
                     if (r.status === 0) {
-                    	var row = $(this_row_handle).closest("tr").get(0);
-            	    	robot_map_table.fnDeleteRow(robot_map_table.fnGetPosition(row));
             	    	generate_noty("success", "You have successfully deleted a robot map.");
+            	    	location.reload();
                     } else { // Handle errors
                         generate_noty("error", "Error while deleting robot map.");
                     }
@@ -202,11 +306,6 @@ $(document).ready(function(){
 	    }
 	});
 	
-	var robot_schedule_table = $('.robot-schedule-table').dataTable(
-			{"iDisplayLength": 10,
-				"aoColumnDefs": [{"bSortable":false, 'aTargets': [6]}],
-				"aaSorting": [ [0,'desc']]}		
-	);
 	
 	$('.delete-single-robot-schedule').live('click', function(){
 		if(confirm("Are you sure you want to delete robot schedule?")){
@@ -219,9 +318,8 @@ $(document).ready(function(){
                 success: function(r) {
                 	hideWaitDialog();
                     if (r.status === 0) {
-                    	var row = $(this_row_handle).closest("tr").get(0);
-            	    	robot_schedule_table.fnDeleteRow(robot_schedule_table.fnGetPosition(row));
             	    	generate_noty("success", "You have successfully deleted a robot schedule.");
+            	    	location.reload();
                     } else { // Handle errors
                         generate_noty("error", "Error while deleting robot schedule.");
                     }
@@ -243,7 +341,80 @@ $(document).ready(function(){
 	    }
 	});
 	
-})
+	
+	$('.delete-robot-atlas').live('click', function(){
+		if(confirm("Are you sure you want to delete robot atlas?")){
+			var this_row_handle = $(this);
+			var urlToDeleteAtlas = $(this_row_handle).attr("href");
+			$.ajax({
+                type: 'POST',
+                url: urlToDeleteAtlas,
+                dataType: 'jsonp',
+                success: function(r) {
+                	hideWaitDialog();
+                    if (r.status === 0) {
+            	    	generate_noty("success", "You have successfully deleted a robot atlas.");
+            	    	//alert("here");
+            	    	var redirect_url = $('#cancel_upload').attr('href');
+            	    	window.location = location.protocol+'//'+window.location.hostname+redirect_url;
+                    } else { // Handle errors
+                        generate_noty("error", "Error while deleting robot atlas.");
+                    }
+                },
+                error: function(r) {
+                	hideWaitDialog();
+                	 generate_noty("error", "Error while deleting robot atlas.");
+                },
+                beforeSend: function(){
+                	showWaitDialog();
+                },
+                complete: function(){
+                	hideWaitDialog();
+                }
+            });
+			return false;
+	    }else{
+	        return false;
+	    }
+	});
+	
+	$('.delete-single-grid-image').live('click', function(){
+		if(confirm("Are you sure you want to delete grid image?")){
+			var this_row_handle = $(this);
+			var urlToDeleteMap = $(this_row_handle).attr("href");
+			$.ajax({
+                type: 'POST',
+                url: urlToDeleteMap,
+                dataType: 'jsonp',
+                success: function(r) {
+                	hideWaitDialog();
+                    if (r.status === 0) {
+            	    	generate_noty("success", "You have successfully deleted a grid image.");
+            	    	location.reload();
+                    } else { // Handle errors
+                        generate_noty("error", "Error while deleting grid image.");
+                    }
+                },
+                error: function(r) {
+                	hideWaitDialog();
+                	 generate_noty("error", "Error while deleting grid image.");
+                },
+                beforeSend: function(){
+                	showWaitDialog();
+                },
+                complete: function(){
+                	hideWaitDialog();
+                }
+            });
+			
+	    }else{
+	        return false;
+	    }
+	});
+	
+	
+	
+});
 
 
 function createJQtip(){

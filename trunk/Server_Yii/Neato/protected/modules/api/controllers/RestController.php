@@ -69,6 +69,7 @@ class RestController extends APIController {
 				true,
 				false);
 
+		
 		self::expose_function('user.set_account_details',
 				"user/SetAccountDetails",
 				array('email' => array ('type' => 'string','required' => false),
@@ -132,6 +133,23 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+		
+		self::expose_function('robot.is_online',
+				"robot/isOnline",
+				array('serial_number' => array ('type' => 'string', 'required' => true),
+				),
+				"check if robot is online",
+				'POST',
+				true,
+				false);
+		self::expose_function('robot.set_profile_details',
+				"robot/SetProfileDetails",
+				array('serial_number' => array ('type' => 'string','required' => true),
+				'profile' => array ('type' => 'array'),),
+				"Set profile details",
+				'POST',
+				false,
+				false);
 
 		self::expose_function('robot.get_details',
 				"robot/getDetails",
@@ -171,7 +189,8 @@ class RestController extends APIController {
 				'username' => array ('type' => 'string'),
 				'password' => array ('type' => 'string', 'required' => true, 'default' => "9999"),),
 				"test login expose", "POST", true, false);
-
+	
+		
 		self::expose_function('robot.post_map_data',
 				"robotMap/PostData",
 				array('serial_number' => array ('type' => 'string', 'required' => true),
@@ -292,6 +311,7 @@ class RestController extends APIController {
 				"Set robot custom data",
 				'POST',
 				true,
+
 				false);
 
 		self::expose_function('robot.get_customs',
@@ -336,7 +356,94 @@ class RestController extends APIController {
 				true,
 				false);
 
+		self::expose_function('robot.add_atlas',
+				"robotAtlas/PostAtlas",
+				array('serial_number' => array ('type' => 'string', 'required' => true),
+						'xml_data' => array ('type' => 'string', 'required' => true),
+				),
 
+				"Pass on a robot serial number, XML data",
+				'POST',
+				true,
+				false);
+
+		self::expose_function('robot.update_atlas',
+				"robotAtlas/UpdateAtlas",
+				array(  'atlas_id' => array ('type' => 'string', 'required' => true),
+						'xml_data_version' => array ('type' => 'string', 'required' => true),
+						'xml_data' => array ('type' => 'string', 'required' => true),
+				),
+
+				"Pass on a robot atlas id, XML data version, XML data",
+				'POST',
+				true,
+				false);
+
+		self::expose_function('robot.delete_atlas',
+				"robotAtlas/Delete",
+				array('atlas_id' => array ('type' => 'string', 'required' => true),
+				),
+		
+				"Pass on a robot atlas id",
+				'POST',
+				true,
+				false);
+		
+		
+		self::expose_function('robot.get_atlas_data',
+				"robotAtlas/GetData",
+				array('serial_number' => array ('type' => 'string', 'required' => true),
+				),
+				"Pass on a robot serial number",
+				'POST',
+				true,
+				false);
+		
+		
+		self::expose_function('robot.post_grid_image',
+				"gridImage/postGridImage",
+				array('id_atlas' => array ('type' => 'string', 'required' => true),
+						'id_grid' => array ('type' => 'string', 'required' => true),
+						'encoded_blob_data' => array ('type' => 'string', 'required' => true),
+				),
+				"Pass on a id_atlas, id_grid, Base 64 encoded_blob_data",
+				'POST',
+				true,
+				false);
+		
+		self::expose_function('robot.update_grid_image',
+				"gridImage/updateGridImage",
+				array('id_atlas' => array ('type' => 'string', 'required' => true),
+						'id_grid' => array ('type' => 'string', 'required' => true),
+						'blob_data_version' => array ('type' => 'string', 'required' => true),
+						'encoded_blob_data' => array ('type' => 'string', 'required' => true),
+				),
+				"Pass on a id_atlas, id_grid, blob data version, Base 64 encoded_blob_data",
+				'POST',
+				true,
+				false);
+
+		
+		self::expose_function('robot.delete_grid_image',
+				"gridImage/DeleteGridImage",
+				array('id_atlas' => array ('type' => 'string', 'required' => true),
+						'id_grid' => array ('type' => 'string', 'required' => true),
+				),
+				"Pass on a id_atlas, id_grid",
+				'POST',
+				true,
+				false);
+		
+		self::expose_function('robot.get_atlas_grid_metadata',
+				"robotAtlas/getAtlasGridMetadata",
+				array('id_atlas' => array ('type' => 'string', 'required' => true),						
+				),
+				"Pass on a id_atlas",
+				'POST',
+				true,
+				false);
+				
+		
 		// Get parameter variables
 		$method = Yii::app()->request->getParam('method', '');
 

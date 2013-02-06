@@ -143,6 +143,18 @@ class AppHelper {
 		}
 		return rmdir($dir);
 	}
+	
+	/**
+	 * This function is used to delete a file
+	 * @param strin $path_to_file
+	 * @return boolean
+	 */
+	public static function deleteFile ($path_to_file) {
+		if (file_exists($path_to_file)) 
+			return unlink($path_to_file); 
+		return false;
+		
+	}
 }
 
 ?>

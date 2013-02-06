@@ -10,6 +10,7 @@ class AppCore {
 	 * Authenticate Api Key
 	 * @return boolean
 	 */
+
 	public static function authenticate_api_key(){
 		$response = false;
 		$api_key = Yii::app()->request->getParam('api_key', false);
@@ -98,6 +99,49 @@ class AppCore {
 		}
 		return false;
 	}
+
+	/**
+	 *
+	 * return connected users
+	 * @return array of chat IDs of all online users and robots.
+	 */
+	public static function getOnlineUsers(){
+		$online_users_array = array();
+		if(Yii::app()->params['isjabbersetup']){
+			$cmd = "sudo ejabberdctl connected_users";
+			$output = shell_exec($cmd);
+			$output = strval($output);
+			$online_users = array();
+			$online_users = array_filter(explode("\n", $output));
+			for($i=0; $i<count($online_users); $i++){
+				$online_user_str = $online_users[$i];
+				$pos = strpos($online_user_str, '/');
+				if($pos){
+					$online_user_str = substr($online_user_str,0, $pos);
+				}
+				$online_users_array[] = $online_user_str;
+			}
+		}else{
+			$online_users_array = explode(',', Yii::app()->params['dummy-online-users']);
+		}
+		return $online_users_array;
+	}
+
+
+	/**
+	 *
+	 * send message to jabber.
+	 * @return array of chat IDs of all online users and robots.
+	 */
+	public static function send_chat_message($from, $to, $message){
+		if(Yii::app()->params['isjabbersetup']){
+			$cmd = "sudo ejabberdctl send-message-chat ". $from . " " . $to . " '" . $message . "'";
+			$output = shell_exec($cmd);
+			$output = strval($output);
+		}
+		return true;
+	}
+
 
 	/**
 	 *
@@ -605,6 +649,10 @@ class AppCore {
 			//check for enable web service logging flag
 			if(Yii::app()->params['enablewebservicelogging']){
 				$remote_address = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : 'not found';
+				//$_REQUEST;
+				if(!isset($_REQUEST['method'])){
+					return false;
+				}
 				$method_name = $_REQUEST['method'];
 				$api_key = $_REQUEST['api_key'];
 				$response_type = $_REQUEST['response_type'];
@@ -672,6 +720,15 @@ class AppCore {
 	}
 
 	/**
+	 * Check for atlas xml data.
+	 * @param string $xml_data
+	 * @return boolean
+	 */
+	public static function validate_atlas_xml_data($xml_data){
+		return true;
+	}
+
+	/**
 	 * Check for robot map blob data.
 	 * @param string $blob_data
 	 * @return boolean
@@ -699,7 +756,7 @@ class AppCore {
 	}
 
 	/**
-	 * Delete all data for provided reobot map ids
+	 * Delete all data for provided robot map ids
 	 * @param mixed $robot_map_id_arr
 	 */
 	public static function delete_robot_map_data($robot_map_id_arr){
@@ -711,7 +768,7 @@ class AppCore {
 	}
 
 	/**
-	 * Delete all data for provided reobot schedule ids
+	 * Delete all data for provided robot schedule ids
 	 * @param unknown $robot_schedule_id_arr
 	 */
 	public static function delete_robot_schedule_data($robot_schedule_id_arr){
@@ -721,7 +778,21 @@ class AppCore {
 			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_schedule);
 		}
 	}
-	
+
+	/**
+	 * Delete all atlas data for provided robot id.
+	 * @param unknown $id_robot
+	 */
+	public static function delete_robot_atlas_data($id_robot){
+
+		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
+		AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot);
+
+	}
+
+
+
 }
 
 ?>

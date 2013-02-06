@@ -29,9 +29,9 @@ $this->breadcrumbs=array(
 		<table class="pretty-table user-robot-table">
 			<thead>
 				<tr>
-					<th style="width: 38px;" title="Select" class='pretty-table-center-th'>Select</th>
-					<th title="User" class='pretty-table-center-th'>User</th>
-					<th title="Robot Serial Number" class='pretty-table-center-th'>Robot Serial Number</th>
+					<th style="width: 38px;" title="Select" >Select</th>
+					<th title="User">User</th>
+					<th title="Robot Serial Number" >Robot Serial Number</th>
 				</tr>
 			</thead>
 			<tbody>

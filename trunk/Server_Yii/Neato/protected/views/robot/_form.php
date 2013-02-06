@@ -6,14 +6,13 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'robot-form',
-	'focus'=>array($model,'serial_number'),
-	'enableAjaxValidation'=>true,
-	//'enableClientValidation'=>true,
-	'clientOptions' => array('validateOnSubmit'=>true),
-)); ?>
-
+	<?php $form=$this->beginWidget('CActiveForm', array(
+		'id'=>'robot-form',
+		'focus'=>array($model,'serial_number'),
+		'enableAjaxValidation'=>true,
+		//'enableClientValidation'=>true,
+		'clientOptions' => array('validateOnSubmit'=>true),
+	)); ?>
 
 	<div class="row">
 	<?php echo $form->labelEx($model,'serial_number'); ?>
