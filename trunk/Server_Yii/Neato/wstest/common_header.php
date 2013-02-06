@@ -94,7 +94,7 @@ tr.Facebook {
 	display: none;
 }
 
-#addLabelLink {
+#addLabelLink, #addLabelLink1 {
 	cursor: pointer;
 	color: blue;
 }

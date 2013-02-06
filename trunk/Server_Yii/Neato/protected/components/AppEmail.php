@@ -28,7 +28,7 @@ class AppEmail {
 	public static function emailChangePassword($email, $name, $new_password, $login_link){
 		$login_link = "http://".$_SERVER['SERVER_NAME'].$login_link;
 		$message = AppCore::yii_echo("changepassword_message", array($name, $email, $new_password, $login_link));
-        $subject = AppCore::yii_echo("changepassword_subject");
+        $subject = AppCore::yii_echo("change_password_subject");
         AppHelper::send_mail($email, $subject, $message);
 		
 	}

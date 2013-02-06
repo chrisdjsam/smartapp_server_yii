@@ -54,7 +54,45 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+		
+		
+		self::expose_function('user.change_password',
+				"user/ChangePassword",
+				array( 
+						'auth_token' => array ('type' => 'string', 'required' => true),
+						'password_new' => array ('type' => 'string', 'required' => true),
+						'password_old' => array ('type' => 'string', 'required' => true),
+				),
+				"Change user password",
+				'POST',
+				true,
+				false);
+		
+		self::expose_function('user.forget_password',
+				"user/ForgetPassword",
+				array(
+						'email' => array ('type' => 'string', 'required' => true),
+				),
+				"Request a new password by email",
+				'POST',
+				true,
+				false);
+		
 
+		self::expose_function('user.check_for_upgrades',
+				"app/CheckForUpgrades",
+				array('app_id' => array ('type' => 'string', 'required' => true),
+				'current_appversion' => array ('type' => 'string', 'required' => false),
+				'os_type' => array ('type' => 'string', 'required' => false),
+				'os_version' => array ('type' => 'string', 'required' => false),
+				),
+				"Check for upgrade for application.",
+				'POST',
+				true,
+				false);
+		
+		
+		
 		self::expose_function('user.create',
 				"user/create",
 				array('name' => array ('type' => 'string'),
@@ -78,7 +116,31 @@ class RestController extends APIController {
 				'POST',
 				true,
 				true);
-
+		
+		
+		self::expose_function('user.set_attributes',
+				"user/SetAttributes",
+				array('auth_token' => array ('type' => 'string', 'required' => true),
+						'profile' => array ('type' => 'array'),),
+				
+				'Set attributes like device type and version.',
+				'POST',
+				true,
+				true);
+		
+		self::expose_function('user.get_attributes',
+				"user/GetAttributes",
+				array(
+						'auth_token' => array ('type' => 'string', 'required' => true),
+				),
+				'Get attributes like device type and version.',
+				'POST',
+				true,
+				true);
+		
+		
+		
+		
 		self::expose_function('user.get_user_account_details',
 				"user/GetAccountDetails",
 				array('email' => array ('type' => 'string','required' => false),
@@ -142,6 +204,33 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+				
+		self::expose_function('message.send_xmpp_message_to_robot',
+				"message/SendXmppMessageToRobot",
+				array(
+				'user_id' => array ('type' => 'string', 'required' => true),
+				'serial_number' => array ('type' => 'string', 'required' => true),
+				'message' => array ('type' => 'string', 'required' => true),
+				),
+				"send message to robot",
+				'POST',
+				true,
+				false);
+		
+		
+		self::expose_function('message.send_message_to_associated_users',
+				"message/SendMessageToAssociatedUsers",
+				array(
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'message_type' => array ('type' => 'string', 'required' => true),
+						'message' => array ('type' => 'string', 'required' => true),
+				),
+				"send message to associated users",
+				'POST',
+				true,
+				false);
+				
+				
 		self::expose_function('robot.set_profile_details',
 				"robot/SetProfileDetails",
 				array('serial_number' => array ('type' => 'string','required' => true),
@@ -158,6 +247,16 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+		
+		
+		self::expose_function('robot.delete',
+				"robot/delete",
+				array('serial_number' => array ('type' => 'string', 'required' => true)),
+				"Pass on a robot serial number to delete robot",
+				'POST',
+				true,
+				false);
+		
 
 		self::expose_function('robot.get_associated_users',
 				"robot/GetAssociatedUser",
@@ -442,6 +541,8 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+		
+		
 				
 		
 		// Get parameter variables

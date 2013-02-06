@@ -820,6 +820,7 @@ input,textarea {
 	padding-left: 3px;
 	padding-right: 3px;
 	vertical-align: middle;
+	word-wrap: break-word;
 }
 
 .pretty-table .pretty-table-center-td,.pretty-table .pretty-table-center-th

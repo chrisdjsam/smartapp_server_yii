@@ -131,15 +131,19 @@ class AppCore {
 	/**
 	 *
 	 * send message to jabber.
-	 * @return array of chat IDs of all online users and robots.
+	 *
 	 */
 	public static function send_chat_message($from, $to, $message){
 		if(Yii::app()->params['isjabbersetup']){
-			$cmd = "sudo ejabberdctl send-message-chat ". $from . " " . $to . " '" . $message . "'";
+			$message = escapeshellarg($message);
+			$cmd = "sudo ejabberdctl send-message-chat ". $from . " " . $to . " " . $message;
 			$output = shell_exec($cmd);
 			$output = strval($output);
+			return true;
+		}else{
+			return false;
 		}
-		return true;
+		
 	}
 
 
@@ -558,9 +562,10 @@ class AppCore {
 
 				</html>",
 				/**
-				 *  Reset password email
-	 */
-				'changepassword_subject' => "Neato-Robotics reset password",
+				 *  Reset/Change password email
+	 			*/
+				'change_password_subject' => "Neato-Robotics change password",
+				'resetpassword_subject' => "Neato-Robotics reset password",
 				'changepassword_message' => "<html><body>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>

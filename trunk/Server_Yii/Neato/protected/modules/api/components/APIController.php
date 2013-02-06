@@ -61,18 +61,40 @@ class APIController extends Controller {
 	/**
 	 * Common code to all API Controllers to check existence of robot for provided serial no, if not terminate with error messge
 	 * @param int $robot_serial_no
+	 * @param boolean $prevent_termination
 	 * @return object of cactiverecord for robot
 	 */
-	protected function verify_for_robot_serial_number_existence($robot_serial_no){
+	protected function verify_for_robot_serial_number_existence($robot_serial_no, $prevent_termination = false){
 		$robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
 		if($robot !== null ){
 			return $robot;
 		}
-		else{
+		else if(!$prevent_termination){
 			$response_message = self::yii_api_echo('Robot serial number does not exist');
 			self::terminate(-1, $response_message);
 		}
 	}
+	
+	
+	/**
+	 * Common code to all API Controllers to check existence of user for provided id, if not terminate with error messge
+	 * @param int $id_user
+	 * @param boolean $prevent_termination
+	 * @return object of cactiverecord for user
+	 */
+	protected function verify_for_user_id_existence($id_user, $prevent_termination = false){
+		
+		$user = User::model()->findByPk($id_user);
+		if($user !== null ){
+			return $user;
+		}
+		else if(!$prevent_termination){
+			$response_message = self::yii_api_echo('User ID does not exist');
+			self::terminate(-1, $response_message);
+		}
+	}
+	
+	
 	/**
 	 * Common code to all API Controllers to check repetition, if not terminate with error messge
 	 * @param int $robot_map_id

@@ -161,6 +161,16 @@ class UserController extends APIController {
 				if ($user_password !== ''){
 					$password = AppHelper::one_way_encrypt($user_password);
 					$user = User::model()->findByAttributes(array('email' => $user_email,'password' => $password));
+					
+					if($user == null){
+						$user = User::model()->findByAttributes(array('email' => $user_email,'reset_password' => $password));
+						if($user !== null){
+							$user->password = $password;
+							$user->update();
+						}
+					}
+					
+					
 					if ($user !== null){
 						$user_auth_token = AppCore::create_user_auth_token($user->id);
 						if ($user_auth_token){
@@ -200,7 +210,164 @@ class UserController extends APIController {
 		}
 
 	}
+	
+	/**
+	 * This method is used for generate new password and send by email.
+	 * * Parameters:
+	* <ul>
+	* 	<li><b>api_key</b> :Your API Key</li>
+	* 	<li><b>email</b> :User's email address</li>
+	* </ul>
+	* Success Response:
+	* 
+	* <ul>
+	* 	<li>If everything goes fine
+	* 		<ul>
+	* 			<li>{"status":0,"result":{"success":true,"message":"New password is sent to your email."}}</li>
+	* 		</ul>
+	* 	</li>
+	* </ul>
+	* 
+	* Failure Responses: <br />
+	* <ul>
+	* 
+	* 	<li>If API Key is missing or not correct:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Method call failed the API
+	* 				Authentication"}</li>
+	* 		</ul>
+	* 	</li>
+	* 	
+	* 	<li>If email address not found in database:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Email does not exist."}</li>
+	* 		</ul>
+	* 	</li>
+	* 	
+	* </ul>
+	 */
+	public function actionForgetPassword(){
+		
+		$email = Yii::app()->request->getParam('email', '');
+		$email = trim($email);
+		$user_model = User::model()->findByAttributes(array("email" => $email));
+		if($user_model != null){
+			$new_password = AppHelper::generateRandomString();
+			$encrypted_new_password  = AppHelper::one_way_encrypt($new_password);
+		
+			$user_model->reset_password = $encrypted_new_password;
+			$user_name = $user_model->name;
+			$login_link = $this->createUrl("/user/login");
+			if($user_model->save()){
+				AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
+				$response_message = "New password is sent to your email.";
+				$response_data = array("success"=>true, "message"=>$response_message);
+				self::success($response_data);
+			}else{
+				$response_message = "Error in generating new password.";
+			}
+			
+		}else{
+			$response_message = "Email does not exist.";
+			self::terminate(-1, $response_message);
+		}
+		
+		
+	}
+	/**
+	 * Method to changed password of user. And send by email.
+	 * 
+	 * Parameters:
+	* <ul>
+	* 	<li><b>api_key</b> :Your API Key</li>
+	* 	<li><b>auth_token</b> :User's auth_token</li>
+	* 	<li><b>password_old</b> :User's old password</li>
+	* 	<li><b>password_new</b> :User's new password</li>
+	* </ul>
+	* Success Response:
+	* 
+	* <ul>
+	* 	<li>If everything goes fine
+	* 		<ul>
+	* 			<li>{"status":0,"result":{"success":true,"message":"Your password is changed successfully."}}</li>
+	* 		</ul>
+	* 	</li>
+	* </ul>
+	* 
+	* Failure Responses: <br />
+	* <ul>
+	* 
+	* 	<li>If API Key is missing or not correct:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Method call failed the API
+	* 				Authentication"}</li>
+	* 		</ul>
+	* 	</li>
+	* 	<li>If Auth token does not exist:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"User could not be authenticated."}</li>
+	* 		</ul>
+	* 	</li>
+	* 	<li>If old password does not match with user's existing password:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Old password does not match with user password."}</li>
+	* 		</ul>
+	* 	</li>
+	* 	
+	* 	<li>If new password is empty or has only spaces:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Password should contain atleast one character."}</li>
+	* 		</ul>
+	* 	</li>
+	* 	
+	* </ul>
+	 */
+	public function actionChangePassword(){
 
+		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
+		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
+		$user = User::model()->findByAttributes(array('id' => $user_api_session->id_user));
+		if ($user !== null){
+			
+			$password_old = Yii::app()->request->getParam('password_old', '');
+			if($user->password == AppHelper::one_way_encrypt($password_old)){
+				$password_new = Yii::app()->request->getParam('password_new', '');
+				if(trim($password_new)){
+					$encripted_password = AppHelper::one_way_encrypt($password_new);
+					$user->password = $encripted_password;
+					$user->reset_password = $encripted_password;
+										
+					$email = trim($user->email);
+					$user_name = $user->name;
+					$login_link = $this->createUrl("/user/login");
+					
+					if($user->update()){
+						AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link);
+						$response_message = "Your password is changed successfully.";
+						$response_data = array("success" => true, "message" => $response_message );
+						self::success($response_data);
+					}else{
+						$response_message = "Problem in setting new password.";
+					}
+					
+				}else{
+				$response_message = "Password should contain atleast one character.";			
+				}
+				
+			}else{
+			$response_message = "Old password does not match with user password.";			
+			}
+					
+			
+		}else{
+			$response_message = "User could not be authenticated.";			
+		}
+		
+		self::terminate(-1, $response_message);
+		
+	}
+	
+	
 	/**
 	 * API to get user details
 	 *
@@ -285,6 +452,210 @@ class UserController extends APIController {
 		}
 	}
 
+/**
+ * This method sets user attributes in database. 
+ * 
+ *  Parameters:
+* <ul>
+* 	<li><b>api_key</b> :Your API Key</li>
+* 	<li><b>auth_token</b> :User's auth token (received from get user
+* 		handle call)</li>
+* 	<li><b>profile</b> :Map of key=>value pairs, e.g.
+* 		profile{'operating_system'=>'Android',
+* 		'version'='4.0'}</li>
+* </ul>
+* Success Response:
+* <ul>
+* 	<li>{"status":0,"result":{"success":true,"message":"User attributes are set successfully."}}</li>
+* </ul>
+* 
+* Failure Responses: <br />
+* <ul>
+* 
+* 	<li>If API Key is missing or not correct:
+* 		<ul>
+* 			<li>{"status":-1,"message":"Method call failed the API
+* 				Authentication"}</li>
+* 		</ul>
+* 	</li>
+* 	<li>If Auth token Key is missing or not correct:
+* 		<ul>
+* 			<li>{"status":-1,"message":"Method call failed the User Authentication"}</li>
+* 		</ul>
+* 	</li>
+* 	
+* 	<li>If value not provided for profile key:
+* 		<ul>
+* 			<li>{"status":-1,"message":"Invalid value for key operating_system."}</li>
+* 		</ul>
+* 	</li>
+* 	
+* 	<li>If problem in setting user attributes:
+* 		<ul>
+* 			<li>{"status":-1,"message":"Error in setting user attributes."}</li>
+* 		</ul>
+* 	</li>
+* 	
+* </ul>
+ */	
+	public function actionSetAttributes(){
+		
+		$user_profile = Yii::app()->request->getParam('profile', '');
+		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
+		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
+		$user = User::model()->findByAttributes(array('id' => $user_api_session->id_user));
+		$response_message ="";
+		if ($user !== null){
+			
+			$device_details = new DeviceDetails;
+			$userDevice = UserDevices::model()->findByAttributes(array('id_user' =>$user->id));
+			
+			if($userDevice && $userDevice->idDeviceDetails){
+				$device_details = $userDevice->idDeviceDetails;
+			}
+				
+			$supported_keys = array('name','version', 'operating_system');
+			$keys = array();
+			foreach ($user_profile as $key => $value){
+				$keys[] = $key;
+				if(trim($value) === ''){
+					$message = self::yii_api_echo("Invalid value for key $key.");
+					self::terminate(-1, $message);
+				}
+				
+				switch ($key) {
+					case "name":
+						$device_details->name = $value;
+						break;
+					
+					case "operating_system":
+						$device_details->operating_system = $value;
+						break;
+		
+					case "version":
+						$device_details->version = $value;
+						break;
+						
+					default:;
+						break;
+				}
+			}
+			
+			$result = array_intersect($supported_keys, $keys);
+			if(empty($result)){
+					
+				//don't perform if no any key supported
+					
+				$response_message = "User attributes are set successfully.";
+				$response_data = array("success"=>true,"message"=>$response_message);
+				self::success($response_data);
+			}
+			
+			
+			if($device_details->id && $device_details->update()){
+				
+				$response_message = "User attributes are set successfully.";
+				$response_data = array("success"=>true,"message"=>$response_message);
+				self::success($response_data);
+				
+			}else if($device_details->save()){
+
+				$userDevice = new UserDevices();
+				$userDevice->id_user = $user->id;
+				$userDevice->id_device_details = $device_details->id;
+				
+				if($userDevice->save()){
+					
+					$response_message = "User attributes are set successfully.";
+					$response_data = array("success"=>true,"message"=>$response_message);
+					self::success($response_data);
+					
+				}else{
+					$response_message = "Error in setting user attributes.";
+				}
+				
+			} else {
+				$response_message = "Error in setting user attributes.";
+			}
+			
+			
+		}else{
+			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
+		}
+		
+		self::terminate(-1, $response_message);
+		
+	}
+	
+	/**
+	 * Method to get user attributes like type of device and operating system.
+	 * 
+	 * Parameters:
+	* <ul>
+	* 	<li><b>api_key</b> :Your API Key</li>
+	* 	<li><b>auth_token</b> :User's auth token (received from get user
+	* 		handle call)</li>
+	* </ul>
+	* Success Response:
+	* <ul>
+	* 	<li>{"status":0,"result":{"success":true,"user_attributes":{"name":"mac","operating_system":"","version":""}}}</li>
+	* </ul>
+	* 
+	* Failure Responses: <br />
+	* <ul>
+	* 
+	* 	<li>If API Key is missing or not correct:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Method call failed the API
+	* 				Authentication"}</li>
+	* 		</ul>
+	* 	</li>
+	* 	<li>If Auth token Key is missing or not correct:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Method call failed the User Authentication"}</li>
+	* 		</ul>
+	* 	</li>
+	* 	
+	* 	<li>If Attributes are not set:
+	* 		<ul>
+	* 			<li>{"status":-1,"message":"Attributes not found for this user"}</li>
+	* 		</ul>
+	* 	</li>
+	* 	
+	* 	
+	* </ul>
+	 */
+	
+	public function actionGetAttributes(){
+		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
+		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
+		$user = User::model()->findByAttributes(array('id' => $user_api_session->id_user));
+		$response_message ="";
+		$response_data = ""; 
+		if ($user !== null){
+			
+			$user_device =  UserDevices::model()->findByAttributes(array("id_user"=>$user->id));
+			if($user_device && $user_device->idDeviceDetails){
+				$device_details = $user_device->idDeviceDetails; 
+				$user_attributes = array("name"=>$device_details->name, "operating_system" => $device_details->operating_system, "version" => $device_details->version);
+				$response_data = array("success"=>true, "user_attributes"=> $user_attributes);
+				self::success($response_data);
+			}else{
+				
+				$response_message ="Attributes not found for this user";
+				
+			}
+			
+		}else{
+			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
+		}
+		
+		self::terminate(-1, $response_message);
+				
+	}
+	
+	
+	
 	/**
 	 * API to get user associated robot list and details
 	 *

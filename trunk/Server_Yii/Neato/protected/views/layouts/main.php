@@ -76,61 +76,69 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 					</li> 
 				</ul>
 				<ul class="menu-user ">
-				<?php }?>
-				 
-				<?php if(!$isAdmin){?>
-				<ul class="menu-user noAdminMenuUser">
-				<li>Logged in as <a
-						href="<?php echo $this->createUrl('/user/userprofile')?>"
-						title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?>
-					</a> 
-					</li>
-				<?php }?>
-													
-					<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
-						title="My Profile">My Profile</a></li>
-					<?php if($isAdmin){ ?>
-					<li><a href="<?php echo $this->createUrl('user/list')?>"
-						title="List of all Users">Users</a>
-					</li>
-					<li><a href="<?php echo $this->createUrl('/robot/list')?>"
-						title="List of all Robots">Robots</a>
-					</li>
-					<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"
-						title="List of all User-Robot Associations">User-Robot
-							Associations</a>
-					</li>
-					<li ><a href="<?php echo $this->createUrl('/online/list')?>"
-						title="List of all online User-Robot ">Who's online</a>
-					</li>
 					<?php }?>
-					<li><a href="<?php echo $this->createUrl('/user/changepassword')?>"
-						title="Change your password">Change Password</a></li>
-					<li><a href="<?php echo $this->createUrl('/user/logout')?>"
-						title="Log Out">Log Out</a>
-					</li>
-				</ul>
-				<?php }	?>
-				<h1>
-					<a href="<?php echo $this->createUrl("/")?>" title="Neato Robotics">
-						<div id="logo">
-							<?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo.png","Neato Robotics", array('class'=> 'app-logo')); ?>
+
+					<?php if(!$isAdmin){?>
+					<ul class="menu-user noAdminMenuUser">
+						<li>Logged in as <a
+							href="<?php echo $this->createUrl('/user/userprofile')?>"
+							title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?>
+						</a>
+						</li>
+						<?php }?>
+
+						<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
+							title="My Profile">My Profile</a></li>
+						<?php if($isAdmin){ ?>
+						<li><a href="<?php echo $this->createUrl('user/list')?>"
+							title="List of all Users">Users</a>
+						</li>
+						<li><a href="<?php echo $this->createUrl('/robot/list')?>"
+							title="List of all Robots">Robots</a>
+						</li>
+						<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"
+							title="List of all User-Robot Associations">User-Robot
+								Associations</a>
+						</li>
+						<li><a href="<?php echo $this->createUrl('/online/list')?>"
+							title="List of all online User-Robot ">Who's online</a>
+						</li>
+
+						<?php }?>
+						<li><a href="<?php echo $this->createUrl('/app/list')?>"
+							title="List of all available app versions ">Version Control</a>
+						</li>
+						<li><a
+							href="<?php echo $this->createUrl('/user/changepassword')?>"
+							title="Change your password">Change Password</a></li>
+						<li><a href="<?php echo $this->createUrl('/user/logout')?>"
+							title="Log Out">Log Out</a>
+						</li>
+					</ul>
+					<?php }	?>
+					<h1>
+						<a href="<?php echo $this->createUrl("/")?>"
+							title="Neato Robotics">
+							<div id="logo">
+								<?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo.png","Neato Robotics", array('class'=> 'app-logo')); ?>
+							</div>
+						</a>
+					</h1>
+					<div class="top-buttons-container">
+						<?php if(!$isLoggedIn){?>
+						<div class="button-div button-register neato-button:hover">
+							<a class="neato-button neato-button-register"
+								href="<?php echo $this->createUrl('/user/register')?>"
+								title="Register">Register</a>
 						</div>
-					</a>
-				</h1>
-				<div class="top-buttons-container">
-					<?php if(!$isLoggedIn){?>
-					<div class="button-div button-register neato-button:hover">
-						<a class="neato-button neato-button-register"
-							href="<?php echo $this->createUrl('/user/register')?>"
-							title="Register">Register</a>
+						<div class="button-div button-login neato-button:hover">
+							<a class="neato-button neato-button-login"
+								href="<?php echo $this->createUrl('/user/login')?>"
+								title="Login">Login</a>
+						</div>
+						<?php }?>
 					</div>
-					<div class="button-div button-login neato-button:hover">
-						<a class="neato-button neato-button-login"
-							href="<?php echo $this->createUrl('/user/login')?>" title="Login">Login</a>
-					</div>
-					<?php }?>
-				</div>
+			
 			</div>
 		</div>
 		<!-- header -->
@@ -178,6 +186,8 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	<!-- noty -->
 	<script type="text/javascript"
 		src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/noty/jquery.noty.min.js"></script>
+	<script type="text/javascript"
+		src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery.form-2.94.js"></script>
 	<!-- layouts -->
 	<script type="text/javascript"
 		src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/noty/layouts/bottomRight.js"></script>

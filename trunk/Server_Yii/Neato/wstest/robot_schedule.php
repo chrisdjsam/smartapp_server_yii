@@ -376,7 +376,7 @@
 							<li><b>schedule_type</b> :Basic OR Advanced (Optional)</li>
 							<li><b>xml_data_version</b> :XML data version</li>
 							<li><b>xml_data</b> :XML data for robot schedule (Optional)</li>
-							<li><b>blob_ata_version</b> :Blob data version</li>
+							<li><b>blob_data_version</b> :Blob data version</li>
 							<!-- 							<li><b>blob_data_file_extension</b> :blob_data_file_extension (Optional)</li> -->
 							<li><b>encoded_blob_data</b> :Base 64 encoded string (Optional) . You can generate base 64 encoded string for a file using this <a href='robot_data_encode.php' target='_blank'>link</a>
 							</li>

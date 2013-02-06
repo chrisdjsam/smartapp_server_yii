@@ -672,4 +672,88 @@
 		</table>
 	</form>
 
+	
+		<form action="<?php echo($baseURL)?>robot.delete" method='POST'
+		id='robotdelete' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Delete Robot" colspan="2"><label>Delete Robot</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to delete robot. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.delete<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of robot</li>
+						</ul>
+						Success Responses:
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"You have deleted robot 123 successfully"}}
+									</li>
+								</ul>
+							</li>
+													
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If parameter serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in
+										method robot.get_details"}</li>
+								</ul>
+							
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" name='submit' dummy='robotdelete'
+					value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	
+	
 <?php include_once 'common_footer.php';?>
