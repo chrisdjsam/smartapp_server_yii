@@ -115,13 +115,13 @@ class RobotCustomController extends APIController {
 	 *	</li>
 	 *	<li>If serial number provided but keys not provided.
 	 *		<ul>
-	 *			<li>{"status":-1,"message":"Provide atlest one data"}</li>
+	 *			<li>{"status":-1,"message":"Provide atleast one data"}</li>
 	 *		</ul>
 	 *	</li>
 	 *	<li>If serial number and key provided but both blob_data[] and
 	 *		encoded_blob_data[] are not provided.
 	 *		<ul>
-	 *			<li>{"status":-1,"message":"Provide atlest one data"}</li>
+	 *			<li>{"status":-1,"message":"Provide atleast one data"}</li>
 	 *		</ul>
 	 *	</li>
 	 *	<li>If a parameter is missing
@@ -143,7 +143,7 @@ class RobotCustomController extends APIController {
 
 		if (!$encoded_blob_data_arr || !isset($_FILES['blob_data'])) {
 			if (!$encoded_blob_data_arr){
-				$response_message = self::yii_api_echo('Provide atlest one data.');
+				$response_message = self::yii_api_echo('Provide atleast one data.');
 				self::terminate(-1, $response_message);
 			}
 			foreach ($encoded_blob_data_arr as $key=>$value){
@@ -155,7 +155,7 @@ class RobotCustomController extends APIController {
 				}
 			}
 			if ($is_encode_blob_data_exist){
-				$response_message = self::yii_api_echo('Provide atlest one data.');
+				$response_message = self::yii_api_echo('Provide atleast one data.');
 				self::terminate(-1, $response_message);
 			}
 		}
@@ -511,7 +511,7 @@ class RobotCustomController extends APIController {
 	 *	</li>
 	 *	<li>If custom id provided but keys not provided.
 	 *		<ul>
-	 *			<li>{"status":-1,"message":"Provide atlest one data and
+	 *			<li>{"status":-1,"message":"Provide atleast one data and
 	 *				version."}</li>
 	 *		</ul>
 	 *	</li>
@@ -519,7 +519,7 @@ class RobotCustomController extends APIController {
 	 *		blob_data_version[],blob_data[] and encoded_blob_data[] are not
 	 *		provided.
 	 *		<ul>
-	 *			<li>{"status":-1,"message":"Provide atlest one data and
+	 *			<li>{"status":-1,"message":"Provide atleast one data and
 	 *				version."}</li>
 	 *		</ul>
 	 *	</li>
@@ -561,7 +561,7 @@ class RobotCustomController extends APIController {
 				}
 			}
 		}else{
-			$response_message = self::yii_api_echo('Provide atlest one data and version.');
+			$response_message = self::yii_api_echo('Provide atleast one data and version.');
 			self::terminate(-1, $response_message);
 		}
 

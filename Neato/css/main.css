@@ -313,10 +313,20 @@ ul,li,menu,dir {
 }
 
 .menu-user {
-	margin-top: 27px;
 	color: #999999;
 	float: right;
+	
 }
+.noAdminMenuUser{
+	margin-top: 27px;
+}
+
+.adminMenuUser{
+	float: right;
+	text-align:right;
+	width:	34%;
+}
+
 
 .menu-user a {
 	color: #999999;
@@ -418,7 +428,7 @@ vertical-align :middle;
 }
 
 .module,.body,.col-last,.form {
-	min-height: 450px;
+	min-height: 270px;
 	line-height: 1.4em;
 }
 
@@ -918,6 +928,10 @@ a.neato-button {
 	width: 65px;
 }
 
+a.neato-button-large {
+	width: auto;
+}
+
 a.neato-button-register {
 	font-size: 13px;
 }
@@ -949,7 +963,7 @@ table.detail-view {
 	clear: both;
 	font-weight: bold;
 	color: #33408E;
-	font-size: 14px;
+	font-size: 14px;	
 }
 
 .robot-data-table-separator {
@@ -963,6 +977,7 @@ table.detail-view {
 
 .popup-container {
 	width: 530px;
+	padding:10px;
 }
 
 .popup-body {
@@ -1048,4 +1063,8 @@ a.user-neato-button {
 .wait-dialog-image {
 	height: 100px;
 	width: 100px;
+}
+
+fieldset.robot-online-fieldset{
+	min-height: auto;
 }

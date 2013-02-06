@@ -423,7 +423,7 @@ class UserController extends APIController {
 				$user_auth_tken_valid_till = Yii::app()->params['user-auth-token-valid-till'];
 				$user_api_session->expires = $ts + 3600*24*$user_auth_tken_valid_till;
 				$user_api_session->save();
-				$response_data = array("success"=>true, "message"=>self::yii_api_echo('You are successfully updated auth token expiry date.'));
+				$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully updated auth token expiry date.'));
 				self::success($response_data);
 			}else{
 				$response_message = self::yii_api_echo('Method call failed the User Authentication');
@@ -541,7 +541,7 @@ class UserController extends APIController {
 	 *			</li>
 	 *		</ul>
 	 *	</li>
-	 *	<li>If email does exist but the social information does not exist
+	 *	<li>If email exist but the social information does not exist
 	 *		<ul>
 	 *			<li>{"status":0,"result":{"success":true,"guid":55,"message":"Merged
 	 *				user","user_handle":"ce475c5c9b84938f368efe99100b2a11"}}</li>
@@ -590,7 +590,7 @@ class UserController extends APIController {
 		$user_email = Yii::app()->request->getParam('email', '');
 
 		if(!AppHelper::is_valid_email($user_email)){
-			$message = self::yii_api_echo("The email address you provided does not appear to be a valid email address.");
+			$message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
 			self::terminate(-1, $message);
 		}
 		$user_password = $_REQUEST['password'];
@@ -700,11 +700,11 @@ class UserController extends APIController {
 
 					self::success($response_data);
 				}else{
-					$response_message = self::yii_api_echo('This email address has already been registered.');
+					$response_message = self::yii_api_echo('This email address has been already registered.');
 					self::terminate(-1, $response_message);
 				}
 			}else{
-				$response_message = self::yii_api_echo('This email address has already been registered.');
+				$response_message = self::yii_api_echo('This email address has been already registered.');
 				self::terminate(-1, $response_message);
 			}
 		}else{

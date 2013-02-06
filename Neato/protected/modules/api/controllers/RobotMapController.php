@@ -97,6 +97,7 @@ class RobotMapController extends APIController {
 	 *</ul>
 	 */
 	public function actionPostData(){
+
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 		$robot_id = $robot->id;
@@ -654,6 +655,91 @@ class RobotMapController extends APIController {
 		}else{
 			$content = array('status' => -1);
 		}
+
+		$this->renderPartial('/default/defaultView', array('content' => $content));
+	}
+
+	/**
+	 * Add robot map data.
+	 * It is called by ajax call.
+	 */
+	public function actionAdd(){
+
+		if(!isset($_FILES['RobotMap'])||(! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name']) &&
+				! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name']))){
+			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
+			self::terminate(-1, $response_message);
+		}
+
+		$xml_data = "";
+		$encoded_blob_data = "";
+		if(file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'])){
+			$xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'];
+			$handle = fopen($xml_data_temp_file_path, "r");
+			$xml_data = fread($handle, filesize($xml_data_temp_file_path));
+			fclose($handle);
+		}else{
+			unset($_POST['xml_data_version']);
+		}
+			
+		if(isset($_FILES['RobotMap']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name'])){
+			$blob_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name'];
+			$handle = fopen($blob_data_temp_file_path, "r");
+			$original_content = fread($handle, filesize($blob_data_temp_file_path));
+			fclose($handle);
+			$encoded_blob_data = base64_encode($original_content);
+		}else{
+			unset($_POST['blob_data_version']);
+		}
+			
+		$_POST['xml_data'] = $xml_data;
+		$_POST['encoded_blob_data'] = $encoded_blob_data;
+			
+		self::actionPostData();
+
+		$this->renderPartial('/default/defaultView', array('content' => $content));
+	}
+
+	/**
+	 * Update robot map data.
+	 * It is called by ajax call.
+	 */
+	public function actionUpdate(){
+
+		$map_id = Yii::app()->request->getParam('map_id', '');
+
+		if(!isset($_FILES['RobotMap'])||(! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name']) &&
+				! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name']))){
+			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
+			self::terminate(-1, $response_message);
+		}
+		
+		$xml_data = "";
+		$encoded_blob_data = "";
+		if(isset($_FILES['RobotMap']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'])){
+			$xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'];
+			$handle = fopen($xml_data_temp_file_path, "r");
+			$xml_data = fread($handle, filesize($xml_data_temp_file_path));
+			fclose($handle);
+		}else{
+			unset($_POST['xml_data_version']);
+		}
+			
+		if(isset($_FILES['RobotMap']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name'])){
+			$blob_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name'];
+			$handle = fopen($blob_data_temp_file_path, "r");
+			$original_content = fread($handle, filesize($blob_data_temp_file_path));
+			fclose($handle);
+			$encoded_blob_data = base64_encode($original_content);
+		}else{
+			unset($_POST['blob_data_version']);
+		}
+
+		$_POST['map_id'] = $map_id;
+		$_POST['xml_data'] = $xml_data;
+		$_POST['encoded_blob_data'] = $encoded_blob_data;
+			
+		self::actionUpdateData();
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 	}

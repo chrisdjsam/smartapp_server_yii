@@ -43,7 +43,7 @@ class RobotController extends APIController {
 	public function actionCreate(){
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot_name = Yii::app()->request->getParam('name', '');
-		
+
 		$robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
 		if($robot !== null ){
 			if ($robot->serial_number === $robot_serial_no){
@@ -72,7 +72,58 @@ class RobotController extends APIController {
 			self::terminate(-1, $response_message);
 		}
 	}
-
+   /**
+    * Method to check if robot is online for given robot serial number.
+    * 
+    * Parameters:
+	*ul>
+	 *		<li><b>serial_number</b> :Serial Number of the robot</li>
+	 *	</ul>
+	 *	Success Response:
+	 *	<ul>
+	 *		<li>If everything goes fine
+	 *			<ul>
+	 *				<li>{"status":0,"result":{"success":true,"message":"Robot
+	 *					is online / offline."}}</li>
+	 *			</ul>
+	 *		</li>
+	 *	</ul>
+	 *
+	 *	Failure Responses: <br />
+	 *	<ul>
+	 *
+	 *		<li>If a serial_number is missing
+	 *			<ul>
+	 *				<li>{"status":-1,"message":"Missing parameter serial_number in method
+	 *					robot.is_robot_online"}</li>
+	 *			</ul>
+	 *		</li>
+	 *		<li>If serial number does not exist
+	 *			<ul>
+	 *				<li>{"status":-1,"message":"Serial number does not exist"}</li>
+	 *			</ul>
+	 *		</li>
+	 *
+	 *	</ul>
+    */
+	public function actionIsOnline(){
+		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+		
+		if($robot !== null ){
+			$online_users_chat_ids = AppCore::getOnlineUsers();
+			if(in_array($robot->chat_id, $online_users_chat_ids)){
+				$response_message = "Robot ".$robot_serial_no." is online.";
+				$response_data = array("online"=>true, "message"=>$response_message);
+			}else {
+				$response_message = "Robot ".$robot_serial_no." is offline.";
+				$response_data = array("online"=>false, "message"=>$response_message);
+			}
+			self::success($response_data);
+		}
+		
+	}
+	
 	/**
 	 *  API to get robots information
 	 *
@@ -130,6 +181,42 @@ class RobotController extends APIController {
 		self::success($response_data);
 	}
 
+	
+	public function actionSetProfileDetails(){
+	
+		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
+	
+		$robot_profile = Yii::app()->request->getParam('profile', '');
+		// 		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
+		// 		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
+		// 		$user = User::model()->findByAttributes(array('id' => $user_api_session->id_user));
+		if ($robot !== null){
+			foreach ($robot_profile as $key => $value){
+				if($value === ''){
+					$message = self::yii_api_echo("Invalid value for key $key.");
+					self::terminate(-1, $message);
+				}
+				switch ($key) {
+					case "name":
+						$robot->name = $value;
+						$robot->save();
+						break;
+					
+					default:
+						;
+						break;
+				}
+			}
+			self::success(1);
+		}else{
+			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
+			self::terminate(-1, $response_message);
+		}
+	
+	}
+	
+	
+	
 	/**
 	 * API to get array of associated users with provided robot serial no
 	 *
@@ -314,4 +401,39 @@ class RobotController extends APIController {
 		self::success($response_data);
 	}
 
+	/**
+	 * Send start command to a particular robot.
+	 * It is called by ajax call.
+	 */
+	public function actionSendStartCommand()
+	{
+		$chat_id = Yii::app()->request->getParam('chat_id', '');
+		$to = AppHelper::two_way_string_decrypt($chat_id);
+
+		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
+
+		$start_command = Yii::app()->params['robot-start-cleaning-command'];
+		$message= AppCore::send_chat_message($from, $to, $start_command);
+		$content = array('status' => 0);
+
+		$this->renderPartial('/default/defaultView', array('content' => $content));
+	}
+
+	/**
+	 * Send stop command to a particular robot.
+	 * It is called by ajax call.
+	 */
+	public function actionSendStopCommand()
+	{
+		$chat_id = Yii::app()->request->getParam('chat_id', '');
+		$to = AppHelper::two_way_string_decrypt($chat_id);
+
+		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
+
+		$stop_command = Yii::app()->params['robot-stop-cleaning-command'];
+		$message= AppCore::send_chat_message($from, $to, $stop_command);
+		$content = array('status' => 0);
+
+		$this->renderPartial('/default/defaultView', array('content' => $content));
+	}
 }

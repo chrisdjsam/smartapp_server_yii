@@ -44,7 +44,7 @@ class ApiUserTest extends ApiTestBase {
 		$post['email'] = $name.'@neatorobotics@com';
 		$contents = $this->sendApi($api, $post);
 		$this->assertEquals("-1", $contents->status);
-		$this->assertEquals("The email address you provided does not appear to be a valid email address.", $contents->message);
+		$this->assertEquals("The email address you have provided does not appear to be a valid email address.", $contents->message);
 	}
 	
 	public function testGetUserAuthToken(){
@@ -144,7 +144,7 @@ class ApiUserTest extends ApiTestBase {
 		$contents = $this->sendApi($api, array('auth_token' => self::$user_auth_token));
 		$this->assertEquals(0, $contents->status);
 		$this->assertEquals(true, $contents->result->success);
-		$this->assertEquals("You are successfully updated auth token expiry date.", $contents->result->message);
+		$this->assertEquals("You have successfully updated auth token expiry date.", $contents->result->message);
 	}
 	
 	public function testLogoutUserAuthToken(){

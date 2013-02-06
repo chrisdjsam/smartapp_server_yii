@@ -69,10 +69,32 @@ class APIController extends Controller {
 			return $robot;
 		}
 		else{
+			$response_message = self::yii_api_echo('Robot serial number does not exist');
+			self::terminate(-1, $response_message);
+		}
+	}
+	/**
+	 * Common code to all API Controllers to check repetition, if not terminate with error messge
+	 * @param int $robot_map_id
+	 * @return object of cactiverecord for robot
+	 */
+	protected function verify_for_robot_atlas_repetition($robot_serial_no){
+		$robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
+		if($robot !== null ){
+			
+			if($robot->robotAtlas){
+				$response_message = self::yii_api_echo('Robot can have only one atlas');
+				self::terminate(-1, $response_message);
+			}else{
+				return $robot;
+			}
+		}
+		else{
 			$response_message = self::yii_api_echo('Serial number does not exist');
 			self::terminate(-1, $response_message);
 		}
 	}
+			
 
 	/**
 	 * Common code to all API Controllers to check existence of robot map for provided map id, if not terminate with error messge
@@ -90,6 +112,90 @@ class APIController extends Controller {
 		}
 	}
 
+	/**
+	 * Common code to all API Controllers to check existence of robot atlas for provided atlas id, if not terminate with error messge
+	 * @param int $robot_atlas_id
+	 * @return object of cactiverecord for robot atlas
+	 */
+	protected function verify_for_robot_atlas_id_existence($robot_atlas_id){
+		$robot_atlas = RobotAtlas::model()->findByAttributes(array('id' => $robot_atlas_id));
+		if($robot_atlas !== null ){
+			return $robot_atlas;
+		}
+		else{
+			$response_message = self::yii_api_echo('Robot atlas id does not exist');
+			self::terminate(-1, $response_message);
+		}
+	}
+
+	/**
+	 * Common code to all API Controllers to check existence atlas grid image for provided database id of grid image, if not terminate with error messge
+	 * @param int $id
+	 * @return object of cactiverecord for atlas grid image
+	 */
+	protected function verify_for_grid_image_id_existence($id){
+		$atlas_grid_image= AtlasGridImage::model()->findByPk($id);
+		if($atlas_grid_image !== null ){
+			return $atlas_grid_image;
+		}
+		else{
+			$response_message = self::yii_api_echo('grid image id does not exist');
+			self::terminate(-1, $response_message);
+		}
+	}
+	
+	/**
+	 * Common code to all API Controllers to check existence of atlas grid image for provided atlas id and user specified grid id, if not terminate with error messge
+	 * @param int $id_atlas
+	 * @param string $id_grid
+	 * @param boolean $prevent_termination: any val if want to prevent termination, else optional.
+	 * @return object of cactiverecord for atlas grid image
+	 */
+	protected function verify_for_atlas_id_grid_id_existence($id_atlas,$id_grid, $prevent_termination=null){
+		$atlas_grid_image= AtlasGridImage::model()->find('id_atlas = :id_atlas AND id_grid = :id_grid',array('id_atlas'=>$id_atlas ,'id_grid' => $id_grid));
+		if($atlas_grid_image !== null ){
+			return $atlas_grid_image;
+		}
+		else{
+			if($prevent_termination === true) {return null;}
+			$response_message = self::yii_api_echo('Combination of atlas id and grid id does not exist');
+			self::terminate(-1, $response_message);
+		}
+	}
+
+	/**
+	 * Common code to all API Controllers to check if provided id is empty / blank, if not terminate with error messge
+	 * @param int $id_grid
+	 * @return provided $id_grid after trimming spaces
+	 */	
+	protected function verify_for_empty_grid_id($id_grid){
+		if(trim($id_grid) == ""){
+			$response_message = self::yii_api_echo('id_grid should contain atleast one character or number .');
+			self::terminate(-1, $response_message);
+		}else{
+			return trim($id_grid);
+		}
+	}
+
+	/**
+	 * Common code to all API Controllers to check if provided atlas id and user specified grid is repeted, if not terminate with error messge
+	 * @param int $id_atlas
+	 * @param String $id_grid
+	 * @return object of cactiverecord for atlas grid image
+	 */	
+	protected function verify_for_atlas_id_grid_id_repetition($id_atlas,$id_grid){
+		$atlas_grid_image= AtlasGridImage::model()->find('id_atlas = :id_atlas AND id_grid = :id_grid',array('id_atlas'=>$id_atlas ,'id_grid' => $id_grid));
+		if($atlas_grid_image !== null ){
+			
+			$response_message = self::yii_api_echo('Combination of atlas id and grid id exist. Try updating for same.');
+			self::terminate(-1, $response_message);
+			
+		}
+		else{
+			return $atlas_grid_image;
+		}
+	}
+	
 	/**
 	 * Common code to all API Controllers to check existence of robot schedule for provided schedule id, if not terminate with error messge
 	 * @param int $robot_schedule_id
@@ -133,6 +239,23 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot custom id does not exist');
+			self::terminate(-1, $response_message);
+		}
+	}
+	
+	
+	/**
+	 * Common code to all API Controllers to check existence of robot custom for provided custom id, if not terminate with error messge
+	 * @param int $robot_custom_id
+	 * @return object of cactiverecord for robot custom
+	 */
+	protected function verify_for_atlas_id_existence($id_atlas){
+		$robotAtlas = RobotAtlas::model()->findByPk($id_atlas);
+		if($robotAtlas !== null ){
+			return $robotAtlas;
+		}
+		else{
+			$response_message = self::yii_api_echo('Atlas id does not exist');
 			self::terminate(-1, $response_message);
 		}
 	}

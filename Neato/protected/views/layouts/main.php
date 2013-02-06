@@ -67,14 +67,26 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 			<div class="inner">
 				<?php
 			if($isLoggedIn){?>
-				<ul class="menu-user">
-					<li>Logged in as <a
+				<?php if($isAdmin){?>
+				<ul class="adminMenuUser" >
+				<li>Logged in as <a
 						href="<?php echo $this->createUrl('/user/userprofile')?>"
 						title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?>
-					</a> <?php if($isAdmin){
-						echo "(Administrator)";
-					}?>
+					</a> <?php echo "(Administrator)";?>
+					</li> 
+				</ul>
+				<ul class="menu-user ">
+				<?php }?>
+				 
+				<?php if(!$isAdmin){?>
+				<ul class="menu-user noAdminMenuUser">
+				<li>Logged in as <a
+						href="<?php echo $this->createUrl('/user/userprofile')?>"
+						title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?>
+					</a> 
 					</li>
+				<?php }?>
+													
 					<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
 						title="My Profile">My Profile</a></li>
 					<?php if($isAdmin){ ?>
@@ -87,6 +99,9 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 					<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"
 						title="List of all User-Robot Associations">User-Robot
 							Associations</a>
+					</li>
+					<li ><a href="<?php echo $this->createUrl('/online/list')?>"
+						title="List of all online User-Robot ">Who's online</a>
 					</li>
 					<?php }?>
 					<li><a href="<?php echo $this->createUrl('/user/changepassword')?>"
