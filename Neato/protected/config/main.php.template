@@ -1,10 +1,8 @@
 <?php
 
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
-
-// This is the main Web application configuration. Any writable
-// CWebApplication properties can be configured here.
+// This is configuration file for Neato SmartApp application.
+// Rename this file as main.php and change the parameters that are mentioned with angular brackets around them.
+// For example change, <YOUR_DB_USERNAME_HERE>
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Neato Robotics',
@@ -18,6 +16,7 @@ return array(
 		'application.models.user.*',
 		'application.models.robot.*',
 		'application.models.atlas.*',
+		'application.models.app.*',
 		'application.components.*',
 		'ext.giix-components.*', // giix components
 		'ext.yii-mail.YiiMailMessage',
@@ -34,8 +33,8 @@ return array(
 			'allowAutoLogin'=>true,
 			'class' => 'WebUser', // Use our overridden class to get more access to the user object
 		),
-		// uncomment the following to enable URLs in path-format
 		
+		// Comment the following lines while generating models 
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
@@ -47,7 +46,7 @@ return array(
 		),
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=neato',
+			'connectionString' => 'mysql:host=localhost;dbname=neato', // defaulted to local host and neato as DB name. Change if needed.
 			'emulatePrepare' => true,
 			'username' => '<YOUR_DB_USERNAME_HERE>',
 			'password' => '<YOUR_DB_PASSWORD_HERE>',
@@ -64,12 +63,7 @@ return array(
                     'status' => true, // JS SDK - check login status
                     'cookie' => true, // JS SDK - enable cookies to allow the server to access the session
                     'oauth' => true, // JS SDK -enable OAuth 2.0
-                    //'xfbml'=>true,  // JS SDK - parse XFBML / html5 Social Plugins
                     'html5' => true, // use html5 Social Plugins instead of XFBML
-                //'ogTags'=>array(  // set default OG tags
-                //'title'=>'MY_WEBSITE_NAME',
-                //'description'=>'AHHHH',
-                //'image'=>'URL_TO_WEBSITE_LOGO'
         ),		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -118,7 +112,7 @@ return array(
         'apiProtocol' => '<YOUR_HOST_PROTOCOL>',
         'apiKey' => '<YOUR_API_KEY>',
 		'ejabberdhost' => '<YOUR_JABBER_HOST_HERE>',
-		'isjabbersetup' => true,
+		'isjabbersetup' => false,
 		'autoEmailVerification' => true,
 		'enablewebservicelogging' => true,
 		'fb-permissions' => 'email',
