@@ -26,7 +26,7 @@
 	<?php echo $form->error($model,'name'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="row-buttons">
 	<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>"neato-button",  "title" => "Add")); ?>
 	<a href="<?php echo $this->createUrl('robot/list')?>" title="Cancel" class="neato-button" >Cancel</a>
 	</div>

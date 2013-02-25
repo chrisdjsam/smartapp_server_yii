@@ -39,7 +39,7 @@
 	<?php echo $form->error($model,'blob_data_file_name'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="row-buttons">
 	<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>"neato-button",  "title" => "Add")); ?>
 	<a href="<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($id)))?>" title="Cancel" class="neato-button" id="cancel_upload">Cancel</a>
 	</div>

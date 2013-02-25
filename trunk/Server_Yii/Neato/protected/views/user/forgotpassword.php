@@ -34,7 +34,7 @@ $this->breadcrumbs=array(
 			<?php echo $form->error($model,'email'); ?>
 		</div>
 
-		<div class="row buttons">
+		<div class="row-buttons">
 			<?php echo CHtml::submitButton('Request', array('class'=>"neato-button",  "title" => "Request")); ?>
 			<a href="<?php echo $this->createUrl('user/login')?>" title="Cancel"
 				class="neato-button">Cancel</a>

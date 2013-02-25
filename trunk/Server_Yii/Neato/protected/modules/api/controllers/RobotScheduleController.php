@@ -128,32 +128,42 @@ class RobotScheduleController extends APIController {
 		}
 
 		//storing xml data
-		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-		$uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $robot_schedule_model->id;
-		// Add check to see if the folder already exists
-		if(!is_dir($uploads_dir_for_robot_schedule)){
-			mkdir($uploads_dir_for_robot_schedule);
-		}
-		$uploads_dir = $uploads_dir_for_robot_schedule . DIRECTORY_SEPARATOR . Yii::app()->params['robot-schedule_xml-data-directory-name'];
-		// Add check to see if the folder already exists
-		if(!is_dir($uploads_dir)){
-			mkdir($uploads_dir);
-		}
+                
+                $schedule_xml_data_file_name = '';
+                $schedule_xml_data_file_version = 1;
+                $uploads_dir = '';
+                
+                if($xml_data) {
+                
+                    $back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+                    $uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $robot_schedule_model->id;
+                    // Add check to see if the folder already exists
+                    if(!is_dir($uploads_dir_for_robot_schedule)){
+                            mkdir($uploads_dir_for_robot_schedule);
+                    }
+                    $uploads_dir = $uploads_dir_for_robot_schedule . DIRECTORY_SEPARATOR . Yii::app()->params['robot-schedule_xml-data-directory-name'];
+                    // Add check to see if the folder already exists
+                    if(!is_dir($uploads_dir)){
+                            mkdir($uploads_dir);
+                    }
 
-		$schedule_xml_data_file_name = time(). '.xml';
-		$full_file_path_schedule_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $schedule_xml_data_file_name;
+                    $schedule_xml_data_file_name = time(). '.xml';
+                    $full_file_path_schedule_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $schedule_xml_data_file_name;
 
-		$schedule_xml_file_handle = fopen($full_file_path_schedule_xml_data, 'w');
-		fwrite($schedule_xml_file_handle, $xml_data);//@todo need to handle file write exceptions
-		fclose($schedule_xml_file_handle);
-		$schedule_xml_data_file_version = 1;
+                    $schedule_xml_file_handle = fopen($full_file_path_schedule_xml_data, 'w');
+                    fwrite($schedule_xml_file_handle, $xml_data);//@todo need to handle file write exceptions
+                    fclose($schedule_xml_file_handle);
+                    $schedule_xml_data_file_version = 1;
 
-		$robot_schedule_xml_data_model = new RobotScheduleXmlDataVersion();
-		$robot_schedule_xml_data_model->id_robot_schedule = $robot_schedule_model->id;
-		$robot_schedule_xml_data_model->version = $schedule_xml_data_file_version;
-		if(!$robot_schedule_xml_data_model->save()){
-			//need to worke
-		}
+                }
+                
+                $robot_schedule_xml_data_model = new RobotScheduleXmlDataVersion();
+                $robot_schedule_xml_data_model->id_robot_schedule = $robot_schedule_model->id;
+                $robot_schedule_xml_data_model->version = $schedule_xml_data_file_version;
+                if(!$robot_schedule_xml_data_model->save()){
+                        //need to worke
+                }
+
 		//storing blob data
 		$schedule_blob_data_file_name = '';
 		$schedule_blob_data_file_version = 1;
@@ -420,11 +430,18 @@ class RobotScheduleController extends APIController {
 				$uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $robot_schedule_id;
 
 				$uploads_dir = $uploads_dir_for_robot_schedule . DIRECTORY_SEPARATOR . Yii::app()->params['robot-schedule_xml-data-directory-name'];
-
+                                
+                                if (!is_dir($uploads_dir)) {
+                                   mkdir($uploads_dir);
+                                }
+                                
 				$schedule_xml_data_file_name = time(). '.xml';
 				$full_file_path_schedule_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $schedule_xml_data_file_name;
-				$old_schedule_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_schedule_model->xml_data_file_name;
-
+				
+                                if($robot_schedule_model->xml_data_file_name != ''){
+                                    $old_schedule_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_schedule_model->xml_data_file_name;
+                                }
+                                
 				$schedule_xml_file_handle = fopen($full_file_path_schedule_xml_data, 'w');
 				fwrite($schedule_xml_file_handle,$xml_data);//@todo need to handle file write exceptions
 				fclose($schedule_xml_file_handle);
@@ -698,8 +715,11 @@ class RobotScheduleController extends APIController {
 
 	public function actionAdd(){
 		
-		if(!isset($_FILES['RobotSchedule'])||(! file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) &&
-				! file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))){
+		
+		if(!isset($_FILES['RobotSchedule'])||
+				(! (isset($_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'])) &&
+				 ! (isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))
+				)){
 			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
 			self::terminate(-1, $response_message);
 		}
@@ -737,8 +757,10 @@ class RobotScheduleController extends APIController {
 	}
 	
 	public function actionUpdate(){
-		if(!isset($_FILES['RobotSchedule'])||(! file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) &&
-				! file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))){
+		if(!isset($_FILES['RobotSchedule'])||
+				(! (isset($_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'])) &&
+				 ! (isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))
+				)){
 			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
 			self::terminate(-1, $response_message);
 		}

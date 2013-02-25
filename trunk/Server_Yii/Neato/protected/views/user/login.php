@@ -46,7 +46,7 @@ $this->breadcrumbs=array(
 				<?php echo $form->error($model,'rememberMe'); ?>
 			</div>
 
-			<div class="row buttons">
+			<div class="row-buttons">
 				<?php echo CHtml::submitButton('Login', array('class'=>"neato-button",  "title" => "Login")); ?>
 				<span> <a class="forgot_link look-like-a-link"
 					href="<?php echo $this->createUrl('/user/forgotpassword')?>"

@@ -12,6 +12,6 @@ $this->breadcrumbs=array(
 ?>
 <fieldset class='data-container static-data-container'>
 	<legend>Update Robot</legend>
-	<p class="list_details">Please update the robot information.</p>
+	<p class="list_details">Please update robot information.</p>
 
 	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

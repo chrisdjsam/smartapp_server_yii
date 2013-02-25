@@ -177,10 +177,8 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 						title="Edit robot schedule <?php echo $model->serial_number?>"
 						class="qtipPopuplink  look-like-a-link ">edit</a>
 					</td>
-					<td class='pretty-table-center-td'><div
-							class="delete-single-robot-schedule look-like-a-link "
-							href=<?php echo $this->createUrl('api/RobotSchedule/deleteSchedule',array('h'=>AppHelper::two_way_string_encrypt($schedule->id)))?>
-							title="Delete robot schedule <?php echo $schedule->id?>">delete</div>
+					<td class='pretty-table-center-td'>
+                                            <div class="delete-single-robot-schedule look-like-a-link " href="<?php echo $this->createUrl('api/RobotSchedule/deleteSchedule',array('h'=>AppHelper::two_way_string_encrypt($schedule->id)))?>" title="Delete robot schedule <?php echo $schedule->id?>">delete</div>
 					</td>
 					<?php }?>
 				</tr>

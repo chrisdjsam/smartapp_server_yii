@@ -41,7 +41,7 @@ class BaseAtlasGridImage extends GxActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_atlas, id_grid', 'required'),
+			//array('id_atlas, id_grid', 'required'),
 			array('id, id_atlas, id_grid, version', 'length', 'max'=>20),
 // 			array('blob_data_file_name', 'length', 'max'=>100),
 			// The following rule is used by search().

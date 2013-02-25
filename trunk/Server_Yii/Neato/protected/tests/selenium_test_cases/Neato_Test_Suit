@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="Login_By_Admin.html">Login_By_Admin</a></td></tr>
+<tr><td><a href="My_Profile_Details.html">My_Profile_Details</a></td></tr>
+<tr><td><a href="User_Details.html">User_Details</a></td></tr>
+<tr><td><a href="User_Add_Delete.html">User_Add_Delete</a></td></tr>
+<tr><td><a href="Robot_Details.html">Robot_Details</a></td></tr>
+<tr><td><a href="Robot_Add_Delete.html">Robot_Add_Delete</a></td></tr>
+<tr><td><a href="Robot_Update.html">Robot_Update</a></td></tr>
+<tr><td><a href="Robot_Commands.html">Robot_Commands</a></td></tr>
+<tr><td><a href="User-Robot_Association_Test_Case.html">User-Robot_Association_Test_Case</a></td></tr>
+<tr><td><a href="User-Robot_Association_Add.html">User-Robot_Association_Add</a></td></tr>
+<tr><td><a href="User-Robot_Association_Delete.html">User-Robot_Association_Delete</a></td></tr>
+<tr><td><a href="Who_is_Online_Test_Case.html">Who_is_Online_Test_Case</a></td></tr>
+<tr><td><a href="Version_Control_Add.html">Version_Control_Add</a></td></tr>
+<tr><td><a href="Version_Control_Update.html">Version_Control_Update</a></td></tr>
+<tr><td><a href="Version_Control_Delete.html">Version_Control_Delete</a></td></tr>
+<tr><td><a href="Change_Password_Test.html">Change_Password_Test</a></td></tr>
+<tr><td><a href="System_Logout.html">System_Logout</a></td></tr>
+</tbody></table>
+</body>
+</html>

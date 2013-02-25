@@ -77,7 +77,7 @@ $this->breadcrumbs=array(
 	</div>
 	<?php endif; ?>
 
-	<div class="row buttons">
+	<div class="row-buttons">
 		<?php echo CHtml::submitButton('Submit'); ?>
 	</div>
 

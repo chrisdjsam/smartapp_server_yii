@@ -23,21 +23,23 @@ $this->breadcrumbs=array(
 		method="POST" id="robotsList">
 		<div class="action-button-container">
 			<a href="<?php echo $this->createUrl('robot/add')?>"
-				title="Add robot" class="neato-button">Add</a> 
+				title="Add robot" class="neato-button">Add</a>
+				</div>
+			<div class="action-button-container">	 
 				<input type='button' value='Delete' id='deleteSelected'
 				class='deleteSelected neato-button' title="Delete robot" />
 		</div>
 		<table class="pretty-table robot-table">
 			<thead>
 				<tr>
-					<th style="width: 38px;" title="Select" class='pretty-table-center-th'>Select</th>
-					<th style="width: 15%;" title="Serial Number">Serial Number</th>
-					<th style="width: 50%;" title="Associated Users">Associated Users</th>
-					<th style="width: 7%;" title="Map" class='pretty-table-center-th'>Map</th>
-					<th style="width: 8%;" title="Schedule" class='pretty-table-center-th'>Schedule</th>
+					<th style="width: 7%;" title="Select" class='pretty-table-center-th'>Select</th>
+					<th style="width: 12%;" title="Serial Number">Serial Number</th>
+					<th style="width: 44%;" title="Associated Users">Associated Users</th>
+					<th style="width: 9%;" title="Schedule" class='pretty-table-center-th'>Schedule</th>
 					<th style="width: 7%;" title="Atlas" class='pretty-table-center-th'>Atlas</th>
-					<th style="width: 9%;" title="Grid_Image" class='pretty-table-center-th'>Grid Image</th>
-					<th style="width: 10%;" class='pretty-table-center-td'></th>
+					<th style="width: 7%;" title="Grid_Image" class='pretty-table-center-th'>Grid</th>
+					<th style="width: 7%;" title="Map" class='pretty-table-center-th'>Map</th>
+					<th style="width: 7%;" class='pretty-table-center-td'></th>
 				</tr>
 			</thead>
 			<tbody>

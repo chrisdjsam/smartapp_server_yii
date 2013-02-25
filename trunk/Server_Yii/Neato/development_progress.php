@@ -103,16 +103,14 @@
 	
 	<ul>
 		<li>Modified: response for API robot.is_online.</li>
-		<li>Updated: All test console for Demo Server.</li>
 	</ul>
-	<i>SVN Version Number: 154</i>
+	<i>SVN Version Number: 153</i>
 	
 	<p>
 		<b>Dev:</b>
 	</p>
 	
 	<ul>
-		<li>Modified: response for API robot.is_online.</li>
 		<li>Updated: All test console for Demo Server.</li>
 	</ul>
 	<i>SVN Version Number: 154</i>
@@ -153,5 +151,96 @@
 		<li>Modified : Changes in Email details, corrections in documentation, code.</li>
 	</ul>
 	<i>SVN Version Number: 158</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Added: New API 'Check For Upgrades'</li>
+	</ul>
+	<i>SVN Version Number: 159</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	
+	<ul>
+		<li>Modified : App version UI. Applied ajaxified messages for success and error.</li>
+	</ul>
+	<i>SVN Version Number: 160</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>Modified: Added more comments in config template file and pre-populating DB schema with API keys.</li>
+	</ul>
+	<i>SVN Version Number: 161</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>Added: Documentation for the Neato SmartApp and added default statuses for Neato DB Schema.</li>
+	</ul>
+	<i>SVN Version Number: 162</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>Modified: CSS for Add button in 'version control'.</li>
+	</ul>
+	<i>SVN Version Number: 163</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>SmartApps Server: Updated documentation .</li>
+	</ul>
+	<i>SVN Version Number: 164</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>SmartApps documentation - renaming file to fix typo.</li>
+	</ul>
+	<i>SVN Version Number: 165</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>Modified: Labels in version add / edit form, Validation for add / update of map and schedule.</li>
+	</ul>
+	<i>SVN Version Number: 166</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>Modified: response for two API, CSS for add/ edit common popup.</li>
+	</ul>
+	<i>SVN Version Number: 167</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>Modified : code in add / update methods, dialog layout.</li>
+	</ul>
+	<i>SVN Version Number: 168</i>
+        
+        <p>
+		<b>Dev:</b>
+	</p>
+	<ul>
+		<li>Modified: changed layout used by Map/ Schedule/ Atlas/ Image popups. Fixed : Jquery issue.</li>
+	</ul>
+	<i>SVN Version Number: 169</i>
+        
 </body>
 </html>

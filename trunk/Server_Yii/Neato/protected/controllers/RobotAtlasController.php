@@ -6,14 +6,14 @@ class RobotAtlasController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/popup', meaning
 	 * using two-column layout. See 'protected/views/layouts/popup.php'.
 	 */
-	public $layout='//layouts/popup';
+	public $layout='//layouts/popup_form';
 
 	/**
 	 * Displays a particular robot map's blob component in the popup.
 	 * @param integer $id the ID of the robot map to be displayed
 	 */
 	public function actionPopupXmlview(){
-		$this->layout='//layouts/popup';
+//		$this->layout='//layouts/popup';
 		$h_id = Yii::app()->request->getParam('h', '');
 		$id = AppHelper::two_way_string_decrypt($h_id);
 		self::check_function_argument($id);
@@ -33,7 +33,7 @@ class RobotAtlasController extends Controller
 	 */
 	public function actionAdd()
 	{
-		$this->layout='//layouts/popup_form';
+//		$this->layout='//layouts/popup_form';
 
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robotAtlas/add');
@@ -57,7 +57,7 @@ class RobotAtlasController extends Controller
 	 */
 	public function actionUpdate(){
 		
-		$this->layout='//layouts/popup_form';
+//		$this->layout='//layouts/popup_form';
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robotAtlas/update');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
