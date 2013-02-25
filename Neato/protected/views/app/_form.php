@@ -67,7 +67,7 @@
 	<?php echo $form->error($model,'upgrade_status'); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="row-buttons change-password-buttons">
 	<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>" add-update-app-version neato-button","title" => "Add")); ?>
 		<a href="<?php echo $this->createUrl('app/list')?>" title="Cancel" class="neato-button" id="cancel_update">Cancel</a>
 	</div>

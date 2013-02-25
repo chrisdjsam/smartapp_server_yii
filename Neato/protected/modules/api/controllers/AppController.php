@@ -135,12 +135,8 @@ class AppController extends APIController {
 	 * decripts parameter values and delegates to API method.
 	 */
 	public function actionAppUpdate(){
-
-		$app_id = $_POST['AppInfo']['app_id'];
 		
-		if($app_id == null){
-			$app_id = $_POST['app_id'];
-		}
+		$app_id = $_POST['app_id'];
 		$appInfo = AppInfo::model()->findByAttributes(array("app_id"=>$app_id));
 		
 		if($appInfo == null){
@@ -183,10 +179,8 @@ class AppController extends APIController {
 	 */
 	public function actionAppDelete(){
 
-		if($app_id == null){
-			$app_id= Yii::app()->request->getParam('h', '');
-			$app_id = AppHelper::two_way_string_decrypt($app_id);
-		}
+		$app_id= Yii::app()->request->getParam('h', '');
+		$app_id = AppHelper::two_way_string_decrypt($app_id);
 		$appInfo = AppInfo::model()->findByAttributes(array("app_id"=>$app_id));
 	
 		if($appInfo == null){

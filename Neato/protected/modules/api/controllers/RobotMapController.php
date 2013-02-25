@@ -104,7 +104,7 @@ class RobotMapController extends APIController {
 		$xml_data = Yii::app()->request->getParam('xml_data', '');
 
 		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
-
+                
 		if(!AppCore::validate_map_xml_data($xml_data)){
 			$response_message = self::yii_api_echo('Invalid xml data.');
 			self::terminate(-1, $response_message);
@@ -117,33 +117,43 @@ class RobotMapController extends APIController {
 		}
 
 		//storing xml data
-		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
-		// Add check to see if the folder already exists
-		if(!is_dir($uploads_dir_for_robot)){
-			mkdir($uploads_dir_for_robot);
-		}
-		$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-xml-data-directory-name'];
-		// Add check to see if the folder already exists
-		if(!is_dir($uploads_dir)){
-			mkdir($uploads_dir);
-		}
+                $xml_data_file_name = '';
+                $xml_data_file_version = 1;
+                $uploads_dir = '';
+                
+                if($xml_data) {                         
+                
+                    $back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+                    $uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
+                    // Add check to see if the folder already exists
+                    if(!is_dir($uploads_dir_for_robot)){
+                            mkdir($uploads_dir_for_robot);
+                    }
+                    $uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-xml-data-directory-name'];
+                    // Add check to see if the folder already exists
+                    if(!is_dir($uploads_dir)){
+                            mkdir($uploads_dir);
+                    }
 
-		$xml_data_file_name = time(). '.xml';
-		$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
+                    $xml_data_file_name = time(). '.xml';
+                    $full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
 
-		$xml_file_handle = fopen($full_file_path_xml_data, 'w');
-		fwrite($xml_file_handle, $xml_data);//@todo need to handle file write exceptions
-		fclose($xml_file_handle);
-		$xml_data_file_version = 1;
+                    $xml_file_handle = fopen($full_file_path_xml_data, 'w');
+               
+                    fwrite($xml_file_handle, $xml_data);//@todo need to handle file write exceptions
+                    
+                    fclose($xml_file_handle);
+                    $xml_data_file_version = 1;
 
-		$robot_map_xml_data_model = new RobotMapXmlDataVersion();
-		$robot_map_xml_data_model->id_robot_map = $robot_map_model->id;
-		$robot_map_xml_data_model->version = $xml_data_file_version;
-		if(!$robot_map_xml_data_model->save()){
-			//need to work
-		}
-
+                }
+                    
+                $robot_map_xml_data_model = new RobotMapXmlDataVersion();
+                $robot_map_xml_data_model->id_robot_map = $robot_map_model->id;
+                $robot_map_xml_data_model->version = $xml_data_file_version;
+                if(!$robot_map_xml_data_model->save()){
+                        //need to work
+                }
+                
 		//storing blob data
 		$blob_data_file_name = '';
 		$blob_data_file_version = 1;
@@ -385,13 +395,19 @@ class RobotMapController extends APIController {
 
 				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_id;
-
 				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-xml-data-directory-name'];
-
+                                
+                                if (!is_dir($uploads_dir)) {
+                                   mkdir($uploads_dir);
+                                }
+                                
 				$xml_data_file_name = time(). '.xml';
 				$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
-				$old_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_map_model->xml_data_file_name;
-
+                                
+                                if($robot_map_model->xml_data_file_name != ''){
+                                    $old_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_map_model->xml_data_file_name;
+                                }
+                                
 				$xml_file_handle = fopen($full_file_path_xml_data, 'w');
 				fwrite($xml_file_handle,$xml_data);//@todo need to handle file write exceptions
 				fclose($xml_file_handle);
@@ -664,16 +680,24 @@ class RobotMapController extends APIController {
 	 * It is called by ajax call.
 	 */
 	public function actionAdd(){
-
-		if(!isset($_FILES['RobotMap'])||(! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name']) &&
-				! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name']))){
-			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
+            
+		if(
+				!isset($_FILES['RobotMap'])
+				||
+				(
+		    		!(isset($_FILES['RobotMap']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name']))
+					&&
+					!(isset($_FILES['RobotMap']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name']))
+		   		)
+		){
+		   	$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
 			self::terminate(-1, $response_message);
-		}
-
+		   }
+	
+	
 		$xml_data = "";
 		$encoded_blob_data = "";
-		if(file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'])){
+		if(isset($_FILES['RobotMap']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'])){
 			$xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'];
 			$handle = fopen($xml_data_temp_file_path, "r");
 			$xml_data = fread($handle, filesize($xml_data_temp_file_path));
@@ -694,7 +718,7 @@ class RobotMapController extends APIController {
 			
 		$_POST['xml_data'] = $xml_data;
 		$_POST['encoded_blob_data'] = $encoded_blob_data;
-			
+	
 		self::actionPostData();
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
@@ -708,8 +732,10 @@ class RobotMapController extends APIController {
 
 		$map_id = Yii::app()->request->getParam('map_id', '');
 
-		if(!isset($_FILES['RobotMap'])||(! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name']) &&
-				! file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name']))){
+		if(!isset($_FILES['RobotMap'])||
+				(! (isset($_FILES['RobotMap']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['xml_data_file_name'])) &&
+				 ! (isset($_FILES['RobotMap']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name']))
+				)){
 			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
 			self::terminate(-1, $response_message);
 		}

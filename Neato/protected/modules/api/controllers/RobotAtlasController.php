@@ -18,7 +18,7 @@ class RobotAtlasController extends APIController {
      *		<li>If everything goes fine
      *			<ul>
      *				<li>
-     *					{"status":0,"result":{"success":true,"robot_atlas_id":"61","xml_data_version":1,"message":"You have successfully added Robot Atlas"}}
+     *					{"status":0,"result":{"success":true,"robot_atlas_id":"4","xml_data_version":1,"message":"You have successfully added Robot Atlas","atlas_id":"4"}}
      *				</li>
      *			</ul>
      *		</li>
@@ -91,7 +91,7 @@ class RobotAtlasController extends APIController {
 
 		if($robot_atlas_model->update()){
 			$response_message = "You have successfully added Robot Atlas";
-			$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$xml_data_file_version, "message"=>self::yii_api_echo($response_message));
+			$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$xml_data_file_version, "message"=>self::yii_api_echo($response_message), "atlas_id"=>$robot_atlas_model->id);
 			self::success($response_data);
 		}
 	}
@@ -113,7 +113,7 @@ class RobotAtlasController extends APIController {
 	 *	<li>If serial number provided and atals id passed as 0 (add new):
 	 *		<ul>
 	 *			<li>
-	 *				{"status":0,"result":"{\"success\":true,\"robot_atlas_id\":\"29\",\"xml_data_version\":1}"}
+	 *				{"status":0,"result":{"success":true,"robot_atlas_id":"4","xml_data_version":1,"message":"You have successfully added Robot Atlas","atlas_id":"4"}}
 	 *			</li>
 	 *		</ul>
 	 *	</li>
@@ -126,7 +126,7 @@ class RobotAtlasController extends APIController {
 	 *	
 	 *	<li>If existing atals id passed and delete_grids is passed as 1 (true)  :
 	 *		<ul>
-	 *			<li>{"status":0,"result":{"success":true,"robot_atlas_id":"58","xml_data_version":7,"message":"You have successfully deleted 2 grids, You have successfully updated atlas data."}}</li>
+	 *			<li> {"status":0,"result":{"success":true,"robot_atlas_id":"4","xml_data_version":3,"message":"You have successfully deleted 2 grids, You have successfully updated robot atlas data.","atlas_id":"4"}}</li>
 	 *		</ul>
 	 *	</li>
 	 *	
@@ -266,7 +266,7 @@ class RobotAtlasController extends APIController {
 			$response_message  = $update_response_message;
 		}
 		
-		$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$robot_atlas_model->version, "message"=>self::yii_api_echo($response_message));
+		$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$robot_atlas_model->version, "message"=>self::yii_api_echo($response_message), "atlas_id"=>$robot_atlas_model->id);
 		self::success($response_data);
 	}
 

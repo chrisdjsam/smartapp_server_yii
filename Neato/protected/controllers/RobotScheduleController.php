@@ -6,14 +6,16 @@ class RobotScheduleController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/popup', meaning
 	 * using two-column layout. See 'protected/views/layouts/popup.php'.
 	 */
-	public $layout='//layouts/popup';
+	public $layout='//layouts/popup_form';
 
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionPopupBlobview(){
-
+                
+//                $this->layout='//layouts/popup_form';
+                
 		$h_id = Yii::app()->request->getParam('h', '');
 		$id = AppHelper::two_way_string_decrypt($h_id);
 		self::check_function_argument($id);
@@ -33,7 +35,9 @@ class RobotScheduleController extends Controller
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionPopupXmlview(){
-
+                
+//                $this->layout='//layouts/popup_form';
+                
 		$h_id = Yii::app()->request->getParam('h', '');
 		$id = AppHelper::two_way_string_decrypt($h_id);
 		self::check_function_argument($id);
@@ -53,7 +57,7 @@ class RobotScheduleController extends Controller
 	 */
 	public function actionAdd()
 	{
-		$this->layout='//layouts/popup_form';
+//		$this->layout='//layouts/popup_form';
 	
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robotSchedule/add');
@@ -78,7 +82,7 @@ class RobotScheduleController extends Controller
 	 * Updates a robot schedule data.
 	 */
 	public function actionUpdate(){
-		$this->layout='//layouts/popup_form';
+//		$this->layout='//layouts/popup_form';
 		
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robotSchedule/update');

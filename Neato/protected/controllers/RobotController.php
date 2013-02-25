@@ -214,6 +214,7 @@ class RobotController extends Controller
 		$id = AppHelper::two_way_string_decrypt($id_e);
 		self::check_function_argument($id);
 		
+		$file_name= "";
 
 		$full_file_path = '';
 		switch ($requested_for) {

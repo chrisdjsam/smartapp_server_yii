@@ -126,19 +126,20 @@ $("#WaitingDialog").dialog({
 	   jQuery('.ui-dialog-titlebar').hide();
 	   jQuery('.ui-widget').removeClass('ui-widget-content');
 	   }
-	});
+});
 
-	function showWaitDialog() {
-	       if ($('#WaitingDialog').dialog('isClose')){
-	               $('#WaitingDialog').dialog('open');
-	       }
-	}
+function showWaitDialog() {
+    if ($('#WaitingDialog').dialog('isClose')){
+        $('#WaitingDialog').dialog('open');
+    }
+}
 	
-	function hideWaitDialog() {
-	   if ($('#WaitingDialog').dialog('isOpen')){
-	       $('#WaitingDialog').dialog('close');
-	   }
-	}
+function hideWaitDialog() {
+    if ($('#WaitingDialog').dialog('isOpen')){
+        $('#WaitingDialog').dialog('close');
+    }
+}
+
 $(document).ready(function(){
 	createJQtip();
 	$('.robot-table').dataTable(
@@ -195,6 +196,10 @@ $(document).ready(function(){
 				"aaSorting": [ [1,'asc']]}		
 	);
 
+	$('.version-table').dataTable(
+			{
+				"bFilter": false,"bInfo": false,"bPaginate": false, "bSort": false
+			});
 	
 	$('.user-robot-table').dataTable(
 			{"bStateSave":true,
@@ -481,7 +486,7 @@ function createJQtip(){
 				at: 'bottom center', // Position the tooltip above the link
 				my: 'top center',
 				viewport: $(window), // Keep the tooltip on-screen at all times
-				effect: true, // Disable positioning animation
+				effect: true // Disable positioning animation
 			},
 			events: {
 				visible: function(event, api) {
@@ -489,7 +494,7 @@ function createJQtip(){
 				render: function(event, api) {
 				},
 				show: function(event, api) {
-				},
+				}
 			},
 			show: {
 				event: 'click',

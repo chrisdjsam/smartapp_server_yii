@@ -28,6 +28,7 @@
 
 	</div>
 </body>
+
 <script defer
 		src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/script.js?<?php echo Yii::app()->params['app-version-no']?>"></script>
 	<!-- noty -->
@@ -44,4 +45,12 @@
 	<!-- Jquery UI -->
 	<script type="text/javascript"
 		src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-ui-1.8.16.min.js"></script>
+ 
+ <!-- button gradients with rounded corners --> 
+ <script defer>
+ $(document).ready(function() {
+	 $('.qtip').find('.neato-button').wrap('<div class="rounded-corners"/>');
+	 });
+ </script>
+		
 </html>

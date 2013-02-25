@@ -47,7 +47,7 @@ $this->breadcrumbs=array(
 			<?php echo $form->error($model,'confirm_password'); ?>
 		</div>
 
-		<div class="row buttons">
+		<div class="row-buttons change-password-buttons">
 			<?php echo CHtml::submitButton('Save', array('class'=>"neato-button",  "title" => "Change Password")); ?>
 			<a href="<?php echo $this->createUrl('user/userprofile')?>"
 				title="Cancel" class="neato-button">Cancel</a>

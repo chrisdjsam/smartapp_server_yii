@@ -35,7 +35,7 @@ $this->breadcrumbs=array(
 				<?php echo $form->error($model,'name'); ?>
 			</div>
 
-			<div class="row buttons">
+			<div class="row-buttons">
 				<?php echo CHtml::submitButton($model->isNewRecord ? 'Register' : 'Save', array('class'=>"neato-button",  "title" => "Register",'tabindex'=>5)); ?>
 			</div>
 			<div class="social_login_connect_with">

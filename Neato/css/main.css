@@ -235,18 +235,17 @@ h1,h2,h3,h4,h5,h6 {
 	background: -webkit-linear-gradient(#A1958D, #3F2C1D);
 	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a1958d, endColorstr=#3f2c1d)";
 	border: none;
-	border-radius: 15px 15px 15px 15px;
 	color: white !important;
 	cursor: pointer;
 	display: inline-block;
 	font-family: inherit;
 	font-size: 13px;
 	font-weight: normal;
-	margin: 5px;
-	padding: 7px 13px !important;
+	padding: 7px 13px;
 	text-align: center;
 	text-decoration: none;
 	box-shadow: 0 0 0;
+	
 }
 
 .neato-button:hover {
@@ -254,6 +253,26 @@ h1,h2,h3,h4,h5,h6 {
 	background-image: -moz-linear-gradient(center top, #DC4405 0%, #B63805 100%);
 	background-image: -webkit-linear-gradient(#DC4405, #B63805);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#DC4405, endColorstr=#B63805)";
+}
+
+.rounded-corners{
+	border-radius: 15px 15px 15px 15px;
+	overflow: hidden; float: left;
+	margin: 5px;	
+		}
+
+
+.row-buttons input.neato-button{
+	padding: 6px 13px;
+	margin:0px !important;
+	padding: 6px 13px \0/IE8+9;
+}
+
+.change-password-buttons a.neato-button{
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+/* 	padding-top: 5px !important  \0/IE8+9; */
+	padding-bottom: 4px !important  \0/IE8+9;
 }
 
 .top-buttons-container {
@@ -792,11 +811,6 @@ input,textarea {
 	font-weight: normal;
 }
 
-.action-button-container {
-	float: right;
-	margin-bottom: 15px;
-}
-
 .td-left-align {
 	text-align: left !important;
 }
@@ -916,7 +930,7 @@ input,textarea {
 	padding-bottom: 10px;
 	text-indent: 20px;
 	background-color: #FCF7F9;
-	margin: 5px 0;
+	margin: 5px;
 }
 
 .btn-facebook {
@@ -926,6 +940,7 @@ input,textarea {
 }
 
 a.neato-button {
+	
 	width: 65px;
 }
 
@@ -976,9 +991,24 @@ table.detail-view {
 	padding-top: 10px;
 }
 
-.popup-container {
-	width: 530px;
-	padding:10px;
+.popup-container, .popup-container .popup-body{
+	max-width: 548px;
+	min-width: 548px;
+	max-height: 353px;
+}
+
+.popup-container .popup-body{
+	max-width: 538px;
+	min-width: 538px;
+	max-height: 348px;
+	min-height: 0px;
+}
+
+.popup-container .popup-body fieldset{
+	max-width: 538px;
+	min-width: 538px;
+	max-height: 345px;
+	min-height: 0px;
 }
 
 .popup-body {
@@ -1011,7 +1041,7 @@ table.detail-view {
 .qtip-blob-image {
 	display: block;
 	margin: 0 auto;
-	max-height: 450px;
+	max-height: 280px;
 	max-width: 500px;
 	padding-top: 12px;
 	padding-bottom: 12px;
@@ -1034,7 +1064,7 @@ table.detail-view {
 .qtip-xml-data {
 	display: block;
 	margin: 0 auto;
-	max-height: 450px;
+	max-height: 275px;
 	max-width: 500px;
 	padding-bottom: 12px;
 	padding-right: 5px;
@@ -1042,8 +1072,8 @@ table.detail-view {
 
 .qtip-xml-data-container {
 	max-height: 450px;
-	max-width: 508px;
-	overflow: scroll;
+	max-width: 537px;
+	overflow: auto;
 }
 
 .qtip-xml-data-download-button {
@@ -1068,4 +1098,8 @@ a.user-neato-button {
 
 fieldset.robot-online-fieldset{
 	min-height: auto;
+}
+
+.list-add_app_version {
+    height: 56px;
 }

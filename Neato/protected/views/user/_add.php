@@ -53,7 +53,7 @@
 				name="UserAddForm[is_admin]" yes="1">
 		</div>
 
-		<div class="row buttons">
+		<div class="row-buttons">
 			<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>"neato-button",  "title" => "Add")); ?>
 			<a href="<?php echo $this->createUrl('user/list')?>" title="Cancel"
 				class="neato-button">Cancel</a>
