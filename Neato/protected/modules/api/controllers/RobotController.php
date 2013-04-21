@@ -586,4 +586,80 @@ class RobotController extends APIController {
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 	}
+        
+        
+        public function actionRobotDataTable() {
+                $userColumns = array('id', 'serial_number');
+                $userIndexColumn = "id";
+                $userTable = "robots";
+                $userDataModelName = 'Robot';
+                $result = AppCore::dataTableOperation($userColumns, $userIndexColumn, $userTable, $_GET, $userDataModelName);
+                
+                /*
+                 * Output
+                 */
+                $output = array(
+                    'sEcho' => $result['sEcho'],
+                    'iTotalRecords' => $result['iTotalRecords'],
+                    'iTotalDisplayRecords' => $result['iTotalDisplayRecords'],
+                    'aaData' => array()
+                );
+                
+                foreach ($result['rResult'] as $robot) {
+
+                    $row = array();
+                    
+                    $schedule = '';
+                    $atlas = '';
+                    $grid = '';
+                    $map = '';
+                    
+                    $select_checkbox = '<input type="checkbox" name="chooseoption[]" value="'.$robot->id.'" class="choose-option">';
+                    $serial_number = '<a rel="'.$this->createUrl('/robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" href="'.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" class="qtiplink robot-qtip" title="View details of ('.$robot->serial_number.')">'.$robot->serial_number.'</a>';
+                    
+                    $associated_users = '';
+                    if ($robot->doesUserAssociationExist()) {
+                        $is_first_user = true;
+                        foreach ($robot->usersRobots as $value) {
+                            if (!$is_first_user) {
+                                $associated_users .= ",";
+                            }
+                            $is_first_user = false;
+                            $associated_users .= "<a class='single-item qtiplink' title='View details of (" . $value->idUser->email . ")' rel='" . $this->createUrl('/user/userprofilepopup', array('h' => AppHelper::two_way_string_encrypt($value->idUser->id))) . "' href='" . $this->createUrl('/user/userprofile', array('h' => AppHelper::two_way_string_encrypt($value->idUser->id))) . "'>" . $value->idUser->email . "</a>";
+                        }
+                    }
+                    
+                    if ($robot->doesMapExist()) {
+                        $map = '<a href="'.$this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($robot->id), 'scroll_to' => 'map_section')) .'" title="View map details of robot ('.$robot->serial_number.')"> Yes </a>';
+                    }	
+                    
+                    if ($robot->doesScheduleExist()) {
+			$schedule ='<a href="'.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'schedule_section')).'" title="View schedule details of robot ('.$robot->serial_number.')"> Yes </a>';					
+                    }	
+
+                    if ($robot->doesAtlasExist()){
+                        $atlas ='<a href='.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'atlas_section')).' title="View atlas details of robot ('.$robot->serial_number.')"> Yes </a>';
+                    }	
+                    
+                    if ($robot->doesAtlasExist() && $robot->robotAtlas->doesGridImageExist()){
+			$grid =  '<a href="'.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'atlas_section')).'" title="View atlas details of robot ('.$robot->serial_number.')"> Yes </a>';
+                    }	
+                    
+                    $edit = '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" title="Edit robot '.$robot->serial_number.'">edit</a>';
+                    
+                    $row[] = $select_checkbox;
+                    $row[] = $serial_number;
+                    $row[] = $associated_users;
+                    $row[] = $schedule;
+                    $row[] = $atlas;
+                    $row[] = $grid;
+                    $row[] = $map;
+                    $row[] = $edit;
+                    
+                    $output['aaData'][] = $row;
+                }
+
+                $this->renderPartial('/default/defaultView', array('content' => $output));
+    }
+    
 }

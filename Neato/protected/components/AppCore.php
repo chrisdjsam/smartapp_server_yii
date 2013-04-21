@@ -796,7 +796,111 @@ class AppCore {
 
 	}
 
+        public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $_GET, $modelName) {
+        /*
+         * Paging
+         */
+        $sLimit = "";
+        if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+            $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
+                    intval($_GET['iDisplayLength']);
+        }
 
+
+        /*
+         * Ordering
+         */
+        $sOrder = "";
+        if (isset($_GET['iSortCol_0'])) {
+            $sOrder = "ORDER BY  ";
+            for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
+                if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
+                    $sOrder .= $aColumns[intval($_GET['iSortCol_' . $i])] . "
+                    " . ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+                }
+            }
+
+            $sOrder = substr_replace($sOrder, "", -2);
+            if ($sOrder == "ORDER BY") {
+                $sOrder = "";
+            }
+        }
+
+
+        /*
+         * Filtering
+         * NOTE this does not match the built-in DataTables filtering which does it
+         * word by word on any field. It's possible to do here, but concerned about efficiency
+         * on very large tables, and MySQL's regex functionality is very limited
+         */
+        $sWhere = "";
+        if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+            $sWhere = "WHERE (";
+            for ($i = 0; $i < count($aColumns); $i++) {
+                if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true") {
+                    $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+                }
+            }
+            $sWhere = substr_replace($sWhere, "", -3);
+            $sWhere .= ')';
+        }
+
+        /* Individual column filtering */
+        for ($i = 0; $i < count($aColumns); $i++) {
+            if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
+                if ($sWhere == "") {
+                    $sWhere = "WHERE ";
+                } else {
+                    $sWhere .= " AND ";
+                }
+                $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+            }
+        }
+
+
+        /*
+         * SQL queries
+         * Get data to display
+         */
+        $sQuery = "
+        SELECT SQL_CALC_FOUND_ROWS " . str_replace(" , ", " ", implode(", ", $aColumns)) . "
+        FROM   $sTable
+        $sWhere
+        $sOrder
+        $sLimit
+        ";
+
+        $rResult = $modelName::model()->findAllBySql($sQuery);
+//        $rResult = Yii::app()->db->createCommand($sQuery)->queryAll();
+
+        /* Data set length after filtering */
+        $sQuery = "
+        SELECT FOUND_ROWS()
+        ";
+
+        $rResultFilterTotal = Yii::app()->db->createCommand($sQuery)->queryAll();
+        $iFilteredTotal = $rResultFilterTotal[0]['FOUND_ROWS()'];
+
+        /* Total data set length */
+        $sQuery = "
+        SELECT COUNT(" . $sIndexColumn . ")
+        FROM   $sTable
+        ";
+        $rResultTotal = Yii::app()->db->createCommand($sQuery)->queryAll();
+        $iTotal = $rResultTotal[0]['COUNT(' . $sIndexColumn . ')'];
+
+        /*
+         * Output
+         */
+        $output = array(
+            'sEcho' => intval($_GET['sEcho']),
+            'iTotalRecords' => $iTotal,
+            'iTotalDisplayRecords' => $iFilteredTotal,
+            'rResult' => $rResult
+        );
+
+        return($output);
+    }
 
 }
 

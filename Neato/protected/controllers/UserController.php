@@ -291,20 +291,17 @@ class UserController extends Controller
 	/**
 	 * Lists all users.
 	 */
-	public function actionList()
+        public function actionList()
 	{
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/user/list');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
 		self::check_for_admin_privileges();
-
-		$users_data = User::model()->findAll();
-		$this->render('list',array(
-				'users_data'=>$users_data,
-		));
+                
+		$this->render('list');
 	}
-
+        
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -448,5 +445,5 @@ class UserController extends Controller
 				'model'=>$changePassword_model
 		));
 	}
-
+        
 }
