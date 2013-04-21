@@ -138,9 +138,9 @@ class RobotCustomController extends APIController {
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 		$robot_id = $robot->id;
-
+		
 		$encoded_blob_data_arr = Yii::app()->request->getParam('encoded_blob_data', '');
-
+// 		var_dump($_FILES); die;
 		if (!$encoded_blob_data_arr || !isset($_FILES['blob_data'])) {
 			if (!$encoded_blob_data_arr){
 				$response_message = self::yii_api_echo('Provide atleast one data.');
