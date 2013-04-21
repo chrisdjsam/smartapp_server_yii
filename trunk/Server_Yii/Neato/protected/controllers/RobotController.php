@@ -160,10 +160,7 @@ class RobotController extends Controller
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
 		self::check_for_admin_privileges();
-		$robot_data = Robot::model()->findAll();
-		$this->render('list',array(
-				'robot_data'=>$robot_data,
-		));
+		$this->render('list');
 	}
 
 	

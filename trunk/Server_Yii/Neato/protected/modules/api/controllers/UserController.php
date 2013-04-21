@@ -1173,5 +1173,56 @@ class UserController extends APIController {
 			$user_social_service_model->save();
 		}
 	}
+        
+        public function actionUserDataTable() {
+                $userColumns = array('id', 'email', 'name', 'is_admin');
+                $userIndexColumn = "id";
+                $userTable = "users";
+                $userDataModelName = 'User';
+                $result = AppCore::dataTableOperation($userColumns, $userIndexColumn, $userTable, $_GET, $userDataModelName);
+                
+                /*
+                 * Output
+                 */
+                $output = array(
+                    'sEcho' => $result['sEcho'],
+                    'iTotalRecords' => $result['iTotalRecords'],
+                    'iTotalDisplayRecords' => $result['iTotalDisplayRecords'],
+                    'aaData' => array()
+                );
+                
+                foreach ($result['rResult'] as $user) {
+
+                    $row = array();
+                    
+                    if($user->is_admin == '0'){ 
+                        $select_checkbox = '<input type="checkbox" name="chooseoption[]" value="'.$user->id.'" class="choose-option">';
+                    } else { 
+                        $select_checkbox = "Admin" ;
+                    }
+		
+                    $user_email = '<a rel="'.$this->createUrl('/user/userprofilepopup', array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" href="'.$this->createUrl('/user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" class="qtiplink" title="View details of ('.$user->email.')">'.$user->email.'</a>';
+                             
+                    $associated_robots = '';
+                    if ($user->doesRobotAssociationExist()) {
+                        $is_first_robot = true;
+                        foreach ($user->usersRobots as $value) {
+                            if (!$is_first_robot) {
+                                $associated_robots .= ",";
+                            }
+                            $is_first_robot = false;
+                            $associated_robots .= "<a class='single-item qtiplink robot-qtip' title='View details of (" . $value->idRobot->serial_number . ")' rel='" . $this->createUrl('/robot/popupview', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "' href='" . $this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "'>" . $value->idRobot->serial_number . "</a>";
+                        }
+                    }
+
+                    $row[] = $select_checkbox;
+                            $row[] = $user_email;
+                            $row[] = $user->name;
+                            $row[] = $associated_robots;
+                            $output['aaData'][] = $row;
+                }
+                $this->renderPartial('/default/defaultView', array('content' => $output));
+    }
+
 
 }

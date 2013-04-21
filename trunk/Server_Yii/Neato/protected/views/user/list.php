@@ -37,38 +37,6 @@ $this->breadcrumbs=array(
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($users_data as $user){?>
-				<tr>
-					<td class='pretty-table-center-td'><?php 
-					if($user->is_admin == '0'){?> <input type="checkbox"
-						name="chooseoption[]" value="<?php echo $user->id;?>"
-						class='choose-option'> <?php } else{
-							echo("Admin");
-						}?></td>
-					<td><a
-						rel="<?php echo $this->createUrl('user/userprofilepopup',array('h'=>AppHelper::two_way_string_encrypt($user->id)))?>"
-						href="<?php echo $this->createUrl('user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($user->id)))?>"
-						class='qtiplink' title="View details of (<?php echo($user->email);?>)"><?php echo($user->email);?>
-					</a>
-					</td>
-					<td><?php echo($user->name);?>
-					</td>
-					<td class='multiple-item'><?php if ($user->doesRobotAssociationExist()){ 
-						$is_first_robot = true;
-						$html_string = '';
-						foreach($user->usersRobots as $value){
-		 	if(!$is_first_robot){
-		 		$html_string .= ",";
-		 	}
-		 	$is_first_robot = false;
-		 	$html_string .= "<a class='single-item qtiplink robot-qtip' title='View details of (".$value->idRobot->serial_number.")' rel='".$this->createUrl('robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($value->idRobot->id)))."' href='".$this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($value->idRobot->id)))."'>".$value->idRobot->serial_number."</a>";
-				}
-		 	echo $html_string;
-					}
-					?>
-					</td>
-				</tr>
-				<?php } ?>
 			</tbody>
 		</table>
 	</form>

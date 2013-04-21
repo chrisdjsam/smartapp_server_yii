@@ -43,71 +43,7 @@ $this->breadcrumbs=array(
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($robot_data as $robot){?>
-				<tr>
-					<td class='pretty-table-center-td'><input type="checkbox" name="chooseoption[]"
-						value="<?php echo $robot->id;?>" class='choose-option'>
-					</td>
-					<td><a
-						rel=<?php echo $this->createUrl('robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
-						href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
-						class='qtiplink robot-qtip'
-						title="View details of (<?php echo $robot->serial_number?>)"><?php echo $robot->serial_number?>
-					</a>
-					</td>
-					<td class='multiple-item'><?php
-					if ($robot->doesUserAssociationExist()){
-							$is_first_user = true;
-							$html_string = '';
-						 foreach($robot->usersRobots as $value){
-						 	if(!$is_first_user){
-						 		$html_string .= ",";
-						 	}
-						 	$is_first_user = false;
-						 	$html_string .= "<a class='single-item qtiplink' title='View details of (".$value->idUser->email.")' rel='".$this->createUrl('user/userprofilepopup',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."' href='".$this->createUrl('user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."'>".$value->idUser->email."</a>"
-									?> <?php }
-						 	echo $html_string;
-						}
-						?>
-					</td>
-					<td class='pretty-table-center-td'>
-					<?php if ($robot->doesMapExist()){ ?>
-					
-					<a	href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'map_section'))?>
-						title="View map details of robot (<?php echo $robot->serial_number?>)"> Yes </a>
-					
-					<?php }	?>
-					</td>
-					<td class='pretty-table-center-td'><?php
-					if ($robot->doesScheduleExist()){?>
-					
-					<a	href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'schedule_section'))?>
-						title="View schedule details of robot (<?php echo $robot->serial_number?>)"> Yes </a>
-					
-					<?php }	?>
-					</td>
-					<td class='pretty-table-center-td'><?php
-					if ($robot->doesAtlasExist()){?>
-					
-					<a	href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'atlas_section'))?>
-						title="View atlas details of robot (<?php echo $robot->serial_number?>)"> Yes </a>
-					
-					<?php }	?>
-					</td>
-					<td class='pretty-table-center-td'><?php
-					if ($robot->doesAtlasExist() && $robot->robotAtlas->doesGridImageExist()){?>
-					
-					<a	href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'atlas_section'))?>
-						title="View atlas details of robot (<?php echo $robot->serial_number?>)"> Yes </a>
-					
-					<?php }	?>
-					</td>
-					<td class='pretty-table-center-td'><a
-						href=<?php echo $this->createUrl('robot/update',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
-						title="Edit robot <?php echo $robot->serial_number?>">edit</a>
-					</td>
-				</tr>
-				<?php } ?>
+				
 			</tbody>
 		</table>
 	</form>

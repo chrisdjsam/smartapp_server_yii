@@ -142,33 +142,96 @@ function hideWaitDialog() {
 
 $(document).ready(function(){
 	createJQtip();
-	$('.robot-table').dataTable(
-			{"bStateSave":true,
-				"fnStateSave": function (oSettings, oData) {
-		             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
-		         },
-		         "fnStateLoad": function (oSettings) {
-		             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
-		         },
-				"iDisplayLength": 25,
-				"aoColumnDefs": [{"bSortable":false, 'aTargets': [0, 2, 7]}],
-				"aaSorting": [ [1,'asc']]}		
-	);
+        $('.robot-table').dataTable(
+        {
+            "bStateSave":true,
+            "iDisplayLength": 25,
+            "aoColumnDefs": [{
+                "bSortable":false, 
+                'aTargets': [0, 2, 7]
+            }],
+            "aaSorting": [ [1,'asc']],
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": app_base_url + '/api/robot/RobotDataTable',
+            "fnServerData": function ( sSource, aoData, fnCallback ) {
+                $.ajax( {
+                    "dataType": 'json',
+                    "type": "GET",
+                    "url": sSource,
+                    "data": aoData,
+                    "success": function (json) {
+                        fnCallback(json);
+                        hideWaitDialog();
+                    },
+                    "beforeSend": function(){
+                        var loading_show  = true;
+                        aoData.filter(function (val) {
+                            if(val.name == 'sSearch'){
+                                if(val.value){
+                                    loading_show = false;
+                                }
+                            }
+                        });
+                        if(loading_show){
+                            showWaitDialog();
+                        }
+                    }
+                } );
+            },
+            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                $('td:eq(0), td:eq(3),td:eq(4),td:eq(5),td:eq(6),td:eq(7)', nRow).addClass( "pretty-table-center-td" );
+                $('td:eq(2)', nRow).addClass( "multiple-item" );
+                $('td:eq(2)', nRow).addClass( "multiple-item" );
 
-	$('.user-table').dataTable(
-			{
-				"bStateSave":true,
-				"fnStateSave": function (oSettings, oData) {
-		             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
-		         },
-		         "fnStateLoad": function (oSettings) {
-		             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
-		         },
-				"iDisplayLength": 25,
-				"aoColumnDefs": [{"bSortable":false, 'aTargets': [0, 3]}],
-				"aaSorting": [ [1,'asc']]}		
-	);
-	
+            }
+        });
+
+
+//        location.protocol+'//'+window.location.hostname+'/user/UserDataTable',
+        $('.user-table').dataTable(
+            {
+                "bStateSave":true,
+                "iDisplayLength": 25,
+                "aoColumnDefs": [{
+                    "bSortable":false, 
+                    'aTargets': [0, 3]
+                    }],
+                "aaSorting": [ [1,'asc']],
+                "bProcessing": true,
+                "bServerSide": true,
+                "sAjaxSource": app_base_url + '/api/user/UserDataTable',
+                "fnServerData": function ( sSource, aoData, fnCallback ) {
+                    $.ajax( {
+                        "dataType": 'json',
+                        "type": "GET",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": function (json) {
+                            fnCallback(json);
+                            hideWaitDialog();
+                        },
+                        "beforeSend": function(){
+                            var loading_show  = true;
+                            aoData.filter(function (val) {
+                                if(val.name == 'sSearch'){
+                                    if(val.value){
+                                        loading_show = false;
+                                    }
+                                }
+                            });
+                            if(loading_show){
+                                showWaitDialog();
+                            }
+                        }
+                    } );
+                },
+                "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                     $('td:eq(0)', nRow).addClass( "pretty-table-center-td" );
+                     $('td:eq(3)', nRow).addClass( "multiple-item" );
+                }
+            });
+
 	$('.online-robot-table').dataTable(
 			{"bStateSave":true,
 				"fnStateSave": function (oSettings, oData) {
@@ -420,7 +483,7 @@ $(document).ready(function(){
 	    }
 	});
 
-	
+
 	$('.delete-single-app_version').live('click', function(){
 		if(confirm("Are you sure you want to delete app version?")){
 			var this_row_handle = $(this);
