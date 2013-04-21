@@ -17,8 +17,12 @@ $(document).ready(function(){
 		})
 		$('#'+formId).submit();
 	});
+	
 	labelLinkClick();
 	labelLinkClick1();
+	labelLinkClick2();
+	labelLinkUpdateClick();
+	
 var options = {
  		beforeSubmit:  showRequest,  // pre-submit callback
         success:       showResponse,  // post-submit callback
@@ -99,6 +103,7 @@ function showResponse(responseText, statusText, xhr, $form)  {
 	}
 }
 function labelLinkClick(){
+
 	existingLabelNameArray = new Array();
 	$('#addLabelLink').click(function(){
 		labelNameVal = $('#labelName').val();
@@ -142,13 +147,64 @@ function labelLinkClick1(){
 			}else{
 				existingLabelNameArray.push(labelNameVal);
 				$('#labelPlaceholderRow1').append("<table style='width:100%'><tr><td class = \"label_field\">" + labelNameVal+"</td><td class = \" value_field\"><input type='text' name='profile[" + labelNameVal + "]'></tr></td><table>");
-
 			}
 		}else{
 			alert('Key can NOT be empty');
 		}
 	});
+
 }
+
+	function labelLinkClick2(){
+		existingLabelNameArray = new Array();
+		$('#addLabelLink2').click(function(){
+			labelNameVal = $('#labelName2').val();
+			if($.trim(labelNameVal)!=''){
+				labelExists = false;
+				for(i=0; i<existingLabelNameArray.length; i++){
+					existingLabel = existingLabelNameArray[i];                                                                                                              
+					if(existingLabel == labelNameVal){
+						labelExists = true;
+					}
+				}
+				if(labelExists){
+					alert('Key already added');
+				}else{
+					existingLabelNameArray.push(labelNameVal);
+					$('#labelPlaceholderRow').append("<table class='row-table'><tr><td>" + labelNameVal+"</td><td>encoded_blob_data<br><textarea rows='5' cols='20' name='encoded_blob_data["+labelNameVal+"]'></textarea></td><td>blob_data<br><input type='file' name='blob_data["+labelNameVal+"]'></td></tr><table>");
+				}
+			}else{
+				alert('Key can NOT be empty');
+			}
+		});
+	}
+		
+	
+	
+	function labelLinkUpdateClick(){
+	existingLabelNameUpadateArray = new Array();
+		$('#addLabelLinkUpdate').click(function(){
+			labelNameVal = $('#labelNameUpdate').val();
+			if($.trim(labelNameVal)!=''){
+				labelExists = false;
+				for(i=0; i<existingLabelNameUpadateArray.length; i++){
+					existingLabel = existingLabelNameUpadateArray[i];                                                                                                              
+					if(existingLabel == labelNameVal){
+						labelExists = true;
+					}
+				}
+				if(labelExists){
+					alert('Key already added');
+				}else{
+					existingLabelNameUpadateArray.push(labelNameVal);
+					$('#labelPlaceholderRowUpdate').append("<table class='row-table'><tr><td>" + labelNameVal+"</td><td>blob_data_version<br><input type='text' name='blob_data_version["+labelNameVal+"]'></td><td>encoded_blob_data<br><textarea rows='5' cols='20' name='encoded_blob_data["+labelNameVal+"]'></textarea></td><td>blob_data<br><input type='file' name='blob_data["+labelNameVal+"]'></td></tr><table>");
+				}
+			}else{
+				alert('Key can NOT be empty');
+			}
+		});
+	}
+
 
 </script>
 </body>

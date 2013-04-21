@@ -43,6 +43,11 @@ class RobotAtlasController extends APIController {
      *					method robot.add_atlas"}</li>
      *			</ul>
      *		</li>
+     *		<li>If atlas already added
+	 *			<ul>
+	 *				<li>{"status":-1,"message":"Robot can have only one atlas"}</li>
+	 *			</ul>
+	 *		</li>
      *		
      *	</ul>
 	 */

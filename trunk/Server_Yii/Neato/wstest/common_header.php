@@ -94,9 +94,10 @@ tr.Facebook {
 	display: none;
 }
 
-#addLabelLink, #addLabelLink1 {
+#addLabelLink, #addLabelLink1, #addLabelLink2, #addLabelLinkUpdate {
 	cursor: pointer;
 	color: blue;
+	width: 310px;
 }
 
 .request_div, .response_div {

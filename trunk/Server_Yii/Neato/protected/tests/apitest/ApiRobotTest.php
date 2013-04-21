@@ -6,6 +6,7 @@ class ApiRobotTest extends ApiTestBase {
 	protected static $email;
 	protected static $user_name;
 	protected static $password;
+	protected static $profile;
 
 	public static function setUpBeforeClass(){
 		self::$robot_serial_no = 'sl_'.time();
@@ -13,6 +14,7 @@ class ApiRobotTest extends ApiTestBase {
 		self::$user_name = 'user_'.time();
 		self::$email = self::$user_name.'@neatorobotics.com';
 		self::$password = self::$user_name.'_password';
+		self::$profile = array('name'=>self::$robot_name.'_new');
 	}
 
 	public function testCreate() {
@@ -36,7 +38,25 @@ class ApiRobotTest extends ApiTestBase {
 		$rb_serial_no = "sl_no_".time();
 		$post = array('serial_number' => $rb_serial_no);
 		$contents = $this->sendApi($api, $post);
-		$this->assertEquals("Serial number does not exist", $contents->message);
+		$this->assertEquals("Robot serial number does not exist", $contents->message);
+	}
+	
+	public function testSetProfileDetails() {
+		$api = 'robot.set_profile_details';
+		$post = array('serial_number' => self::$robot_serial_no, 'profile'=> self::$profile);
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("1", $contents->result);
+		
+		$api = 'robot.get_details';
+		$post = array('serial_number' => self::$robot_serial_no);
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals(self::$robot_serial_no, $contents->result->serial_number);
+		$this->assertEquals(self::$profile['name'], $contents->result->name);
+
+		$api = 'robot.set_profile_details';
+		$post = array('serial_number' => self::$robot_serial_no, 'profile'=> array('name'=>self::$robot_name));
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("1", $contents->result);		
 	}
 
 	public function testGetAssociatedUsers() {
@@ -77,6 +97,16 @@ class ApiRobotTest extends ApiTestBase {
 
 		$contents = $this->sendApi($api, $post);
 		$this->assertEquals("There is no association between provided robot and user", $contents->result->message);
+	}
+	
+	public function testDelete() {
+		$api = 'robot.delete';
+		$post = array('serial_number' => self::$robot_serial_no,
+		);
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("You have deleted robot ".self::$robot_serial_no." successfully", $contents->result->message);
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("Robot serial number does not exist", $contents->message);
 	}
 }
 ?>

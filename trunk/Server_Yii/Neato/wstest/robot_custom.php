@@ -1,4 +1,6 @@
+
 <?php include_once 'common_header.php';?>
+
 	<form action="<?php echo($baseURL)?>robot.post_custom_data"
 		method='POST' id='robotPostcustomdata' class='ajaxified_forms'
 		enctype="multipart/form-data">
@@ -132,11 +134,11 @@
 				<td id='labelPlaceholderRow' colspan="2"></td>
 			</tr>
 			<tr>
-				<td><input type="text" name='labelName' value='' id='labelName'
+				<td><input type="text" name='labelName' value='' id='labelName2'
 					class='removeFromRequest'>
 				</td>
 				<td>
-					<div id='addLabelLink'>Add File Detail Key (considered keys are
+					<div id='addLabelLink2'>Add File Detail Key (considered keys are
 						name)</div>
 				</td>
 			</tr>
@@ -621,4 +623,7 @@
 			</tr>
 		</table>
 	</form>
+	
+	
 <?php include_once 'common_footer.php';?>
+

@@ -7,6 +7,7 @@ class ApiUserTest extends ApiTestBase {
 	protected static $password;
 	protected static $account_type;
 	protected static $profile;
+	protected static $attributes;
 	
 	protected static $robot_name;
 	protected static $robot_serial_no;
@@ -19,6 +20,7 @@ class ApiUserTest extends ApiTestBase {
 		self::$password = self::$user_name.'_pswd';
 		self::$account_type = 'Native';
 		self::$profile = array('name' => self::$user_name.time(), 'Occupation' => 'Programmer');
+		self::$attributes = array('operating_system'=>'Android', 'version'=>'4.0');
 
 		self::$robot_name = "Robot_Name_".time();
 		self::$robot_serial_no = "Robot_".time();
@@ -75,6 +77,45 @@ class ApiUserTest extends ApiTestBase {
 		$this->assertEquals(-1, $contents->status);
 		$this->assertEquals("User could not be authenticated", $contents->message);
 	}	
+
+
+	public function testChangePassword() {
+		$api = 'user.change_password';
+		$post = array('auth_token' => self::$user_auth_token,
+				'password_old' => self::$password,
+				'password_new' => self::$password."_new",
+		);
+	
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("0", $contents->status);
+		$this->assertEquals(true, $contents->result->success);
+		$this->assertEquals("Your password is changed successfully.", $contents->result->message);
+	
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("-1", $contents->status);
+		$this->assertEquals("Old password does not match with user password.", $contents->message);
+	
+	}
+
+	public function testForgetPassword() {
+		$api = 'user.forget_password';
+		
+		$post = array('email' => "email",
+		);
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("-1", $contents->status);
+		$this->assertEquals("Email does not exist.", $contents->message);
+		
+		$post = array('email' => self::$email,
+		);
+	
+		$contents = $this->sendApi($api, $post);
+		$this->assertEquals("0", $contents->status);
+		$this->assertEquals(true, $contents->result->success);
+		$this->assertEquals("New password is sent to your email.", $contents->result->message);
+
+	}
+	
 	
 	public function testSetUserAccountDetails(){
 		$api = 'user.set_account_details';
@@ -94,6 +135,39 @@ class ApiUserTest extends ApiTestBase {
 		$contents = $this->sendApi($api,$post);
 		$this->assertEquals(-1, $contents->status);
 		$this->assertEquals("Method call failed the User Authentication", $contents->message);
+	}
+
+
+	public function testGetAttributes(){
+		$api = 'user.get_attributes';
+		$post = array(
+				'auth_token' => self::$user_auth_token,
+		);
+	
+		$contents = $this->sendApi($api,$post);
+		$this->assertEquals(-1, $contents->status);
+		$this->assertEquals("Attributes not found for this user", $contents->message);
+	
+		self::testSetAttributes();
+		$contents = $this->sendApi($api,$post);
+		$this->assertEquals(0, $contents->status);
+// 		$this->assertEquals(count(self::$attributes['operating_system']), count(json_decode($contents->result->user_attributes->operating_system)));
+// 		$this->assertEquals(count(self::$attributes['version']), count(json_decode($contents->result->user_attributes->version)));
+// 		'operating_system'=>'Android', 'version'=>'4.0'
+	}
+	
+
+	public function testSetAttributes(){
+		$api = 'user.set_attributes';
+		$post = array(
+				'auth_token' => self::$user_auth_token,
+				'profile' => self::$attributes,
+		);
+	
+		$contents = $this->sendApi($api,$post);
+		$this->assertEquals(0, $contents->status);
+		$this->assertEquals("User attributes are set successfully.", $contents->result->message);
+	
 	}
 
 	public function testGetUserAccountDetails(){
@@ -180,6 +254,8 @@ class ApiUserTest extends ApiTestBase {
 		$this->assertEquals(-1, $contents->status);
 		$this->assertEquals("Serial number does not exist", $contents->message);
 	}
+	
+
 }
 
 ?>
