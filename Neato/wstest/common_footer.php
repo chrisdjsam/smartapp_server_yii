@@ -22,6 +22,8 @@ $(document).ready(function(){
 	labelLinkClick1();
 	labelLinkClick2();
 	labelLinkUpdateClick();
+        loadRegistrationIds();
+        loadEmails();
 	
 var options = {
  		beforeSubmit:  showRequest,  // pre-submit callback
@@ -204,6 +206,78 @@ function labelLinkClick1(){
 			}
 		});
 	}
+        
+        
+        function loadRegistrationIds(){
+	
+                existingLabelNameArray = new Array();
+                $('#loadRegistrationIds').click(function(){
+                        labelNameVal = $('#given_registration_id').val();
+                        if($.trim(labelNameVal)!=''){
+                                labelExists = false;
+                                for(i=0; i<existingLabelNameArray.length; i++){
+                                        existingLabel = existingLabelNameArray[i];
+                                        if(existingLabel == labelNameVal){
+                                                labelExists = true;
+                                        }
+                                }
+                                if(labelExists){
+                                        alert('Registration Id already added');
+                                }else{
+                                        existingLabelNameArray.push(labelNameVal);
+                                        $('#append_given_registration_id').after("<tr><td></td><td><input type='text' name='registration_ids[]' value=" + labelNameVal + "></td>");
+                                        $('#given_registration_id').val('')
+                                }
+                        }else{
+                                alert('Registration Id can NOT be empty');
+                        }
+                });
+
+        }
+        
+
+        function loadEmails(){
+	
+                existingLabelNameArray = new Array();
+                $('#loadEmails').click(function(){
+                        labelNameVal = $('#given_email').val();
+                        if($.trim(labelNameVal)!=''){
+                                labelExists = false;
+                                for(i=0; i<existingLabelNameArray.length; i++){
+                                        existingLabel = existingLabelNameArray[i];
+                                        if(existingLabel == labelNameVal){
+                                                labelExists = true;
+                                        }
+                                }
+                                if(labelExists){
+                                        alert('Emails already added');
+                                }else{
+                                        if(!validateEmail(labelNameVal)){
+                                            alert('Please enter valide email address.');
+                                            return;
+                                        }
+                                        existingLabelNameArray.push(labelNameVal);
+                                        $('#append_given_email').after("<tr><td></td><td><input type='text' name='emails[]' value=" + labelNameVal + "></td>");
+                                        $('#given_email').val('')
+                                }
+                        }else{
+                                alert('Email field can NOT be empty');
+                        }
+                });
+
+        }
+        
+        function validateEmail(emailVal){
+                if(emailVal == ''){
+                    return false;
+                }
+//                var emailReg = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
+                var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                if(!emailReg.test(emailVal)){
+                    return false;
+                } 
+                return true;
+        }        
 
 
 </script>

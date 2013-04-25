@@ -50,11 +50,14 @@ class BaseUser extends GxActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, password,reset_password, email, chat_id, chat_pwd', 'required'),
-			array('is_emailVerified, is_admin, is_active', 'numerical', 'integerOnly'=>true),
+			array('is_emailVerified, is_admin, is_active, is_validated, validation_counter', 'numerical', 'integerOnly'=>true),
 			array('name, password, reset_password, email, chat_id, chat_pwd', 'length', 'max'=>128),
+                        array('alternate_email', 'compare', 'compareAttribute'=>'email', 'operator'=>'!=', 'allowEmpty'=>true , 'message'=>'Alternate email must be differ from primary email.'),
+                        array('alternate_email', 'email', 'allowName'=>true),
+//                        array('alternate_email, validation_key', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, password, reset_password, email, is_emailVerified, is_admin, created_on, chat_id, chat_pwd, is_active', 'safe', 'on'=>'search'),
+			array('id, name, password, reset_password, email, is_emailVerified, is_admin, created_on, chat_id, chat_pwd, is_active, validation_key, is_validated, validation_counter, alternate_email', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +72,7 @@ class BaseUser extends GxActiveRecord
 			'usersApiSessions' => array(self::HAS_MANY, 'UsersApiSession', 'id_user'),
 			'usersRobots' => array(self::HAS_MANY, 'UsersRobot', 'id_user'),
 			'usersSocialservices' => array(self::HAS_MANY, 'UsersSocialservice', 'id_user'),
+                        'notificationRegistrations' => array(self::HAS_MANY, 'NotificationRegistrations', 'user_id'),
 		);
 	}
 
@@ -84,12 +88,17 @@ class BaseUser extends GxActiveRecord
 			'password' => 'Password',
 			'reset_password' => 'Reset Password',
 			'email' => 'Email',
+                        'alternate_email' => 'Alternate Email',
 			'is_emailVerified' => 'Is Email Verified',
 			'is_admin' => 'Is Admin',
 			'created_on' => 'Created On',
 			'chat_id' => 'Chat ID',
 			'chat_pwd' => 'Chat Password',
 			'is_active' => 'Is Active',
+                        'validation_key' => 'Validation Key',
+                        'is_validated' => 'Validate Email',
+                        'validation_counter' => 'Validation Counter',
+                        
 		);
 	}
 
@@ -109,12 +118,16 @@ class BaseUser extends GxActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('reset_password',$this->reset_password,true);
 		$criteria->compare('email',$this->email,true);
+                $criteria->compare('alternate_email',$this->alternate_email,true);
 		$criteria->compare('is_emailVerified',$this->is_emailVerified);
 		$criteria->compare('is_admin',$this->is_admin);
 		$criteria->compare('created_on',$this->created_on,true);
 		$criteria->compare('chat_id',$this->chat_id,true);
 		$criteria->compare('chat_pwd',$this->chat_pwd,true);
 		$criteria->compare('is_active',$this->is_active);
+                $criteria->compare('validation_key',$this->validation_key);
+                $criteria->compare('is_validated',$this->is_validated);
+                $criteria->compare('validation_counter',$this->validation_counter);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -64,7 +64,7 @@ class AppHelper {
 	 * @return bool
 	 */
 	public static function is_valid_email($email){
-		if(preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/",$email)){
+		if(preg_match("/^[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/",$email)){
 			return true;
 		}
 		return false;
@@ -155,6 +155,66 @@ class AppHelper {
 		return false;
 		
 	}
+        
+        
+        /**
+	 * This function is used to do curl call
+	 * @param string $dir
+         * @param string $header
+         * @param string $data_string
+	 * @return curl response - $response
+	 */
+        public static function curl_call($url, $headers, $data_string) {
+            
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+                curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+                curl_setopt($ch, CURLOPT_POST, TRUE);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                curl_setopt($ch, CURLOPT_VERBOSE, TRUE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+
+                return $response;
+                
+        }
+        
+        public static function strip_string($text, $length) {
+            $length = abs((int) $length);
+            if (strlen($text) > $length) {
+                $text = $text . '...';
+            }
+            return($text);
+        }
+        
+        public static function download_file($filename, $ctype) {
+
+    // required for IE, otherwise Content-disposition is ignored
+            if (ini_get('zlib.output_compression'))
+                ini_set('zlib.output_compression', 'Off');
+
+            header("Pragma: public"); // required
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header("Cache-Control: private", false); // required for certain browsers
+            header("Content-Type: $ctype");
+
+    // change, added quotes to allow spaces in filenames
+
+            header("Content-Disposition: attachment; filename=\"" . basename($filename) . "\";");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: " . filesize($filename));
+            readfile("$filename");
+            
+        }
 }
 
 ?>

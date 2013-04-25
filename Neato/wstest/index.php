@@ -115,6 +115,15 @@ padding-right: 50px;
 											<li><a href="user.php#Disassociate User from Robot or Robots">Disassociate
 													User from Robot or Robots</a>
 											</li>
+                                                                                        <li>
+                                                                                            <a href="user.php#Create User 2"class="new-api">Create User 2</a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a href="user.php#Is User Validated"class="new-api">Is User Validated?</a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a href="user.php#Resend Validation Email"class="new-api">Resend Validation Email</a>
+                                                                                        </li>
 										</ul>
 									</td>
 								</tr>
@@ -196,6 +205,11 @@ padding-right: 50px;
 										<ul>
 											<li><a href="messages.php#Send Xmpp Message To Robot"  class="new-api">Send Xmpp Message To Robot</a></li>
 											<li><a href="messages.php#Send Message To Associated Users"  class="new-api">Send Message To Associated Users</a></li>
+                                                                                        <li><a href="messages.php#Send notification to given emails"  class="new-api">Send notification to given emails</a></li>
+                                                                                        <li><a href="messages.php#Send notification to given Registration IDs"  class="new-api">Send notification to given Registration IDs</a></li>
+                                                                                        <li><a href="messages.php#Send notification to all the users of robot"  class="new-api">Send notification to all the users of robot</a></li>
+                                                                                        <li><a href="messages.php#Store Registration Id To Send Notification For Given User"  class="new-api">Register For Notification</a></li>
+                                                                                        <li><a href="messages.php#Remove Notification Registration Id"  class="new-api">Unregister From Notification</a></li>
 										</ul>
 									</td>
 								</tr>

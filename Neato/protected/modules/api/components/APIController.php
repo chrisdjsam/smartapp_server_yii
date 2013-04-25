@@ -33,6 +33,18 @@ class APIController extends Controller {
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 		Yii::app()->end();
 	}
+        
+        /**
+	 *
+	 * @param  $response_data
+	 * @param  $extra_param
+	 */
+	protected function successWithExtraParam($response_data, $extra_param) {
+		$content = array('status' => 0, 'result' => $response_data, 'extra_params' => $extra_param);
+		AppCore::ws_log_details(1, $content);
+		$this->renderPartial('/default/defaultView', array('content' => $content));
+		Yii::app()->end();
+	}
 
 	/**
 	 * Common code to all API Controllers to terminate API call with an error

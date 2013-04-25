@@ -542,7 +542,7 @@ class AppCore {
 				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 				<b>Welcome to Neato-Robotics</b></div>
 
-				<br>HI %s,<br><br>
+				<br>Hi %s,<br><br>
 
 				Your email id is : %s<br><br>
 				Your password is : %s<br><br>
@@ -550,7 +550,7 @@ class AppCore {
 
 				<br><br>
 
-				Thank & Regards,
+				Regards,
 
 				<br><br>
 
@@ -573,7 +573,7 @@ class AppCore {
 				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 				<b>Welcome to Neato-Robotics</b></div>
 
-				<br>HI %s,<br><br>
+				<br>Hi %s,<br><br>
 
 				Your email id is : %s<br><br>
 				Your new password is : %s<br><br>
@@ -581,7 +581,38 @@ class AppCore {
 
 				<br><br>
 
-				Thank & Regards,
+				Regards,
+
+				<br><br>
+
+				<b>Team Neato-Robotics</b>
+
+				</div>
+
+				</body>
+
+				</html>",
+                    
+                                /**
+				 *  email validation template
+	 			*/
+				'validate_email_subject' => "Neato-Robotics validate email",
+				'validate_email_message' => "<html><body>
+
+				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+
+				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+				<b>Welcome to Neato-Robotics</b></div>
+
+				<br>Hi %s,<br><br>
+                                
+                                Thank you for registration. Please validate your primary email %s by clicking on following link.<br><br>
+				%s<br><br>
+				
+
+				<br><br>
+
+				Regards,
 
 				<br><br>
 
@@ -595,7 +626,7 @@ class AppCore {
 
 				/**
 				 *  New user email
-	 */
+                                 */ 
 				'welocome_subject' => "Welcome to Neato-Robotics",
 				'welcome_message' => "<html><body>
 
@@ -604,7 +635,7 @@ class AppCore {
 				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 				<b>Welcome to Neato-Robotics</b></div>
 
-				<br>HI %s,<br><br>
+				<br>Hi %s,<br><br>
 				Thanks for registering with Neato-Robotics.<br><br>
 
 				Your email id is : %s<br><br>
@@ -613,7 +644,7 @@ class AppCore {
 
 				<br><br>
 
-				Thank & Regards,
+				Regards,
 
 				<br><br>
 
@@ -796,7 +827,7 @@ class AppCore {
 
 	}
 
-        public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $_GET, $modelName) {
+        public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $_GET, $modelName, $sWhere = "", $join_flag = false) {
         /*
          * Paging
          */
@@ -833,7 +864,7 @@ class AppCore {
          * word by word on any field. It's possible to do here, but concerned about efficiency
          * on very large tables, and MySQL's regex functionality is very limited
          */
-        $sWhere = "";
+//        $sWhere = "";
         if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
             $sWhere = "WHERE (";
             for ($i = 0; $i < count($aColumns); $i++) {
@@ -869,9 +900,12 @@ class AppCore {
         $sOrder
         $sLimit
         ";
-
-        $rResult = $modelName::model()->findAllBySql($sQuery);
-//        $rResult = Yii::app()->db->createCommand($sQuery)->queryAll();
+        
+        if($join_flag){
+            $rResult = Yii::app()->db->createCommand($sQuery)->queryAll();            
+        } else {
+            $rResult = $modelName::model()->findAllBySql($sQuery);
+        }
 
         /* Data set length after filtering */
         $sQuery = "
@@ -901,7 +935,590 @@ class AppCore {
 
         return($output);
     }
+    
+    
+    public static function send_notification_to_given_registration_ids($registration_ids, $message_to_send, $notification_type) {
+        
+        $response = self::scanGivenRegistrationIds($registration_ids);
 
+        if($response['code'] == 1){
+            return $response;
+        }
+        
+        $registration_ids_all = Array();
+        $registration_ids_all['gcm'] = $registration_ids;
+        
+        $result = self::send_notification($registration_ids_all, $message_to_send, null, $notification_type);
+        
+        return $result;
+        
+    }
+    
+    public static function send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message_to_send, $send_from, $notification_type) {
+        
+        $AppCoreObj = new AppCore();
+        $response = $AppCoreObj->fetchRegistrationIdsForGivenUserIds($user_ids_to_send_notification);
+        
+        if($response['code'] == 1){
+            return $response;
+        }
+        
+        $registration_ids_all = Array();
+        $registration_ids_all['gcm'] = $response['output'];
+        
+        $result = self::send_notification($registration_ids_all, $message_to_send, $send_from, $notification_type);
+        
+        if(isset($response['extra'])){
+            return array('code' => 0, 'output' => "Notification Response :: " . $result['output'] . " and Unable to send notification to users " . $response['extra'] . " Because they are not registered");
+        }
+        
+        return $result;
+        
+    }
+    
+    public function fetchRegistrationIdsForGivenUserIds($user_ids_to_send_notification) {
+
+        $unregistered_user_ids = Array();
+        $registration_ids = Array();
+        
+        foreach ($user_ids_to_send_notification as $user_id) {
+
+            $notification_registrations = NotificationRegistrations::model()->findAll('user_id = :user_id', array(':user_id' => $user_id));
+
+                if (!empty($notification_registrations)) {
+                    foreach ($notification_registrations as $notificationRegistration) {
+                        if ($notificationRegistration->is_active == 'Y') {
+                            $registration_ids[] = $notificationRegistration->registration_id;
+                        } else {
+                            $unregistered_user_ids[] = $user_id;
+                        }
+                    }
+                } else {
+                    $unregistered_user_ids[] = $user_id;
+                }
+            
+        }
+        
+        if(empty($registration_ids)) {
+            return array('code' => 1, 'output' => 'Sorry , there is not single user who is registered for notification');
+        }
+        
+        if(!empty($unregistered_user_ids)){
+            $unregistered_users_name = '';
+            foreach ($unregistered_user_ids as $user_id) {
+                $data = User::model()->findByPk($user_id);
+                if(empty($unregistered_users_name)){
+                    $unregistered_users_name = $data->name;
+                } else {
+                    $unregistered_users_name .= ', ' . $data->name;
+                }
+            }
+            
+            return array('code' => 0, 'output' => $registration_ids, 'extra' => $unregistered_users_name);
+        }
+        
+        return array('code' => 0, 'output' => $registration_ids);
+        
+    }
+
+    public static function send_notification_to_given_emails($emails, $message_to_send, $notification_type) {
+        
+        $response = self::scanGivenEmails($emails);
+        
+        if($response['code'] == 1){
+            return $response;
+        }
+        
+        $registration_ids_all = Array();
+        $registration_ids_all['gcm'] = $response['output'];
+
+        $result = self::send_notification($registration_ids_all, $message_to_send, null, $notification_type);
+        
+        return array('code' => 0, 'output' => 'Notification sent to registration ids : ' . json_encode($response['output']) );
+        
+    }
+    
+    // check whether given emails are present in database or not and return respective array of registration ids
+    public static function scanGivenEmails($emails) {
+        
+        $causing_emails = Array();
+        $registration_ids = Array();
+        $unregistered_emails = Array();
+        $unregistered_emails_is_active = Array();
+        
+        foreach ($emails as $email) {
+            $unregistered_reg_flag = false;
+            $user_id = User::model()->findByAttributes(array('email' => $email));
+            if(!empty($user_id)){
+                
+                if(!empty($user_id->notificationRegistrations)){
+                    foreach ($user_id->notificationRegistrations as $notificationRegistration) {
+                        if($notificationRegistration->is_active == 'Y') {
+                            $registration_ids[] = $notificationRegistration->registration_id;
+                        } else {
+                            $unregistered_reg_flag = true;
+                        }                       
+                    }
+                } else {
+                    $unregistered_emails[] = $email;
+                }
+                
+            } else{
+                $causing_emails[] = $email;
+            }
+           
+            if($unregistered_reg_flag) {
+                $unregistered_emails_is_active[] = $email;
+            }
+        }
+        
+        if(!empty($causing_emails)) {
+
+            return array('code' => 1, 'output' => 'Provided emails addresses are not exist in our system ( Causing Emails : ' . json_encode($causing_emails) . ' )');
+            
+        }
+        
+        if(!empty($unregistered_emails)) {
+
+            return array('code' => 1, 'output' => 'Please register notification for given emails ( Causing Emails : ' . json_encode($unregistered_emails) . ' )');
+            
+        }
+        
+        if(empty($registration_ids)){
+           return array('code' => 1, 'output' => 'Please register notification for given emails ( Causing Emails : ' . json_encode($unregistered_emails_is_active) . ' )'); 
+        } else {
+            if(!empty($unregistered_emails_is_active)){
+                return array('code' => 0, 'output' => $registration_ids, 'extra' => json_encode($unregistered_emails_is_active) );
+            }
+        }
+        
+        return array('code' => 0, 'output' => $registration_ids);
+        
+    }
+    
+    // check whether given registration ids are present in database or not
+    public static function scanGivenRegistrationIds($registration_ids) {
+        
+        $causing_registration_ids = Array();
+        
+        foreach ($registration_ids as $value) {
+
+            $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
+
+            if (empty($data)) {
+                $causing_registration_ids[] = $value;
+            } else if ($data->is_active == 'N') {
+                $causing_registration_ids[] = $value;
+            }
+            
+        }
+        
+        if(!empty($causing_registration_ids)) {
+            
+            return array('code' => 1, 'output' => 'Provided Registration Ids are not registered, please register it first then try again... (Causing Registration Ids : ' . json_encode($causing_registration_ids) . ')');
+            
+        }
+        
+        return array('code' => 0, 'output' => 'Provided Registration Ids are scaned Successfully');
+        
+    }
+    
+    public static function send_notification($registration_ids_all, $message_to_send, $send_from = Array(), $notification_type = '1', $filter_criteria = 'Selected Devices') {
+        
+        $gcm_result = '';
+        $result = '';
+        $notification_log_id = '';
+        
+        $log_result = self::log_notification_request($registration_ids_all, $message_to_send, $filter_criteria, $send_from, $notification_type);
+        
+        if($log_result['code'] == 1){
+            return $log_result;
+        } else {
+            $notification_log_id = $log_result['output'];
+        }
+        
+        
+        $registration_ids_gcm = $registration_ids_all['gcm'];
+        
+
+        // API key from Google APIs
+        $apiKey = Yii::app()->params['gcm_api_key']; //'AIzaSyC_xYlh1zaNmcSD7EfiA_ZomjGnETseJZ8';
+        // Message to be sent
+        $message = $message_to_send;
+
+        // Set POST variables
+        $url_gcm = 'https://android.googleapis.com/gcm/send';
+        $headers_gcm = array(
+            'Authorization: key=' . $apiKey,
+            'Content-Type: application/json'
+        );
+        $data_string_gcm = json_encode(array(
+            'registration_ids' => $registration_ids_gcm,
+            'data' => array("message" => $message)
+                ));
+
+
+        $gcm_result = AppHelper::curl_call($url_gcm, $headers_gcm, $data_string_gcm);
+
+        $result_object = json_decode($gcm_result);
+        
+        $removableStatuses = array();
+        $removableStatuses[] = 'NotRegistered';
+        $removableStatuses[] = 'InvalidRegistration';
+        $removableStatuses[] = 'MismatchSenderId';
+
+        if ($result_object->failure > 0 || $result_object->canonical_ids > 0) {
+            foreach ($registration_ids_gcm as $key => $value) {
+
+                $returnedErrorCode = isset($result_object->results[$key]->error) ? $result_object->results[$key]->error : '';
+
+                if (in_array($returnedErrorCode, $removableStatuses)) {
+
+                    $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
+
+                    $data->is_active = 'N';
+
+                    if (!$data->save()) {
+                        return array('code' => 1, 'output' => $data->errors);
+                    }
+                } else {
+
+                    $new_registration_id = isset($result_object->results[$key]->registration_id) ? $result_object->results[$key]->registration_id : false;
+                    
+                    if ($new_registration_id) {
+
+                        $row = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $new_registration_id));
+
+//                        $row = mysql_fetch_array(mysql_query("SELECT * FROM gt_notification_registrations where reg_key = '$new_registration_id'"));
+
+                        if (empty($row)) {
+
+                            $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
+
+                            $data->registration_id = $new_registration_id;
+                            $data->is_active = 'Y';
+
+                            if (!$data->save()) {
+                                return array('code' => 1, 'output' => $data->errors);
+                            }
+
+//                            mysql_query("UPDATE `gt_notification_registrations` SET `reg_key` = '$new_registration_id', `is_active` = 'true' WHERE reg_key = '$value'");
+                        } else {
+
+                            $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
+
+                            $data->is_active = 'N';
+
+                            if (!$data->save()) {
+                                return array('code' => 1, 'output' => $data->errors);
+                            }
+
+//                            mysql_query("UPDATE `gt_notification_registrations` SET `is_active` = 'false' WHERE reg_key = '$value'");
+                        }
+
+                        $data = new NotificationRegistrationIdLogs();
+
+                        $data->old_registration_id = $value;
+                        $data->new_registration_id = $new_registration_id;
+
+                        if (!$data->save()) {
+                            return array('code' => 1, 'output' => $data->errors);
+                        }
+//                        mysql_query("INSERT INTO `gt_notification_registration_id_logs`(`old_registration_id`, `new_registration_id`) VALUES ('$value', '$new_registration_id')");
+                    }
+                }
+            }
+        }
+
+        if (!empty($gcm_result)) {
+            $result .= " gcm_response::" . $gcm_result;
+        }
+        
+        if(!empty($result)){
+            $log_result = self::log_notification_response($gcm_result, $notification_log_id);
+            if($log_result['code'] == 1){
+                return $log_result;
+            }
+        }
+        
+        return array('code' => 0, 'output' => $result);
+    }
+    
+    public static function log_notification_request($registration_ids_all, $message_to_send, $filter_criteria, $send_from, $notification_type) {
+
+        $notification_to = Array();
+        $combined_request = Array();
+        $combined_request_gcm = '';
+        
+        $registration_ids_all_gcm = $registration_ids_all['gcm'];
+
+        if ( !empty($registration_ids_all_gcm) ) {
+
+// Replace with real BROWSER API key from Google APIs
+            $apiKey = $apiKey = Yii::app()->params['gcm_api_key']; //'AIzaSyC_xYlh1zaNmcSD7EfiA_ZomjGnETseJZ8';
+
+// Message to be sent
+            $message = $message_to_send;
+
+// Set POST variables
+            $url_gcm = 'https://android.googleapis.com/gcm/send';
+            $headers_gcm = array(
+                'Authorization: key=' . $apiKey,
+                'Content-Type: application/json'
+            );
+            $data_string_gcm = json_encode(array(
+                'registration_ids' => $registration_ids_all_gcm,
+                'data' => array("message" => $message)
+                    ));
+
+            $combined_request_gcm = '{URL: ' . $url_gcm . ', HTTP Header: ' . json_encode($headers_gcm) . ', POST Data: ' . $data_string_gcm . '}';
+        }
+
+
+        $combined_request['gcm'] = $combined_request_gcm;
+        $combined_request_str = serialize($combined_request);
+
+        $notification_to['gcm'] = $registration_ids_all_gcm;
+        $notification_to_str = serialize($notification_to);
+        
+        $data = new NotificationLogs();
+        
+        $data->message = $message_to_send;
+        $data->action = 'I';
+        $data->filter_criteria = $filter_criteria;
+        $data->notification_to = $notification_to_str;
+        $data->request = $combined_request_str;
+        $data->send_from = serialize($send_from);
+        $data->notification_type = $notification_type;
+        
+        if (!$data->save()) {
+            return array('code' => 1, 'output' => $data->errors);
+        }
+        
+        return array('code' => 0, 'output' => $data->id);
+        
+//       $notification_log_id = insert_data("INSERT INTO `gt_notification_logs`(`message`, `action`, `json_response`, `filter_criteria`, `notification_to`, `request`) VALUES ( '" . addslashes($message_to_send) . "', 'Notification Sending Initiated', '', '$filter_criteria', '$notification_to_str', '" . addslashes($combined_request_str) . "')");
+    }
+    
+    public static function log_notification_response($gcm_result = '', $notification_log_id = '') {
+        
+            $combined_response = Array();
+            
+            $combined_response['gcm'] = $gcm_result;
+            
+            $combined_response_str = serialize($combined_response);
+            $current_time = date('Y-m-d H:i:s');
+            
+            $data = NotificationLogs::model()->findByPk($notification_log_id);
+            
+            $data->response = $combined_response_str;
+            $data->action = 'C';
+            $data->updated_on = $current_time;
+            
+            if (!$data->save()) {
+                return array('code' => 1, 'output' => $data->errors);
+            }
+            
+//            mysql_query("UPDATE `gt_notification_logs` SET `action`='Notification Sending Completed', `json_response`='" . addslashes($combined_response_str) . "', `updated_on`='$current_time' WHERE id = $notification_id");
+        
+        
+    }
+
+    public static function store_registration_id($user_id, $registration_id, $device_type) {
+
+        $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $registration_id));
+
+        if (empty($data)) {
+
+            $model = new NotificationRegistrations();
+
+            $model->user_id = $user_id;
+            $model->registration_id = $registration_id;
+            $model->device_type = $device_type;
+
+            if (!$model->save()) {
+                return $model->errors;
+            }
+
+            return 'Registered successfully';
+        } else {
+
+            $model = $data;
+
+            $model->user_id = $user_id;
+            $model->registration_id = $registration_id;
+            $model->device_type = $device_type;
+            $model->is_active = 'Y';
+            if (!$model->save()) {
+                return $model->errors;
+            }
+
+            return 'Notification registration details updated successfully';
+        }
+    }
+    
+    public static function remove_registration_id($registration_id) {
+
+        $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $registration_id));
+
+        if (empty($data)) {
+            return array('code' => 1, 'output' => 'not_found');
+        } else if ($data->is_active == 'Y') {
+            $data_is_active = 'N';
+        } else if ($data->is_active == 'N') {
+            $data_is_active = 'Y';
+        }
+
+        $model = $data;
+
+        $model->is_active = $data_is_active;
+
+        if (!$model->save()) {
+            return array('code' => 1, 'output' => $model->errors);
+        }
+
+        return array('code' => 0, 'output' => 'Unregistered successfully');
+        
+    }
+    
+    public static function fetch_notification_log_by_id($notification_log_id) {
+        
+        $displayed_str_length = 400;
+        
+        $notification_log = NotificationLogs::model()->findByPk($notification_log_id);
+        
+        // all gcm notification ids
+        $notification_to_arr = unserialize($notification_log->notification_to);
+        $notification_to_gcm = $notification_to_arr['gcm'];
+
+        $notification_to_gcm_ids = '';
+        foreach ($notification_to_gcm as $value) {
+
+            if ($notification_to_gcm_ids == '') {
+                $notification_to_gcm_ids = $value;
+            } else {
+                $notification_to_gcm_ids .= ', ' . $value;
+            }
+        }
+        $notification_to_gcm_ids = AppHelper::strip_string($notification_to_gcm_ids, $displayed_str_length);
+
+        //get gcm request
+        $combined_request_arr = unserialize($notification_log->request);
+        $gcm_request = $combined_request_arr['gcm'];
+        $gcm_request_str = AppHelper::strip_string($gcm_request, 500);
+
+        //get gcm response
+        $combined_response_arr = unserialize($notification_log->response);
+        $gcm_response = $combined_response_arr['gcm'];
+        $gcm_response_str = AppHelper::strip_string($gcm_response, $displayed_str_length);
+        $display_notification_details = '';
+
+        $display_notification_details .= "<div class='device-entry'>";
+        $display_notification_details .= "<div class='label-value'>" . $notification_log->message . "</div>";
+        $display_notification_details .= "<div class='label-value'>(#" .$notification_log->id . ")</div>";
+        $display_notification_details .= "</div>";
+        
+        $display_notification_details .= "<div class='device-entry'>";
+        $display_notification_details .= '<label>Sent at: </label>';
+        $display_notification_details .= "<span class='label-value'>" . $notification_log->created_on . "</span>";
+        $display_notification_details .= "</div>";
+        
+        $notification_type = $notification_log->notification_type;
+        switch ($notification_type) {
+            case '1':
+                $notification_type = 'System' ; 
+                break;
+
+            case '2':
+                $notification_type = 'Activities' ; 
+                break;
+
+            case '3':
+                $notification_type = 'SOS' ; 
+                break;
+            
+            default:
+                $notification_type = 'System' ; 
+                break;
+        }
+        $display_notification_details .= "<div class='device-entry'>";
+        $display_notification_details .= '<label>Notification Type: </label>';
+        $display_notification_details .= "<span class='label-value'>" . $notification_type . "</span>";
+        $display_notification_details .= "</div>";
+        
+       $display_notification_details .= "<div class='device-entry'>";
+        $display_notification_details .= '<label>Sent To (' . $notification_log->filter_criteria . '):</label>';
+        $display_notification_details .= "<div class='label-value_notification_history'>";
+        if ($notification_to_gcm) {
+            $display_notification_details .= "<div class='log_request_response gcm_text_style'><i>" . str_replace(",", ",<br>", $notification_to_gcm_ids) . "</i></div>";
+        }
+        $display_notification_details .= "</div>";
+        $display_notification_details .= "</div>";
+
+        if ($gcm_request) {
+            $display_notification_details .= "<div class='device-entry'>";
+            $display_notification_details .= '<label>Request Sent:</label>';
+            $display_notification_details .= "<div class='label-value_notification_history'>";
+            if ($gcm_request) {
+                $display_notification_details .= "<span class='gcm_text_style'><i>" . $gcm_request_str . "</i></span><br/>";
+            }
+            $display_notification_details .= "</div>";
+            $display_notification_details .= "</div>";
+        }
+
+        if ($gcm_response) {
+            $display_notification_details .= "<div class='device-entry'>";
+            $display_notification_details .= '<label>Response Received:</label>';
+            $display_notification_details .= "<div class='label-value_notification_history'>";
+            if ($gcm_response) {
+                $display_notification_details .= "<span class='gcm_text_style'><i>" . $gcm_response_str . "</i></span><br/>";
+            }
+            $display_notification_details .= "</div>";
+            $display_notification_details .= "</div>";
+        }
+
+        $display_notification_details .= "<form id='form_notification_download' action='" . Yii::app()->baseUrl . "/notification/downloadRequestResponse' method='POST'>";
+        $display_notification_details .= "<input type='hidden' name= 'notification_log_id' value='" . $notification_log->id . "'>";
+        $display_notification_details .= "<div class='device-entry href_download_file'>";
+        $display_notification_details .= "<div id='notification_download' class='neato-button_alt' style='width: 135px;'>Download Log</div>";
+        $display_notification_details .= "</div>";
+        $display_notification_details .= "</form>";
+        return array('code' => 0, 'output' => $display_notification_details);
+        
+    }
+    
+    public static function getGracePeriod(){
+            
+        $grace_period = '';
+        $grace_period = AppConfiguration::model()->findByAttributes(array('_key' => 'GRACE_PERIOD'));
+        $grace_period = $grace_period->value ;
+
+        return $grace_period;
+            
+    }
+    
+    public static function getIsValidateStatus($is_validated, $user_id) {
+        
+        $user_data = User::model()->findByPk($user_id);
+        $created_on = $user_data->created_on;
+        
+        $is_validated = ($is_validated == 0) ? -1 : 0 ;
+        
+        $grace_period = AppCore::getGracePeriod();
+        $user_created_on_timestamp = strtotime($created_on);
+        $current_system_timestamp = time();
+        
+        $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+        
+        if($time_diff > $grace_period){
+            $is_validated = -2 ;
+        } 
+        
+        return $is_validated;
+        
+    }
+   
+    
 }
 
 ?>
