@@ -16,7 +16,7 @@ switch ($host_name) {
 		break;
 
 	case "neatodev.rajatogo.com":
-		$baseURL = "http://neatodev.rajatogo.com/Server_Yii/Neato/api/rest/json?method=";//for neato-yii dev yii;
+		$baseURL = "http://neatodev.rajatogo.com/api/rest/json?method=";//for neato-yii dev yii;
 		break;
 
 	case "localhost":
@@ -94,7 +94,7 @@ tr.Facebook {
 	display: none;
 }
 
-#addLabelLink, #addLabelLink1, #addLabelLink2, #addLabelLinkUpdate {
+#addLabelLink, #addLabelLink1, #addLabelLink2, #addLabelLinkUpdate, #loadRegistrationIds, #loadEmails {
 	cursor: pointer;
 	color: blue;
 	width: 310px;

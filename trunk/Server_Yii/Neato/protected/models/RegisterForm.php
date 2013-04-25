@@ -9,6 +9,7 @@ class RegisterForm extends CFormModel {
 
 	public $name;
 	public $email;
+//        public $alternate_email;
 	public $password;
 	public $confirm_password;
 	public $is_admin;
@@ -25,7 +26,9 @@ class RegisterForm extends CFormModel {
 				array('name, email, password, confirm_password','required'),
 				array('email', 'email', 'checkMX'=>true),
 				array('email', 'unique', 'className'=>'User'),
+//                                array('alternate_email', 'email', 'checkMX'=>true),
 				array('confirm_password', 'compare', 'compareAttribute'=>'password'),
+//                                array('alternate_email', 'compare', 'compareAttribute'=>'email', 'operator'=>'!=', 'allowEmpty'=>true , 'message'=>'Alternate email must be differ from primary email.'),
 		);
 	}
 
@@ -36,6 +39,7 @@ class RegisterForm extends CFormModel {
 		return array(
 				'name' => 'Name',
 				'email' => 'Email',
+//                                'alternate_email' => 'Alternate Email',
 				'password' => 'Password',
 				'confirm_password'=>'Re-enter password',
 		);

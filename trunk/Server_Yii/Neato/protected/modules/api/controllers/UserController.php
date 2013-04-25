@@ -174,7 +174,40 @@ class UserController extends APIController {
 					if ($user !== null){
 						$user_auth_token = AppCore::create_user_auth_token($user->id);
 						if ($user_auth_token){
-							self::success($user_auth_token);
+                                                    
+                                                    $is_validated = ($user->is_validated == 0) ? -1 : 0 ;
+                                                    $message = '';
+                                                    
+                                                    $grace_period = AppCore::getGracePeriod();
+
+                                                    if(!(boolean)$user->is_validated){
+                                                                                   
+                                                        $user_created_on_timestamp = strtotime($user->created_on);
+
+                                                        $current_system_timestamp = time();
+
+                                                        $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+
+                                                        if($time_diff < $grace_period){
+
+                                                            $message = "Please activate your account, your account still inactive";
+
+                                                        } else {
+
+                                                            $message = "Sorry, please Activate your account first and try again.";
+                                                            $is_validated = -2 ;
+                                                            $user_auth_token = null;
+
+                                                        }
+                                                        
+                                                    }
+                                                        
+                                                    $response_data = $user_auth_token;
+                                                    $extra_param['validation_status'] = $is_validated;
+                                                    $extra_param['message'] = $message;
+                                                    
+                                                    self::successWithExtraParam($response_data, $extra_param);
+
 						}
 					}else{
 						$response_message = self::yii_api_echo('User could not be authenticated');
@@ -194,7 +227,47 @@ class UserController extends APIController {
 				if($user_social_services !== null){
 					$user_auth_token = AppCore::create_user_auth_token($user_social_services->idUser->id);
 					if ($user_auth_token){
-						self::success($user_auth_token);
+                                            
+                                                $is_validated = ($user_social_services->idUser->is_validated == 0) ? -1 : 0 ;
+                                                $message = '';
+
+                                                $grace_period = AppCore::getGracePeriod();
+
+                                                if(!(boolean)$user_social_services->idUser->is_validated){
+
+                                                    $user_created_on_timestamp = strtotime($user_social_services->idUser->created_on);
+
+                                                    $current_system_timestamp = time();
+
+                                                    $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+
+                                                    if($time_diff < $grace_period){
+
+                                                        $message = "Please activate your account, your account still inactive";
+
+                                                    } else {
+
+                                                        $message = "Sorry, please Activate your account first and try again.";
+                                                        $is_validated = -2 ;
+                                                        $user_auth_token = null;
+
+                                                    }
+
+                                                }
+
+                                                $response_data['is_validated'] = $is_validated;
+                                                $response_data['user_auth_token'] = $user_auth_token;
+                                                $response_data['message'] = $message;
+                                                self::success($response_data);
+                                                
+                                                $response_data = $user_auth_token;
+                                                $extra_param['validation_status'] = $is_validated;
+                                                $extra_param['message'] = $message;
+
+                                                self::successWithExtraParam($response_data, $extra_param);
+                                                
+                                                
+
 					}
 				}else{
 					$response_message = self::yii_api_echo('User could not be authenticated');
@@ -210,6 +283,7 @@ class UserController extends APIController {
 		}
 
 	}
+        
 	
 	/**
 	 * This method is used for generate new password and send by email.
@@ -259,7 +333,14 @@ class UserController extends APIController {
 			$user_name = $user_model->name;
 			$login_link = $this->createUrl("/user/login");
 			if($user_model->save()){
-				AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
+                           
+                                $alternate_user_email = $user_model->alternate_email;
+                                if (!empty($alternate_user_email)) {
+                                        AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link, $alternate_user_email);
+                                } else {
+                                        AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
+                                }
+                                
 				$response_message = "New password is sent to your email.";
 				$response_data = array("success"=>true, "message"=>$response_message);
 				self::success($response_data);
@@ -342,7 +423,15 @@ class UserController extends APIController {
 					$login_link = $this->createUrl("/user/login");
 					
 					if($user->update()){
-						AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link);
+                                                
+                                                $alternate_user_email = trim($user->alternate_email);
+                                                
+                                                if (!empty($alternate_user_email)) {
+                                                    AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link, $alternate_user_email);
+                                                } else {
+                                                    AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link);
+                                                }
+                                                
 						$response_message = "Your password is changed successfully.";
 						$response_data = array("success" => true, "message" => $response_message );
 						self::success($response_data);
@@ -443,8 +532,20 @@ class UserController extends APIController {
 
 				$users_arr[] = $user_details;
 			}
+
+                        $is_validated = ($user->is_validated == 0) ? -1 : 0 ;
+                        
+                        $grace_period = AppCore::getGracePeriod();
+                        $user_created_on_timestamp = strtotime($user->created_on);
+                        $current_system_timestamp = time();
+                        $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+
+                        if($time_diff > $grace_period){
+                            $is_validated = -2 ;
+                        }
+                        
 			$response_data = array("id"=>$user->id,"name"=>$user->name,"email"=>$user->email,"chat_id"=>$user->chat_id,"chat_pwd"=>$user->chat_pwd,
-					"social_networks"=>$user_social_services_arr,"robots"=>$users_arr);
+					"social_networks"=>$user_social_services_arr,"robots"=>$users_arr, "validation_status" => $is_validated);
 			self::success($response_data);
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
@@ -959,11 +1060,24 @@ class UserController extends APIController {
 	public function actionCreate(){
 		$user_name = Yii::app()->request->getParam('name', '');
 		$user_email = Yii::app()->request->getParam('email', '');
-
+                $alternate_user_email = Yii::app()->request->getParam('alternate_email', '');
+                $is_create_user2 = Yii::app()->request->getParam('is_create_user2', '');
+                
 		if(!AppHelper::is_valid_email($user_email)){
 			$message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
 			self::terminate(-1, $message);
 		}
+                if(!empty($alternate_user_email)){
+                    if(!AppHelper::is_valid_email($alternate_user_email)){
+			$message = self::yii_api_echo("The alternate email address you have provided does not appear to be a valid email address.");
+			self::terminate(-1, $message);
+                    }
+                    if($user_email === $alternate_user_email){
+                        $message = self::yii_api_echo("The alternate email address you have provided should be differ from primary one.");
+			self::terminate(-1, $message);
+                    }
+                }
+                
 		$user_password = $_REQUEST['password'];
 		$user_account_type = Yii::app()->request->getParam('account_type', '');
 		$user_social_id = $_REQUEST['external_social_id'];
@@ -984,10 +1098,11 @@ class UserController extends APIController {
 
 				$user_model->name = $user_name;
 				$user_model->email = $user_email;
-
+                                $user_model->alternate_email = $alternate_user_email;
+                                
 				$user_model->password = $user_encrypted_password;
 				$user_model->reset_password = $user_encrypted_password;
-
+                                
 				$chat_details = AppCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
@@ -999,7 +1114,31 @@ class UserController extends APIController {
 				if(!$user_model->save()){
 					//need to work
 				}
+                                
+                                // update extra attribute of user
+                                $user_id = $user_model->id;
+                                $validation_key = md5($user_id.'_'.$user_email);
+                                $user_model->validation_key =  $validation_key;
+                                
+                                if ($is_create_user2 == 'Y') {
+                                    
+                                    $user_model->is_validated = 0;
 
+                                    if (!empty($alternate_user_email)) {
+                                        AppEmail::emailValidate($user_email, $user_name, $validation_key, $alternate_user_email);
+                                    } else {
+                                        AppEmail::emailValidate($user_email, $user_name, $validation_key);
+                                    }
+                                }
+                                
+                                
+                                
+                                $user_model->validation_counter =  1;
+                                
+                                if(!$user_model->save()){
+					//need to work
+				}
+                                
 				if($user_account_type == 'Native'){
 					//nothing extra to do now
 				}elseif($user_account_type == 'Facebook'){
@@ -1037,6 +1176,7 @@ class UserController extends APIController {
 				$response_data['success'] = true;
 				$response_data['guid'] = $user_model->id;
 				$response_data['user_handle'] = $user_auth_token;
+                                $response_data['validation_status'] = ($user_model->is_validated == 0) ? -1 : 0 ;
 
 				self::success($response_data);
 			}elseif($user_account_type == 'Facebook'){
@@ -1068,6 +1208,7 @@ class UserController extends APIController {
 					$response_data['success'] = true;
 					$response_data['guid'] = $user->id;
 					$response_data['user_handle'] = $user_auth_token;
+                                        $response_data['validation_status'] = ($user->is_validated == 0) ? -1 : 0 ;
 
 					self::success($response_data);
 				}else{
@@ -1084,6 +1225,171 @@ class UserController extends APIController {
 		}
 	}
 
+        
+	public function actionCreate2(){
+		$user_name = Yii::app()->request->getParam('name', '');
+		$user_email = Yii::app()->request->getParam('email', '');
+                $alternate_user_email = Yii::app()->request->getParam('alternate_email', '');
+                                
+		if(!AppHelper::is_valid_email($user_email)){
+			$message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
+			self::terminate(-1, $message);
+		}
+                if(!empty($alternate_user_email)){
+                    if(!AppHelper::is_valid_email($alternate_user_email)){
+			$message = self::yii_api_echo("The alternate email address you have provided does not appear to be a valid email address.");
+			self::terminate(-1, $message);
+                    }
+                    if($user_email === $alternate_user_email){
+                        $message = self::yii_api_echo("The alternate email address you have provided should be differ from primary one.");
+			self::terminate(-1, $message);
+                    }
+                }
+                
+		$user_password = $_REQUEST['password'];
+		$user_account_type = Yii::app()->request->getParam('account_type', '');
+		$user_social_id = $_REQUEST['external_social_id'];
+
+		if($user_account_type !== 'Native' && trim($user_social_id) == ''){
+			$message = self::yii_api_echo("Missing parameter external_social_id in method user.create");
+			self::terminate(-1, $message);
+		}
+
+		$user_social_additional_attributes = $_REQUEST['social_additional_attributes'];
+
+		$user_encrypted_password = AppHelper::one_way_encrypt($user_password);
+
+		if($user_account_type == 'Native' || $user_account_type == 'Facebook'){
+			$user = User::model()->findByAttributes(array('email' => $user_email));
+			if($user === null){
+				$user_model = new User;
+
+				$user_model->name = $user_name;
+				$user_model->email = $user_email;
+                                $user_model->alternate_email = $alternate_user_email;
+                                
+				$user_model->password = $user_encrypted_password;
+				$user_model->reset_password = $user_encrypted_password;
+                                
+				$chat_details = AppCore::create_chat_user_for_user();
+				if(!$chat_details['jabber_status']){
+					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
+					self::terminate(-1, $message);
+				}
+				$user_model->chat_id = $chat_details['chat_id'];
+				$user_model->chat_pwd = $chat_details['chat_pwd'];
+
+				if(!$user_model->save()){
+					//need to work
+				}
+                                
+                                // update extra attribute of user
+                                $user_id = $user_model->id;
+                                $validation_key = md5($user_id.'_'.$user_email);
+                                $user_model->validation_key =  $validation_key;
+                                
+                                $user_model->is_validated = 0;
+
+                                if (!empty($alternate_user_email)) {
+                                    AppEmail::emailValidate($user_email, $user_name, $validation_key, $alternate_user_email);
+                                } else {
+                                    AppEmail::emailValidate($user_email, $user_name, $validation_key);
+                                }
+                                
+                                $user_model->validation_counter =  1;
+                                
+                                if(!$user_model->save()){
+					//need to work
+				}
+                                
+				if($user_account_type == 'Native'){
+					//nothing extra to do now
+				}elseif($user_account_type == 'Facebook'){
+					$social_service_type_model = Socialservicetype::model()->find('name=:name', array(':name' => "Facebook"));
+					$social_service_type_id = $social_service_type_model->id;
+					$social_auth_token = isset($user_social_additional_attributes['auth_token']) ? $user_social_additional_attributes['auth_token'] : '';
+
+					$user_social_service_model = UsersSocialservice::model()->find('user_social_id=:fbid and id_socialservicetype=:sstid', array(':fbid' => $user_social_id, ':sstid'=>$social_service_type_id));
+					if ($user_social_service_model == null){
+						// Delete previus UsersSocialservice data and entry new UsersSocialservice data.
+						//UsersSocialservice::model()->deleteAll('user_social_id=:fbid and id_socialservicetype=:sstid', array(':fbid' => $user_social_id, ':sstid'=>$social_service_type_id));
+
+						$user_social_service_model = new UsersSocialservice;
+						$user_social_service_model->id_socialservicetype = $social_service_type_id;
+						$user_social_service_model->id_user = $user_model->id;
+						$user_social_service_model->user_social_id = $user_social_id;
+						$user_social_service_model->username = $user_social_id;
+						$user_social_service_model->access_token = $social_auth_token;
+						$user_social_service_model->expires_on = date('Y-m-d H:m:s', time()+15);
+						$user_social_service_model->raw_data = array();
+
+						if (!$user_social_service_model->save()) {
+							//need to work
+						}
+					}else{
+						//delete created user
+						$user_model->delete();
+						$response_message = self::yii_api_echo('This social information already exists.');
+						self::terminate(-1, $response_message);
+					}
+				}
+
+				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+				$response_data = array();
+				$response_data['success'] = true;
+				$response_data['guid'] = $user_model->id;
+				$response_data['user_handle'] = $user_auth_token;
+                                
+                                $response_data['validation_status'] = AppCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
+
+				self::success($response_data);
+			}elseif($user_account_type == 'Facebook'){
+				$social_service_type_model = Socialservicetype::model()->find('name=:name', array(':name' => "Facebook"));
+				$social_service_type_id = $social_service_type_model->id;
+				$social_auth_token = isset($user_social_additional_attributes['auth_token']) ? $user_social_additional_attributes['auth_token'] : '';
+
+				$user_social_service_model = UsersSocialservice::model()->find('user_social_id=:fbid and id_socialservicetype=:sstid', array(':fbid' => $user_social_id, ':sstid'=>$social_service_type_id));
+				if ($user_social_service_model == null){
+					// Delete previus UsersSocialservice data and entry new UsersSocialservice data.
+					UsersSocialservice::model()->deleteAll('id_user=:userid and id_socialservicetype=:sstid', array(':userid' => $user->id, ':sstid'=>$social_service_type_id));
+
+					$user_social_service_model = new UsersSocialservice;
+					$user_social_service_model->id_socialservicetype = $social_service_type_id;
+					$user_social_service_model->id_user = $user->id;
+					$user_social_service_model->user_social_id = $user_social_id;
+					$user_social_service_model->username = $user_social_id;
+					$user_social_service_model->access_token = $social_auth_token;
+					$user_social_service_model->expires_on = date('Y-m-d H:m:s', time()+15);
+					$user_social_service_model->raw_data = array();
+
+					if (!$user_social_service_model->save()) {
+						//AppHelper::dump($user_social_service_model->getErrors());
+					}
+
+					$response_data = array();
+					$response_data['message'] = self::yii_api_echo("Merged");
+					$user_auth_token = AppCore::create_user_auth_token($user->id);
+					$response_data['success'] = true;
+					$response_data['guid'] = $user->id;
+					$response_data['user_handle'] = $user_auth_token;
+                                        $response_data['validation_status'] = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+
+					self::success($response_data);
+				}else{
+					$response_message = self::yii_api_echo('This email address has been already registered.');
+					self::terminate(-1, $response_message);
+				}
+			}else{
+				$response_message = self::yii_api_echo('This email address has been already registered.');
+				self::terminate(-1, $response_message);
+			}
+		}else{
+			$response_message = self::yii_api_echo('Account Type is NOT supported.');
+			self::terminate(-1, $response_message);
+		}
+	}        
+        
+        
 	/**
 	 * API to set user account details
 	 *
@@ -1222,6 +1528,109 @@ class UserController extends APIController {
                             $output['aaData'][] = $row;
                 }
                 $this->renderPartial('/default/defaultView', array('content' => $output));
+    }
+    
+    public function actionIsUserValidated() {
+        
+        $user_email = Yii::app()->request->getParam('email', '');
+        $is_validated = -1;
+        $message = "";
+        
+        if (!AppHelper::is_valid_email($user_email)) {
+            $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
+            self::terminate(-1, $message);
+        }
+        
+        $data = User::model()->find('email = :email', array(':email' => $user_email));
+        if(!empty($data)) {
+            if ($data->is_validated == 1) {
+                $is_validated = 0;
+                $message = "The email address you have provided is Active";
+            } else{
+
+                $message = "The email address you have provided does not appear to be a validated. Please validate it.";
+                
+                $grace_period = AppCore::getGracePeriod();
+                $user_created_on_timestamp = strtotime($data->created_on);
+                $current_system_timestamp = time();
+                $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+
+                if($time_diff > $grace_period){
+                    $is_validated = -2 ;
+                    $message = "Sorry, You must validate your account to proceed.";
+                }
+                
+            }
+            
+            $response_data['validation_status'] = $is_validated;
+            $response_data['message'] = $message;
+            self::success($response_data);
+            
+        } else {
+            $message = self::yii_api_echo("The email address you have provided does not exist in our system.");
+            self::terminate(-1, $message);
+        }
+        
+    }
+
+    public function actionResendValidationEmail() {
+        
+        $user_email = Yii::app()->request->getParam('email', '');
+        $alternate_user_email = Yii::app()->request->getParam('alternative_email', '');
+        
+        //get input is_validated if it from create user 2 web service API
+        
+        if (!AppHelper::is_valid_email($user_email)) {
+            $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
+            self::terminate(-1, $message);
+        }
+        
+        
+        $data = User::model()->find('email = :email', array(':email' => $user_email));
+        
+        if(!empty($data)) {
+            
+            if (!$data->is_validated) {
+
+                if ($data->validation_counter < 3) {
+
+                    $user_email = $data->email;
+                    $user_name = $data->name;
+                    $validation_key = $data->validation_key;
+                    $alternate_user_email = isset($data->alternate_email) ? $data->alternate_email : '';
+                    $validation_counter = $data->validation_counter;
+
+                    if (!empty($alternate_user_email)) {
+                        AppEmail::emailValidate($user_email, $user_name, $validation_key, $alternate_user_email);
+                    } else {
+                        AppEmail::emailValidate($user_email, $user_name, $validation_key);
+                    }
+                    $data->validation_counter = $validation_counter + 1;
+
+                    if (!$data->save()) {
+                        self::terminate(-1, $data->error);
+                    }
+
+                    $response_data['success'] = true;
+                    $response_data['message'] = "We have resent validation email";
+                    self::success($response_data);
+                } else {
+                    $message = self::yii_api_echo("Sorry, You crossed resend validation email limit.");
+                    self::terminate(-1, $message);
+                }
+                
+            } else {
+                
+                $message = self::yii_api_echo("The email address you have provided is already activated.");
+                self::terminate(-1, $message);
+                
+            }
+        } else {
+            $message = self::yii_api_echo("The email address you have provided does not exist in our system.");
+            self::terminate(-1, $message);
+        }
+        
+        
     }
 
 

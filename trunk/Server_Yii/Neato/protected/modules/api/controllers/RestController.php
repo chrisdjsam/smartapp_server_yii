@@ -96,7 +96,7 @@ class RestController extends APIController {
 		self::expose_function('user.create',
 				"user/create",
 				array('name' => array ('type' => 'string'),
-						'email' => array ('type' => 'string'),
+						'email' => array ('type' => 'string', 'default' => ''),
 						'password' => array ('type' => 'string', 'required' => false, 'default'=>time()),
 						'account_type' => array ('type' => 'string'),
 						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
@@ -106,8 +106,42 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+                
+		self::expose_function('user.create2',
+				"user/create2",
+				array('name' => array ('type' => 'string'),
+						'email' => array ('type' => 'string', 'default' => ''),
+                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
+						'password' => array ('type' => 'string', 'required' => false, 'default'=>time()),
+						'account_type' => array ('type' => 'string'),
+						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
+						'social_additional_attributes' => array('type'=>'array', 'default'=>array())
+				),
+				"Register user",
+				'POST',
+				true,
+				false);                
 
-		
+		self::expose_function('user.IsUserValidated',
+				"user/isUserValidated",
+				array(
+						'email' => array ('type' => 'string', 'default' => ''),
+				),
+				"Is User Validated?",
+				'POST',
+				true,
+				false);
+                                
+		self::expose_function('user.ResendValidationEmail',
+				"user/resendValidationEmail",
+				array(
+						'email' => array ('type' => 'string', 'default' => ''),
+				),
+				"Resend Validation Email",
+				'POST',
+				true,
+				false);
+                
 		self::expose_function('user.set_account_details',
 				"user/SetAccountDetails",
 				array('email' => array ('type' => 'string','required' => false),
@@ -226,6 +260,66 @@ class RestController extends APIController {
 						'message' => array ('type' => 'string', 'required' => true),
 				),
 				"send message to associated users",
+				'POST',
+				true,
+				false);
+                
+                self::expose_function('message.send_notification_to_given_registration_ids',
+				"message/SendNotificationToGivenRegistrationIds",
+				array(
+						'registration_ids' => array ('type' => 'array', 'default'=>array()),
+						'message' => array ('type' => 'string', 'required' => true),
+                                                'notification_type' => array ('type' => 'string', 'default'=>''),
+				),
+				"send notification to associated users",
+				'POST',
+				true,
+				false);
+
+                self::expose_function('message.send_notification_to_all_users_of_robot',
+				"message/SendNotificationToAllUsersOfRobot",
+				array(
+						'serial_number' => array ('type' => 'array', 'required' => true),
+						'message' => array ('type' => 'string', 'required' => true),
+                                                'notification_type' => array ('type' => 'string', 'default'=>''),
+				),
+				"send notification to associated users",
+				'POST',
+				true,
+				false);
+                
+                self::expose_function('message.send_notification_to_given_emails',
+				"message/SendNotificationToGivenEmails",
+				array(
+						'emails' => array ('type' => 'array', 'default'=>array()),
+						'message' => array ('type' => 'string', 'default'=>''),
+                                                'notification_type' => array ('type' => 'string', 'default'=>''),
+				),
+				"send notification to associated users",
+				'POST',
+				true,
+				false);                
+                
+                
+                self::expose_function('message.notification_registration',
+				"message/notificationRegistration",
+				array(
+                                                'user_email' => array ('type' => 'string', 'required' => true),
+						'registration_id' => array ('type' => 'string', 'required' => true),
+						'device_type' => array ('type' => 'string', 'required' => true),
+				),
+				"Store Registration Id To Send Notification",
+				'POST',
+				true,
+				false);
+                
+                
+                self::expose_function('message.notification_unregistration',
+				"message/notificationUnRegistration",
+				array(
+						'registration_id' => array ('type' => 'string', 'required' => true),
+				),
+				"Store Registration Id To Send Notification",
 				'POST',
 				true,
 				false);

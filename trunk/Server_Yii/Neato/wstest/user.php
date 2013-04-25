@@ -123,19 +123,27 @@
 								ID (numeric value) that is returned by the Facebook). This is
 								required ONLY when the account type is NOT Native.</li>
 						</ul>
+                                                
+                                                Consideration for validation_status which you will get in response.
+                                                <ul>
+							<li>validation_status: 0 -> Validated - this means that the account has been validated.</li>
+                                                        <li>validation_status: -1 -> NotValidatedButInGracePeriod - the user has not been validated, but user is still within the grace period.</li>
+                                                        <li>validation_status: -2 -> NotValidated - this email address has not been validated.</li>
+                                                </ul>
+                        
 						Success Responses:
 						<ul>
 							<li>If everything goes fine
 								<ul>
 									<li>
-										{"status":0,"result":{"success":true,"guid":1074,"user_handle":"d8828e4ef9596dd0be3b8c4cf0de9502"}}
+										{"status":0,"result":{"success":true,"guid":1074,"user_handle":"d8828e4ef9596dd0be3b8c4cf0de9502","validation_status":0}}
 									</li>
 								</ul>
 							</li>
 							<li>If email exist but the social information does not exist
 								<ul>
 									<li>{"status":0,"result":{"success":true,"guid":55,"message":"Merged
-										user","user_handle":"ce475c5c9b84938f368efe99100b2a11"}}</li>
+										user","user_handle":"ce475c5c9b84938f368efe99100b2a11","validation_status":0}}</li>
 								</ul>
 							</li>
 
@@ -275,7 +283,31 @@
 						</ul>
 						Success Response:
 						<ul>
-							<li>{"status":0,"result":"d769de7939af3e76a54ac4a4368e88af"}</li>
+                                                        
+                                                        <li>If user is within grace period and inactive 
+								<ul>
+									<li>
+                                                                            {"status":0,"result":"eb9cf0c04512903aac873697b33f45cc7e6f8328","extra_params":{"validation_status":-1, "message":"Please activate your account, your account still inactive"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If user is exceed grace period and inactive.
+								<ul>
+									<li>
+                                                                            {"status":0,"result":null,"extra_params":{"validation_status":-2,"message":"Sorry, please Activate your account first and try again."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If user is active.
+								<ul>
+									<li>
+                                                                            {"status":0,"result":"eb9cf0c04512903aac873697b33f45cc7e6f8328","extra_params":{"validation_status":0,"message":""}}
+                                                                        </li>
+								</ul>
+							</li>                                                        
+                                                        
 						</ul>
 
 						Failure Responses: <br />
@@ -829,14 +861,14 @@
 							<li>If everything goes fine and social information does not exist
 								<ul>
 									<li>
-										{"status":0,"result":{"id":367,"name":"pradip37","email":"pradip_patro378@gmail.com","chat_id":"1350922773_user@rajatogo","chat_pwd":"1350922773_user","social_networks":[]}}
+										{"status":0,"result":{"id":367,"name":"pradip37","email":"pradip_patro378@gmail.com","chat_id":"1350922773_user@rajatogo","chat_pwd":"1350922773_user","social_networks":[],"validation_status":0}}
 									</li>
 								</ul>
 							</li>
 							<li>If everything goes fine and social information exists
 								<ul>
 									<li>
-										{"status":0,"result":{"id":357,"name":"pradip3","email":"pradip_patro3@gmail.com","chat_id":"1350911036_user@rajatogo","chat_pwd":"1350911036_user","social_networks":[{"provider":"Facebook"},{"external_social_id":"123456789"}]}}
+										{"status":0,"result":{"id":357,"name":"pradip3","email":"pradip_patro3@gmail.com","chat_id":"1350911036_user@rajatogo","chat_pwd":"1350911036_user","social_networks":[{"provider":"Facebook"},{"external_social_id":"123456789"}],"validation_status":0}}
 									</li>
 								</ul>
 							</li>
@@ -845,14 +877,14 @@
 									<li>
 										{"status":0,"result":{"id":542,"name":"pradip","email":"pradip@gmail.com","chat_id":"1351499916_user@rajatogo","chat_pwd":"1351499916_user","social_networks":[],"robots":[{"id":"68","name":"room
 										cleaner1","serial_number":"robo5","chat_id":"1350987452_robot@rajatogo"},{"id":"69","name":"desk
-										cleaner60","serial_number":"robo6","chat_id":"1350991375_robot@rajatogo"}]}}
+										cleaner60","serial_number":"robo6","chat_id":"1350991375_robot@rajatogo"}],"validation_status":0}}
 									</li>
 								</ul>
 							</li>
 							<li>If everything goes fine and both social information and robot association do not exist
 								<ul>
 									<li>
-										{"status":0,"result":{"id":543,"name":"pradip","email":"pradip1@gmail.com","chat_id":"1351500158_user@rajatogo","chat_pwd":"1351500158_user","social_networks":[],"robots":[]}}
+										{"status":0,"result":{"id":543,"name":"pradip","email":"pradip1@gmail.com","chat_id":"1351500158_user@rajatogo","chat_pwd":"1351500158_user","social_networks":[],"robots":[],"validation_status":0}}
 									</li>
 								</ul>
 							</li>
@@ -1273,4 +1305,383 @@
 			</tr>
 		</table>
 	</form>
-	<?php include_once 'common_footer.php';?>
+
+
+	<form action="<?php echo($baseURL)?>user.create2" method='POST'
+		id='usercreate2' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Create User 2" colspan="2"><label>Create User 2</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to create the users with or without social networking
+						information. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.create2<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>name</b> :Name of the user</li>
+							<li><b>email</b> :Email of the user</li>
+                                                        <li><b>alternate_email</b> :Alternate Email of the user</li>
+							<li><b>password</b> :Password of the user. It does not need to be
+								unique.</li>
+							<li><b>account_type</b> :Native OR Facebook (OR Google etc)</li>
+							<li><b>external_social_id</b> :External Social ID (e.g. Facebook
+								ID (numeric value) that is returned by the Facebook). This is
+								required ONLY when the account type is NOT Native.</li>
+						</ul>
+                                                
+                                                Consideration for validation_status which you will get in response.
+                                                <ul>
+							<li>validation_status: 0 -> Validated - this means that the account has been validated.</li>
+                                                        <li>validation_status: -1 -> NotValidatedButInGracePeriod - the user has not been validated, but user is still within the grace period.</li>
+                                                        <li>validation_status: -2 -> NotValidated - this email address has not been validated.</li>
+                                                </ul>                                                
+                                                
+						Success Responses:
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>
+										{"status":0,"result":{"success":true,"guid":1074,"user_handle":"d8828e4ef9596dd0be3b8c4cf0de9502","validation_status":-1}}
+									</li>
+								</ul>
+							</li>
+							<li>If email exist but the social information does not exist
+								<ul>
+									<li>{"status":0,"result":{"success":true,"guid":55,"message":"Merged
+										user","user_handle":"ce475c5c9b84938f368efe99100b2a11","validation_status":0}}</li>
+								</ul>
+							</li>
+
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If unsupported account type is passed
+								<ul>
+									<li>{"status":-1,"message":"Account Type is NOT supported."}</li>
+								</ul>
+							</li>
+							<li>If a parameter is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter name in method
+										user.create"}</li>
+								</ul>
+							</li>
+							<li>If Email does not valid
+								<ul>
+									<li>{"status":-1,"message":"The email address you provided does
+										not appear to be a valid email address."}</li>
+								</ul>
+							</li>
+                                                        <li>If Alternate Email does not valid
+								<ul>
+									<li>{"status":-1,"message":"The alternate email address you provided does
+										not appear to be a valid email address."}</li>
+								</ul>
+							</li>
+							<li>If email already exists and account type is native
+								<ul>
+									<li>{"status":-1,"message":"This email address has already been
+										registered."}</li>
+								</ul>
+							</li>
+							<li>If Social information exists and the account type is Facebook
+								<ul>
+									<li>{"status":-1,"message":"This social information already
+										exists."}</li>
+								</ul>
+							</li>
+							<li>If Jabber service does not able to create chat user
+								<ul>
+									<li>{"status":-1,"message":"User could not be created because
+										jabber service in not responding."}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			<tr>
+				<td>name</td>
+				<td><input type="text" name='name'></td>
+			</tr>
+
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'></td>
+			</tr>
+                        <tr>
+				<td>alternate_email</td>
+				<td><input type="text" name='alternate_email'></td>
+			</tr>
+                        
+			<tr>
+				<td>password</td>
+				<td><input type="text" name='password'></td>
+			</tr>
+			<tr>
+				<td>account_type</td>
+				<td><select name='account_type' class='account_type_select'>
+						<option value="Native" selected="selected">Native</option>
+						<option value="Facebook">Facebook</option>
+				</select></td>
+
+			</tr>
+			<tr class='external_social_id_class'>
+				<td>external_social_id</td>
+				<td><input type="text" name='external_social_id'></td>
+			</tr>
+			<tr class='external_social_id_class'>
+				<td>social_additional_attributes['auth_token']</td>
+				<td><input type="text"
+					name="social_additional_attributes[auth_token]"></td>
+			</tr>
+			<tr>
+				<td><input type="button" name='submit' dummy='usercreate2'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
+
+
+
+	<form action="<?php echo($baseURL)?>user.IsUserValidated" method='POST'
+		id='IsUserValidated' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Is User Validated" colspan="2"><label>Is User Validated?</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to check whether user's email is validated or not <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.IsUserValidated<br /> Parameters:
+						<ul>
+							
+                                                        <li><b>api_key</b> :Your API Key</li>
+							<li><b>email</b> :Email of the user</li>
+							
+						</ul>
+						Success Responses:
+						<ul>
+							<li>If email is active
+								<ul>
+									<li>
+										{"status":0,"result":{"validation_status":0,"message":"The email address you have provided is Active"}}
+									</li>
+								</ul>
+							</li>
+							<li>If email is inactive and within grace period
+								<ul>
+									<li>
+                                                                            {"status":0,"result":{"validation_status":-1,"message":"The email address you have provided does not appear to be a validated. Please validate it."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If email is inactive and cross grace period
+								<ul>
+									<li>
+                                                                            {"status":0,"result":{"validation_status":-2,"message":"Sorry, You must validate your account to proceed."}}
+                                                                        </li>
+								</ul>
+							</li>
+
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If email is missing or invalid
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If provided email does not exist in database
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided does not exist in our system."}
+                                                                        </li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'></td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='IsUserValidated'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
+	<form action="<?php echo($baseURL)?>user.ResendValidationEmail" method='POST'
+		id='ResendValidationEmail' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Resend Validation Email" colspan="2"><label>Resend Validation Email</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to Resend Validation Email <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.ResendValidationEmail<br /> Parameters:
+						<ul>
+
+                                                        <li><b>api_key</b> :Your API Key</li>
+							<li><b>email</b> :Email of the user</li>
+
+						</ul>
+						Success Responses:
+						<ul>
+							<li>If resent validation email
+								<ul>
+									<li>
+										{"status":0,"result":{"success":true,"message":"We have resent validation email"}}
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If email is missing or invalid
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If provided email does not exist in database
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided does not exist in our system."}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If resend limit exceeds
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, You crossed resend validation email limit."}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If provided email already activated
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided is already activated."}
+                                                                        </li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'></td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='ResendValidationEmail'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
+
+
+<?php include_once 'common_footer.php';?>

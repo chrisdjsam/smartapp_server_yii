@@ -57,6 +57,27 @@ class WebUser extends CWebUser {
 		$user = $this->loadUser(Yii::app()->user->id);
 		return $user->is_admin;
 	}
+        
+        /**
+	 * Returns the value that the user is validated or not (1/0).
+	 * access it by Yii::app()->user->isValidated
+	 * @return boolean value.
+	 */
+	function getIsValidated() {
+		$user = $this->loadUser(Yii::app()->user->id);
+		return $user->is_validated;
+	}
+        
+        /**
+	 * Returns the value that the user is validated or not (1/0).
+	 * access it by Yii::app()->user->isValidated
+	 * @return boolean value.
+	 */
+	function getCreatedOn() {
+		$user = $this->loadUser(Yii::app()->user->id);
+		return $user->created_on;
+	}
+        
 }
 
 ?>

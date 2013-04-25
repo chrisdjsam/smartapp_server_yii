@@ -77,6 +77,12 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 		robot. <br />Click Stop Cleaning Button to send stop cleaning command
 		to this robot.
 	</p>
+        
+        <div class="action-button-container">
+		<a id ="send_notification_to_associated_users" class="neato-button neato-button-large"
+			title="Send Notification">Send Notification</a>
+	</div>
+        
 	<div class="action-button-container">
 		<a class="send-to-base-command neato-button neato-button-large"
 			title="Send to Base">Send to Base</a>
@@ -417,5 +423,40 @@ $(window).load(function () {
 	var section = "#" + $('#scroll_section').attr('value');
 	location.hash = section;
 	});
+        
+        
+    $(document).ready(function(){
+        
+        $('#send_notification_to_associated_users').click(function() {
+            var message = 'Hi From <?php print isset($model->name) ? $model->name : $model->serial_number ; ?>';
+            var serial_number = '<?php echo $model->serial_number; ?>';
+            
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo Yii::app()->baseUrl . '/api/message/SendNotificationToAllUsersOfRobot' ?>',
+                dataType: 'json',
+                data: {
+                    message : message,
+                    serial_number : serial_number
+                },
+                success: function(r) {
+                    hideWaitDialog();
+                    if( r.status == 0 ) {
+                        generate_noty("success", JSON.stringify(r.result.message));
+                    } else if(r.status == -1 )  {
+                        generate_noty("error", JSON.stringify(r.message));
+                    }
+                },
+                error: function(r){
+                    console.log(r);
+                },
+                beforeSend: function(){
+                    showWaitDialog();
+                }
+            });
+            
+        }); 
+    });
+        
  
 </script>

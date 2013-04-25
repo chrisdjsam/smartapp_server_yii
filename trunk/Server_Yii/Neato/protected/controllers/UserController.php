@@ -29,6 +29,7 @@ class UserController extends Controller
 	 */
 	public function actionUserprofile()
 	{
+            
 		$h_id = Yii::app()->request->getParam('h', AppHelper::two_way_string_encrypt(Yii::app()->user->id));
 		$id = AppHelper::two_way_string_decrypt($h_id);
 		self::check_function_argument($id);
@@ -36,12 +37,40 @@ class UserController extends Controller
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/user/userprofile');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
+                
+                $update_user = $this->loadModel($id);
+                
+                $update_user_data_flag = isset($_POST['update_user_data_flag']) ? $_POST['update_user_data_flag'] : 'N' ;
+                
+                if($update_user_data_flag == 'Y') {
+                    
+                    $name = isset($_POST['User']['name']) ? $_POST['User']['name'] : '' ;
+                    $alternate_email = isset($_POST['User']['alternate_email']) ? $_POST['User']['alternate_email'] : '';
+                    
+                    $update_user->alternate_email = $alternate_email;
+                    $update_user->name = $name;
+                    
+                    if(Yii::app()->user->isAdmin){
+                        $is_validated = $_POST['is_validated'];
+                        $update_user->is_validated = $is_validated;
+                    }
 
+                    if($update_user->save()){
+                        $message = "Profile updated successfully.";
+			Yii::app()->user->setFlash('success', $message);
+                        $this->redirect(Yii::app()->request->baseUrl.'/user/userprofile');
+                    }                        
+                    
+                }
+                
+                $model = $this->loadModel($id);
+                
 		$this->render('userprofile',array(
-				'model'=>$this->loadModel($id),
+				'model'=>$model,
+                                'update_user'=>$update_user,
 		));
 	}
-
+        
 	/**
 	 * Displays a particular user for popup.
 	 * @param integer $id the ID of the model to be displayed
@@ -143,7 +172,37 @@ class UserController extends Controller
 			// validate user input and redirect to the userprofile page if valid
 			if($login_model->validate() && $login_model->login())
 			{
-				$message = AppCore::yii_echo("You have been logged in.");
+                            
+                            
+                                $is_validated = (boolean)Yii::app()->user->isValidated;
+                                $message = 'You have been logged in.';
+
+                                $grace_period = AppCore::getGracePeriod();
+
+                                if(!$is_validated){
+
+                                    $user_created_on_timestamp = strtotime(Yii::app()->user->createdOn);
+
+                                    $current_system_timestamp = time();
+
+                                    $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+
+                                    if($time_diff < $grace_period){
+
+                                        $message = "Please activate your account, your account still inactive.";
+
+                                    } else {
+
+                                        Yii::app()->user->logout();
+                                        $message = "Sorry, please Activate your account first and try again.";
+                                        Yii::app()->user->setFlash('success', $message);
+                                        $this->render('login',array('model'=>$login_model));
+                                        exit();
+
+                                    }
+
+                                }
+                            
 				Yii::app()->user->setFlash('success', $message);
 				if(Yii::app()->user->isAdmin){
 					//$this->redirect(Yii::app()->user->returnUrl);
@@ -153,6 +212,7 @@ class UserController extends Controller
 				}
 				echo $this->redirect(Yii::app()->user->returnUrl);
 				$this->redirect(Yii::app()->user->returnUrl);
+                                
 			}else{
 				Yii::app()->user->setFlash('error', AppCore::yii_echo("We could not log you in. Please check your email and password."));
 			}
@@ -191,6 +251,7 @@ class UserController extends Controller
 
 		if(isset($_POST['RegisterForm']))
 		{
+                    
 			$user_name = $_POST['RegisterForm']['name'];
 			$email = $_POST['RegisterForm']['email'];
 			$new_password = $_POST['RegisterForm']['password'];
@@ -203,6 +264,7 @@ class UserController extends Controller
 
 				$user_model->name = $registration_model->name;
 				$user_model->email = $registration_model->email;
+//                                $user_model->alternate_email = $registration_model->alternate_email;
 					
 				$user_model->password = $encrypted_pass_word;
 				$user_model->reset_password = $encrypted_pass_word;
@@ -217,9 +279,30 @@ class UserController extends Controller
 
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
-				$login_link = $this->createUrl("/user/login");
+//				$login_link = $this->createUrl("/user/login");
 				if($user_model->save()){
-					AppEmail::emailWelcomeNewUser($email, $user_name, $new_password, $login_link);
+//					AppEmail::emailWelcomeNewUser($email, $user_name, $new_password, $login_link);
+                                
+                                        // update extra attribute of user
+                                        $user_id = $user_model->id;
+                                        $validation_key = md5($user_id.'_'.$email);
+                                        $alternate_user_email = isset($user_model->alternate_email) ? $user_model->alternate_email : '' ;
+
+                                        $user_model->validation_key =  $validation_key;
+                                        $user_model->is_validated = 0;
+
+                                        if (!empty($alternate_user_email)) {
+                                            AppEmail::emailValidate($email, $user_name, $validation_key, $alternate_user_email);
+                                        } else {
+                                            AppEmail::emailValidate($email, $user_name, $validation_key);
+                                        }
+
+                                        $user_model->validation_counter =  1;
+
+                                        if(!$user_model->save()){
+                                                //need to work
+                                        }
+                                    
 					$msg = AppCore::yii_echo("registeruser:ok",$user_name);
 					Yii::app()->user->setFlash('success', $msg);
 					$registration_model->login();
@@ -357,7 +440,14 @@ class UserController extends Controller
 					$user_name = $user_model->name;
 					$login_link = $this->createUrl("/user/login");
 					if($user_model->save()){
-						AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
+                                            
+                                                $alternate_user_email = $user_model->alternate_email;
+                                                if (!empty($alternate_user_email)) {
+                                                        AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link, $alternate_user_email);
+                                                } else {
+                                                        AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
+                                                }
+						
 						Yii::app()->user->setFlash('success', AppCore::yii_echo("New password is sent to your email."));
 						$this->redirect("login");
 					}
@@ -391,7 +481,14 @@ class UserController extends Controller
 		$email = $user_model->email;
 		$login_link = $this->createUrl("/user/login");
 		if($user_model->save()){
-			AppEmail::emailResetPassword($email, $user_name, $new_password, $login_link);
+                    
+                        $alternate_email = $user_model->alternate_email;
+                        if(!empty($alternate_email)){
+                            AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, $alternate_email);
+                        } else {
+                            AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link);
+                        }
+			
 			Yii::app()->user->setFlash('success', AppCore::yii_echo("You have successfully reset password of user %s.",$user_name));
 			$this->redirect($this->createUrl('user/userprofile',array('h'=>$h_id)));
 		}
@@ -430,7 +527,15 @@ class UserController extends Controller
 					$user_name = $user_model->name;
 					$login_link = $this->createUrl("/user/login");
 					if($user_model->save()){
-						AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link);
+						
+                                                $alternate_user_email = trim($user_model->alternate_email);
+                                                
+                                                if (!empty($alternate_user_email)) {
+                                                    AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, $alternate_user_email);
+                                                } else {
+                                                    AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link);
+                                                }                                                
+                                                
 						Yii::app()->user->setFlash('success', AppCore::yii_echo("Your password is changed successfully."));
 						$this->redirect("userprofile");
 					}
@@ -446,4 +551,28 @@ class UserController extends Controller
 		));
 	}
         
+        public function actionValidateEmail() {
+            
+                $validation_key = Yii::app()->request->getParam('k', '');
+                $is_user_active = 'N';
+                
+                $data = User::model()->find('validation_key = :validationKey', array(':validationKey' => $validation_key));
+                
+                if (!empty($data)) {
+
+                    $data->is_validated = 1;
+                    $data->validation_counter = 0;
+                    
+                    if ($data->save()) {
+                        
+                        Yii::app()->user->id = $data->id;
+                        $is_user_active = 'Y';
+                        
+                    }
+                    
+                }
+                $this->render('validated', array('is_user_active' => $is_user_active));
+                
+        }
+
 }

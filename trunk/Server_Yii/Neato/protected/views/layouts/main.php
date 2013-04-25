@@ -58,8 +58,8 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	$isLoggedIn = !Yii::app()->user->getIsGuest();
 	$isAdmin = false;
 	if($isLoggedIn){
-	$isAdmin = Yii::app()->user->isAdmin;
-}
+            $isAdmin = Yii::app()->user->isAdmin;
+        }
 ?>
 	<div class="container page-default">
 
@@ -67,23 +67,27 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 			<div class="inner">
 				<?php
 			if($isLoggedIn){?>
+                            
 				<?php if($isAdmin){?>
-				<ul class="adminMenuUser" >
-				<li>Logged in as <a
-						href="<?php echo $this->createUrl('/user/userprofile')?>"
-						title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?>
-					</a> <?php echo "(Administrator)";?>
-					</li> 
-				</ul>
-				<ul class="menu-user ">
-					<?php }?>
-
+                            <ul class="adminMenuUser" >				
+				<li>
+                                    Logged in as 
+                                    <a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?></a> 
+                                    <?php echo "(Administrator)";?>
+				</li> 
+				<li><a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out">
+                                        Log out
+                                    </a>
+				</li>
+                            </ul>
+                            <ul class="menu-user ">
+                            <?php }?>
+                                
 					<?php if(!$isAdmin){?>
 					<ul class="menu-user noAdminMenuUser">
-						<li>Logged in as <a
-							href="<?php echo $this->createUrl('/user/userprofile')?>"
-							title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?>
-						</a>
+						<li>
+                                                    Logged in as 
+                                                    <a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?></a>
 						</li>
 						<?php }?>
 
@@ -101,19 +105,25 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 								Associations</a>
 						</li>
 						<li><a href="<?php echo $this->createUrl('/online/list')?>"
-							title="List of all online User-Robot ">Who's online</a>
+							title="List of all online User-Robot">Who's online</a>
 						</li>
-
-						<?php }?>
-						<li><a href="<?php echo $this->createUrl('/app/list')?>"
+                                                <li><a href="<?php echo $this->createUrl('/notification/list')?>"
+							title="Send Notifications">Notifications</a>
+						</li>
+                                                <li><a href="<?php echo $this->createUrl('/app/list')?>"
 							title="List of all available app versions ">Version Control</a>
 						</li>
+                                            
+						<?php }?>
+						
 						<li><a
 							href="<?php echo $this->createUrl('/user/changepassword')?>"
 							title="Change your password">Change Password</a></li>
+                                                <?php if(!$isAdmin){?>
 						<li><a href="<?php echo $this->createUrl('/user/logout')?>"
-							title="Log Out">Log Out</a>
+							title="Log Out">Log out</a>
 						</li>
+                                                <?php } ?>
 					</ul>
 					<?php }	?>
 					<h1>

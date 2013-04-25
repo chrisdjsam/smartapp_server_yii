@@ -208,7 +208,7 @@ div.search-form {
 }
 
 .page-header h1 {
-	padding-top: 20px;
+	padding-top: 7px;
 }
 
 .page-body {
@@ -229,7 +229,7 @@ h1,h2,h3,h4,h5,h6 {
 	font-weight: bold;
 }
 
-.neato-button {
+.neato-button, .neato-button_alt, .neato_href {
 	background: #3F2C1D;
 	background: -moz-linear-gradient(center top, #A1958D 0%, #3F2C1D 100%) repeat scroll 0 0 transparent;
 	background: -webkit-linear-gradient(#A1958D, #3F2C1D);
@@ -248,7 +248,7 @@ h1,h2,h3,h4,h5,h6 {
 	
 }
 
-.neato-button:hover {
+.neato-button:hover, .neato-button_alt:hover {
 	background-color: transparent;
 	background-image: -moz-linear-gradient(center top, #DC4405 0%, #B63805 100%);
 	background-image: -webkit-linear-gradient(#DC4405, #B63805);
@@ -302,7 +302,7 @@ h1,h2,h3,h4,h5,h6 {
 	border-bottom-color: #DFDDDC;
 	border-bottom-style: solid;
 	border-bottom-width: 2px;
-	height: 93px;
+	height: 80px;
 	position: relative;
 }
 
@@ -344,6 +344,7 @@ ul,li,menu,dir {
 	float: right;
 	text-align:right;
 	width:	34%;
+        padding-top: 15px;
 }
 
 
@@ -1102,4 +1103,112 @@ fieldset.robot-online-fieldset{
 
 .list-add_app_version {
     height: 56px;
+}
+
+.notification_datagrid {
+    height: 40px;
+}
+
+div.send_notification_container {
+    padding: 25px 5px;
+}
+
+#message_to_send{
+    width:80%;
+}
+
+div.notification_by_device_type {
+    margin: 25px auto;
+}
+
+label.notification_filter_label {
+    margin-right: 15px;
+    font-size: 12px;
+}
+
+div.send_notification_btn {
+    float: right;
+    margin: 10px 5px 0 0;
+    width: 100%;
+}
+
+.neato-button_alt {
+    margin: 8px;
+    width: 70px;
+    border-radius: 15px;
+}
+
+form#notification_form_data div#DataTables_Table_0_wrapper{
+    display: none;
+}
+
+div.space_for_notification_response{
+    font-size: 12px;
+    font-style: italic;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-top: 5px;
+    width: 850px;
+}
+
+.label-value_notification_history {
+    font-size: 12px;
+    width: 650px !important;
+    word-wrap: break-word;
+    line-height: 21px;
+}
+
+#notification_details{
+    overflow:auto;
+    max-height:550px;
+    font-size: 14px;
+}
+
+.device-entry{
+    padding-bottom:10px;
+    font-size: 12px;
+}
+
+div.href_download_file {
+    margin: 5px auto 0;
+    width: 142px;
+}
+
+.notification_history_details {
+    color: blue !important;
+    cursor: pointer;
+}
+
+div.validated_email_page {
+    text-align: center; 
+    padding: 100px;
+}
+
+div.update_user_form {
+    margin: 25px auto !important;
+    width: 50%;
+}
+
+.update_user_lable {
+    float: left;
+    margin-top: 8px;
+    width: 130px
+}
+
+.update_user_input { 
+    margin: 0px;
+}
+
+.update_user_radio {
+    margin: 3px 0px 0px 6px;
+    width: 60px;
+}
+
+.action_delete_reset {
+    height: 40px;
+}
+
+.gcm_text_style {
+    font-family: monospace;
+    font-size: 11px;
 }
