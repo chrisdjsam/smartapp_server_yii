@@ -1000,7 +1000,7 @@ class AppCore {
         }
         
         if(empty($registration_ids)) {
-            return array('code' => 1, 'output' => 'Sorry , there is not single user who is registered for notification');
+            return array('code' => 1, 'output' => 'Sorry, there is not single user who is registered for notification');
         }
         
         if(!empty($unregistered_user_ids)){
@@ -1020,7 +1020,58 @@ class AppCore {
         return array('code' => 0, 'output' => $registration_ids);
         
     }
+    
+    public static function send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from, $notification_type) {
+        
+        $user_ids_not_found_error = array();
+        $user_registration_ids_not_found = array();
+        $result = array();
+        
+        foreach ($message_description as $id => $description) {
+            
+                $user_ids_to_send_notification_by_preference = array();
+                
+                foreach ($user_ids_to_send_notification as $user_id) {
+                    $user_push_notification_preferences = UserPushNotificationPreferences::model()->find('user_id = :user_id and push_notification_types_id = :push_notification_types_id', array(':user_id' => $user_id, ':push_notification_types_id' => $id));
+                    if(!empty($user_push_notification_preferences)){
+                        if($user_push_notification_preferences->preference == 1){
+                            $user_ids_to_send_notification_by_preference[] = $user_id;
+                        }
+                    }
+                }
+                
+                if(empty($user_ids_to_send_notification_by_preference)){
+                    $user_ids_not_found_error[$id] = array('code' => 1, 'output' => "Sorry, Server didn't find a single user who has set push notification preference as true.");
+                    continue;
+                }
+                
+                $AppCoreObj = new AppCore();
+                $response = $AppCoreObj->fetchRegistrationIdsForGivenUserIds($user_ids_to_send_notification_by_preference);
 
+                if($response['code'] == 1){
+                    $user_registration_ids_not_found[$id] = $response;
+                    continue;
+                }
+
+                $registration_ids_all = Array();
+                $registration_ids_all['gcm'] = $response['output'];
+
+                $result[$id] = self::send_notification($registration_ids_all, $description, $send_from, $notification_type);
+
+//                if(isset($response['extra'])){
+//                    return array('code' => 0, 'output' => "Notification Response :: " . $result['output'] . " and Unable to send notification to users " . $response['extra'] . " Because they are not registered");
+//                }
+            
+        }
+        
+//        if(!empty($result)){
+            return array('code' => 0);
+//        } else {
+//            return array('code' => 1, 'output' => "Failed to send push notification");
+//        }
+        
+    }
+    
     public static function send_notification_to_given_emails($emails, $message_to_send, $notification_type) {
         
         $response = self::scanGivenEmails($emails);
@@ -1189,8 +1240,6 @@ class AppCore {
 
                         $row = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $new_registration_id));
 
-//                        $row = mysql_fetch_array(mysql_query("SELECT * FROM gt_notification_registrations where reg_key = '$new_registration_id'"));
-
                         if (empty($row)) {
 
                             $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
@@ -1202,7 +1251,7 @@ class AppCore {
                                 return array('code' => 1, 'output' => $data->errors);
                             }
 
-//                            mysql_query("UPDATE `gt_notification_registrations` SET `reg_key` = '$new_registration_id', `is_active` = 'true' WHERE reg_key = '$value'");
+
                         } else {
 
                             $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
@@ -1213,7 +1262,7 @@ class AppCore {
                                 return array('code' => 1, 'output' => $data->errors);
                             }
 
-//                            mysql_query("UPDATE `gt_notification_registrations` SET `is_active` = 'false' WHERE reg_key = '$value'");
+
                         }
 
                         $data = new NotificationRegistrationIdLogs();
@@ -1224,7 +1273,7 @@ class AppCore {
                         if (!$data->save()) {
                             return array('code' => 1, 'output' => $data->errors);
                         }
-//                        mysql_query("INSERT INTO `gt_notification_registration_id_logs`(`old_registration_id`, `new_registration_id`) VALUES ('$value', '$new_registration_id')");
+
                     }
                 }
             }
@@ -1528,6 +1577,18 @@ class AppCore {
         return $validation_attempt;
     }
    
+    public static function setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $push_notification_types_id, $preference) {
+        
+        $userPushNotificationPreferencesObj->user_id = $user_id;
+        $userPushNotificationPreferencesObj->push_notification_types_id = $push_notification_types_id;
+        $userPushNotificationPreferencesObj->preference = (int)filter_var($preference, FILTER_VALIDATE_BOOLEAN);
+        
+        if(!$userPushNotificationPreferencesObj->save()){
+            //do nothing
+//            AppHelper::dump($userPushNotificationPreferencesObj->errors);
+        }
+        
+    }
     
 }
 

@@ -232,10 +232,63 @@ class MessageController extends APIController {
                     self::terminate(-1, $response['output']);
                 }
 
-                $response_data = array("success"=>true, "message"=>$response['output']);
+                $response_data = array("success"=>true);
 		self::success($response_data);
 
         }
+        
+        public function actionSendNotificationToAllUsersOfRobot2(){
+            
+                $serial_number = $message = Yii::app()->request->getParam('serial_number', '');
+		$message_oject = json_decode(Yii::app()->request->getParam('message', ''));
+                $notification_type = Yii::app()->request->getParam('notification_type', '1');
+                
+                if($message_oject === null) {
+                    self::terminate(-1, "The json message you have provided does not appear to be a valid.");
+                }
+                
+                $robot = self::verify_for_robot_serial_number_existence($serial_number);
+                
+                $user_ids_to_send_notification = Array();
+                foreach ($robot->usersRobots as $user) {
+                    // check for user's overall push notification preference
+                    if($user->idUser->push_notification_preference == 1){
+                        $user_ids_to_send_notification[] = $user->id_user;
+                    }
+                    
+                }
+                
+                if(empty($user_ids_to_send_notification)) {
+//                    self::terminate(-1, "Sorry, There is not single user who is associated with given robot");
+                }
+                
+                $message_description = Array();
+                
+                foreach ($message_oject->notifications as $value) {
+                    $message_data = PushNotificationTypes::model()->find('id = :id', array(':id' => $value->id));
+                    if(!empty($message_data)){
+                        $message_description[$value->id] = $message_data->description;
+                    }
+                }
+
+                if(empty($message_description)) {
+                    self::terminate(-1, "Sorry, json which you have provided in message parameter is invalid");
+                }
+                
+                $send_from = Array();
+                $send_from['type'] = 'robot';
+                $send_from['data'] = $serial_number;
+
+		$response = AppCore::send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from, $notification_type);
+                
+                if($response['code'] == 1){
+                    self::terminate(-1, $response['output']);
+                }
+
+                $response_data = array("success"=>true);
+		self::success($response_data);
+
+        }        
         
         public function actionSendNotificationToGivenEmails(){
             
@@ -551,5 +604,98 @@ class MessageController extends APIController {
             $this->renderPartial('/default/defaultView', array('content' => $result['output']));
 
         }
+        
+        public function actionSetUserPushNotificationOptions() {
+            $email = Yii::app()->request->getParam('email', '');
+            $json_object = json_decode(Yii::app()->request->getParam('json_object', ''));
+            
+            if(!AppHelper::is_valid_email($email)){
+                    self::terminate(-1, "The email address you have provided does not appear to be a valid email address.");
+            }
+            
+            if($json_object === null) {
+                    self::terminate(-1, "The JSON Object you have provided does not appear to be a valid.");
+            }
+            
+            $user_data = User::model()->find('email = :email', array(':email' => $email));
+            
+//          format of entered json object {"global":"true", "notifications":[{"key":"101", "value":"true"}, {"key":"102", "value":"true"}, {"key":"103", "value":"true"}]}
+             
+            if(!empty($user_data)){
+                
+                $user_data->push_notification_preference = (int)filter_var($json_object->global, FILTER_VALIDATE_BOOLEAN);
+                
+                if($user_data->update()){
+                    
+                    $user_id = $user_data->id;
+                    $message = 'Successfully saved user push notification preferences.';
+                    
+                    $userPushNotificationPreferencesObj = UserPushNotificationPreferences::model()->findAll('user_id = :user_id', array(':user_id' => $user_id));
+                    
+                    if(empty($userPushNotificationPreferencesObj)){
+                            
+                            foreach ($json_object->notifications as $value) {
+                                $userPushNotificationPreferencesObj = new UserPushNotificationPreferences();
+                                AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
+                            }
+                            
+                    } else {
+                        
+                            $message = 'Successfully updated user push notification preferences.';
+                        
+                            foreach ($json_object->notifications as $key => $value) {
+                                AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+                            }
+                            
+                    }
+                    
+                    $response_data = array("success" => true, "message" => $message);
+                    self::success($response_data);
+                    
+                }
+                
+            } else {
+                    self::terminate(-1, "Sorry, email address that you provided does not exist our database");
+            }
+            
+        }
 
+        public function actionGetUserPushNotificationOptions() {
+            $email = Yii::app()->request->getParam('email', '');
+            
+            if(!AppHelper::is_valid_email($email)){
+                    $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
+                    self::terminate(-1, $message);
+            }
+            
+            $user_data = User::model()->find('email = :email', array(':email' => $email));
+            
+            if(!empty($user_data)){
+                
+                    $response_data = Array();
+                    $response_data['global'] = (bool)$user_data->push_notification_preference;
+                    
+                    $userPushNotificationPreferencesObj = UserPushNotificationPreferences::model()->findAll('user_id = :user_id', array(':user_id' => $user_data->id));
+                    if(!empty($userPushNotificationPreferencesObj)){
+                        
+                        $notifications = Array();
+                         
+                        foreach ($userPushNotificationPreferencesObj as $value) {
+                            $notifications[] = array('key' => $value->push_notification_types_id, 'value' => (bool)$value->preference);
+                        }
+                    
+                        $response_data['notifications'] = $notifications;
+                        
+                    } else {
+                        self::terminate(-1, "Please first set user push notification preferences for the email address that you have provided and then try again.");
+                    }
+        
+                    self::success($response_data);
+                    
+            } else {
+                    self::terminate(-1, "Sorry, email address that you provided does not exist our database");
+            }
+            
+        }
+        
 }

@@ -288,6 +288,18 @@ class RestController extends APIController {
 				true,
 				false);
                 
+                self::expose_function('message.send_notification_to_all_users_of_robot2',
+				"message/SendNotificationToAllUsersOfRobot2",
+				array(
+						'serial_number' => array ('type' => 'array', 'required' => true),
+						'message' => array ('type' => 'string', 'required' => true),
+                                                'notification_type' => array ('type' => 'string', 'default'=>''),
+				),
+				"send notification to associated users",
+				'POST',
+				true,
+				false);                
+                
                 self::expose_function('message.send_notification_to_given_emails',
 				"message/SendNotificationToGivenEmails",
 				array(
@@ -323,6 +335,27 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+                
+                self::expose_function('message.set_user_push_notification_options',
+				"message/setUserPushNotificationOptions",
+				array(
+						'email' => array ('type' => 'string', 'required' => true),
+                                                'json_object' => array ('type' => 'string', 'required' => true),
+				),
+				"Set User Push Notification Options",
+				'POST',
+				true,
+				false);
+                
+                self::expose_function('message.get_user_push_notification_options',
+				"message/getUserPushNotificationOptions",
+				array(
+						'email' => array ('type' => 'string', 'required' => true),
+				),
+				"Get User Push Notification Options",
+				'POST',
+				true,
+				false);                
 				
 				
 		self::expose_function('robot.set_profile_details',
@@ -333,6 +366,16 @@ class RestController extends APIController {
 				'POST',
 				false,
 				false);
+                
+		self::expose_function('robot.get_profile_details',
+				"robot/GetProfileDetails",
+				array(
+                                        'serial_number' => array ('type' => 'string','required' => true),
+                                     ),
+				"Get profile details",
+				'POST',
+				false,
+				false);                
 
 		self::expose_function('robot.get_details',
 				"robot/getDetails",
@@ -490,6 +533,17 @@ class RestController extends APIController {
 				array('robot_schedule_id' => array ('type' => 'string','required' => true),
 				),
 				"Pass on a robot schedule id ",
+				'POST',
+				true,
+				false);
+                
+                self::expose_function('robotschedule.get_schedule_based_on_type',
+				"robotSchedule/getScheduleBasedOnType",
+				array(
+                                    'robot_serial_number' => array ('type' => 'string','required' => true),
+                                    'schedule_type' => array ('type' => 'string','required' => true),
+				),
+				"Get Schedule Based On Type",
 				'POST',
 				true,
 				false);

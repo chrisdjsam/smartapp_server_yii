@@ -530,7 +530,7 @@ class UserController extends APIController {
                         $is_validated = AppCore::getIsValidateStatus($user->is_validated, $user->id);
                         
 			$response_data = array("id"=>$user->id,"name"=>$user->name,"email"=>$user->email,"chat_id"=>$user->chat_id,"chat_pwd"=>$user->chat_pwd,
-					"social_networks"=>$user_social_services_arr,"robots"=>$users_arr, "validation_status" => $is_validated);
+					"social_networks"=>$user_social_services_arr,"robots"=>$users_arr, "validation_status" => $is_validated, "alternate_email"=>$user->alternate_email);
 			self::success($response_data);
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');

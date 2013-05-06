@@ -87,7 +87,7 @@
 							<li>If everything goes fine
 								<ul>
 									<li>
-										{"status":0,"result":{"success":true,"robot_schedule_id":"5","schedule_type":"Advanced","xml_data_version":1,"blob_data_version":1}}
+										{"status":0,"result":{"success":true,"robot_schedule_id":"5","schedule_type":"Advanced","xml_data_version":1,"blob_data_version":1,"schedule_version":"1"}}
 									</li>
 								</ul>
 							</li>
@@ -112,7 +112,7 @@
 										method robotschedule.post_data"}</li>
 								</ul>
 							</li>
-							<li>If schdule type not valid or missing
+							<li>If schedule type not valid or missing
 								<ul>
 									<li>{"status":-1,"message":"Robot schedule type is not valid"}</li>
 								</ul>
@@ -451,20 +451,20 @@
 							<li>If xml data version provided and goes fine
 								<ul>
 									<li>{"status":0,"result":{"success":true,"message":"You have
-										successfully updated robot schedule data."}}</li>
+										successfully updated robot schedule data.","schedule_version":< XML Data Latest Version >}}</li>
 								</ul>
 							</li>
 							<li>If blob data version provided and goes fine
 								<ul>
 									<li>{"status":0,"result":{"success":true,"message":"You have
-										successfully updated robot schedule data."}}</li>
+										successfully updated robot schedule data.","schedule_version":< XML Data Latest Version >}}</li>
 								</ul>
 							</li>
 							<li>If both xml and blob data version provided,everything goes
 								fine
 								<ul>
 									<li>{"status":0,"result":{"success":true,"message":"You have
-										successfully updated robot schedule data."}}</li>
+										successfully updated robot schedule data.","schedule_version":< XML Data Latest Version >}}</li>
 								</ul>
 							</li>
 						</ul>
@@ -488,7 +488,7 @@
 										in method robotschedule.update_data"}</li>
 								</ul>
 							</li>
-							<li>If schdule type not valid or missing
+							<li>If schedule type not valid or missing
 								<ul>
 									<li>{"status":-1,"message":"Robot schedule type is not valid"}</li>
 								</ul>
@@ -658,4 +658,109 @@
 			</tr>
 		</table>
 	</form>
+
+	<form action="<?php echo($baseURL)?>robotschedule.get_schedule_based_on_type" method='POST'
+		id='getScheduleBasedOnType' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Get Schedule Based On Type" colspan="2"><label>Get Schedule Based On Type</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get schedule based on type. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robotschedule.get_schedule_based_on_type<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>robot_serial_number</b> : Serial Number of Robot</li>
+                                                        <li><b>schedule_type</b> : Robot Schedule Type</li>
+						</ul>
+                                                Assumptions:
+                                                <ul>
+							<li><b>1</b> for 'Basic'</li>
+							<li><b>2</b> for 'Advance'</li>
+						</ul>
+                                                
+						Success Response:
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":[{"schedule_id":"68","schedule_type":"Advanced","schedule_version":"1","schedule_data":"{\"book\":{\"@attributes\":{\"id\":\"bk101\"},\"author\":\"Gambardella, Matthew\",\"title\":\"XML Developer's Guide\",\"genre\":\"Computer\",\"price\":\"44.95\",\"publish_date\":\"2000-10-01\",\"description\":\"An in-depth look at creating applications       with XML.\"}}"},{"schedule_id":"71","schedule_type":"Advanced","schedule_version":"1","schedule_data":"{\"book\":{\"@attributes\":{\"id\":\"bk112\"},\"author\":\"Galos, Mike\",\"title\":\"Visual Studio 7: A Comprehensive Guide\",\"genre\":\"Computer\"}}"}]}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If robot_serial_number is not exist
+								<ul>
+									<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+								</ul>
+							</li>
+							<li>If robot_serial_number is missing:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter robot_serial_number in method robotschedule.get_schedule_based_on_type"}</li>
+								</ul>
+							</li>
+                                                        <li>If schedule_type is missing:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter schedule_type in method robotschedule.get_schedule_based_on_type"}</li>
+								</ul>
+							</li>
+                                                        <li>If didn't get any schedule data:
+								<ul>
+									<li>{"status":-1,"message":"Sorry, we didn't find any schedule data for given robot serial number and schedule type"}</li>
+								</ul>
+							</li>
+                                                        
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+			<tr>
+				<td>robot_serial_number</td>
+				<td>
+                                    <input type="text" name='robot_serial_number'>
+				</td>
+			</tr>
+                        <tr>
+				<td>schedule_type</td>
+				<td>
+                                    <input type="text" name='schedule_type'>
+                                    <span style="color: blue;">(Assumptions: 1 for 'Basic', 2 for 'Advance')</span>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" name='submit' dummy='getScheduleBasedOnType'
+					value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
 <?php include_once 'common_footer.php';?>

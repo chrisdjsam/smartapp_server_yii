@@ -339,15 +339,10 @@ class RobotController extends APIController {
 		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
 	
 		$robot_profile = Yii::app()->request->getParam('profile', '');
-		// 		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
-		// 		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
-		// 		$user = User::model()->findByAttributes(array('id' => $user_api_session->id_user));
+
 		if ($robot !== null){
 			foreach ($robot_profile as $key => $value){
-				if($value === ''){
-					$message = self::yii_api_echo("Invalid value for key $key.");
-					self::terminate(-1, $message);
-				}
+                                $key = trim($key);
 				switch ($key) {
 					case "name":
 						$robot->name = $value;
@@ -355,8 +350,22 @@ class RobotController extends APIController {
 						break;
 					
 					default:
-						;
-						break;
+                                            $data = RobotKeyValues::model()->find('_key = :_key', array(':_key' => $key));
+                                            if(!empty($data)){
+                                                if(empty($value)){
+                                                    RobotKeyValues::model()->deleteAll('id = :id', array(':id' => $data->id));
+                                                } else {
+                                                    $data->value = $value;
+                                                    $data->update();
+                                                }
+                                            } else {
+                                                $robot_key_value = new RobotKeyValues();
+                                                $robot_key_value->robot_id = $robot->id;
+                                                $robot_key_value->_key = $key ;
+                                                $robot_key_value->value = $value ;
+                                                $robot_key_value->save();                                                    
+                                            }
+                                        break;
 				}
 			}
 			self::success(1);
@@ -366,6 +375,30 @@ class RobotController extends APIController {
 		}
 	
 	}
+        
+        
+	public function actionGetProfileDetails(){
+	
+		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
+		
+		if ($robot !== null){
+                        $data = RobotKeyValues::model()->findAll('robot_id= :robot_id', array(':robot_id' => $robot->id));
+                        $profileArray = array();
+                        $profileArray['name'] = $robot->name;
+                        $profileArray['serial_number'] = $robot->serial_number;
+                        if(!empty($data)){
+                            foreach ($data as $datarow){
+                                $profileArray[$datarow->_key] = $datarow->value;
+                            }
+                        }
+			$response_data = array("success"=>true, "profile_details" => $profileArray);
+                        self::success($response_data);
+		}else{
+			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
+			self::terminate(-1, $response_message);
+		}
+	
+	}        
 	
 	/**
 	 * API to get array of associated users with provided robot serial no

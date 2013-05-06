@@ -189,7 +189,6 @@
 	</form>
 	
 
-
 	<form action="<?php echo($baseURL)?>robot.set_profile_details"
 		method='POST' id='robotsetprofiledetails' class='ajaxified_forms'>
 		<table class='custom_table'>
@@ -240,11 +239,6 @@
 								</ul>
 							</li>
 
-							<li>If key is added but value is not provided :
-								<ul>
-									<li>{"status":-1,"message":"Invalid value for key name."}</li>
-								</ul>
-							</li>
 						</ul>
 					</div>
 				</td>
@@ -276,6 +270,89 @@
 			<tr>
 				<td><input type="button" name='submit'
 					dummy='robotsetprofiledetails' value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+
+	<form action="<?php echo($baseURL)?>robot.get_profile_details"
+		method='POST' id='robotgetprofiledetails' class='ajaxified_forms'>
+		<table class='custom_table'>
+			<tr>
+				<td id="Get Robot Profile Details" colspan="2"><label>Get Robot
+						Profile Details</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get robot's profile details. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.get_profile_details<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of robot</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>{"status":0,"result":{"success":true,"profile_details":{"name":"robo1","serial_number":"1","sumit":"sapate"}}}</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+
+							<li>If serial_number is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in
+										method robot.set_profile_details"}</li>
+								</ul>
+							</li>
+                                                        
+							<li>If serial_number is invalid:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist"}
+                                                                        </li>
+								</ul>
+							</li>                                                        
+
+
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			<tr>
+				<td>serial_number</td>
+				<td>
+                                    <input type="text" name='serial_number'>
+                                </td>
+			</tr>
+			
+			<tr>
+				<td>
+                                    <input type="button" name='submit' dummy='robotgetprofiledetails' value='Submit' class='submit_form'>
 				</td>
 				<td></td>
 			</tr>

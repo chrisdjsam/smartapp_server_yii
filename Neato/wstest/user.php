@@ -861,14 +861,14 @@
 							<li>If everything goes fine and social information does not exist
 								<ul>
 									<li>
-										{"status":0,"result":{"id":367,"name":"pradip37","email":"pradip_patro378@gmail.com","chat_id":"1350922773_user@rajatogo","chat_pwd":"1350922773_user","social_networks":[],"validation_status":0}}
+										{"status":0,"result":{"id":367,"name":"pradip37","email":"pradip_patro378@gmail.com","chat_id":"1350922773_user@rajatogo","chat_pwd":"1350922773_user","social_networks":[],"validation_status":0,"alternate_email":"xyz@abc.com"}}
 									</li>
 								</ul>
 							</li>
 							<li>If everything goes fine and social information exists
 								<ul>
 									<li>
-										{"status":0,"result":{"id":357,"name":"pradip3","email":"pradip_patro3@gmail.com","chat_id":"1350911036_user@rajatogo","chat_pwd":"1350911036_user","social_networks":[{"provider":"Facebook"},{"external_social_id":"123456789"}],"validation_status":0}}
+										{"status":0,"result":{"id":357,"name":"pradip3","email":"pradip_patro3@gmail.com","chat_id":"1350911036_user@rajatogo","chat_pwd":"1350911036_user","social_networks":[{"provider":"Facebook"},{"external_social_id":"123456789"}],"validation_status":0,"alternate_email":"xyz@abc.com"}}
 									</li>
 								</ul>
 							</li>
@@ -877,14 +877,14 @@
 									<li>
 										{"status":0,"result":{"id":542,"name":"pradip","email":"pradip@gmail.com","chat_id":"1351499916_user@rajatogo","chat_pwd":"1351499916_user","social_networks":[],"robots":[{"id":"68","name":"room
 										cleaner1","serial_number":"robo5","chat_id":"1350987452_robot@rajatogo"},{"id":"69","name":"desk
-										cleaner60","serial_number":"robo6","chat_id":"1350991375_robot@rajatogo"}],"validation_status":0}}
+										cleaner60","serial_number":"robo6","chat_id":"1350991375_robot@rajatogo"}],"validation_status":0,"alternate_email":"xyz@abc.com"}}
 									</li>
 								</ul>
 							</li>
 							<li>If everything goes fine and both social information and robot association do not exist
 								<ul>
 									<li>
-										{"status":0,"result":{"id":543,"name":"pradip","email":"pradip1@gmail.com","chat_id":"1351500158_user@rajatogo","chat_pwd":"1351500158_user","social_networks":[],"robots":[],"validation_status":0}}
+										{"status":0,"result":{"id":543,"name":"pradip","email":"pradip1@gmail.com","chat_id":"1351500158_user@rajatogo","chat_pwd":"1351500158_user","social_networks":[],"robots":[],"validation_status":0,"alternate_email":"xyz@abc.com"}}
 									</li>
 								</ul>
 							</li>

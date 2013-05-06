@@ -238,7 +238,7 @@ class RobotScheduleController extends APIController {
 
 		if($robot_schedule_model->update()){
 			$response_message = self::yii_api_echo('Robot schedule data stored successfully.');
-			$response_data = array("success"=>true, "robot_schedule_id"=>$robot_schedule_model->id,"schedule_type" =>$robot_schedule_model->type, "xml_data_version"=>$schedule_xml_data_file_version, "blob_data_version"=>$schedule_blob_data_file_version);
+			$response_data = array("success"=>true, "robot_schedule_id"=>$robot_schedule_model->id,"schedule_type" =>$robot_schedule_model->type, "xml_data_version"=>$schedule_xml_data_file_version, "blob_data_version"=>$schedule_blob_data_file_version, 'schedule_version' => $robot_schedule_model->XMLDataLatestVersion);
 			self::success($response_data);
 		}
 	}
@@ -533,7 +533,7 @@ class RobotScheduleController extends APIController {
 				if($old_schedule_blob_data_file_path != ''){
 					unlink($old_schedule_blob_data_file_path);
 				}
-				$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully updated robot schedule data.'));
+				$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully updated robot schedule data.'), 'schedule_version' => $robot_schedule_model->XMLDataLatestVersion);
 				self::success($response_data);
 			}
 		}else{
@@ -794,5 +794,52 @@ class RobotScheduleController extends APIController {
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 	
 	}
+        
+        public function actionGetScheduleBasedOnType() {
 
-}
+                $robot_serial_number = Yii::app()->request->getParam('robot_serial_number', '');
+                $schedule_type = Yii::app()->request->getParam('schedule_type', '');
+                
+                if($schedule_type == '1'){
+                    $schedule_type = 'Basic';
+                } else if($schedule_type == '2'){
+                    $schedule_type = 'Advanced';
+                }
+
+                $robot_model = self::verify_for_robot_serial_number_existence($robot_serial_number);
+                
+                $robot_schedule_arr = array();
+                
+                foreach ($robot_model->robotSchedules as $robot_schedule) {
+                    
+                    if($schedule_type == $robot_schedule->type){
+                        
+                        $robot_schedule_details = array();
+                        $robot_schedule_details['schedule_id'] = $robot_schedule->id;
+                        $robot_schedule_details['schedule_type'] = $robot_schedule->type;
+
+                        $robot_schedule_details['schedule_version'] = $robot_schedule->XMLDataLatestVersion;
+                                                
+                        if(AppHelper::remote_file_exists($robot_schedule->XMLDataURL)){
+                            
+                            $fileContents = file_get_contents($robot_schedule->XMLDataURL);
+                            $robot_schedule_details['schedule_data'] = str_replace(array("\n", "\r", "\t"), '', $fileContents);
+                            
+                        } else {
+                            $robot_schedule_details['schedule_data'] = false;
+                        }
+                        
+                        $robot_schedule_arr[] = $robot_schedule_details;
+                        
+                    }
+                    
+                }
+                
+                if(empty($robot_schedule_arr)){
+			self::terminate(-1, "Sorry, we didn't find any schedule data for given robot serial number and schedule type");
+                }
+                self::success($robot_schedule_arr);
+                
+        }
+
+}   

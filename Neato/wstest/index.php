@@ -160,6 +160,8 @@ padding-right: 50px;
 											</li>
 											<li><a href="robot.php#Set Robot Profile Details">Set Robot Profile Details</a>
 											</li>
+                                                                                        <li><a href="robot.php#Get Robot Profile Details" class="new-api">Get Robot Profile Details</a>
+											</li>
 											<li><a href="robot.php#Get Robot Details">Get Robot Details</a>
 											</li>
 											<li><a href="robot.php#Get Robot associated users details">Get
@@ -203,13 +205,16 @@ padding-right: 50px;
 								<tr>
 									<td>
 										<ul>
-											<li><a href="messages.php#Send Xmpp Message To Robot"  class="new-api">Send Xmpp Message To Robot</a></li>
-											<li><a href="messages.php#Send Message To Associated Users"  class="new-api">Send Message To Associated Users</a></li>
-                                                                                        <li><a href="messages.php#Send notification to given emails"  class="new-api">Send notification to given emails</a></li>
+											<li><a href="messages.php#Send Xmpp Message To Robot">Send Xmpp Message To Robot</a></li>
+											<li><a href="messages.php#Send Message To Associated Users">Send Message To Associated Users</a></li>
+                                                                                        <li><a href="messages.php#Send notification to given emails">Send notification to given emails</a></li>
                                                                                         <li><a href="messages.php#Send notification to given Registration IDs"  class="new-api">Send notification to given Registration IDs</a></li>
                                                                                         <li><a href="messages.php#Send notification to all the users of robot"  class="new-api">Send notification to all the users of robot</a></li>
                                                                                         <li><a href="messages.php#Store Registration Id To Send Notification For Given User"  class="new-api">Register For Notification</a></li>
                                                                                         <li><a href="messages.php#Remove Notification Registration Id"  class="new-api">Unregister From Notification</a></li>
+                                                                                        <li><a href="messages.php#Set User Push Notification Options"  class="new-api">Set User Push Notification Options</a></li>
+                                                                                        <li><a href="messages.php#Get User Push Notification Options"  class="new-api">Get User Push Notification Options</a></li>
+                                                                                        <li><a href="messages.php#Send notification to all the users of robot2"  class="new-api">Send notification to all the users of robot2</a></li>
 										</ul>
 									</td>
 								</tr>
@@ -342,6 +347,9 @@ padding-right: 50px;
 											</li>
 											<li><a href="robot_schedule.php#Delete Robot Schedule Data">Delete
 													Robot Schedule Data</a>
+											</li>
+                                                                                        <li>
+                                                                                            <a href="robot_schedule.php#Get Schedule Based On Type" class="new-api">Get Schedule Based On Type</a>
 											</li>
 										</ul>
 									</td>
