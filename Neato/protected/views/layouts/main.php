@@ -127,12 +127,11 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 					</ul>
 					<?php }	?>
 					<h1>
-						<a href="<?php echo $this->createUrl("/")?>"
-							title="Neato Robotics">
-							<div id="logo">
-								<?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo.png","Neato Robotics", array('class'=> 'app-logo')); ?>
-							</div>
-						</a>
+                                                <div id="logo">
+                                                    <a href="<?php echo $this->createUrl("/")?>" title="Neato Robotics">
+                                                        <?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo.png","Neato Robotics", array('class'=> 'app-logo')); ?>
+                                                    </a>
+                                                </div>
 					</h1>
 					<div class="top-buttons-container">
 						<?php if(!$isLoggedIn){?>

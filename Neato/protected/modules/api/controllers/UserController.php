@@ -194,7 +194,7 @@ class UserController extends APIController {
 
                                                         } else {
 
-                                                            $message = "Sorry, please Activate your account first and try again.";
+                                                            $message = "Sorry, Please validate your email first and then login again.";
                                                             $is_validated = -2 ;
                                                             $user_auth_token = null;
 
@@ -247,7 +247,7 @@ class UserController extends APIController {
 
                                                     } else {
 
-                                                        $message = "Sorry, please Activate your account first and try again.";
+                                                        $message = "Sorry, Please validate your email first and then login again.";
                                                         $is_validated = -2 ;
                                                         $user_auth_token = null;
 
@@ -255,17 +255,11 @@ class UserController extends APIController {
 
                                                 }
 
-                                                $response_data['is_validated'] = $is_validated;
-                                                $response_data['user_auth_token'] = $user_auth_token;
-                                                $response_data['message'] = $message;
-                                                self::success($response_data);
-                                                
                                                 $response_data = $user_auth_token;
                                                 $extra_param['validation_status'] = $is_validated;
                                                 $extra_param['message'] = $message;
 
                                                 self::successWithExtraParam($response_data, $extra_param);
-                                                
                                                 
 
 					}
@@ -532,17 +526,8 @@ class UserController extends APIController {
 
 				$users_arr[] = $user_details;
 			}
-
-                        $is_validated = ($user->is_validated == 0) ? -1 : 0 ;
                         
-                        $grace_period = AppCore::getGracePeriod();
-                        $user_created_on_timestamp = strtotime($user->created_on);
-                        $current_system_timestamp = time();
-                        $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
-
-                        if($time_diff > $grace_period){
-                            $is_validated = -2 ;
-                        }
+                        $is_validated = AppCore::getIsValidateStatus($user->is_validated, $user->id);
                         
 			$response_data = array("id"=>$user->id,"name"=>$user->name,"email"=>$user->email,"chat_id"=>$user->chat_id,"chat_pwd"=>$user->chat_pwd,
 					"social_networks"=>$user_social_services_arr,"robots"=>$users_arr, "validation_status" => $is_validated);
@@ -1576,7 +1561,6 @@ class UserController extends APIController {
     public function actionResendValidationEmail() {
         
         $user_email = Yii::app()->request->getParam('email', '');
-        $alternate_user_email = Yii::app()->request->getParam('alternative_email', '');
         
         //get input is_validated if it from create user 2 web service API
         
@@ -1591,8 +1575,10 @@ class UserController extends APIController {
         if(!empty($data)) {
             
             if (!$data->is_validated) {
-
-                if ($data->validation_counter < 3) {
+                
+                $validation_attempt = AppCore::getValidationAttempt();
+                
+                if ($data->validation_counter < $validation_attempt) {
 
                     $user_email = $data->email;
                     $user_name = $data->name;
@@ -1612,10 +1598,10 @@ class UserController extends APIController {
                     }
 
                     $response_data['success'] = true;
-                    $response_data['message'] = "We have resent validation email";
+                    $response_data['message'] = "We have resent validation email successfully.  ";
                     self::success($response_data);
                 } else {
-                    $message = self::yii_api_echo("Sorry, You crossed resend validation email limit.");
+                    $message = self::yii_api_echo("Sorry, You have crossed resend validation email limit.");
                     self::terminate(-1, $message);
                 }
                 

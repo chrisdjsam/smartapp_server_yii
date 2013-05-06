@@ -1212,3 +1212,23 @@ div.update_user_form {
     font-family: monospace;
     font-size: 11px;
 }
+
+.login_submit_btn {
+    height: 50px;
+}
+
+.resend_validation_email_popup_class {
+    padding: 40px !important;
+}
+
+.email_resend_label_style {
+    margin-right: 20px;
+}
+
+.errorMessage {
+    color: red;
+}
+
+.email_resend_input_style {
+    margin-bottom: 5px;
+}

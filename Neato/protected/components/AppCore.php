@@ -1491,7 +1491,7 @@ class AppCore {
             
         $grace_period = '';
         $grace_period = AppConfiguration::model()->findByAttributes(array('_key' => 'GRACE_PERIOD'));
-        $grace_period = $grace_period->value ;
+        $grace_period = isset($grace_period->value) ? $grace_period->value : 60 ;
 
         return $grace_period;
             
@@ -1504,18 +1504,28 @@ class AppCore {
         
         $is_validated = ($is_validated == 0) ? -1 : 0 ;
         
-        $grace_period = AppCore::getGracePeriod();
-        $user_created_on_timestamp = strtotime($created_on);
-        $current_system_timestamp = time();
-        
-        $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
-        
-        if($time_diff > $grace_period){
-            $is_validated = -2 ;
-        } 
+        if( $is_validated == -1 ) {
+            $grace_period = self::getGracePeriod();
+            $user_created_on_timestamp = strtotime($created_on);
+            $current_system_timestamp = time();
+
+            $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+
+            if($time_diff > $grace_period){
+                $is_validated = -2 ;
+            } 
+        }
         
         return $is_validated;
         
+    }
+    
+    public static function getValidationAttempt() {
+        
+        $validation_attempt_data = AppConfiguration::model()->findByAttributes(array('_key' => 'VALIDATION_ATTEMPT'));
+        $validation_attempt = isset($validation_attempt_data->value) ? $validation_attempt_data->value : 5;
+
+        return $validation_attempt;
     }
    
     
