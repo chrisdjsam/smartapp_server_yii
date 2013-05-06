@@ -215,6 +215,28 @@ class AppHelper {
             readfile("$filename");
             
         }
+        
+        
+        public static function parseXMLToJSON ($url) {
+
+		$fileContents = file_get_contents($url);
+                
+                $fileContents = str_replace(array("\n", "\r", "\t"), '', $fileContents);
+                
+		$fileContents = trim(str_replace('"', "'", $fileContents));
+                
+		$simpleXml = simplexml_load_string($fileContents);
+
+		$json = json_encode($simpleXml);
+
+		return $json;
+
+	}
+        
+        public static function remote_file_exists($url){
+                return(bool)preg_match('~HTTP/1\.\d\s+200\s+OK~', @current(get_headers($url)));
+        }  
+        
 }
 
 ?>

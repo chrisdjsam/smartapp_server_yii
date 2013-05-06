@@ -15,6 +15,7 @@
  * @property string $chat_id
  * @property string $chat_pwd
  * @property integer $is_active
+ * @property integer $push_notification_preference
  *
  * The followings are the available model relations:
  * @property UsersApiSessions[] $usersApiSessions
@@ -57,7 +58,7 @@ class BaseUser extends GxActiveRecord
 //                        array('alternate_email, validation_key', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, password, reset_password, email, is_emailVerified, is_admin, created_on, chat_id, chat_pwd, is_active, validation_key, is_validated, validation_counter, alternate_email', 'safe', 'on'=>'search'),
+			array('id, name, password, reset_password, email, is_emailVerified, is_admin, created_on, chat_id, chat_pwd, is_active, validation_key, is_validated, validation_counter, alternate_email, push_notification_preference', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -98,7 +99,8 @@ class BaseUser extends GxActiveRecord
                         'validation_key' => 'Validation Key',
                         'is_validated' => 'Validate Email',
                         'validation_counter' => 'Validation Counter',
-                        
+                        'push_notification_preference' => 'Push Notification Preference',
+                    
 		);
 	}
 
@@ -128,7 +130,8 @@ class BaseUser extends GxActiveRecord
                 $criteria->compare('validation_key',$this->validation_key);
                 $criteria->compare('is_validated',$this->is_validated);
                 $criteria->compare('validation_counter',$this->validation_counter);
-
+                $criteria->compare('push_notification_preference',$this->push_notification_preference);
+                
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

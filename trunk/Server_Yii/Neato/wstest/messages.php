@@ -516,7 +516,7 @@
                                 <li>If notification is sent to all the users of robot.
                                     <ul>
                                         <li>
-                                            {"status":0,"result":{"success":true,"message":" gcm_response::{\"multicast_id\":5064984455803641243,\"success\":1,\"failure\":0,\"canonical_ids\":0,\"results\":[{\"message_id\":\"0:1365746660503409%d7e43d19f9fd7ecd\"}]}"}}
+                                            {"status":0,"result":{"success":true}}
                                         </li>
                                     </ul>
                                 </li>
@@ -567,9 +567,127 @@
                                     </ul>
                                 </li>
 
-                                <li>If there is some users are registered and some are not
+                            </ul>
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td class='label_field'>api_key</td>
+                    <td class='value_field'><input type="text" name='api_key'
+                                                   class='api_keys' value='<?php echo($api_key); ?>' />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>serial_number</td>
+                    <td><input type="text" name='serial_number'>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>message</td>
+                    <td><textarea rows="5" cols="30" name='message'></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>notification_type</td>
+                    <td>
+                        <input type="text" name='notification_type'>
+                        <span style="color: blue;">( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' )</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><input type="button" name='submit' dummy='notification_to_all_associated_users'
+                               value='Submit' class='submit_form'>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class='request_div'>View Request</div> <br />
+                        <div class='response_div'>View Response</div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <form action="<?php echo($baseURL) ?>message.send_notification_to_all_users_of_robot2" method='POST'
+              id='notification_to_all_associated_users2' class='ajaxified_forms'
+              enctype="multipart/form-data">
+
+            <table class='custom_table'>
+                <tr>
+                    <td id = "Send notification to all the users of robot2" colspan="2"><label>Send notification to all the users of robot2.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class='api_description'>
+
+                        <div class='toggle_details'>More</div>
+                        <div class='details_div'>
+                            POST method to send notification to all users of robot2. <br /> <br /> URL:
+                            <?php echo($baseURL) ?>
+                            message.send_notification_to_all_users_of_robot2<br /> 
+                            Parameters:
+                            <ul>
+                                <li><b>api_key</b> 		: Your API Key</li>
+                                <li><b>serial_number</b>        : Serial Number of Robot.</li>
+                                <li><b>message</b> 		: JSON object in '{"notifications":[{"id":"101"}]}' format.</li>
+                                <li><b>notification_type</b> 	: Notification Type ( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' ).</li>
+                            </ul>
+
+
+                            Success Response:
+                            <ul>
+                                <li>If notification is sent to at least one user of robot.
                                     <ul>
-                                        <li>{"status":0,"result":{"success":true,"message":"Notification Response ::  gcm_response::{\"multicast_id\":5020886945380285842,\"success\":0,\"failure\":1,\"canonical_ids\":0,\"results\":[{\"error\":\"MismatchSenderId\"}]} and Unable to send notification to users abc, xyz Because they are not registered"}}</li>
+                                        <li>
+                                            {"status":0,"result":{"success":true}}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            Failure Responses: <br />
+                            <ul>
+                                <li>If API Key is missing:
+                                    <ul>
+                                        <li>{"status":-1,"message":"Method call failed the API
+                                            Authentication"}</li>
+                                    </ul>
+                                </li>
+
+                                <li>If serial_number is missing:
+                                    <ul>
+                                        <li>
+                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_notification_to_all_users_of_robot"}
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>If message is missing:
+                                    <ul>
+                                        <li>
+                                            {"status":-1,"message":"Missing parameter message in method message.send_notification_to_given_registration_ids"}
+                                        </li>
+                                    </ul>
+                                </li>
+
+<!--                                <li>If notification sending failed:
+                                    <ul>
+                                        <li>
+                                            {"status":-1,"message":"Failed to send push notification"}
+                                        </li>
+                                    </ul>
+                                </li>-->
+
+                                <li>If enter wrong serial_number
+                                    <ul>
+                                        <li>{"status":-1,"message":"Robot serial number does not exist"}</li>
                                     </ul>
                                 </li>
 
@@ -607,7 +725,7 @@
                 </tr>
 
                 <tr>
-                    <td><input type="button" name='submit' dummy='notification_to_all_associated_users'
+                    <td><input type="button" name='submit' dummy='notification_to_all_associated_users2'
                                value='Submit' class='submit_form'>
                     </td>
                     <td></td>
@@ -807,6 +925,218 @@
 												
 			<tr>
 				<td><input type="button" name='submit' dummy='notification_unregistration' value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+
+        <form action="<?php echo($baseURL)?>message.set_user_push_notification_options" method='POST'
+		id='set_user_push_notification_options' class='ajaxified_forms'
+		enctype="multipart/form-data">
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Set User Push Notification Options" colspan="2"><label>Set User Push Notification Options</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+				
+				<div class='toggle_details'>More</div>
+					<div class='details_div'>
+						POST method to Set User Push Notification Options. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						message.set_user_push_notification_options<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> : Your API Key</li>
+							<li><b>email</b> : email address of user</li>
+                                                        <li><b>json_object</b> : JSON Ojbect in '{"global":"true", "notifications":[{"key":"101", "value":"true"}, {"key":"102", "value":"true"}, {"key":"103", "value":"true"}]}' format</li>
+						</ul>
+				
+
+						Success Response:
+						<ul>
+                                                        <li>Web service response when user enters push notification preference first time,
+								<ul>
+									<li>
+										{"status":0,"result":{"success":true,"message":"Successfully saved user push notification preferences."}}
+									</li>
+								</ul>
+							</li>
+                                                        <li>Web service response when user try to set push notification preference again,
+								<ul>
+									<li>
+										{"status":0,"result":{"success":true,"message":"Successfully updated user push notification preferences."}}
+									</li>
+								</ul>
+							</li>                                                        
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							
+							<li>If email address is missing:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter email in method message.set_user_push_notification_options"}</li>
+								</ul>
+							</li>
+							
+							<li>If json_object is missing:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter json_object in method message.set_user_push_notification_options"}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If given email address is not valid,
+								<ul>
+									<li>{"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}</li>
+								</ul>
+							</li>                                                        
+                                                        
+                                                        <li>If given email address does not exist in database,
+								<ul>
+									<li>{"status":-1,"message":"Sorry, email address that you provided does not exist our database"}</li>
+								</ul>
+							</li>
+														
+                                                        <li>If given json_object is not valid,
+								<ul>
+									<li>{"status":-1,"message":"The JSON Object you have provided does not appear to be a valid."}</li>
+								</ul>
+							</li>                                                        
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+			
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'> </td>
+			</tr>
+                        
+			<tr>
+				<td>json_object</td>
+				<td><input type="text" name='json_object'> </td>
+			</tr>									
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='set_user_push_notification_options' value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+
+        <form action="<?php echo($baseURL)?>message.get_user_push_notification_options" method='POST'
+		id='get_user_push_notification_options' class='ajaxified_forms'
+		enctype="multipart/form-data">
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Get User Push Notification Options" colspan="2"><label>Get User Push Notification Options</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+				
+				<div class='toggle_details'>More</div>
+					<div class='details_div'>
+						POST method to get user push notification options. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						message.get_user_push_notification_options<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> : Your API Key</li>
+							<li><b>email</b> : email address of user</li>
+						</ul>
+				
+
+						Success Response:
+						<ul>
+                                                        <li>If user enters valid email,
+								<ul>
+									<li>
+										{"status":0,"result":{"global":true,"notifications":[{"key":"101","value":true},{"key":"102","value":true},{"key":"103","value":true}]}}
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							
+							<li>If email is missing:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter email in method message.get_user_push_notification_options"}</li>
+								</ul>
+							</li>
+							
+                                                        <li>If given email address is not valid,
+								<ul>
+									<li>{"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If given email address does not exist in database,
+								<ul>
+									<li>{"status":-1,"message":"Sorry, email address that you provided does not exist our database"}</li>
+								</ul>
+							</li>
+														
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+			
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'> </td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='get_user_push_notification_options' value='Submit' class='submit_form'></td>
 				<td></td>
 			</tr>
 			<tr>
