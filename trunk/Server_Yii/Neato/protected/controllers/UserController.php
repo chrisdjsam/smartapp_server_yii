@@ -32,11 +32,13 @@ class UserController extends Controller
             
 		$h_id = Yii::app()->request->getParam('h', AppHelper::two_way_string_encrypt(Yii::app()->user->id));
 		$id = AppHelper::two_way_string_decrypt($h_id);
-		self::check_function_argument($id);
+                
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/user/userprofile');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
+                
+                self::check_function_argument($id);
                 
                 $update_user = $this->loadModel($id);
                 
@@ -172,10 +174,10 @@ class UserController extends Controller
 			// validate user input and redirect to the userprofile page if valid
 			if($login_model->validate() && $login_model->login())
 			{
-                            
-                            
+                                
+
                                 $is_validated = (boolean)Yii::app()->user->isValidated;
-                                $message = 'You have been logged in.';
+                                $message = 'You have been logged in Successfully.';
 
                                 $grace_period = AppCore::getGracePeriod();
 
@@ -189,13 +191,13 @@ class UserController extends Controller
 
                                     if($time_diff < $grace_period){
 
-                                        $message = "Please activate your account, your account still inactive.";
+                                        $message = "You have been logged in Successfully. Please validate your email.";
 
                                     } else {
 
                                         Yii::app()->user->logout();
-                                        $message = "Sorry, please Activate your account first and try again.";
-                                        Yii::app()->user->setFlash('success', $message);
+                                        $message = "Sorry, Please validate your email first and then login again.";
+                                        Yii::app()->user->setFlash('error', $message);
                                         $this->render('login',array('model'=>$login_model));
                                         exit();
 

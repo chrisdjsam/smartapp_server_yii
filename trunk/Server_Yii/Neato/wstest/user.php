@@ -295,7 +295,7 @@
                                                         <li>If user is exceed grace period and inactive.
 								<ul>
 									<li>
-                                                                            {"status":0,"result":null,"extra_params":{"validation_status":-2,"message":"Sorry, please Activate your account first and try again."}}
+                                                                            {"status":0,"result":null,"extra_params":{"validation_status":-2,"message":"Sorry, Please validate your email first and then login again."}}
                                                                         </li>
 								</ul>
 							</li>
