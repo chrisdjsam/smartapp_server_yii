@@ -37,9 +37,8 @@
 		</div>
 
 		<div class="row-buttons">
-			<?php echo CHtml::submitButton($model->isNewRecord ? 'Associate' : 'Save', array('class'=>"neato-button",  "title" => "Associate")); ?>
-			<a href="<?php echo $this->createUrl('usersRobot/list')?>"
-				title="Cancel" class="neato-button">Cancel</a>
+			<?php echo CHtml::submitButton($model->isNewRecord ? 'Associate' : 'Save', array('class'=>"neato-button_alt associate_user_btn",  "title" => "Associate")); ?>
+			<a href="<?php echo $this->createUrl('usersRobot/list')?>" title="Cancel" class="neato-button_alt">Cancel</a>
 		</div>
 
 		<?php $this->endWidget(); ?>

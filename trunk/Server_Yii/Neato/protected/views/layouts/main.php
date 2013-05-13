@@ -92,7 +92,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						<?php }?>
 
 						<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
-							title="My Profile">My Profile</a></li>
+							title="My Profile" class="neato_tab_my_profile">My Profile</a></li>
 						<?php if($isAdmin){ ?>
 						<li><a href="<?php echo $this->createUrl('user/list')?>"
 							title="List of all Users">Users</a>

@@ -164,6 +164,8 @@ padding-right: 50px;
 											</li>
                                                                                         <li><a href="robot.php#Get Robot Profile Details" class="new-api">Get Robot Profile Details</a>
 											</li>
+                                                                                        <li><a href="robot.php#Get Robot Profile Details 2" class="new-api">Get Robot Profile Details 2</a>
+											</li>
                                                                                         <li><a href="robot.php#Delete Robot Profile Key" class="new-api">Delete Robot Profile Key</a>
 											</li>
 											<li><a href="robot.php#Get Robot Details">Get Robot Details</a>

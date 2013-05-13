@@ -41,7 +41,7 @@ $this->breadcrumbs = array(
                     <label class="notification_message_label">Send to</label>
                 </div>
                 <input name="notification_send_by_device_type" type="radio" value="registration_ids" checked="checked"/>
-                <label class="notification_filter_label">Selected Devices</label>
+                <label class="notification_filter_label">Selected devices</label>
                 <input name="notification_send_by_device_type" type="radio" value="1"/>
                 <label class="notification_filter_label">All Android devices</label>
                 <input name="notification_send_by_device_type" type="radio" value="2"/>
@@ -55,10 +55,10 @@ $this->breadcrumbs = array(
         <table class="pretty-table notifications-table">
             <thead>
                 <tr class="notification_datagrid">
-                    <th style="width: 8%;"  class='pretty-table-center-th'>Select</th>
-                    <th style="width: 30%;"  class='pretty-table-center-th'>Email</th>
+                    <th style="width: 10%; padding: 0px;"  class='pretty-table-center-th'>Select</th>
+                    <th style="width: 25%;"  class='pretty-table-center-th'>Email</th>
                     <th style="width: 50%;"  class='pretty-table-center-th'>Registration Id</th>
-                    <th style="width: 12%;"  class='pretty-table-center-th'>Device</th>
+                    <th style="width: 15%; padding: 0px;"  class='pretty-table-center-th'>Device</th>
                 </tr>
             </thead>
             <tbody>

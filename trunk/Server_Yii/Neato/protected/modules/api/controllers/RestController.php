@@ -431,6 +431,17 @@ class RestController extends APIController {
 				false,
 				false);                
                 
+		self::expose_function('robot.get_profile_details2',
+				"robot/GetProfileDetails2",
+				array(
+                                        'serial_number' => array ('type' => 'string','required' => true),
+                                        'key' => array ('type' => 'string','default' => ''),
+                                     ),
+				"Get profile details",
+				'POST',
+				false,
+				false);                
+                
 		self::expose_function('robot.delete_robot_profile_key',
 				"robot/DeleteRobotProfileKey",
 				array(

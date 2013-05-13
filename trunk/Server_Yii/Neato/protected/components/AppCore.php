@@ -143,7 +143,7 @@ class AppCore {
 		}else{
 			return false;
 		}
-		
+
 	}
 
 
@@ -592,7 +592,7 @@ class AppCore {
 				</body>
 
 				</html>",
-                    
+
                                 /**
 				 *  email validation template
 	 			*/
@@ -605,10 +605,10 @@ class AppCore {
 				<b>Welcome to Neato-Robotics</b></div>
 
 				<br>Hi %s,<br><br>
-                                
+
                                 Thank you for registration. Please validate your primary email %s by clicking on following link.<br><br>
 				%s<br><br>
-				
+
 
 				<br><br>
 
@@ -626,7 +626,7 @@ class AppCore {
 
 				/**
 				 *  New user email
-                                 */ 
+                                 */
 				'welocome_subject' => "Welcome to Neato-Robotics",
 				'welcome_message' => "<html><body>
 
@@ -827,7 +827,7 @@ class AppCore {
 
 	}
 
-        public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $_GET, $modelName, $sWhere = "", $join_flag = false) {
+    public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $_GET, $modelName, $sWhere = "", $join_flag = false) {
         /*
          * Paging
          */
@@ -900,9 +900,9 @@ class AppCore {
         $sOrder
         $sLimit
         ";
-        
+
         if($join_flag){
-            $rResult = Yii::app()->db->createCommand($sQuery)->queryAll();            
+            $rResult = Yii::app()->db->createCommand($sQuery)->queryAll();
         } else {
             $rResult = $modelName::model()->findAllBySql($sQuery);
         }
@@ -935,54 +935,54 @@ class AppCore {
 
         return($output);
     }
-    
-    
+
+
     public static function send_notification_to_given_registration_ids($registration_ids, $message_to_send, $notification_type) {
-        
+
         $response = self::scanGivenRegistrationIds($registration_ids);
 
         if($response['code'] == 1){
             return $response;
         }
-        
+
         $registration_ids_all = Array();
         $registration_ids_all['gcm'] = $response['registration_ids_by_type']['gcm'];
         $registration_ids_all['ios'] = $response['registration_ids_by_type']['ios'];
-        
+
         $result = self::send_notification($registration_ids_all, $message_to_send, null, $notification_type);
-        
+
         return $result;
-        
+
     }
-    
+
     public static function send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message_to_send, $send_from, $notification_type) {
-        
+
         $AppCoreObj = new AppCore();
         $response = $AppCoreObj->fetchRegistrationIdsForGivenUserIds($user_ids_to_send_notification);
-        
+
         if($response['code'] == 1){
             return $response;
         }
-        
+
         $registration_ids_all = Array();
         $registration_ids_all['gcm'] = isset($response['output']['gcm']) ? $response['output']['gcm'] : array();
         $registration_ids_all['ios'] = isset($response['output']['ios']) ? $response['output']['ios'] : array();
-        
+
         $result = self::send_notification($registration_ids_all, $message_to_send, $send_from, $notification_type);
-        
+
         if(isset($response['extra'])){
             return array('code' => 0, 'output' => "Notification Response :: " . $result['output'] . " and Unable to send notification to users " . $response['extra'] . " Because they are not registered");
         }
-        
+
         return $result;
-        
+
     }
-    
+
     public function fetchRegistrationIdsForGivenUserIds($user_ids_to_send_notification) {
 
         $unregistered_user_ids = Array();
         $registration_ids = Array();
-        
+
         foreach ($user_ids_to_send_notification as $user_id) {
 
             $notification_registrations = NotificationRegistrations::model()->findAll('user_id = :user_id', array(':user_id' => $user_id));
@@ -990,14 +990,14 @@ class AppCore {
                 if (!empty($notification_registrations)) {
                     foreach ($notification_registrations as $notificationRegistration) {
                         if ($notificationRegistration->is_active == 'Y') {
-                            
+
                             if($notificationRegistration->device_type == '1'){
                                 $registration_ids['gcm'][] = $notificationRegistration->registration_id;
-                            } 
+                            }
                             else if($notificationRegistration->device_type == '2') {
                                 $registration_ids['ios'][] = $notificationRegistration->registration_id;
-                            }                            
-                            
+                            }
+
                         } else {
                             $unregistered_user_ids[] = $user_id;
                         }
@@ -1005,13 +1005,13 @@ class AppCore {
                 } else {
                     $unregistered_user_ids[] = $user_id;
                 }
-            
+
         }
-        
+
         if(empty($registration_ids)) {
             return array('code' => 1, 'output' => 'Sorry, there is not single user who is registered for notification');
         }
-        
+
         if(!empty($unregistered_user_ids)){
             $unregistered_users_name = '';
             foreach ($unregistered_user_ids as $user_id) {
@@ -1022,24 +1022,24 @@ class AppCore {
                     $unregistered_users_name .= ', ' . $data->name;
                 }
             }
-            
+
             return array('code' => 0, 'output' => $registration_ids, 'extra' => $unregistered_users_name);
         }
-        
+
         return array('code' => 0, 'output' => $registration_ids);
-        
+
     }
-    
+
     public static function send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from, $notification_type) {
-        
+
         $user_ids_not_found_error = array();
         $user_registration_ids_not_found = array();
         $result = array();
-        
+
         foreach ($message_description as $id => $description) {
-            
+
                 $user_ids_to_send_notification_by_preference = array();
-                
+
                 foreach ($user_ids_to_send_notification as $user_id) {
                     $user_push_notification_preferences = UserPushNotificationPreferences::model()->find('user_id = :user_id and push_notification_types_id = :push_notification_types_id', array(':user_id' => $user_id, ':push_notification_types_id' => $id));
                     if(!empty($user_push_notification_preferences)){
@@ -1048,12 +1048,12 @@ class AppCore {
                         }
                     }
                 }
-                
+
                 if(empty($user_ids_to_send_notification_by_preference)){
                     $user_ids_not_found_error[$id] = array('code' => 1, 'output' => "Sorry, Server didn't find a single user who has set push notification preference as true.");
                     continue;
                 }
-                
+
                 $AppCoreObj = new AppCore();
                 $response = $AppCoreObj->fetchRegistrationIdsForGivenUserIds($user_ids_to_send_notification_by_preference);
 
@@ -1064,114 +1064,114 @@ class AppCore {
 
                 $registration_ids_all = Array();
                 $registration_ids_all['gcm'] = isset($response['output']['gcm']) ? $response['output']['gcm'] : array();
-                $registration_ids_all['ios'] = isset($response['output']['ios']) ? $response['output']['ios'] : array();                
-                
+                $registration_ids_all['ios'] = isset($response['output']['ios']) ? $response['output']['ios'] : array();
+
                 $result[$id] = self::send_notification($registration_ids_all, $description, $send_from, $notification_type);
 
 //                if(isset($response['extra'])){
 //                    return array('code' => 0, 'output' => "Notification Response :: " . $result['output'] . " and Unable to send notification to users " . $response['extra'] . " Because they are not registered");
 //                }
-            
+
         }
-        
+
 //        if(!empty($result)){
             return array('code' => 0);
 //        } else {
 //            return array('code' => 1, 'output' => "Failed to send push notification");
 //        }
-        
+
     }
-    
+
     public static function send_notification_to_given_emails($emails, $message_to_send, $notification_type) {
-        
+
         $response = self::scanGivenEmails($emails);
-        
+
         if($response['code'] == 1){
             return $response;
         }
-        
+
         $registration_ids_all = Array();
         $registration_ids_all['gcm'] = isset($response['output']['gcm']) ? $response['output']['gcm'] : array();
         $registration_ids_all['ios'] = isset($response['output']['ios']) ? $response['output']['ios'] : array();
 
         $result = self::send_notification($registration_ids_all, $message_to_send, null, $notification_type);
-        
+
         return array('code' => 0, 'output' => 'Notification sent to registration ids : ' . json_encode($response['output']) );
-        
+
     }
-    
+
     // check whether given emails are present in database or not and return respective array of registration ids
     public static function scanGivenEmails($emails) {
-        
+
         $causing_emails = Array();
         $registration_ids = Array();
         $unregistered_emails = Array();
         $unregistered_emails_is_active = Array();
-        
+
         foreach ($emails as $email) {
             $unregistered_reg_flag = false;
             $user_id = User::model()->findByAttributes(array('email' => $email));
             if(!empty($user_id)){
-                
+
                 if(!empty($user_id->notificationRegistrations)){
                     foreach ($user_id->notificationRegistrations as $notificationRegistration) {
                         if($notificationRegistration->is_active == 'Y') {
                             if($notificationRegistration->device_type == '1'){
                                 $registration_ids['gcm'][] = $notificationRegistration->registration_id;
-                            } 
+                            }
                             else if($notificationRegistration->device_type == '2') {
                                 $registration_ids['ios'][] = $notificationRegistration->registration_id;
                             }
-                            
+
                         } else {
                             $unregistered_reg_flag = true;
-                        }                       
+                        }
                     }
                 } else {
                     $unregistered_emails[] = $email;
                 }
-                
+
             } else{
                 $causing_emails[] = $email;
             }
-           
+
             if($unregistered_reg_flag) {
                 $unregistered_emails_is_active[] = $email;
             }
         }
-        
+
         if(!empty($causing_emails)) {
 
             return array('code' => 1, 'output' => 'Provided emails addresses are not exist in our system ( Causing Emails : ' . json_encode($causing_emails) . ' )');
-            
+
         }
-        
+
         if(!empty($unregistered_emails)) {
 
             return array('code' => 1, 'output' => 'Please register notification for given emails ( Causing Emails : ' . json_encode($unregistered_emails) . ' )');
-            
+
         }
-        
+
         if(empty($registration_ids)){
-           return array('code' => 1, 'output' => 'Please register notification for given emails ( Causing Emails : ' . json_encode($unregistered_emails_is_active) . ' )'); 
+           return array('code' => 1, 'output' => 'Please register notification for given emails ( Causing Emails : ' . json_encode($unregistered_emails_is_active) . ' )');
         } else {
             if(!empty($unregistered_emails_is_active)){
                 return array('code' => 0, 'output' => $registration_ids, 'extra' => json_encode($unregistered_emails_is_active) );
             }
         }
-        
+
         return array('code' => 0, 'output' => $registration_ids);
-        
+
     }
-    
+
     // check whether given registration ids are present in database or not
     public static function scanGivenRegistrationIds($registration_ids) {
-        
+
         $causing_registration_ids = Array();
         $registration_ids_by_type = Array();
         $registration_ids_by_type['gcm'] = Array();
         $registration_ids_by_type['ios'] = Array();
-        
+
         foreach ($registration_ids as $value) {
 
             $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
@@ -1187,34 +1187,34 @@ class AppCore {
                     $registration_ids_by_type['ios'][] = $value;
                 }
             }
-            
+
         }
-        
+
         if(!empty($causing_registration_ids)) {
-            
+
             return array('code' => 1, 'output' => 'Provided Registration Ids are not registered, please register it first then try again... (Causing Registration Ids : ' . json_encode($causing_registration_ids) . ')');
-            
+
         }
-        
+
         return array('code' => 0, 'output' => 'Provided Registration Ids are scaned Successfully', 'registration_ids_by_type' => $registration_ids_by_type);
-        
+
     }
-    
+
     public static function send_notification($registration_ids_all, $message_to_send, $send_from = Array(), $notification_type = '1', $filter_criteria = 'Selected Devices') {
-        
+
         $gcm_result = '';
         $ios_result = '';
         $result = '';
         $notification_log_id = '';
-        
+
         $utc_str = gmdate("M d Y H:i:s", time());
         $utc = strtotime($utc_str);
-        
+
         $message_body = array(
                     'message' => $message_to_send,
                     'time' => $utc
                     );
-        
+
         $notification_details = PushNotificationTypes::model()->find('description = :description', array(':description' => $message_to_send));
         if(!empty($notification_details)){
             $message_body = array(
@@ -1223,21 +1223,21 @@ class AppCore {
                     'time' => $utc
                     );
         }
-        
-        $log_result = self::log_notification_request($registration_ids_all, serialize($message_body), $filter_criteria, $send_from, $notification_type);
-        
+
+        $log_result = self::log_notification_request($registration_ids_all, $message_body, $filter_criteria, $send_from, $notification_type);
+
         if($log_result['code'] == 1){
             return $log_result;
         } else {
             $notification_log_id = $log_result['output'];
         }
-        
-        
+
+
         $registration_ids_gcm = $registration_ids_all['gcm'];
         $registration_ids_ios = $registration_ids_all['ios'];
-        
+
         if(!empty($registration_ids_gcm)) {
-        
+
                 // API key from Google APIs
                 $apiKey = Yii::app()->params['gcm_api_key']; //'AIzaSyC_xYlh1zaNmcSD7EfiA_ZomjGnETseJZ8';
                 // Message to be sent
@@ -1324,40 +1324,46 @@ class AppCore {
                         }
                     }
                 }
-        
-        }
-        
-        if(!empty($registration_ids_ios)) {
-            
-                $ios_result .= self::sendIOSPushNotification($registration_ids_ios, $message_body);
-            
+
         }
 
+        if(!empty($registration_ids_ios)) {
+
+                $ios_result .= self::sendIOSPushNotification($registration_ids_ios, $message_body);
+
+        }
+
+        $combined_response = array();
+
         if (!empty($gcm_result)) {
+            $combined_response['gcm'] = $gcm_result;
             $result .= " gcm_response::" . $gcm_result;
         }
-        
+
         if (!empty($ios_result)) {
+            $combined_response['ios'] = $ios_result;
             $result .= PHP_EOL . " ios_response::" . $ios_result;
         }
-        
+
         if(!empty($result)){
-            $log_result = self::log_notification_response($result, $notification_log_id);
+            $log_result = self::log_notification_response($combined_response, $notification_log_id);
             if($log_result['code'] == 1){
                 return $log_result;
             }
         }
-        
+
         return array('code' => 0, 'output' => $result);
     }
-    
+
     public static function log_notification_request($registration_ids_all, $message_to_send, $filter_criteria, $send_from, $notification_type) {
 
         $notification_to = Array();
         $combined_request = Array();
         $combined_request_gcm = '';
-        
+        $combined_request_ios = '';
+
         $registration_ids_all_gcm = $registration_ids_all['gcm'];
+        $registration_ids_all_ios = $registration_ids_all['ios'];
 
         if ( !empty($registration_ids_all_gcm) ) {
 
@@ -1365,7 +1371,7 @@ class AppCore {
             $apiKey = $apiKey = Yii::app()->params['gcm_api_key']; //'AIzaSyC_xYlh1zaNmcSD7EfiA_ZomjGnETseJZ8';
 
 // Message to be sent
-            $message = $message_to_send;
+//            $message = $message_to_send;
 
 // Set POST variables
             $url_gcm = 'https://android.googleapis.com/gcm/send';
@@ -1375,60 +1381,99 @@ class AppCore {
             );
             $data_string_gcm = json_encode(array(
                 'registration_ids' => $registration_ids_all_gcm,
-                'data' => array("message" => $message)
+                'data' => $message_to_send
                     ));
 
             $combined_request_gcm = '{URL: ' . $url_gcm . ', HTTP Header: ' . json_encode($headers_gcm) . ', POST Data: ' . $data_string_gcm . '}';
         }
 
+        if(!empty($registration_ids_all_ios)){
+
+
+            $fp = 'stream_socket_client("ssl://gateway.sandbox.push.apple.com:2195", $err, $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, stream_context_create())';
+
+            $loc_key = array();
+            $loc_key[101] = 'MSG_STUCK_NOTIFICATION_ID';
+            $loc_key[102] = 'MSG_DIRT_BAG_FULL_NOTIFICATION_ID';
+            $loc_key[103] = 'MSG_CLEANING_DONE_NOTIFICATION_ID';
+
+            $loc_key_value = isset($message_to_send['notificationId'])? $loc_key[$message_to_send['notificationId']] : 'MSG_GENERIC_NOTIFICATION_ID';
+
+            // Create the payload body
+            $body['aps'] = array(
+                    'alert'=> array(
+                    'loc-key'=>$loc_key_value,
+                    'action-loc-key'=>"VIEW"));
+
+            $message_body_ios = array();
+            if(isset($message_to_send['notificationId'])){
+               $message_body_ios['id'] = $message_to_send['notificationId'];
+            }
+            $message_body_ios['message'] = $message_to_send['message'];
+            $message_body_ios['time'] = $message_to_send['time'];
+
+            $body['raw_data'] = $message_body_ios;
+
+            // Encode the payload as JSON
+            $payload = json_encode($body);
+
+            foreach ($registration_ids_all_ios as $reg_id) {
+
+                // Build the binary notification
+                $msg = "chr(0) . pack('n', 32) . pack('H*', $reg_id) . pack('n', " . strlen($payload) . ") . $payload";
+
+                // Send it to the server
+                $combined_request_ios .= 'fwrite(' . $fp . ', ' . PHP_EOL . $msg . ', ' . PHP_EOL . strlen($msg) . ')' . PHP_EOL;
+
+            }
+
+        }
 
         $combined_request['gcm'] = $combined_request_gcm;
+        $combined_request['ios'] = $combined_request_ios;
         $combined_request_str = serialize($combined_request);
 
         $notification_to['gcm'] = $registration_ids_all_gcm;
+        $notification_to['ios'] = $registration_ids_all_ios;
         $notification_to_str = serialize($notification_to);
-        
+
         $data = new NotificationLogs();
-        
-        $data->message = $message_to_send;
+
+        $data->message = serialize($message_to_send);
         $data->action = 'I';
         $data->filter_criteria = $filter_criteria;
         $data->notification_to = $notification_to_str;
         $data->request = $combined_request_str;
         $data->send_from = serialize($send_from);
         $data->notification_type = $notification_type;
-        
+
         if (!$data->save()) {
             return array('code' => 1, 'output' => $data->errors);
         }
-        
+
         return array('code' => 0, 'output' => $data->id);
-        
+
 //       $notification_log_id = insert_data("INSERT INTO `gt_notification_logs`(`message`, `action`, `json_response`, `filter_criteria`, `notification_to`, `request`) VALUES ( '" . addslashes($message_to_send) . "', 'Notification Sending Initiated', '', '$filter_criteria', '$notification_to_str', '" . addslashes($combined_request_str) . "')");
     }
-    
-    public static function log_notification_response($gcm_result = '', $notification_log_id = '') {
-        
-            $combined_response = Array();
-            
-            $combined_response['gcm'] = $gcm_result;
-            
+
+    public static function log_notification_response($combined_response = '', $notification_log_id = '') {
+
             $combined_response_str = serialize($combined_response);
             $current_time = date('Y-m-d H:i:s');
-            
+
             $data = NotificationLogs::model()->findByPk($notification_log_id);
-            
+
             $data->response = $combined_response_str;
             $data->action = 'C';
             $data->updated_on = $current_time;
-            
+
             if (!$data->save()) {
                 return array('code' => 1, 'output' => $data->errors);
             }
-            
+
 //            mysql_query("UPDATE `gt_notification_logs` SET `action`='Notification Sending Completed', `json_response`='" . addslashes($combined_response_str) . "', `updated_on`='$current_time' WHERE id = $notification_id");
-        
-        
+
+
     }
 
     public static function store_registration_id($user_id, $registration_id, $device_type) {
@@ -1463,7 +1508,7 @@ class AppCore {
             return 'Notification registration details updated successfully';
         }
     }
-    
+
     public static function remove_registration_id($registration_id) {
 
         $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $registration_id));
@@ -1485,18 +1530,19 @@ class AppCore {
         }
 
         return array('code' => 0, 'output' => 'Unregistered successfully');
-        
+
     }
-    
+
     public static function fetch_notification_log_by_id($notification_log_id) {
-        
+
         $displayed_str_length = 400;
-        
+
         $notification_log = NotificationLogs::model()->findByPk($notification_log_id);
-        
+
         // all gcm notification ids
         $notification_to_arr = unserialize($notification_log->notification_to);
-        $notification_to_gcm = $notification_to_arr['gcm'];
+        $notification_to_gcm = isset($notification_to_arr['gcm']) ? $notification_to_arr['gcm'] : array();
+        $notification_to_ios = isset($notification_to_arr['ios']) ? $notification_to_arr['ios'] : array();
 
         $notification_to_gcm_ids = '';
         foreach ($notification_to_gcm as $value) {
@@ -1509,76 +1555,110 @@ class AppCore {
         }
         $notification_to_gcm_ids = AppHelper::strip_string($notification_to_gcm_ids, $displayed_str_length);
 
-        //get gcm request
-        $combined_request_arr = unserialize($notification_log->request);
-        $gcm_request = $combined_request_arr['gcm'];
-        $gcm_request_str = AppHelper::strip_string($gcm_request, 500);
+        $notification_to_ios_ids = '';
+        foreach ($notification_to_ios as $value) {
 
-        //get gcm response
+            if ($notification_to_ios_ids == '') {
+                $notification_to_ios_ids = $value;
+            } else {
+                $notification_to_ios_ids .= ', ' . $value;
+            }
+        }
+        $notification_to_ios_ids = AppHelper::strip_string($notification_to_ios_ids, $displayed_str_length);
+
+        //get request
+        $combined_request_arr = unserialize($notification_log->request);
+        $gcm_request = isset($combined_request_arr['gcm']) ? $combined_request_arr['gcm'] : array();
+        $ios_request = isset($combined_request_arr['ios']) ? $combined_request_arr['ios'] : array();
+
+        //get response
         $combined_response_arr = unserialize($notification_log->response);
-        $gcm_response = $combined_response_arr['gcm'];
-        $gcm_response_str = AppHelper::strip_string($gcm_response, $displayed_str_length);
+        $gcm_response = isset($combined_response_arr['gcm']) ? $combined_response_arr['gcm'] : array() ;
+        $ios_response = isset($combined_response_arr['ios']) ? $combined_response_arr['ios'] : array() ;
+
+
+        $message_to_display = '';
+        $message_to_display = @unserialize($notification_log->message);
+        if ($message_to_display !== false) {
+            $message_to_display = $message_to_display['message'];
+        } else {
+            $message_to_display = $notification_log->message;
+        }
+
         $display_notification_details = '';
 
         $display_notification_details .= "<div class='device-entry'>";
-        $display_notification_details .= "<div class='label-value'>" . $notification_log->message . "</div>";
+        $display_notification_details .= "<div class='label-value'>" . $message_to_display . "</div>";
         $display_notification_details .= "<div class='label-value'>(#" .$notification_log->id . ")</div>";
         $display_notification_details .= "</div>";
-        
+
         $display_notification_details .= "<div class='device-entry'>";
         $display_notification_details .= '<label>Sent at: </label>';
         $display_notification_details .= "<span class='label-value'>" . $notification_log->created_on . "</span>";
         $display_notification_details .= "</div>";
-        
+
         $notification_type = $notification_log->notification_type;
         switch ($notification_type) {
             case '1':
-                $notification_type = 'System' ; 
+                $notification_type = 'System' ;
                 break;
 
             case '2':
-                $notification_type = 'Activities' ; 
+                $notification_type = 'Activities' ;
                 break;
 
             case '3':
-                $notification_type = 'SOS' ; 
+                $notification_type = 'SOS' ;
                 break;
-            
+
             default:
-                $notification_type = 'System' ; 
+                $notification_type = 'System' ;
                 break;
         }
         $display_notification_details .= "<div class='device-entry'>";
         $display_notification_details .= '<label>Notification Type: </label>';
         $display_notification_details .= "<span class='label-value'>" . $notification_type . "</span>";
         $display_notification_details .= "</div>";
-        
-       $display_notification_details .= "<div class='device-entry'>";
+
+        $display_notification_details .= "<div class='device-entry'>";
         $display_notification_details .= '<label>Sent To (' . $notification_log->filter_criteria . '):</label>';
         $display_notification_details .= "<div class='label-value_notification_history'>";
         if ($notification_to_gcm) {
             $display_notification_details .= "<div class='log_request_response gcm_text_style'><i>" . str_replace(",", ",<br>", $notification_to_gcm_ids) . "</i></div>";
         }
+        if ($notification_to_ios) {
+            $display_notification_details .= "<div class='log_request_response gcm_text_style'><i>" . str_replace(",", ",<br>", $notification_to_ios_ids) . "</i></div>";
+        }
         $display_notification_details .= "</div>";
         $display_notification_details .= "</div>";
 
-        if ($gcm_request) {
+        if ($gcm_request || $ios_request) {
             $display_notification_details .= "<div class='device-entry'>";
             $display_notification_details .= '<label>Request Sent:</label>';
             $display_notification_details .= "<div class='label-value_notification_history'>";
             if ($gcm_request) {
+                $gcm_request_str = AppHelper::strip_string($gcm_request, 500);
                 $display_notification_details .= "<span class='gcm_text_style'><i>" . $gcm_request_str . "</i></span><br/>";
+            }
+            if($ios_request){
+                $ios_request_str = AppHelper::strip_string($ios_request, 500);
+                $display_notification_details .= "<span class='gcm_text_style'><i>" . $ios_request_str . "</i></span><br/>";
             }
             $display_notification_details .= "</div>";
             $display_notification_details .= "</div>";
         }
 
-        if ($gcm_response) {
+        if ($gcm_response || $ios_response) {
             $display_notification_details .= "<div class='device-entry'>";
             $display_notification_details .= '<label>Response Received:</label>';
             $display_notification_details .= "<div class='label-value_notification_history'>";
             if ($gcm_response) {
+                $gcm_response_str = AppHelper::strip_string($gcm_response, $displayed_str_length);
                 $display_notification_details .= "<span class='gcm_text_style'><i>" . $gcm_response_str . "</i></span><br/>";
+            }
+            if ($ios_response) {
+                $ios_response_str = AppHelper::strip_string($ios_response, $displayed_str_length);
+                $display_notification_details .= "<span class='gcm_text_style'><i>" . $ios_response_str . "</i></span><br/>";
             }
             $display_notification_details .= "</div>";
             $display_notification_details .= "</div>";
@@ -1591,26 +1671,26 @@ class AppCore {
         $display_notification_details .= "</div>";
         $display_notification_details .= "</form>";
         return array('code' => 0, 'output' => $display_notification_details);
-        
+
     }
-    
+
     public static function getGracePeriod(){
-            
+
         $grace_period = '';
         $grace_period = AppConfiguration::model()->findByAttributes(array('_key' => 'GRACE_PERIOD'));
         $grace_period = isset($grace_period->value) ? $grace_period->value : 60 ;
 
         return $grace_period;
-            
+
     }
-    
+
     public static function getIsValidateStatus($is_validated, $user_id) {
-        
+
         $user_data = User::model()->findByPk($user_id);
         $created_on = $user_data->created_on;
-        
+
         $is_validated = ($is_validated == 0) ? -1 : 0 ;
-        
+
         if( $is_validated == -1 ) {
             $grace_period = self::getGracePeriod();
             $user_created_on_timestamp = strtotime($created_on);
@@ -1620,41 +1700,41 @@ class AppCore {
 
             if($time_diff > $grace_period){
                 $is_validated = -2 ;
-            } 
+            }
         }
-        
+
         return $is_validated;
-        
+
     }
-    
+
     public static function getValidationAttempt() {
-        
+
         $validation_attempt_data = AppConfiguration::model()->findByAttributes(array('_key' => 'VALIDATION_ATTEMPT'));
         $validation_attempt = isset($validation_attempt_data->value) ? $validation_attempt_data->value : 5;
 
         return $validation_attempt;
     }
-   
+
     public static function setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $push_notification_types_id, $preference) {
-        
+
         $userPushNotificationPreferencesObj->user_id = $user_id;
         $userPushNotificationPreferencesObj->push_notification_types_id = $push_notification_types_id;
         $userPushNotificationPreferencesObj->preference = (int)filter_var($preference, FILTER_VALIDATE_BOOLEAN);
-        
+
         if(!$userPushNotificationPreferencesObj->save()){
             //do nothing
 //            AppHelper::dump($userPushNotificationPreferencesObj->errors);
         }
-        
+
     }
-    
+
     public static function sendIOSPushNotification($deviceToken, $message_body){
-        
+
         $iOSCertificatesPath = Yii::app()->basePath. DIRECTORY_SEPARATOR. 'certificates'.DIRECTORY_SEPARATOR.'neato.pem';
-        
+
         // Put your private key's passphrase here:
         $passphrase = 'neato123';
-        
+
         $ctx = stream_context_create();
         stream_context_set_option($ctx, 'ssl', 'local_cert', $iOSCertificatesPath);
         stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
@@ -1663,55 +1743,70 @@ class AppCore {
         $fp = stream_socket_client(
                 'ssl://gateway.sandbox.push.apple.com:2195', $err,
                 $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
-        
-        if (!$fp)
-                exit("Failed to connect: $err $errstr" . PHP_EOL);
+
+        if (!$fp){
+            exit("Failed to connect: $err $errstr" . PHP_EOL);
+        }
 
 //        echo 'Connected to APNS' . PHP_EOL;
-        
+
+        $loc_key = array();
+        $loc_key[101] = 'MSG_STUCK_NOTIFICATION_ID';
+        $loc_key[102] = 'MSG_DIRT_BAG_FULL_NOTIFICATION_ID';
+        $loc_key[103] = 'MSG_CLEANING_DONE_NOTIFICATION_ID';
+
+        $loc_key_value = isset($message_body['notificationId'])? $loc_key[$message_body['notificationId']] : 'MSG_GENERIC_NOTIFICATION_ID';
+
         // Create the payload body
         $body['aps'] = array(
                 'alert'=> array(
-                'loc-key'=>"MSG_POSTED",
+                'loc-key'=>$loc_key_value,
                 'action-loc-key'=>"VIEW"));
 
-        $body['raw_data'] = $message_body;
+        $message_body_ios = array();
+        if(isset($message_body['notificationId'])){
+           $message_body_ios['id'] = $message_body['notificationId'];
+        }
+        $message_body_ios['message'] = $message_body['message'];
+        $message_body_ios['time'] = $message_body['time'];
+
+        $body['raw_data'] = $message_body_ios;
 
         // Encode the payload as JSON
         $payload = json_encode($body);
-        
+
         $result = '';
-        
+
         foreach ($deviceToken as $reg_id) {
-            
+
             // Build the binary notification
             $msg = chr(0) . pack('n', 32) . pack('H*', $reg_id) . pack('n', strlen($payload)) . $payload;
-            
+
             // Send it to the server
-            $result .= fwrite($fp, $msg, strlen($msg)) . PHP_EOL;
-            
+            $result .= fwrite($fp, $msg, strlen($msg)) . ' ';
+
         }
 
         // Close the connection to the server
         fclose($fp);
-        
+
         return $result;
-        
+
     }
-    
+
     public static function getLatestPingTimestampFromRobot($robot_id) {
-        
+
             $criteria = new CDbCriteria;
             $criteria->select = array('id','robot_id','ping_timestamp');
             $criteria->condition = "robot_id = :robot_id";
             $criteria->params = array(':robot_id' => $robot_id);
             $criteria->order = 'ping_timestamp DESC';
             $data = RobotPingLog::model()->findAll($criteria);
-            
+
             return $data;
-        
+
     }
-    
+
 }
 
 ?>

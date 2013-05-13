@@ -361,8 +361,8 @@ ul,li,menu,dir {
 	content: "|";
 	display: inline-block;
 	font-weight: normal;
-	margin-left: 8px;
-	margin-right: 4px;
+	margin-left: 2px;
+	margin-right: 2px;
 }
 
 .menu-user>li:last-child:after {
@@ -1231,4 +1231,17 @@ div.update_user_form {
 
 .email_resend_input_style {
     margin-bottom: 5px;
+}
+
+.text_transform_none {
+    text-transform: none !important;
+}
+
+.neato_tab_my_profile {
+    margin-right: 4px;
+}
+
+.associate_user_btn{
+    width: 100px;
+    padding: 8px;
 }

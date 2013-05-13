@@ -525,7 +525,12 @@ class RobotController extends APIController {
 				}
 			}
                         
-                        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>1</requestId><timeStamp>1</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params></params></request></payload></packet>';
+                        $xmpp_message_model = new XmppMessageLogs();
+                        $xmpp_message_model->save();
+                        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId></params></request></payload></packet>';
+                        $xmpp_message_model->xmpp_message = $message;
+                        $xmpp_message_model->save();
+                        
                         $online_users_chat_ids = AppCore::getOnlineUsers();
                             
                         if(!empty($source_serial_number) && $source_serial_number == $serial_number){
@@ -603,6 +608,38 @@ class RobotController extends APIController {
 	
 	}        
 
+	public function actionGetProfileDetails2(){
+                    
+                $serial_number = Yii::app()->request->getParam('serial_number', '');
+                $key = Yii::app()->request->getParam('key', '');
+                
+		$robot = self::verify_for_robot_serial_number_existence($serial_number);
+		
+		if ($robot !== null){
+                        $data = RobotKeyValues::model()->findAll('robot_id= :robot_id', array(':robot_id' => $robot->id));
+                        $profileArray = array();
+                        $profileArray['name'] = array('value' => $robot->name, 'timestamp' => 0);
+                        $profileArray['serial_number'] = array('value' => $robot->serial_number, 'timestamp' => 0);
+                        if(!empty($data)){
+                            
+                            foreach ($data as $datarow){
+                                if($key == $datarow->_key || empty ($key)){
+                                    $profileArray[$datarow->_key] = array('value' => $datarow->value, 'timestamp' => $datarow->timestamp);
+                                }
+                            }
+                            if(count($profileArray) == 2){
+                                self::terminate(-1, "Sorry, entered key is invalid");
+                            }
+                            
+                        }
+			$response_data = array("success"=>true, "profile_details" => $profileArray);
+                        self::success($response_data);
+		}else{
+			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
+			self::terminate(-1, $response_message);
+		}
+	
+	}                
         
 	public function actionDeleteRobotProfileKey(){
                     
