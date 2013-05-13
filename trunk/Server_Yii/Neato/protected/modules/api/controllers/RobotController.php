@@ -124,6 +124,69 @@ class RobotController extends APIController {
 		
 	}
 	
+        
+	public function actionGetRobotPresenceStatus(){
+            
+		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+		
+		if($robot !== null ){
+			$online_users_chat_ids = AppCore::getOnlineUsers();
+			if(in_array($robot->chat_id, $online_users_chat_ids)){
+				$response_message = "Robot ".$robot_serial_no." is online.";
+				$response_data = array("online"=>true, "message"=>$response_message);
+			}else {
+				$response_message = "Robot ".$robot_serial_no." is offline.";
+				$response_data = array("online"=>false, "message"=>$response_message);
+			}
+			self::success($response_data);
+		}
+                
+		
+	}        
+        
+	public function actionIsRobotOnlineVirtual(){
+            
+		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+		
+		if($robot !== null ){
+			
+                        $data = AppCore::getLatestPingTimestampFromRobot($robot->id);
+                        
+                        $online_users_chat_ids = AppCore::getOnlineUsers();
+                        if(in_array($robot->chat_id, $online_users_chat_ids)){
+                                $response_message = "Robot ".$robot_serial_no." is online.";
+                                $response_data = array("online"=>true, "message"=>$response_message);
+                        }else if(!empty ($data)){
+                                $latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
+                                
+                                $app_config = AppConfiguration::model()->find('_key = :_key', array(':_key' => 'ROBOT_PING_INTERVAL'));
+                                $robot_ping_interval = $app_config->value;
+                                
+                                $current_system_timestamp = time();
+                                $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
+                                
+                                if($time_diff > $robot_ping_interval){
+                                    $response_message = "Robot ".$robot_serial_no." is offline.";
+                                    $response_data = array("online"=>false, "message"=>$response_message);
+                                } else {
+                                    $response_message = "Robot ".$robot_serial_no." is online.";
+                                    $response_data = array("online"=>true, "message"=>$response_message);
+                                }
+                                
+                        } else {
+                                $response_message = "Robot ".$robot_serial_no." is offline.";
+                                $response_data = array("online"=>false, "message"=>$response_message);
+                        }
+                        self::success($response_data);
+
+		}
+                
+		
+	}        
+        
+        
 	/**
 	 *  API to get robots information
 	 *
@@ -350,15 +413,18 @@ class RobotController extends APIController {
 						break;
 					
 					default:
-                                            $data = RobotKeyValues::model()->find('_key = :_key', array(':_key' => $key));
+                                            $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
                                             if(!empty($data)){
-                                                if(empty($value)){
-                                                    RobotKeyValues::model()->deleteAll('id = :id', array(':id' => $data->id));
-                                                } else {
+//                                                if(empty($value)){
+//                                                    RobotKeyValues::model()->deleteAll('id = :id', array(':id' => $data->id));
+//                                                } else {
                                                     $data->value = $value;
                                                     $data->update();
-                                                }
+//                                                }
                                             } else {
+//                                                if(empty($value)){
+//                                                    continue;
+//                                                }                                                
                                                 $robot_key_value = new RobotKeyValues();
                                                 $robot_key_value->robot_id = $robot->id;
                                                 $robot_key_value->_key = $key ;
@@ -375,11 +441,141 @@ class RobotController extends APIController {
 		}
 	
 	}
-        
+
+
+	public function actionSetProfileDetails2(){
+	
+                $serial_number = Yii::app()->request->getParam('serial_number', '');
+		$robot = self::verify_for_robot_serial_number_existence($serial_number);
+	
+		$source_serial_number = Yii::app()->request->getParam('source_serial_number', '');
+                $source_smartapp_id = Yii::app()->request->getParam('source_smartapp_id', '');
+                $value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));
+                $robot_profile = Yii::app()->request->getParam('profile', '');
+                
+                $utc_str = gmdate("M d Y H:i:s", time());
+                $utc = strtotime($utc_str);
+                $expected_time = 0;
+                
+                if(empty($source_serial_number) && empty($source_smartapp_id)){
+                    self::terminate(-1, "Please provide atleast one source(source_serial_number or source_smartapp_id)");
+                }
+                
+                if(!empty($source_smartapp_id)){
+                   if (!AppHelper::is_valid_email($source_smartapp_id)) {
+                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.');
+                   } 
+                   
+                   $user_data = User::model()->find('email = :email', array(':email' => $source_smartapp_id));
+                   if(empty($user_data)){
+                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.');
+                   }
+                   
+                   $associated_user_check = false;
+                   foreach ($user_data->usersRobots as $usersRobot) {
+                        if($usersRobot->id_robot == $robot->id){ 
+                            $associated_user_check = true;
+                        }
+                    }
+                    if(!$associated_user_check){
+                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot');
+                    }
+                    
+                }
+                    
+                if($value_extra != null){
+                   $value_extra = serialize($value_extra);
+                }
+                
+		if ($robot !== null){
+                    
+                        $robot->value_extra = $value_extra;
+                        $robot->save();
+                        
+			foreach ($robot_profile as $key => $value){
+                                $key = trim($key);
+				switch ($key) {
+					case "name":
+						$robot->name = $value;
+						$robot->save();
+						break;
+					
+					default:
+                                            $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
+                                            if(!empty($data)){
+//                                                if(empty($value)){
+//                                                    RobotKeyValues::model()->deleteAll('id = :id', array(':id' => $data->id));
+//                                                } else {
+                                                    $data->value = $value;
+                                                    $data->timestamp = $utc;
+                                                    $data->update();
+//                                                }
+                                            } else {
+//                                                if(empty($value)){
+//                                                    continue;
+//                                                }
+                                                $robot_key_value = new RobotKeyValues();
+                                                $robot_key_value->robot_id = $robot->id;
+                                                $robot_key_value->_key = $key ;
+                                                $robot_key_value->value = $value ;
+                                                $robot_key_value->timestamp = $utc;
+                                                $robot_key_value->save();                                                    
+                                            }
+                                        break;
+				}
+			}
+                        
+                        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>1</requestId><timeStamp>1</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params></params></request></payload></packet>';
+                        $online_users_chat_ids = AppCore::getOnlineUsers();
+                            
+                        if(!empty($source_serial_number) && $source_serial_number == $serial_number){
+                            foreach ($robot->usersRobots as $userRobot){
+
+                                if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                                        AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                                }
+                            }
+                        } else if(!empty($source_smartapp_id)) {
+
+                            AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+                            if(!in_array($robot->chat_id, $online_users_chat_ids)){
+                                
+                                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
+                                
+                                $latest_ping_timestamp = strtotime($robot_ping_data[0]->ping_timestamp);
+                                
+                                $app_config = AppConfiguration::model()->find('_key = :_key', array(':_key' => 'ROBOT_PING_INTERVAL'));
+                                $robot_ping_interval = $app_config->value;
+                                
+                                $current_system_timestamp = time();
+                                $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
+
+                                $expected_time = $robot_ping_interval - $time_diff;
+                            }
+                            foreach ($robot->usersRobots as $userRobot){
+                                if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                                    if($user_data->chat_id != $userRobot->idUser->chat_id){
+                                        AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+                                    }
+                                }                                   
+                            }
+                            
+                        }
+                        
+			self::successWithExtraParam(1, array('expected_time' => $expected_time));
+		}else{
+			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
+			self::terminate(-1, $response_message);
+		}
+	
+	}        
         
 	public function actionGetProfileDetails(){
-	
-		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
+                    
+                $serial_number = Yii::app()->request->getParam('serial_number', '');
+                $key = Yii::app()->request->getParam('key', '');
+                
+		$robot = self::verify_for_robot_serial_number_existence($serial_number);
 		
 		if ($robot !== null){
                         $data = RobotKeyValues::model()->findAll('robot_id= :robot_id', array(':robot_id' => $robot->id));
@@ -387,9 +583,16 @@ class RobotController extends APIController {
                         $profileArray['name'] = $robot->name;
                         $profileArray['serial_number'] = $robot->serial_number;
                         if(!empty($data)){
+                            
                             foreach ($data as $datarow){
-                                $profileArray[$datarow->_key] = $datarow->value;
+                                if($key == $datarow->_key || empty ($key)){
+                                    $profileArray[$datarow->_key] = $datarow->value;
+                                }
                             }
+                            if(count($profileArray) == 2){
+                                self::terminate(-1, "Sorry, entered key is invalid");
+                            }
+                            
                         }
 			$response_data = array("success"=>true, "profile_details" => $profileArray);
                         self::success($response_data);
@@ -399,7 +602,32 @@ class RobotController extends APIController {
 		}
 	
 	}        
+
+        
+	public function actionDeleteRobotProfileKey(){
+                    
+                $serial_number = Yii::app()->request->getParam('serial_number', '');
+                $key = Yii::app()->request->getParam('key', '');
+                
+		$robot = self::verify_for_robot_serial_number_existence($serial_number);
+		
+		if ($robot !== null){
+
+                        $result = RobotKeyValues::model()->deleteAll('robot_id = :robot_id AND _key = :_key', array(':robot_id' => $robot->id, ':_key' => $key));                        
+                        
+                        if($result) {
+                            $response_data = array("success"=>true);
+                            self::success($response_data);
+                        } else {
+                            self::terminate(-1, "Sorry, entered key is invalid");
+                        }
+		}else{
+			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
+			self::terminate(-1, $response_message);
+		}
 	
+	}        
+        
 	/**
 	 * API to get array of associated users with provided robot serial no
 	 *
@@ -693,6 +921,30 @@ class RobotController extends APIController {
                 }
 
                 $this->renderPartial('/default/defaultView', array('content' => $output));
+    }
+    
+    public function actionPingFromRobot() {
+        
+        $serial_number = Yii::app()->request->getParam('serial_number', '');
+        $status = Yii::app()->request->getParam('status', '');
+        
+        $robot = self::verify_for_robot_serial_number_existence($serial_number);
+		
+        if($robot !== null ){
+            
+            $message = 'robot ping have been recorded';
+ 
+            $robot_ping_log = new RobotPingLog();
+            $robot_ping_log->robot_id = $robot->id;
+            $robot_ping_log->ping_timestamp = new CDbExpression('NOW()');
+            $robot_ping_log->status = $status;
+            $robot_ping_log->save();
+            
+            $response_data = array("success"=>true, "message"=>$message);
+            self::success($response_data);
+            
+        }
+        
     }
     
 }

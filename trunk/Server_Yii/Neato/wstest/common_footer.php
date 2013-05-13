@@ -24,6 +24,7 @@ $(document).ready(function(){
 	labelLinkUpdateClick();
         loadRegistrationIds();
         loadEmails();
+        setProfileDetails2();
 	
 var options = {
  		beforeSubmit:  showRequest,  // pre-submit callback
@@ -130,6 +131,31 @@ function labelLinkClick(){
 	});
 }
 
+function setProfileDetails2(){
+
+	existingLabelNameArray = new Array();
+	$('#addLabelLink3').click(function(){
+		labelNameVal = $('#labelName3').val();
+		if($.trim(labelNameVal)!=''){
+			labelExists = false;
+			for(i=0; i<existingLabelNameArray.length; i++){
+				existingLabel = existingLabelNameArray[i];
+				if(existingLabel == labelNameVal){
+					labelExists = true;
+				}
+			}
+			if(labelExists){
+				alert('Key already added');
+			}else{
+				existingLabelNameArray.push(labelNameVal);
+				$('#labelPlaceholderRow3').append("<table style='width:100%'><tr><td class = \"label_field\">" + labelNameVal+"</td><td class = \" value_field\"><input type='text' name='profile[" + labelNameVal + "]'></tr></td><table>");
+
+			}
+		}else{
+			alert('Key can NOT be empty');
+		}
+	});
+}
 
 function labelLinkClick1(){
 	

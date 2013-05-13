@@ -9,7 +9,7 @@
  * @property string $serial_number
  * @property string $chat_id
  * @property string $chat_pwd
- *
+ * @property string $value_extra
  * The followings are the available model relations:
  * @property UsersRobots[] $usersRobots
  */
@@ -46,7 +46,7 @@ class BaseRobot extends GxActiveRecord
 				array('serial_number', 'unique', 'className'=>'Robot'),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
-				array('id, name, serial_number, chat_id, chat_pwd', 'safe', 'on'=>'search'),
+				array('id, name, serial_number, chat_id, chat_pwd, value_extra', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,6 +78,8 @@ class BaseRobot extends GxActiveRecord
 				'robot_serial_number' => 'Robot Serial Number',
 				'chat_id' => 'Chat ID',
 				'chat_pwd' => 'Chat Password',
+                                'value_extra' => 'Extra Value',
+                    
 		);
 	}
 
@@ -97,6 +99,7 @@ class BaseRobot extends GxActiveRecord
 		$criteria->compare('serial_number',$this->serial_number,true);
 		$criteria->compare('chat_id',$this->chat_id,true);
 		$criteria->compare('chat_pwd',$this->chat_pwd,true);
+                $criteria->compare('value_extra',$this->value_extra,true);
 
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,

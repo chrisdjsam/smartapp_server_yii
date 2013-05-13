@@ -160,7 +160,11 @@ padding-right: 50px;
 											</li>
 											<li><a href="robot.php#Set Robot Profile Details">Set Robot Profile Details</a>
 											</li>
+                                                                                        <li><a href="robot.php#Set Robot Profile Details 2" class="new-api">Set Robot Profile Details 2</a>
+											</li>
                                                                                         <li><a href="robot.php#Get Robot Profile Details" class="new-api">Get Robot Profile Details</a>
+											</li>
+                                                                                        <li><a href="robot.php#Delete Robot Profile Key" class="new-api">Delete Robot Profile Key</a>
 											</li>
 											<li><a href="robot.php#Get Robot Details">Get Robot Details</a>
 											</li>
@@ -174,7 +178,12 @@ padding-right: 50px;
 											</li>
 											<li><a href="robot.php#Delete Robot">Delete Robot</a>
 											</li>
-											
+											<li><a href="robot.php#Get Robot Presence Status" class="new-api">Get Robot Presence Status</a>
+											</li>											
+                                                                                        <li><a href="robot.php#Ping From Robot" class="new-api">Ping From Robot</a>
+											</li>
+                                                                                        <li><a href="robot.php#Is Robot Online Virtual" class="new-api">Is Robot Online Virtual</a>
+											</li>											
 										</ul>
 									</td>
 								</tr>
@@ -207,6 +216,7 @@ padding-right: 50px;
 										<ul>
 											<li><a href="messages.php#Send Xmpp Message To Robot">Send Xmpp Message To Robot</a></li>
 											<li><a href="messages.php#Send Message To Associated Users">Send Message To Associated Users</a></li>
+                                                                                        <li><a href="messages.php#Send XMPP Message To All Associated Users 2" class="new-api">Send XMPP Message To All Associated Users 2</a></li>
                                                                                         <li><a href="messages.php#Send notification to given emails">Send notification to given emails</a></li>
                                                                                         <li><a href="messages.php#Send notification to given Registration IDs"  class="new-api">Send notification to given Registration IDs</a></li>
                                                                                         <li><a href="messages.php#Send notification to all the users of robot"  class="new-api">Send notification to all the users of robot</a></li>

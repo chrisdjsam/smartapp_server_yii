@@ -262,14 +262,150 @@
 					class='removeFromRequest'>
 				</td>
 				<td>
-					<div id='addLabelLink'>Add Profile Detail Key (considered key is
-						name)</div>
+					<div id='addLabelLink'>Add Profile Detail Key</div>
 				</td>
 			</tr>
 
 			<tr>
 				<td><input type="button" name='submit'
 					dummy='robotsetprofiledetails' value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+
+	<form action="<?php echo($baseURL)?>robot.set_profile_details2"
+		method='POST' id='robotsetprofiledetails2' class='ajaxified_forms'>
+		<table class='custom_table'>
+			<tr>
+				<td id="Set Robot Profile Details 2" colspan="2"><label>Set Robot Profile Details 2</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to set robot's profile details 2. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.set_profile_details2<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of robot</li>
+                                                        <li><b>source_serial_number</b> :if sent from robot, contains the robot's serial id (can be empty)</li>
+                                                        <li><b>source_smartapp_id</b> :if sent from the smartapp, contains the user email (can be empty)</li>
+                                                        <li><b>value_extra</b> :an optional JSON string</li>
+							<li><b>profile</b> :Map of key=>value pairs, e.g.
+								profile{'name'=>'room cleaner'}</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>{"status":0,"result":"1"}</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+
+							<li>If serial_number is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in
+										method robot.set_profile_details"}</li>
+								</ul>
+							</li>
+
+							<li>If source_serial_number or source_smartapp_id is missing:
+								<ul>
+									<li>{"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)"}</li>
+								</ul>
+							</li>                                                        
+                                                        
+							<li>If source_smartapp_id is invalid:
+								<ul>
+									<li>{"status":-1,"message":"Please enter valid email address in field source_smartapp_id."}</li>
+								</ul>
+							</li>                                                                                                                
+                                                        
+							<li>If source_smartapp_id does not exist:
+								<ul>
+									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system."}</li>
+								</ul>
+							</li>                                                                                                                                                                        
+
+							<li>If source_smartapp_id(email) is not associated with given robot:
+								<ul>
+									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}</li>
+								</ul>
+							</li>                                                                                                                                                                        
+                                                        
+							<li>If profile key is not added:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter profile in method
+										robot.set_profile_details"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+			<tr>
+				<td>source_serial_number</td>
+				<td>
+                                    <input type="text" name='source_serial_number'>
+				</td>
+			</tr>
+			<tr>
+				<td>source_smartapp_id</td>
+				<td>
+                                    <input type="text" name='source_smartapp_id'>
+				</td>
+			</tr>                        
+			<tr>
+				<td>value_extra</td>
+				<td>
+                                    <input type="text" name='value_extra'>
+				</td>
+			</tr>                                                
+			<tr>
+				<td id='labelPlaceholderRow3' colspan="2"></td>
+			</tr>
+			<tr>
+				<td><input type="text" name='labelName' value='' id='labelName3'
+					class='removeFromRequest'>
+				</td>
+				<td>
+					<div id='addLabelLink3'>Add Profile Detail Key</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td><input type="button" name='submit'
+					dummy='robotsetprofiledetails2' value='Submit' class='submit_form'>
 				</td>
 				<td></td>
 			</tr>
@@ -301,10 +437,16 @@
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
 							<li><b>serial_number</b> :Serial Number of robot</li>
+                                                        <li><b>key</b> :Key</li>
 						</ul>
 						Success Response:
 						<ul>
-							<li>{"status":0,"result":{"success":true,"profile_details":{"name":"robo1","serial_number":"1","sumit":"sapate"}}}</li>
+                                                        <li>If enter serial number as 1 and key as demo1:
+								<ul>
+									<li>{"status":0,"result":{"success":true,"profile_details":{"name":"robo1","serial_number":"1","harry":"potter",,"demo1":"one"}}}</li>
+								</ul>
+							</li>
+							
 						</ul>
 
 						Failure Responses: <br />
@@ -331,7 +473,14 @@
                                                                         </li>
 								</ul>
 							</li>                                                        
-
+                                                        
+							<li>If key is invalid:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid"}
+                                                                        </li>
+								</ul>
+							</li>                                                        
 
 						</ul>
 					</div>
@@ -343,16 +492,126 @@
 				<td class='value_field'><input type="text" name='api_key'
 					class='api_keys' value='<?php echo($api_key);?>' /></td>
 			</tr>
+                        
 			<tr>
 				<td>serial_number</td>
 				<td>
                                     <input type="text" name='serial_number'>
                                 </td>
 			</tr>
-			
+			<tr>
+				<td>key</td>
+				<td>
+                                    <input type="text" name='key'>
+                                </td>
+			</tr>
+                        
 			<tr>
 				<td>
                                     <input type="button" name='submit' dummy='robotgetprofiledetails' value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+
+	<form action="<?php echo($baseURL)?>robot.delete_robot_profile_key"
+		method='POST' id='delete_robot_profile_key' class='ajaxified_forms'>
+		<table class='custom_table'>
+			<tr>
+				<td id="Delete Robot Profile Key" colspan="2"><label>Delete Robot Profile Key</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to delete robot's profile key. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.delete_robot_profile_key<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of robot</li>
+                                                        <li><b>key</b> :Key</li>
+						</ul>
+						Success Response:
+						<ul>                                                        
+                                                        <li>{"status":0,"result":{"success":true}}</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+
+							<li>If serial_number is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in
+										method robot.set_profile_details"}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If key is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter key in method robot.get_profile_details"}</li>
+								</ul>
+							</li>
+                                                        
+							<li>If serial_number is invalid:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist"}
+                                                                        </li>
+								</ul>
+							</li>                                                        
+                                                        
+							<li>If key is invalid:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid"}
+                                                                        </li>
+								</ul>
+							</li>                                                        
+
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+                        
+			<tr>
+				<td>serial_number</td>
+				<td>
+                                    <input type="text" name='serial_number'>
+                                </td>
+			</tr>
+			<tr>
+				<td>key</td>
+				<td>
+                                    <input type="text" name='key'>
+                                </td>
+			</tr>
+                        
+			<tr>
+				<td>
+                                    <input type="button" name='submit' dummy='delete_robot_profile_key' value='Submit' class='submit_form'>
 				</td>
 				<td></td>
 			</tr>
@@ -832,5 +1091,278 @@
 	</form>
 	
 	
-	
+	<form action="<?php echo($baseURL)?>robot.get_robot_presence_status" method='POST'
+		id='getRobotPresenceStatus' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Get Robot Presence Status" colspan="2"><label>Get Robot Presence Status</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get robot presence status. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.get_robot_presence_status<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of the robot</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>If everything goes fine and robot is online
+								<ul>
+									<li>{"status":0,"result":{"online":true,"message":"Robot 1234 is online."}}</li>
+								</ul>
+							</li>
+							<li>If everything goes fine and robot is offline
+								<ul>
+									<li>{"status":0,"result":{"online":false,"message":"Robot 1234 is offline."}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in method
+										robot.is_robot_online"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+
+			<tr>
+				<td><input type="button" name='submit' dummy='getRobotPresenceStatus'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
+	<form action="<?php echo($baseURL)?>robot.ping_from_robot" method='POST'
+		id='pingFromRobot' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Ping From Robot" colspan="2"><label>Ping From Robot</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to ping from robot. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.ping_from_robot<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of the robot</li>
+                                                        <li><b>status</b> :status of robot(optional)</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"robot ping have been recorded"}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in method
+										robot.is_robot_online"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+
+			<tr>
+				<td>status</td>
+				<td><input type="text" name='status'>
+				</td>
+			</tr>                        
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='pingFromRobot'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+	<form action="<?php echo($baseURL)?>robot.is_robot_online_virtual" method='POST'
+		id='isRobotOnlineVirtual' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Is Robot Online Virtual" colspan="2"><label>Is Robot Online Virtual</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to check whether robot is virtually online or not. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.is_robot_online_virtual<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of the robot</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>If everything goes fine and robot is online
+								<ul>
+									<li>{"status":0,"result":{"online":true,"message":"Robot 1234 is online."}}</li>
+								</ul>
+							</li>
+							<li>If everything goes fine and robot is offline
+								<ul>
+									<li>{"status":0,"result":{"online":false,"message":"Robot 1234 is offline."}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in method
+										robot.is_robot_online"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+
+			<tr>
+				<td><input type="button" name='submit' dummy='isRobotOnlineVirtual'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
 <?php include_once 'common_footer.php';?>
