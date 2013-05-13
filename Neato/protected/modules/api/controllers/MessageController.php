@@ -541,8 +541,9 @@ class MessageController extends APIController {
             }
             
             $response = '';
-            if(!empty($select_reg_key_id_for_gcm)){
+            if(!empty($select_reg_key_id_for_gcm) || !empty($select_reg_key_id_for_iphone)){
                 $all_registration_ids['gcm'] = $select_reg_key_id_for_gcm;
+                $all_registration_ids['ios'] = $select_reg_key_id_for_iphone;
                 
                 $send_from = Array();
                 $send_from['type'] = 'user';
@@ -587,6 +588,14 @@ class MessageController extends APIController {
 
                     $row = array();
                     
+                    $message_to_display = '';
+                    $message_to_display = @unserialize($data->message);
+                    if ($message_to_display !== false) {
+                        $message_to_display = $message_to_display['message'];
+                    } else {
+                        $message_to_display = $data->message;
+                    }
+                    
                     switch ($data->notification_type) {
                         case '1':
                             $notification_type = 'System' ; 
@@ -608,7 +617,7 @@ class MessageController extends APIController {
                     $detail_link = '<div class="notification_history_details" data-notification_log_id = ' . $data->id . '>More</div>';
                     
                     $row[] = $data->id;
-                    $row[] = $data->message;
+                    $row[] = $message_to_display;
                     $row[] = $notification_type;
                     $row[] = $data->created_on;
                     $row[] = $detail_link;

@@ -41,8 +41,9 @@ class NotificationController extends Controller
 
         $notification_to_arr = unserialize($notification_log->notification_to);
         
-        $notification_to_gcm = $notification_to_arr['gcm'];
-
+        $notification_to_gcm = isset($notification_to_arr['gcm']) ? $notification_to_arr['gcm'] : array();
+        $notification_to_ios = isset($notification_to_arr['ios']) ? $notification_to_arr['ios'] : array();
+        
         //get all gcm registration ids
         $notification_to_gcm_ids = '';
         foreach ($notification_to_gcm as $value) {
@@ -52,14 +53,26 @@ class NotificationController extends Controller
                 $notification_to_gcm_ids .= ', ' . $value;
             }
         }
-
-        //get gcm request
-        $combined_request_arr = unserialize($notification_log->request);
-        $gcm_request = $combined_request_arr['gcm'];
         
-        //get gcm response
+        //get all ios registration ids
+        $notification_to_ios_ids = '';
+        foreach ($notification_to_ios as $value) {
+            if ($notification_to_ios_ids == '') {
+                $notification_to_ios_ids = $value;
+            }else {
+                $notification_to_ios_ids .= ', ' . $value;
+            }
+        }
+
+        //get gcm and ios request
+        $combined_request_arr = unserialize($notification_log->request);
+        $gcm_request = isset($combined_request_arr['gcm']) ? $combined_request_arr['gcm'] : array();
+        $ios_request = isset($combined_request_arr['ios']) ? $combined_request_arr['ios'] : array();
+        
+        //get response
         $combined_response_arr = unserialize($notification_log->response);
-        $gcm_response = $combined_response_arr['gcm'];
+        $gcm_response = isset($combined_response_arr['gcm']) ? $combined_response_arr['gcm'] : array() ;
+        $ios_response = isset($combined_response_arr['ios']) ? $combined_response_arr['ios'] : array() ;
 
         $file_name = 'NotificationLog_' . $notification_log->id;
 
@@ -76,8 +89,17 @@ class NotificationController extends Controller
         }
         
         $fh = fopen($fullFilePath, 'w') or die("can't open file");
+        
+        
+        $message_to_display = '';
+        $message_to_display = @unserialize($notification_log->message);
+        if ($message_to_display !== false) {
+            $message_to_display = $message_to_display['message'];
+        } else {
+            $message_to_display = $notification_log->message;
+        }
 
-        $stringData .= "$notification_log->message\n(#$notification_log->id)\n\n";
+        $stringData .= "$message_to_display\n(#$notification_log->id)\n\n";
         $stringData .= "Sent at: $notification_log->created_on \n\n";
         
         $notification_type = $notification_log->notification_type;
@@ -106,25 +128,37 @@ class NotificationController extends Controller
             $stringData .= "{" . str_replace(",", ",\n", $notification_to_gcm_ids) . "}\n";
         }
 
+        if ($notification_to_ios) {
+            $stringData .= "{" . str_replace(",", ",\n", $notification_to_ios_ids) . "}\n";
+        }
+        
         $stringData .= "\n---------------------------------------------\n\n";
 
-        if ($gcm_request ) {
+        if ($gcm_request || $ios_request) {
 
             $stringData .= "Request Sent: \n\n";
 
             if ($gcm_request) {
                 $stringData .= $gcm_request . "\n";
             }
+            if ($ios_request) {
+                $stringData .= $ios_request;
+            }
             $stringData .= "\n---------------------------------------------\n\n";
         }
 
-        if ($gcm_response ) {
+        if ($gcm_response || $ios_response) {
 
             $stringData .= "Response Received: \n\n";
 
             if ($gcm_response) {
                 $stringData .= $gcm_response . "\n";
             }
+            
+            if ($ios_response) {
+                $stringData .= $ios_response . "\n";
+            }
+            
             $stringData .= "\n---------------------------------------------\n\n";
         }
 

@@ -54,9 +54,9 @@
 		</div>
 
 		<div class="row-buttons">
-			<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>"neato-button",  "title" => "Add")); ?>
+			<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>"neato-button_alt associate_user_btn",  "title" => "Add")); ?>
 			<a href="<?php echo $this->createUrl('user/list')?>" title="Cancel"
-				class="neato-button">Cancel</a>
+				class="neato-button_alt">Cancel</a>
 		</div>
 		<?php $this->endWidget(); ?>
 
