@@ -442,7 +442,7 @@ $(window).load(function () {
                 success: function(r) {
                     hideWaitDialog();
                     if( r.status == 0 ) {
-                        generate_noty("success", JSON.stringify(r.result.message));
+                        generate_noty("success", "Push notification sent succussfully.");
                     } else if(r.status == -1 )  {
                         generate_noty("error", JSON.stringify(r.message));
                     }

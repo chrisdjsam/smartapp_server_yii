@@ -184,6 +184,36 @@ class MessageController extends APIController {
 		}
 	}
         
+	public function actionSendXMPPMessageToAllAssociatedUsers2(){
+	
+		$serial_number = Yii::app()->request->getParam('serial_number', '');
+                $only_online = Yii::app()->request->getParam('only_online', '');
+                $message = Yii::app()->request->getParam('message', '');
+                
+		$robot = self::verify_for_robot_serial_number_existence($serial_number);
+	
+		$count= 0;
+		foreach ($robot->usersRobots as $userRobot){
+                    if($only_online == '1'){
+                        $online_users_chat_ids = AppCore::getOnlineUsers();
+			if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+				$count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+			}
+                    }else {
+                        $count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                    }
+			
+		}
+	
+		$response_message = "Message is sent to $count user(s).";
+//		if($count){
+			$response_data = array("success"=>true, "message"=>$response_message);
+			self::success($response_data);
+//		}else{
+//			self::terminate(-1, $response_message);
+//		}
+	}        
+        
         public function actionSendNotificationToGivenRegistrationIds(){
             
                 $registration_ids = array_values( array_filter(array_unique(Yii::app()->request->getParam('registration_ids', ''))) );
