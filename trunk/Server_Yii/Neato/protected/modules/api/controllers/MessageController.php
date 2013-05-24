@@ -237,9 +237,11 @@ class MessageController extends APIController {
         
         public function actionSendNotificationToAllUsersOfRobot(){
             
-                $serial_number = $message = Yii::app()->request->getParam('serial_number', '');
+                $serial_number = Yii::app()->request->getParam('serial_number', '');
 		$message = Yii::app()->request->getParam('message', '');
                 $notification_type = Yii::app()->request->getParam('notification_type', '1');
+                
+                $send_from_indicator = Yii::app()->request->getParam('send_from', '');
                 
                 $robot = self::verify_for_robot_serial_number_existence($serial_number);
                 
@@ -249,12 +251,16 @@ class MessageController extends APIController {
                 }
                 
                 if(empty($user_ids_to_send_notification)) {
-                    self::terminate(-1, "Sorry, There is not single user who is associated with given robot");
+                    self::terminate(-1, "Sorry, there is no user associated");
                 }
                 
                 $send_from = Array();
                 $send_from['type'] = 'robot';
                 $send_from['data'] = $serial_number;
+                if($send_from_indicator == '1'){
+                    $send_from['type'] = 'user';
+                    $send_from['data'] = Yii::app()->user->id;
+                }
                 
 		$response = AppCore::send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message, $send_from, $notification_type);
                 
@@ -269,7 +275,7 @@ class MessageController extends APIController {
         
         public function actionSendNotificationToAllUsersOfRobot2(){
             
-                $serial_number = $message = Yii::app()->request->getParam('serial_number', '');
+                $serial_number = Yii::app()->request->getParam('serial_number', '');
 		$message_oject = json_decode(Yii::app()->request->getParam('message', ''));
                 $notification_type = Yii::app()->request->getParam('notification_type', '1');
                 
@@ -565,7 +571,7 @@ class MessageController extends APIController {
         
         public function actionNotificationHistoryDataTable() {
             
-                $dataColumns = array('id', 'message', 'notification_type', 'created_on');
+                $dataColumns = array('id', 'message', 'send_from', 'created_on');
                 $dataIndexColumn = "id";
                 $dataTable = "notification_logs";
 
@@ -596,29 +602,33 @@ class MessageController extends APIController {
                         $message_to_display = $data->message;
                     }
                     
-                    switch ($data->notification_type) {
-                        case '1':
-                            $notification_type = 'System' ; 
-                            break;
-
-                        case '2':
-                            $notification_type = 'Activities' ; 
-                            break;
-
-                        case '3':
-                            $notification_type = 'SOS' ; 
-                            break;
-
-                        default:
-                            $notification_type = 'System' ; 
-                            break;
+                    $send_from = unserialize($data->send_from);
+                    $send_from_type = isset($send_from['type']) ? $send_from['type'] : '' ;
+                    if($send_from_type == 'user'){
+                        
+                        $send_from = isset($send_from['data'])? $send_from['data'] : 'Unknown';
+                        $user = User::model()->findByPk($send_from);
+                        if(!empty($user)){
+                            $send_from = '<a rel="'.$this->createUrl('/user/userprofilepopup', array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" href="'.$this->createUrl('/user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" class="qtiplink" title="View details of ('.$user->email.')">'.$user->email.'</a>';                            
+                        }
+                        
+                    }else if($send_from_type == 'robot') {
+                        
+                        $send_from = isset($send_from['data'])? $send_from['data'] : 'Unknown';
+                        $robot = Robot::model()->findByAttributes(array('serial_number' => $send_from));
+                        if(!empty($robot)){
+                            $send_from = '<a rel="'.$this->createUrl('/robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" href="'.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" class="qtiplink robot-qtip" title="View details of ('.$robot->serial_number.')">'.$robot->serial_number.'</a>';
+                        }
+                        
+                    }else {
+                        $send_from = 'Unknown';
                     }
                     
                     $detail_link = '<div class="notification_history_details" data-notification_log_id = ' . $data->id . '>More</div>';
                     
                     $row[] = $data->id;
                     $row[] = $message_to_display;
-                    $row[] = $notification_type;
+                    $row[] = $send_from;
                     $row[] = $data->created_on;
                     $row[] = $detail_link;
 

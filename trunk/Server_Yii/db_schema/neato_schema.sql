@@ -48,6 +48,28 @@ INSERT INTO `api_users` (`id`, `id_site`, `api_key`, `secret_key`, `active`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `app_configuration`
+--
+
+CREATE TABLE IF NOT EXISTS `app_configuration` (
+  `id` int(11) DEFAULT NULL,
+  `_key` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `value` varchar(200) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `app_configuration`
+--
+
+INSERT INTO `app_configuration` (`id`, `_key`, `value`) VALUES
+(1, 'VALIDATE_EMAIL', '1'),
+(2, 'GRACE_PERIOD', '60'),
+(3, 'VALIDATION_ATTEMPT', '5'),
+(4, 'ROBOT_PING_INTERVAL', '135');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `app_info`
 --
 
@@ -61,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `app_info` (
   `latest_version_url` varchar(500) CHARACTER SET utf8 NOT NULL,
   `upgrade_status` int(11) NOT NULL COMMENT '0 = no change, 1 = optional upgrade available, 2 = mandatory upgrade necessary, 3 = app has to be deleted',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=100001 ;
 
 -- --------------------------------------------------------
 
@@ -77,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `atlas_grid_image` (
   `version` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_atlas` (`id_atlas`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -91,7 +113,116 @@ CREATE TABLE IF NOT EXISTS `device_details` (
   `operating_system` varchar(20) NOT NULL DEFAULT '',
   `version` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `notification_logs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `message` text CHARACTER SET utf8 NOT NULL,
+  `action` varchar(500) DEFAULT NULL,
+  `filter_criteria` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `notification_type` varchar(5) CHARACTER SET utf8 NOT NULL DEFAULT '1' COMMENT '1 for ''system'', 2 for ''activities'' and 3 for ''sos''',
+  `send_from` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `notification_to` text CHARACTER SET utf8,
+  `request` text CHARACTER SET utf8,
+  `response` text CHARACTER SET utf8 NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_registrations`
+--
+
+CREATE TABLE IF NOT EXISTS `notification_registrations` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL,
+  `registration_id` varchar(1000) CHARACTER SET utf8 DEFAULT NULL,
+  `device_type` varchar(5) CHARACTER SET utf8 DEFAULT NULL COMMENT '''1'' for Android, ''2'' for iPhone',
+  `is_active` varchar(5) CHARACTER SET utf8 NOT NULL DEFAULT 'Y' COMMENT '''Y'' = Yes, ''N'' = No',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_registration_id_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `notification_registration_id_logs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `old_registration_id` varchar(1000) CHARACTER SET utf8 NOT NULL,
+  `new_registration_id` varchar(1000) CHARACTER SET utf8 NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_types`
+--
+
+CREATE TABLE IF NOT EXISTS `notification_types` (
+  `id` int(11) NOT NULL,
+  `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notification_types`
+--
+
+INSERT INTO `notification_types` (`id`, `type`) VALUES
+(1, 'system'),
+(2, 'activities'),
+(3, 'sos');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `push_notification_types`
+--
+
+CREATE TABLE IF NOT EXISTS `push_notification_types` (
+  `id` int(11) DEFAULT NULL,
+  `description` varchar(500) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `push_notification_types`
+--
+
+INSERT INTO `push_notification_types` (`id`, `description`) VALUES
+(101, 'I''m Stuck'),
+(102, 'Dirt Bag full'),
+(103, 'Cleaning Done');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robots`
+--
+
+CREATE TABLE IF NOT EXISTS `robots` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `serial_number` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `chat_id` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `chat_pwd` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `value_extra` varchar(1000) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `serial_number` (`serial_number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -104,6 +235,20 @@ CREATE TABLE IF NOT EXISTS `robot_atlas` (
   `id_robot` bigint(20) NOT NULL,
   `xml_data_file_name` varchar(100) NOT NULL,
   `version` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_robot` (`id_robot`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robot_customs`
+--
+
+CREATE TABLE IF NOT EXISTS `robot_customs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_robot` bigint(20) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `id_robot` (`id_robot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -137,51 +282,32 @@ CREATE TABLE IF NOT EXISTS `robot_custom_data_types` (
   `name` varchar(50) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `robot_custom_data_types`
+--
+
+INSERT INTO `robot_custom_data_types` (`id`, `name`, `created_on`) VALUES
+(1, 'history', '2012-12-04 16:37:56'),
+(2, 'recent', '2012-12-04 16:37:56'),
+(3, 'image', '2012-12-04 16:47:28');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `robot_customs`
+-- Table structure for table `robot_key_values`
 --
 
-CREATE TABLE IF NOT EXISTS `robot_customs` (
+CREATE TABLE IF NOT EXISTS `robot_key_values` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_robot` bigint(20) NOT NULL,
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `robot_id` bigint(20) DEFAULT NULL,
+  `_key` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `value` text CHARACTER SET utf8,
+  `timestamp` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_robot` (`id_robot`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `robot_map_blob_data_versions`
---
-
-CREATE TABLE IF NOT EXISTS `robot_map_blob_data_versions` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_robot_map` bigint(20) NOT NULL,
-  `version` bigint(20) NOT NULL,
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `id_robot_map` (`id_robot_map`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `robot_map_xml_data_versions`
---
-
-CREATE TABLE IF NOT EXISTS `robot_map_xml_data_versions` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_robot_map` bigint(20) NOT NULL,
-  `version` bigint(20) NOT NULL,
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `id_robot_map` (`id_robot_map`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `robot_id` (`robot_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -198,37 +324,52 @@ CREATE TABLE IF NOT EXISTS `robot_maps` (
   `updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `id_robot` (`id_robot`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `robot_schedule_blob_data_versions`
+-- Table structure for table `robot_map_blob_data_versions`
 --
 
-CREATE TABLE IF NOT EXISTS `robot_schedule_blob_data_versions` (
+CREATE TABLE IF NOT EXISTS `robot_map_blob_data_versions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_robot_schedule` bigint(20) NOT NULL,
+  `id_robot_map` bigint(20) NOT NULL,
   `version` bigint(20) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `id_robot_schedule` (`id_robot_schedule`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `id_robot_map` (`id_robot_map`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `robot_schedule_xml_data_versions`
+-- Table structure for table `robot_map_xml_data_versions`
 --
 
-CREATE TABLE IF NOT EXISTS `robot_schedule_xml_data_versions` (
+CREATE TABLE IF NOT EXISTS `robot_map_xml_data_versions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_robot_schedule` bigint(20) NOT NULL,
+  `id_robot_map` bigint(20) NOT NULL,
   `version` bigint(20) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `id_robot_schedule` (`id_robot_schedule`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `id_robot_map` (`id_robot_map`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robot_ping_log`
+--
+
+CREATE TABLE IF NOT EXISTS `robot_ping_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `robot_id` bigint(20) DEFAULT NULL,
+  `ping_timestamp` datetime NOT NULL,
+  `status` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `robot_id` (`robot_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -246,23 +387,37 @@ CREATE TABLE IF NOT EXISTS `robot_schedules` (
   `updated_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `id_robot` (`id_robot`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `robots`
+-- Table structure for table `robot_schedule_blob_data_versions`
 --
 
-CREATE TABLE IF NOT EXISTS `robots` (
+CREATE TABLE IF NOT EXISTS `robot_schedule_blob_data_versions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `serial_number` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `chat_id` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `chat_pwd` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `id_robot_schedule` bigint(20) NOT NULL,
+  `version` bigint(20) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `serial_number` (`serial_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `id_robot_schedule` (`id_robot_schedule`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robot_schedule_xml_data_versions`
+--
+
+CREATE TABLE IF NOT EXISTS `robot_schedule_xml_data_versions` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_robot_schedule` bigint(20) NOT NULL,
+  `version` bigint(20) NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `id_robot_schedule` (`id_robot_schedule`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -283,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `sites` (
 --
 
 INSERT INTO `sites` (`id`, `name`, `description`, `url`) VALUES
-(1, 'neato local', 'neato local', 'http://localhost/Neato_Server/Server_Yii/Neato/');
+(1, 'Neato Dev', 'Neato Dev', 'neatodev.rajatogo.com');
 
 -- --------------------------------------------------------
 
@@ -318,26 +473,15 @@ CREATE TABLE IF NOT EXISTS `upgrade_status` (
   `upgrade_status_value` varchar(100) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `upgrade_status`
+--
+
 INSERT INTO `upgrade_status` (`upgrade_status_key`, `upgrade_status_value`) VALUES
 (0, 'no change'),
 (1, 'optional upgrade available'),
 (2, 'mandatory upgrade necessary'),
 (3, 'app has to be deleted');
---
--- Table structure for table `user_devices`
---
-
-CREATE TABLE IF NOT EXISTS `user_devices` (
-  `id` int(20) NOT NULL AUTO_INCREMENT,
-  `id_user` bigint(20) NOT NULL,
-  `id_device_details` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`),
-  KEY `id_device_details` (`id_device_details`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
@@ -355,15 +499,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `chat_id` varchar(128) CHARACTER SET utf8 NOT NULL,
   `chat_pwd` varchar(128) CHARACTER SET utf8 NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `is_validated` tinyint(1) NOT NULL DEFAULT '1',
+  `validation_key` varchar(500) CHARACTER SET utf8 NOT NULL,
+  `validation_counter` int(11) NOT NULL DEFAULT '0',
+  `alternate_email` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `push_notification_preference` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 for ''true'' and 0 for ''false''',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `password`, `reset_password`, `email`, `is_emailVerified`, `is_admin`, `created_on`, `chat_id`, `chat_pwd`, `is_active`) VALUES
-(1, 'admin', '=UlVadFVYh2USxGZ2RFbSVFZEZlVUxmQXJFbwlnUtFzUZZlSZZlM0gnVGFUP', '=UlVKdFVYZ1aiZkWy90Vxc1UFp1caZlWhJmRkhmVrpFViJDazZVMJhnVGFUP', 'admin@neatorobotics.com', 1, 1, '2013-02-07 12:17:42', '1352014076_user@rajatogo', '1352014076_user', 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -380,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `users_api_sessions` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`,`id_site`),
   KEY `id_site_me` (`id_site`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -395,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `users_robots` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_robot` (`id_robot`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -415,7 +557,37 @@ CREATE TABLE IF NOT EXISTS `users_socialservices` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   KEY `id_socialservicetype` (`id_socialservicetype`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_devices`
+--
+
+CREATE TABLE IF NOT EXISTS `user_devices` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `id_user` bigint(20) NOT NULL,
+  `id_device_details` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_device_details` (`id_device_details`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_push_notification_preferences`
+--
+
+CREATE TABLE IF NOT EXISTS `user_push_notification_preferences` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `push_notification_types_id` int(11) NOT NULL,
+  `preference` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1 for ''true'' and 0 for ''false''',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -438,7 +610,63 @@ CREATE TABLE IF NOT EXISTS `ws_logging` (
   `date_and_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `id_site` (`id_site`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xmpp_message_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `xmpp_message_logs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `xmpp_message` text CHARACTER SET utf8,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robot_robot_types`
+--
+
+CREATE TABLE IF NOT EXISTS `robot_robot_types` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `robot_id` bigint(20) NOT NULL,
+  `robot_type_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `robot_id` (`robot_id`),
+  KEY `robot_type_id` (`robot_type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robot_types`
+--
+
+CREATE TABLE IF NOT EXISTS `robot_types` (
+  `id` int(11) NOT NULL,
+  `type` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `name` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robot_type_metadata`
+--
+
+CREATE TABLE IF NOT EXISTS `robot_type_metadata` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `robot_type_id` int(11) DEFAULT NULL,
+  `_key` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `value` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `robot_type_id` (`robot_type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 
 --
 -- Constraints for dumped tables
@@ -457,10 +685,22 @@ ALTER TABLE `atlas_grid_image`
   ADD CONSTRAINT `atlas_grid_image_ibfk_1` FOREIGN KEY (`id_atlas`) REFERENCES `robot_atlas` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `notification_registrations`
+--
+ALTER TABLE `notification_registrations`
+  ADD CONSTRAINT `notification_registrations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `robot_atlas`
 --
 ALTER TABLE `robot_atlas`
   ADD CONSTRAINT `robot_atlas_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `robot_customs`
+--
+ALTER TABLE `robot_customs`
+  ADD CONSTRAINT `robot_customs_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `robot_custom_data`
@@ -470,10 +710,16 @@ ALTER TABLE `robot_custom_data`
   ADD CONSTRAINT `@0020robot_custom_data_ibfk_2` FOREIGN KEY (`id_robot_custom_data_type`) REFERENCES `robot_custom_data_types` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `robot_customs`
+-- Constraints for table `robot_key_values`
 --
-ALTER TABLE `robot_customs`
-  ADD CONSTRAINT `robot_customs_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
+ALTER TABLE `robot_key_values`
+  ADD CONSTRAINT `robot_key_values_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`);
+
+--
+-- Constraints for table `robot_maps`
+--
+ALTER TABLE `robot_maps`
+  ADD CONSTRAINT `robot_maps_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `robot_map_blob_data_versions`
@@ -488,10 +734,16 @@ ALTER TABLE `robot_map_xml_data_versions`
   ADD CONSTRAINT `robot_map_xml_data_versions_ibfk_1` FOREIGN KEY (`id_robot_map`) REFERENCES `robot_maps` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `robot_maps`
+-- Constraints for table `robot_ping_log`
 --
-ALTER TABLE `robot_maps`
-  ADD CONSTRAINT `robot_maps_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
+ALTER TABLE `robot_ping_log`
+  ADD CONSTRAINT `robot_ping_log_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`);
+
+--
+-- Constraints for table `robot_schedules`
+--
+ALTER TABLE `robot_schedules`
+  ADD CONSTRAINT `robot_schedules_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `robot_schedule_blob_data_versions`
@@ -504,12 +756,6 @@ ALTER TABLE `robot_schedule_blob_data_versions`
 --
 ALTER TABLE `robot_schedule_xml_data_versions`
   ADD CONSTRAINT `robot_schedule_xml_data_versions_ibfk_1` FOREIGN KEY (`id_robot_schedule`) REFERENCES `robot_schedules` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `robot_schedules`
---
-ALTER TABLE `robot_schedules`
-  ADD CONSTRAINT `robot_schedules_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users_api_sessions`
@@ -533,10 +779,29 @@ ALTER TABLE `users_socialservices`
   ADD CONSTRAINT `users_socialservices_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `user_push_notification_preferences`
+--
+ALTER TABLE `user_push_notification_preferences`
+  ADD CONSTRAINT `user_push_notification_preferences_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `ws_logging`
 --
 ALTER TABLE `ws_logging`
   ADD CONSTRAINT `ws_logging_ibfk_1` FOREIGN KEY (`id_site`) REFERENCES `sites` (`id`);
+
+--
+-- Constraints for table `robot_robot_types`
+--
+ALTER TABLE `robot_robot_types`
+  ADD CONSTRAINT `robot_robot_types_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `robot_robot_types_ibfk_2` FOREIGN KEY (`robot_type_id`) REFERENCES `robot_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `robot_type_metadata`
+--
+ALTER TABLE `robot_type_metadata`
+  ADD CONSTRAINT `robot_type_metadata_ibfk_1` FOREIGN KEY (`robot_type_id`) REFERENCES `robot_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

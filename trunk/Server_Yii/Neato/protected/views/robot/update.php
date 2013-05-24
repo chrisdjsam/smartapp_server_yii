@@ -13,5 +13,9 @@ $this->breadcrumbs=array(
 <fieldset class='data-container static-data-container'>
 	<legend>Update Robot</legend>
 	<p class="list_details">Please update robot information.</p>
-
-	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+        
+	<?php 
+        
+            $selected = array('options' => array($model->robotRobotTypes->robot_type_id=>array('selected'=>true)));
+            echo $this->renderPartial('_form', array('model'=>$model, 'robot_type_model'=>$robot_type_model, 'selected'=>$selected)); 
+        ?>

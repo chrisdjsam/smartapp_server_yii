@@ -268,6 +268,26 @@ class RestController extends APIController {
 				true,
 				false);                                
                 
+		self::expose_function('robot.get_robot_type_metadata_using_type',
+				"robot/getRobotTypeMetadataUsingType",
+				array(
+                                    'robot_type' => array ('type' => 'string', 'required' => true),
+				),
+				"Get Robot Type Metadata Using Robot Type",
+				'POST',
+				true,
+				false);                                                
+
+		self::expose_function('robot.get_robot_type_metadata_using_id',
+				"robot/getRobotTypeMetadataUsingId",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+				),
+				"Get Robot Type Metadata Using Robot Id",
+				'POST',
+				true,
+				false);                                                
+                
 		self::expose_function('message.send_xmpp_message_to_robot',
 				"message/SendXmppMessageToRobot",
 				array(
@@ -419,7 +439,20 @@ class RestController extends APIController {
 				'POST',
 				false,
 				false);               
-               
+
+		self::expose_function('robot.set_profile_details3',
+				"robot/SetProfileDetails3",
+				array('serial_number' => array ('type' => 'string','required' => true),
+                                'source_serial_number' => array ('type' => 'string','default' => ''),
+                                'source_smartapp_id' => array ('type' => 'string','default' => ''),
+                                'cause_agent_id' => array ('type' => 'string','required' => true),
+                                'value_extra' => array ('type' => 'string','default' => ''),
+				'profile' => array ('type' => 'array'),),
+				"Set profile details 3",
+				'POST',
+				false,
+				false);               
+                
 		self::expose_function('robot.get_profile_details',
 				"robot/GetProfileDetails",
 				array(

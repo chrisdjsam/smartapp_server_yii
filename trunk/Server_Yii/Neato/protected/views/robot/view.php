@@ -47,15 +47,23 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<br />
 	<div class="robot-data-table-heading">Basic Information</div>
 	<?php
-	$online_status = $isOnline == true ? ' (ONLINE)' :' (OFFLINE)';
-
+        
+        $online_status = ' (OFFLINE)';
+        if($isOnline == 1){
+            $online_status = ' (ONLINE)';
+        } else if($isOnline == 3) {
+            $online_status = ' (VIRTUALLY ONLINE)';
+        }
+        
+        $robot_type = isset($model->robotRobotTypes->robotType) ? $model->robotRobotTypes->robotType->name . ' (' . $model->robotRobotTypes->robotType->type . ')' : '';
+        
 	$this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model,
 			'attributes'=>array(
 					'serial_number',
 					'name',
 					array(
-					'label' =>'Asssociated Users',
+					'label' =>'Associated Users',
 					'type'=>'raw',
 					'value' => $html_string,
 					),
@@ -65,7 +73,12 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 					'value' => $model->chat_id . $online_status,
 					),
 					'chat_pwd',
-			),
+                                        array(
+					'label' =>'Robot Type',
+					'type'=>'raw',
+					'value' => $robot_type,
+					),
+                            ),
 			)); ?>
 	<?php
 	if($can_send_start_and_stop_command){
@@ -272,11 +285,9 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 		<table class="pretty-table grid-image-table">
 			<thead>
 				<tr>
-					<th style="width: 38px;" title="ID" class='pretty-table-center-th'>Grid
-						ID</th>
-					<th title="XML link">Atlas grid image</th>
-					<th title="XML Version number" class='pretty-table-center-th'>Blob
-						version</th>
+					<th style="width: 20%;" title="ID" class='pretty-table-center-th'>Grid ID</th>
+					<th style="width: 20%;" title="XML link">Atlas grid image</th>
+					<th style="width: 15%;" title="XML Version number" class='pretty-table-center-th'>Blob version</th>
 				<?php if ($isAdmin){?>		
 					<th class='pretty-table-center-th'></th>
 					<th class='pretty-table-center-th'></th>
@@ -437,7 +448,8 @@ $(window).load(function () {
                 dataType: 'json',
                 data: {
                     message : message,
-                    serial_number : serial_number
+                    serial_number : serial_number,
+                    send_from : '1'
                 },
                 success: function(r) {
                     hideWaitDialog();

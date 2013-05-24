@@ -15,5 +15,8 @@ $this->breadcrumbs=array(
 		Please enter serial number to add a robot.<br /> You can not enter
 		same serial number twice.
 	</p>
-
-	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+        
+	<?php 
+            $selected = array('empty'=>'---Select Robot Type---');
+            echo $this->renderPartial('_form', array('model'=>$model, 'robot_type_model'=>$robot_type_model, 'selected'=>$selected)); 
+        ?>

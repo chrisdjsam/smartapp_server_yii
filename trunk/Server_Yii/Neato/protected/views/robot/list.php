@@ -34,12 +34,13 @@ $this->breadcrumbs=array(
 				<tr>
 					<th style="width: 7%;" title="Select" class='pretty-table-center-th'>Select</th>
 					<th style="width: 12%;" title="Serial Number">Serial Number</th>
-					<th style="width: 44%;" title="Associated Users">Associated Users</th>
+                                        <th style="width: 12%;" title="Robot Type">Robot Type</th>
+					<th style="width: 37%;" title="Associated Users">Associated Users</th>
 					<th style="width: 9%;" title="Schedule" class='pretty-table-center-th'>Schedule</th>
-					<th style="width: 7%;" title="Atlas" class='pretty-table-center-th'>Atlas</th>
-					<th style="width: 7%;" title="Grid" class='pretty-table-center-th'>Grid</th>
-					<th style="width: 7%;" title="Map" class='pretty-table-center-th'>Map</th>
-					<th style="width: 7%;" class='pretty-table-center-td'></th>
+					<th style="width: 6%;" title="Atlas" class='pretty-table-center-th'>Atlas</th>
+					<th style="width: 6%;" title="Grid" class='pretty-table-center-th'>Grid</th>
+					<th style="width: 6%;" title="Map" class='pretty-table-center-th'>Map</th>
+					<th style="width: 5%;" class='pretty-table-center-td'></th>
 				</tr>
 			</thead>
 			<tbody>

@@ -1,23 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "robot_key_values".
+ * This is the model class for table "robot_type_metadata".
  *
- * The followings are the available columns in table 'robot_key_values':
+ * The followings are the available columns in table 'robot_type_metadata':
  * @property string $id
- * @property string $robot_id
+ * @property integer $robot_type_id
  * @property string $_key
  * @property string $value
  *
  * The followings are the available model relations:
- * @property Robots $robot
+ * @property RobotTypes $robotType
  */
-class BaseRobotKeyValues extends CActiveRecord
+class BaseRobotTypeMetadata extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return BaseRobotKeyValues the static model class
+	 * @return BaseRobotTypeMetadata the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +29,7 @@ class BaseRobotKeyValues extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'robot_key_values';
+		return 'robot_type_metadata';
 	}
 
 	/**
@@ -40,11 +40,11 @@ class BaseRobotKeyValues extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('robot_id', 'length', 'max'=>20),
-			array('_key', 'length', 'max'=>500),
+			array('robot_type_id', 'numerical', 'integerOnly'=>true),
+			array('_key, value', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, robot_id, _key, value', 'safe', 'on'=>'search'),
+			array('id, robot_type_id, _key, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +56,7 @@ class BaseRobotKeyValues extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'robot' => array(self::BELONGS_TO, 'Robots', 'robot_id'),
+			'robotType' => array(self::BELONGS_TO, 'RobotTypes', 'robot_type_id'),
 		);
 	}
 
@@ -67,7 +67,7 @@ class BaseRobotKeyValues extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'robot_id' => 'Robot',
+			'robot_type_id' => 'Robot Type',
 			'_key' => 'Key',
 			'value' => 'Value',
 		);
@@ -85,7 +85,7 @@ class BaseRobotKeyValues extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('robot_id',$this->robot_id,true);
+		$criteria->compare('robot_type_id',$this->robot_type_id);
 		$criteria->compare('_key',$this->_key,true);
 		$criteria->compare('value',$this->value,true);
 
