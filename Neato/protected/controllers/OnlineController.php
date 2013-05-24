@@ -26,12 +26,32 @@ class OnlineController extends Controller
 		
 		$robot_data = Robot::model()->findAll();
 		$online_robots= array();
+                $virtually_online_robots= array();
 		
 		foreach ($robot_data as $robot){
+                    
 			if(in_array($robot->chat_id, $online_users_chat_ids)){
 				$online_robots[] = $robot; 
-			}
+                                $virtually_online_robots[] = $robot;
+			} else {
+                            
+                            $robot_ping_interval = 0;
+                            if(isset($robot->robotRobotTypes->robotType->robotTypeMetadatas)){
+                                foreach ($robot->robotRobotTypes->robotType->robotTypeMetadatas as $metadata) {
+                                    $robot_ping_interval = $robot_ping_interval + $metadata->value;
+                                }
+                            }
+                            
+                            if(AppCore::getVirtuallyOnlinRobots($robot->id, $robot_ping_interval)){
+                                $virtually_online_robots[] = $robot;
+                            }
+                            
+                        }
+                                                
+                        
+                        
 		}
+                
 		$users_data = User::model()->findAll();
 		$online_users = array();
 		foreach ($users_data as $user){
@@ -43,6 +63,7 @@ class OnlineController extends Controller
 		$this->render('list',array(
 				'users_data'=>$online_users,
 				'robot_data'=>$online_robots,
+                                'virtually_online_robots'=>$virtually_online_robots,
 		));
 		
 	}

@@ -828,6 +828,12 @@ class AppCore {
 	}
 
     public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $_GET, $modelName, $sWhere = "", $join_flag = false) {
+        
+        /* 
+         * Define $sWhereOriginal to fetch Total data count
+         */
+        $sWhereOriginal = $sWhere;
+        
         /*
          * Paging
          */
@@ -866,7 +872,13 @@ class AppCore {
          */
 //        $sWhere = "";
         if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
-            $sWhere = "WHERE (";
+            
+            if(!empty($sWhere)){
+                $sWhere .= ' AND (';
+            } else {
+                $sWhere = "WHERE (";
+            }
+            
             for ($i = 0; $i < count($aColumns); $i++) {
                 if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true") {
                     $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
@@ -919,7 +931,9 @@ class AppCore {
         $sQuery = "
         SELECT COUNT(" . $sIndexColumn . ")
         FROM   $sTable
+               $sWhereOriginal
         ";
+        
         $rResultTotal = Yii::app()->db->createCommand($sQuery)->queryAll();
         $iTotal = $rResultTotal[0]['COUNT(' . $sIndexColumn . ')'];
 
@@ -1351,7 +1365,7 @@ class AppCore {
                 return $log_result;
             }
         }
-
+        
         return array('code' => 0, 'output' => $result);
     }
 
@@ -1637,11 +1651,11 @@ class AppCore {
             $display_notification_details .= '<label>Request Sent:</label>';
             $display_notification_details .= "<div class='label-value_notification_history'>";
             if ($gcm_request) {
-                $gcm_request_str = AppHelper::strip_string($gcm_request, 500);
+                $gcm_request_str = AppHelper::strip_string($gcm_request, 250);
                 $display_notification_details .= "<span class='gcm_text_style'><i>" . $gcm_request_str . "</i></span><br/>";
             }
             if($ios_request){
-                $ios_request_str = AppHelper::strip_string($ios_request, 500);
+                $ios_request_str = AppHelper::strip_string($ios_request, 250);
                 $display_notification_details .= "<span class='gcm_text_style'><i>" . $ios_request_str . "</i></span><br/>";
             }
             $display_notification_details .= "</div>";
@@ -1805,6 +1819,23 @@ class AppCore {
 
             return $data;
 
+    }
+    
+    public static function getVirtuallyOnlinRobots($robot_id, $robot_ping_interval) {
+        
+        $data = self::getLatestPingTimestampFromRobot($robot_id);
+
+        if (!empty($data)) {
+            $latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
+
+            $current_system_timestamp = time();
+            $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
+
+            if ($time_diff < $robot_ping_interval) {
+                return true;
+            } 
+        }
+        return false;
     }
 
 }

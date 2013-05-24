@@ -263,7 +263,6 @@ h1,h2,h3,h4,h5,h6 {
 
 
 .row-buttons input.neato-button{
-	padding: 6px 13px;
 	margin:0px !important;
 	padding: 6px 13px \0/IE8+9;
 }
@@ -1244,4 +1243,8 @@ div.update_user_form {
 .associate_user_btn{
     width: 100px;
     padding: 8px;
+}
+
+table.detail-view td {
+    word-break: break-all;
 }

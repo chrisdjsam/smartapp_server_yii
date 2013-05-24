@@ -6,8 +6,35 @@
  *
  */
 class APIController extends Controller {
+    
+    
+        /**
+	 * Custom code to handle all errors and exceptions of API Controllers.
+	 */
+        public function init() {
+            parent::init();
 
-	/**
+            Yii::app()->attachEventHandler('onError', array($this, 'handleError'));
+            Yii::app()->attachEventHandler('onException', array($this, 'handleError'));
+        }
+
+        public function handleError(CEvent $event) {
+            if ($event instanceof CExceptionEvent) {
+
+                // handle exception
+                self::terminate(-1, $event->exception->getMessage());
+                
+            } elseif ($event instanceof CErrorEvent) {
+
+                // handle error
+                self::terminate(-1, $event->message);
+                
+            }
+
+            $event->handled = TRUE;
+        }
+
+    /**
 	 * Common code to all API Controllers to terminate API call with an error
 	 *
 	 * @param  $errorCode

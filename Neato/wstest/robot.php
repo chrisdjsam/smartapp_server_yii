@@ -419,6 +419,156 @@
 	</form>
 
 
+	<form action="<?php echo($baseURL)?>robot.set_profile_details3"
+		method='POST' id='robotsetprofiledetails3' class='ajaxified_forms'>
+		<table class='custom_table'>
+			<tr>
+				<td id="Set Robot Profile Details 3" colspan="2"><label>Set Robot Profile Details 3</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to set robot's profile details 3. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.set_profile_details3<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of robot</li>
+                                                        <li><b>source_serial_number</b> :if sent from robot, contains the robot's serial id (can be empty)</li>
+                                                        <li><b>source_smartapp_id</b> :if sent from the smartapp, contains the user email (can be empty)</li>
+                                                        <li><b>cause_agent_id</b> :Unique sender ID</li>
+                                                        <li><b>value_extra</b> :an optional JSON string</li>
+							<li><b>profile</b> :Map of key=>value pairs, e.g.
+								profile{'name'=>'room cleaner'}</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>{"status":0,"result":"1"}</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+
+							<li>If serial_number is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in
+										method robot.set_profile_details"}</li>
+								</ul>
+							</li>
+
+							<li>If source_serial_number or source_smartapp_id is missing:
+								<ul>
+									<li>{"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)"}</li>
+								</ul>
+							</li>                                                        
+                                                        
+							<li>If source_smartapp_id is invalid:
+								<ul>
+									<li>{"status":-1,"message":"Please enter valid email address in field source_smartapp_id."}</li>
+								</ul>
+							</li>                                                                                                                
+                                                        
+							<li>If source_smartapp_id does not exist:
+								<ul>
+									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system."}</li>
+								</ul>
+							</li>                                                                                                                                                                        
+
+							<li>If source_smartapp_id(email) is not associated with given robot:
+								<ul>
+									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If cause_agent_id is missing:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter cause_agent_id in method robot.set_profile_details3"}</li>
+								</ul>
+							</li>
+                                                        
+							<li>If profile key is not added:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter profile in method
+										robot.set_profile_details"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+			<tr>
+				<td>source_serial_number</td>
+				<td>
+                                    <input type="text" name='source_serial_number'>
+				</td>
+			</tr>
+			<tr>
+				<td>source_smartapp_id</td>
+				<td>
+                                    <input type="text" name='source_smartapp_id'>
+				</td>
+			</tr>                        
+                        <tr>
+				<td>cause_agent_id</td>
+				<td>
+                                    <input type="text" name='cause_agent_id'>
+				</td>
+			</tr>                        
+			<tr>
+				<td>value_extra</td>
+				<td>
+                                    <input type="text" name='value_extra'>
+				</td>
+			</tr>                                                
+			<tr>
+				<td id='labelPlaceholderRow4' colspan="2"></td>
+			</tr>
+			<tr>
+				<td><input type="text" name='labelName' value='' id='labelName4'
+					class='removeFromRequest'>
+				</td>
+				<td>
+					<div id='addLabelLink4'>Add Profile Detail Key</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td><input type="button" name='submit'
+					dummy='robotsetprofiledetails3' value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+
 	<form action="<?php echo($baseURL)?>robot.get_profile_details"
 		method='POST' id='robotgetprofiledetails' class='ajaxified_forms'>
 		<table class='custom_table'>
@@ -1474,6 +1624,176 @@
 
 		</table>
 	</form>
+
+
+	<form action="<?php echo($baseURL)?>robot.get_robot_type_metadata_using_type" method='POST'
+		id='get_robot_type_metadata_using_type' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Get Robot Type Metadata Using Robot Type" colspan="2"><label>Get Robot Type Metadata Using Robot Type</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get robot type metadata using robot type. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.get_robot_type_metadata_using_type<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>robot_type</b> :Your Robot's Type</li>
+						</ul>
+						Success Response:
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"robot_metadata":{"type":"1","metadata":{"sleep_time":"120","lag_time":"15"}}}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a robot_type is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter robot_type in method robot.get_robot_type_metadata_using_type"}</li>
+								</ul>
+							</li>
+							<li>If entered robot_type is invalid
+								<ul>
+									<li>{"status":-1,"message":"Provided robot type is not valid"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>robot_type</td>
+				<td><input type="text" name='robot_type'>
+				</td>
+			</tr>
+
+			<tr>
+				<td><input type="button" name='submit' dummy='get_robot_type_metadata_using_type'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
+	<form action="<?php echo($baseURL)?>robot.get_robot_type_metadata_using_id" method='POST'
+		id='get_robot_type_metadata_using_id' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Get Robot Type Metadata Using Robot Id" colspan="2"><label>Get Robot Type Metadata Using Robot Id</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get robot type metadata using robot Id. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.get_robot_type_metadata_using_id<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of the robot</li>
+						</ul>
+						Success Response:
+						<ul>
+                                                        <li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"robot_metadata":{"type":"1","metadata":{"sleep_time":"120","lag_time":"15"}}}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_type_metadata_using_id"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+
+			<tr>
+				<td><input type="button" name='submit' dummy='get_robot_type_metadata_using_id'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
 
 
 <?php include_once 'common_footer.php';?>

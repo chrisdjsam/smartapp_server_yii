@@ -34,8 +34,23 @@ class RobotController extends Controller
 		$scroll_to = Yii::app()->request->getParam('scroll_to', '');
 		
 		$model =$this->loadModel($id);
-		$isOnline = in_array($model->chat_id, AppCore::getOnlineUsers()); 
-		 
+                
+		$isOnline = 2; // 2 for offline  
+                if(in_array($model->chat_id, AppCore::getOnlineUsers())){
+                    $isOnline = 1; // 1 for online
+                } else {
+                    $robot_ping_interval = 0;
+                    if(isset($model->robotRobotTypes->robotType->robotTypeMetadatas)){
+                        foreach ($model->robotRobotTypes->robotType->robotTypeMetadatas as $metadata) {
+                            $robot_ping_interval = $robot_ping_interval + $metadata->value;
+                        }
+                    }
+                    
+                    if(AppCore::getVirtuallyOnlinRobots($model->id, $robot_ping_interval)){
+                        $isOnline = 3; // 3 for virtually online
+                    }
+                }
+                
 		$this->render('view',array(
 				'model'=>$model,
 				'isOnline'=>$isOnline,
@@ -74,11 +89,13 @@ class RobotController extends Controller
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
 		self::check_for_admin_privileges();
-		$model=new Robot;
+		$model = new Robot;
+                
+                $robot_type_model = new RobotTypes();
 
-		$this->performAjaxValidation($model);
+                $this->performAjaxValidation(array($model,$robot_type_model));
 
-		if(isset($_POST['Robot']))
+		if(isset($_POST['Robot'], $_POST['RobotTypes']))
 		{
 			$model->attributes=$_POST['Robot'];
 			$chat_details = AppCore::create_chat_user_for_robot();
@@ -92,6 +109,12 @@ class RobotController extends Controller
 			$model->chat_id = $chat_details['chat_id'];
 			$model->chat_pwd = $chat_details['chat_pwd'];
 			if($model->save()){
+                                // save robot type
+                                $robot_robot_type = new RobotRobotTypes();
+                                $robot_robot_type->robot_id = $model->id;
+                                $robot_robot_type->robot_type_id = $_POST['RobotTypes']['type'];
+                                $robot_robot_type->save();
+                                
 				$msg = AppCore::yii_echo("addrobot:ok", $model->serial_number);
 				Yii::app()->user->setFlash('success', $msg);
 				$this->actionList();
@@ -101,9 +124,10 @@ class RobotController extends Controller
 				Yii::app()->user->setFlash('error', $msg);
 			}
 		}
-
+                
 		$this->render('add',array(
 				'model'=>$model,
+                                'robot_type_model'=>$robot_type_model,
 		));
 	}
 	
@@ -126,18 +150,31 @@ class RobotController extends Controller
 		}
 		$id = AppHelper::two_way_string_decrypt($h_id);
 		self::check_function_argument($id);
+                
 		$model=$this->loadModel($id);
+                $robot_type_model = new RobotTypes();
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		$this->performAjaxValidation(array($model,$robot_type_model));
 
-		if(isset($_POST['Robot']))
+                if(isset($model->robotRobotTypes)){
+                    $robot_type_model = $model->robotRobotTypes->robotType;
+                }
+                
+		if(isset($_POST['Robot'], $_POST['RobotTypes']))
 		{
 			$model->attributes=$_POST['Robot'];
 			if($model->save()){
+
+                                // update robot type
+                                $robot_robot_type = RobotRobotTypes::model()->find('robot_id = :robot_id', array(':robot_id' => $model->id));
+                                $robot_robot_type->robot_type_id = $_POST['RobotTypes']['type'];
+                                $robot_robot_type->save();
+                            
 				$msg = AppCore::yii_echo("editrobot:ok",$model->serial_number);
 				Yii::app()->user->setFlash('success', $msg);
 				$this->redirect(array('list'));
+                                
 			}else {
 				$msg = "Updation failed.";
 				Yii::app()->user->setFlash('error', $msg);
@@ -146,6 +183,7 @@ class RobotController extends Controller
 
 		$this->render('update',array(
 				'model'=>$model,
+                                'robot_type_model'=>$robot_type_model,
 		));
 	}
 

@@ -156,7 +156,7 @@ $(document).ready(function(){
         "iDisplayLength": 25,
         "aoColumnDefs": [{
             "bSortable":false, 
-            'aTargets': [0, 2, 3, 4, 5, 6, 7]
+            'aTargets': [0, 2, 3, 4, 5, 6, 7, 8]
         }],
         "aaSorting": [ [1,'asc']],
         "bProcessing": true,
@@ -241,6 +241,24 @@ $(document).ready(function(){
     });
 
     $('.online-robot-table').dataTable(
+    {
+        "bStateSave":true,
+        "fnStateSave": function (oSettings, oData) {
+            sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+        },
+        "fnStateLoad": function (oSettings) {
+            return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
+        },
+        "iDisplayLength": 25,
+        "aoColumnDefs": [{
+            "bSortable":false, 
+            'aTargets': [3]
+            }],
+        "aaSorting": [ [1,'asc']]
+        }		
+    );
+
+    $('.virtually-online-robot-table').dataTable(
     {
         "bStateSave":true,
         "fnStateSave": function (oSettings, oData) {
@@ -612,6 +630,7 @@ function dataTableForAll(handle, length, url, colomns_to_disable_sort, default_s
         "fnStateLoad": function (oSettings) {
             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
         },
+//        "sPaginationType": "full_numbers",
         "bProcessing": true,
         "bServerSide": true,
         "iDisplayLength" : length,
