@@ -440,12 +440,13 @@
                                                         <li><b>source_smartapp_id</b> :if sent from the smartapp, contains the user email (can be empty)</li>
                                                         <li><b>cause_agent_id</b> :Unique sender ID</li>
                                                         <li><b>value_extra</b> :an optional JSON string</li>
+                                                        <li><b>notification_flag</b> :Notification Flag (Default value is true)</li>
 							<li><b>profile</b> :Map of key=>value pairs, e.g.
 								profile{'name'=>'room cleaner'}</li>
 						</ul>
 						Success Response:
 						<ul>
-							<li>{"status":0,"result":"1"}</li>
+							<li>{"status":0,"result":1,"extra_params":{"expected_time":1,"timestamp":1369377928}}</li>
 						</ul>
 
 						Failure Responses: <br />
@@ -539,6 +540,13 @@
 				<td>value_extra</td>
 				<td>
                                     <input type="text" name='value_extra'>
+				</td>
+			</tr>                                                
+                        <tr>
+				<td>notification_flag</td>
+				<td>
+                                    <input type="text" name='notification_flag'>
+                                    <span style="color: blue;">(Consideration: 0 for false and 1 for true)</span>
 				</td>
 			</tr>                                                
 			<tr>
@@ -885,6 +893,143 @@
 		</table>
 	</form>
 
+	<form action="<?php echo($baseURL)?>robot.delete_robot_profile_key2"
+		method='POST' id='delete_robot_profile_key2' class='ajaxified_forms'>
+		<table class='custom_table'>
+			<tr>
+				<td id="Delete Robot Profile Key 2" colspan="2"><label>Delete Robot Profile Key 2</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to delete robot's profile key. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.delete_robot_profile_key2<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of robot</li>
+                                                        <li><b>key</b> :Key</li>
+                                                        <li><b>cause_agent_id</b> :Cause Agent Id</li>
+                                                        <li><b>source_serial_number</b> :Source Serial Number</li>
+                                                        <li><b>source_smartapp_id</b> :Source Smartapp Id</li>
+                                                        <li><b>notification_flag</b> :Notification Flag (Default value is true)</li>
+
+						</ul>
+						Success Response:
+						<ul>                                                        
+                                                        <li>{"status":0,"result":{"success":true}}</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+
+							<li>If serial_number is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in
+										method robot.set_profile_details"}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If key is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter key in method robot.get_profile_details"}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If cause_agent_id is not provided:
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter cause_agent_id in method robot.delete_robot_profile_key2"}</li>
+								</ul>
+							</li>
+                                                        
+							<li>If serial_number is invalid:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist"}
+                                                                        </li>
+								</ul>
+							</li>                                                        
+                                                        
+							<li>If key is invalid:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid"}
+                                                                        </li>
+								</ul>
+							</li>                                                        
+
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+                                </td>
+			</tr>
+                        
+			<tr>
+				<td>serial_number</td>
+				<td>
+                                    <input type="text" name='serial_number'>
+                                </td>
+			</tr>
+			<tr>
+				<td>key</td>
+				<td>
+                                    <input type="text" name='key'>
+                                </td>
+			</tr>
+                        <tr>
+				<td>cause_agent_id</td>
+				<td>
+                                    <input type="text" name='cause_agent_id'>
+				</td>
+			</tr>
+                        <tr>
+				<td>source_serial_number</td>
+				<td>
+                                    <input type="text" name='source_serial_number'>
+				</td>
+			</tr>
+			<tr>
+				<td>source_smartapp_id</td>
+				<td>
+                                    <input type="text" name='source_smartapp_id'>
+				</td>
+			</tr>                        
+                        <tr>
+				<td>notification_flag</td>
+				<td>
+                                    <input type="text" name='notification_flag'>
+                                    <span style="color: blue;">(Consideration: 0 for false and 1 for true)</span>
+				</td>
+			</tr>                        
+			<tr>
+				<td>
+                                    <input type="button" name='submit' dummy='delete_robot_profile_key2' value='Submit' class='submit_form'>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+		</table>
+	</form>
 
 	<form action="<?php echo($baseURL)?>robot.get_details" method='POST'
 		id='robotgetdetails' class='ajaxified_forms'>

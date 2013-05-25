@@ -589,6 +589,7 @@ class RobotController extends APIController {
                 $source_smartapp_id = Yii::app()->request->getParam('source_smartapp_id', '');
                 $cause_agent_id = Yii::app()->request->getParam('cause_agent_id', '');
                 $value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));
+                $notification_flag = $_REQUEST['notification_flag'];
                 $robot_profile = Yii::app()->request->getParam('profile', '');
                 
                 $utc_str = gmdate("M d Y H:i:s", time());
@@ -664,7 +665,7 @@ class RobotController extends APIController {
                         
                         $online_users_chat_ids = AppCore::getOnlineUsers();
                             
-                        if(!empty($source_serial_number) && $source_serial_number == $serial_number){
+                        if(!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag){
                             
                             foreach ($robot->usersRobots as $userRobot){
                                 if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
@@ -675,7 +676,7 @@ class RobotController extends APIController {
                             
                         } else if(!empty($source_smartapp_id)) {
 
-                            AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+
                             if(!in_array($robot->chat_id, $online_users_chat_ids)){
                                 
                                 $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
@@ -693,17 +694,19 @@ class RobotController extends APIController {
                                     
                                 }
                             }
-                            foreach ($robot->usersRobots as $userRobot){
-                                if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-//                                    if($user_data->chat_id != $userRobot->idUser->chat_id){
+                            
+                            if($notification_flag){
+                                AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+                                foreach ($robot->usersRobots as $userRobot){
+                                    if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
                                         AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
-//                                    }
-                                }                                   
+                                    }                                   
+                                }
                             }
                             
                         }
                         
-			self::successWithExtraParam(1, array('expected_time' => $expected_time));
+			self::successWithExtraParam(1, array('expected_time' => $expected_time, 'timestamp'=>$utc));
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
 			self::terminate(-1, $response_message);
@@ -794,6 +797,97 @@ class RobotController extends APIController {
                         } else {
                             self::terminate(-1, "Sorry, entered key is invalid");
                         }
+		}else{
+			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
+			self::terminate(-1, $response_message);
+		}
+	
+	}        
+        
+	public function actionDeleteRobotProfileKey2(){
+                    
+                $serial_number = Yii::app()->request->getParam('serial_number', '');
+                $key = Yii::app()->request->getParam('key', '');
+                $cause_agent_id = Yii::app()->request->getParam('cause_agent_id', '');
+                $source_serial_number = Yii::app()->request->getParam('source_serial_number', '');
+                $source_smartapp_id = Yii::app()->request->getParam('source_smartapp_id', '');
+                $notification_flag = $_REQUEST['notification_flag'];
+                
+                $utc_str = gmdate("M d Y H:i:s", time());
+                $utc = strtotime($utc_str);
+                
+                $robot = self::verify_for_robot_serial_number_existence($serial_number);
+
+                if(!empty($source_smartapp_id)){
+                   if (!AppHelper::is_valid_email($source_smartapp_id)) {
+                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.');
+                   } 
+                   
+                   $user_data = User::model()->find('email = :email', array(':email' => $source_smartapp_id));
+                   if(empty($user_data)){
+                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.');
+                   }
+                   
+                   $associated_user_check = false;
+                   foreach ($user_data->usersRobots as $usersRobot) {
+                        if($usersRobot->id_robot == $robot->id){ 
+                            $associated_user_check = true;
+                        }
+                    }
+                    if(!$associated_user_check){
+                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot');
+                    }
+                    
+                }
+                
+		if ($robot !== null){
+
+                        $result = RobotKeyValues::model()->deleteAll('robot_id = :robot_id AND _key = :_key', array(':robot_id' => $robot->id, ':_key' => $key));                        
+                        
+                        if($result) {
+                            
+                            $xmpp_message_model = new XmppMessageLogs();
+                            $xmpp_message_model->save();
+                            $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><causeAgentId>' . $cause_agent_id . '</causeAgentId></params></request></payload></packet>';
+                            $xmpp_message_model->xmpp_message = $message;
+                            $xmpp_message_model->save();
+
+                            $online_users_chat_ids = AppCore::getOnlineUsers();
+
+                            if(!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag){
+
+                                foreach ($robot->usersRobots as $userRobot){
+                                    if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                                            AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                                    }
+                                }
+                                AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+
+                            } else if(!empty($source_smartapp_id) && $notification_flag) {
+
+                                AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+                                foreach ($robot->usersRobots as $userRobot){
+                                    if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                                        AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+                                    }                                   
+                                }
+
+                            } else if($notification_flag){
+                                foreach ($robot->usersRobots as $userRobot){
+                                    if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                                            AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                                    }
+                                }
+                                AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+                            }
+                            
+                            $response_data = array("success"=>true);
+                            self::success($response_data);
+                            
+                        } else {
+                            self::terminate(-1, "Sorry, entered key is invalid");
+                        }
+                        
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
 			self::terminate(-1, $response_message);

@@ -447,6 +447,7 @@ class RestController extends APIController {
                                 'source_smartapp_id' => array ('type' => 'string','default' => ''),
                                 'cause_agent_id' => array ('type' => 'string','required' => true),
                                 'value_extra' => array ('type' => 'string','default' => ''),
+                                'notification_flag' => array ('type' => 'string','default' => '1'),
 				'profile' => array ('type' => 'array'),),
 				"Set profile details 3",
 				'POST',
@@ -481,7 +482,22 @@ class RestController extends APIController {
                                         'serial_number' => array ('type' => 'string','required' => true),
                                         'key' => array ('type' => 'string','required' => true),
                                      ),
-				"Get profile details",
+				"Delete robot profile key",
+				'POST',
+				false,
+				false);
+                
+		self::expose_function('robot.delete_robot_profile_key2',
+				"robot/DeleteRobotProfileKey2",
+				array(
+                                        'serial_number' => array ('type' => 'string','required' => true),
+                                        'key' => array ('type' => 'string','required' => true),
+                                        'cause_agent_id' => array ('type' => 'string','required' => true),
+                                        'source_serial_number' => array ('type' => 'string','default' => ''),
+                                        'source_smartapp_id' => array ('type' => 'string','default' => ''),
+                                        'notification_flag' => array ('type' => 'string','default' => '1'),
+                                     ),
+				"Delete robot profile key 2",
 				'POST',
 				false,
 				false);                
