@@ -713,7 +713,7 @@ ALTER TABLE `robot_custom_data`
 -- Constraints for table `robot_key_values`
 --
 ALTER TABLE `robot_key_values`
-  ADD CONSTRAINT `robot_key_values_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`);
+  ADD CONSTRAINT `robot_key_values_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `robot_maps`
@@ -737,7 +737,14 @@ ALTER TABLE `robot_map_xml_data_versions`
 -- Constraints for table `robot_ping_log`
 --
 ALTER TABLE `robot_ping_log`
-  ADD CONSTRAINT `robot_ping_log_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`);
+  ADD CONSTRAINT `robot_ping_log_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `robot_robot_types`
+--
+ALTER TABLE `robot_robot_types`
+  ADD CONSTRAINT `robot_robot_types_ibfk_2` FOREIGN KEY (`robot_type_id`) REFERENCES `robot_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `robot_robot_types_ibfk_3` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `robot_schedules`
@@ -756,6 +763,12 @@ ALTER TABLE `robot_schedule_blob_data_versions`
 --
 ALTER TABLE `robot_schedule_xml_data_versions`
   ADD CONSTRAINT `robot_schedule_xml_data_versions_ibfk_1` FOREIGN KEY (`id_robot_schedule`) REFERENCES `robot_schedules` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `robot_type_metadata`
+--
+ALTER TABLE `robot_type_metadata`
+  ADD CONSTRAINT `robot_type_metadata_ibfk_1` FOREIGN KEY (`robot_type_id`) REFERENCES `robot_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `users_api_sessions`
@@ -789,19 +802,6 @@ ALTER TABLE `user_push_notification_preferences`
 --
 ALTER TABLE `ws_logging`
   ADD CONSTRAINT `ws_logging_ibfk_1` FOREIGN KEY (`id_site`) REFERENCES `sites` (`id`);
-
---
--- Constraints for table `robot_robot_types`
---
-ALTER TABLE `robot_robot_types`
-  ADD CONSTRAINT `robot_robot_types_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `robot_robot_types_ibfk_2` FOREIGN KEY (`robot_type_id`) REFERENCES `robot_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `robot_type_metadata`
---
-ALTER TABLE `robot_type_metadata`
-  ADD CONSTRAINT `robot_type_metadata_ibfk_1` FOREIGN KEY (`robot_type_id`) REFERENCES `robot_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

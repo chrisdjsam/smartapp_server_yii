@@ -78,6 +78,11 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 					'type'=>'raw',
 					'value' => $robot_type,
 					),
+                                        array(
+					'label' =>'Last Pinged',
+					'type'=>'raw',
+					'value' => $last_ping,
+					),
                             ),
 			)); ?>
 	<?php

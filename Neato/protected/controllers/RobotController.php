@@ -51,10 +51,21 @@ class RobotController extends Controller
                     }
                 }
                 
+                $last_ping = AppCore::getLatestPingTimestampFromRobot($model->id);
+                
+                if(!empty($last_ping)){
+                    $latest_ping_timestamp = strtotime($last_ping[0]->ping_timestamp);
+                    $current_system_timestamp = time();
+                    $last_ping = AppHelper::getTimeSummary($latest_ping_timestamp, $current_system_timestamp);
+                } else {
+                    $last_ping = 'Unavailable';
+                }
+                
 		$this->render('view',array(
 				'model'=>$model,
 				'isOnline'=>$isOnline,
 				'scroll_to'=>$scroll_to,
+                                'last_ping'=>$last_ping
 		));
 	}
 
@@ -387,4 +398,21 @@ class RobotController extends Controller
 			die('File Not Found');
 
 	}
+        
+        /**
+	 * Lists all robots.
+	 */
+//	public function actionTypes()
+//	{
+//		if (Yii::app()->user->getIsGuest()) {
+//			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robot/types');
+//			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
+//		}
+//		self::check_for_admin_privileges();
+//                
+//                $robot_types = RobotTypes::model()->findAll();
+//                
+//		$this->render('types', array('robot_types' => $robot_types));
+//                		
+//	}
 }

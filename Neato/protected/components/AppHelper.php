@@ -237,6 +237,68 @@ class AppHelper {
                 return(bool)preg_match('~HTTP/1\.\d\s+200\s+OK~', @current(get_headers($url)));
         }  
         
+        public static function getTimeSummary ($time, $timeBase = false) {
+            if (!$timeBase) {
+                $timeBase = time();
+            }
+
+            if ($time <= time()) {
+                $dif = $timeBase - $time;
+
+                if ($dif < 60) {
+                    if ($dif < 2) {
+                        return "1 second ago";
+                    }
+
+                    return $dif." seconds ago";
+                }
+
+                if ($dif < 3600) {
+                    if (floor($dif / 60) < 2) {
+                        return "A minute ago";
+                    }
+
+                    return floor($dif / 60)." minutes ago";
+                }
+
+                if (date("d n Y", $timeBase) == date("d n Y", $time)) {
+                    return "Today, ".date("g:i A", $time);
+                }
+
+                if (date("n Y", $timeBase) == date("n Y", $time) && date("d", $timeBase) - date("d", $time) == 1) {
+                    return "Yesterday, ".date("g:i A", $time);
+                }
+
+                if (date("Y", $time) == date("Y", time())) {
+                    return date("F, jS g:i A", $time);
+                }
+            } else {
+                $dif = $time - $timeBase;
+
+                if ($dif < 60) {
+                    if ($dif < 2) {
+                        return "1 second";
+                    }
+
+                    return $dif." seconds";
+                }
+
+                if ($dif < 3600) {
+                    if (floor($dif / 60) < 2) {
+                        return "Less than a minute";
+                    }
+
+                    return floor($dif / 60)." minutes";
+                }
+
+                if (date("d n Y", ($timeBase + 86400)) == date("d n Y", ($time))) {
+                    return "Tomorrow, at ".date("g:i A", $time);
+                }
+            }
+
+            return date("F, jS g:i A Y", $time);
+    }
+        
 }
 
 ?>

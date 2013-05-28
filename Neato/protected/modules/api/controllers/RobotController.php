@@ -64,6 +64,12 @@ class RobotController extends APIController {
 		$model->chat_pwd = $chat_details['chat_pwd'];
 
 		if($model->save()){
+                    
+                        $robot_robot_type = new RobotRobotTypes();
+                        $robot_robot_type->robot_id = $model->id;
+                        $robot_robot_type->robot_type_id = Yii::app()->params['default_robot_type'];
+                        $robot_robot_type->save();
+                        
 			$response_data = array("success"=>true, "message"=>self::yii_api_echo('Robot created successfully.'));
 			self::success($response_data);
 		}
