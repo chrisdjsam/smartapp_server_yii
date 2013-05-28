@@ -29,7 +29,7 @@ $this->breadcrumbs = array(
             <tr class="notification_datagrid">
                 <th style="width: 7%;"  class='pretty-table-center-th'>Id</th>
                 <th style="width: 50%;"  class='pretty-table-center-th'>Message</th>
-                <th style="width: 20%;"  class='pretty-table-center-th text_transform_none'>Send from</th>
+                <th style="width: 20%;"  class='pretty-table-center-th text_transform_none'>Sent from</th>
                 <th style="width: 16%;"  class='pretty-table-center-th text_transform_none'>Sent at</th>
                 <th style="width: 7%;"  class='pretty-table-center-th'></th>
             </tr>

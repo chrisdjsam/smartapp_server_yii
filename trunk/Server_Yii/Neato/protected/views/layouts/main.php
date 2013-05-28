@@ -37,6 +37,8 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 ?>
 
 <!-- <script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-1.6.4.min.js"></script>-->
+	<!-- page -->
+<script defer src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/script.js?<?php echo Yii::app()->params['app-version-no']?>"></script>
 </head>
 
 <body>
@@ -189,9 +191,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 		<!-- footer -->
 
 	</div>
-	<!-- page -->
-	<script defer
-		src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/script.js?<?php echo Yii::app()->params['app-version-no']?>"></script>
 	<!-- noty -->
 	<script type="text/javascript"
 		src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/noty/jquery.noty.min.js"></script>

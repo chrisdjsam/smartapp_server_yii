@@ -1220,7 +1220,7 @@ class AppCore {
         $ios_result = '';
         $result = '';
         $notification_log_id = '';
-
+        
         $utc_str = gmdate("M d Y H:i:s", time());
         $utc = strtotime($utc_str);
 
@@ -1228,14 +1228,16 @@ class AppCore {
                     'message' => $message_to_send,
                     'time' => $utc
                     );
-
+        
+        if(!empty($send_from)){
+            if($send_from['type'] == 'robot'){
+                $message_body['robotId'] =$send_from['data'];
+            }
+        }
+        
         $notification_details = PushNotificationTypes::model()->find('description = :description', array(':description' => $message_to_send));
         if(!empty($notification_details)){
-            $message_body = array(
-                    'message' => $message_to_send,
-                    'notificationId' => $notification_details->id,
-                    'time' => $utc
-                    );
+            $message_body['notificationId'] =$notification_details->id;
         }
 
         $log_result = self::log_notification_request($registration_ids_all, $message_body, $filter_criteria, $send_from, $notification_type);
@@ -1245,128 +1247,134 @@ class AppCore {
         } else {
             $notification_log_id = $log_result['output'];
         }
-
-
-        $registration_ids_gcm = $registration_ids_all['gcm'];
-        $registration_ids_ios = $registration_ids_all['ios'];
-
-        if(!empty($registration_ids_gcm)) {
-
-                // API key from Google APIs
-                $apiKey = Yii::app()->params['gcm_api_key']; //'AIzaSyC_xYlh1zaNmcSD7EfiA_ZomjGnETseJZ8';
-                // Message to be sent
-//                $message = $message_to_send;
-
-                // Set POST variables
-                $url_gcm = 'https://android.googleapis.com/gcm/send';
-                $headers_gcm = array(
-                    'Authorization: key=' . $apiKey,
-                    'Content-Type: application/json'
-                );
-                $data_string_gcm = json_encode(array(
-                    'registration_ids' => $registration_ids_gcm,
-                    'data' => $message_body
-                        ));
-
-
-                $gcm_result = AppHelper::curl_call($url_gcm, $headers_gcm, $data_string_gcm);
-
-                $result_object = json_decode($gcm_result);
-
-                $removableStatuses = array();
-                $removableStatuses[] = 'NotRegistered';
-                $removableStatuses[] = 'InvalidRegistration';
-                $removableStatuses[] = 'MismatchSenderId';
-
-                if ($result_object->failure > 0 || $result_object->canonical_ids > 0) {
-                    foreach ($registration_ids_gcm as $key => $value) {
-
-                        $returnedErrorCode = isset($result_object->results[$key]->error) ? $result_object->results[$key]->error : '';
-
-                        if (in_array($returnedErrorCode, $removableStatuses)) {
-
-                            $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
-
-                            $data->is_active = 'N';
-
-                            if (!$data->save()) {
-                                return array('code' => 1, 'output' => $data->errors);
-                            }
-                        } else {
-
-                            $new_registration_id = isset($result_object->results[$key]->registration_id) ? $result_object->results[$key]->registration_id : false;
-
-                            if ($new_registration_id) {
-
-                                $row = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $new_registration_id));
-
-                                if (empty($row)) {
-
-                                    $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
-
-                                    $data->registration_id = $new_registration_id;
-                                    $data->is_active = 'Y';
-
-                                    if (!$data->save()) {
-                                        return array('code' => 1, 'output' => $data->errors);
-                                    }
-
-
-                                } else {
-
-                                    $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
-
-                                    $data->is_active = 'N';
-
-                                    if (!$data->save()) {
-                                        return array('code' => 1, 'output' => $data->errors);
-                                    }
-
-
-                                }
-
-                                $data = new NotificationRegistrationIdLogs();
-
-                                $data->old_registration_id = $value;
-                                $data->new_registration_id = $new_registration_id;
-
-                                if (!$data->save()) {
-                                    return array('code' => 1, 'output' => $data->errors);
-                                }
-
-                            }
-                        }
-                    }
-                }
-
-        }
-
-        if(!empty($registration_ids_ios)) {
-
-                $ios_result .= self::sendIOSPushNotification($registration_ids_ios, $message_body);
-
-        }
-
-        $combined_response = array();
-
-        if (!empty($gcm_result)) {
-            $combined_response['gcm'] = $gcm_result;
-            $result .= " gcm_response::" . $gcm_result;
-        }
-
-        if (!empty($ios_result)) {
-            $combined_response['ios'] = $ios_result;
-            $result .= PHP_EOL . " ios_response::" . $ios_result;
-        }
-
-        if(!empty($result)){
-            $log_result = self::log_notification_response($combined_response, $notification_log_id);
-            if($log_result['code'] == 1){
-                return $log_result;
-            }
-        }
         
-        return array('code' => 0, 'output' => $result);
+//        include Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'push_notification_standalone.php';
+//        send_push_notification('local|'.$notification_log_id);
+        
+        $cmdParam = Yii::app()->params['env'] . "|" . $notification_log_id;
+        $cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_path'];
+        shell_exec($cmdStr . " '" . $cmdParam . "'");
+        
+//        $registration_ids_gcm = $registration_ids_all['gcm'];
+//        $registration_ids_ios = $registration_ids_all['ios'];
+//
+//        if(!empty($registration_ids_gcm)) {
+//
+//                // API key from Google APIs
+//                $apiKey = Yii::app()->params['gcm_api_key']; //'AIzaSyC_xYlh1zaNmcSD7EfiA_ZomjGnETseJZ8';
+//                // Message to be sent
+////                $message = $message_to_send;
+//
+//                // Set POST variables
+//                $url_gcm = 'https://android.googleapis.com/gcm/send';
+//                $headers_gcm = array(
+//                    'Authorization: key=' . $apiKey,
+//                    'Content-Type: application/json'
+//                );
+//                $data_string_gcm = json_encode(array(
+//                    'registration_ids' => $registration_ids_gcm,
+//                    'data' => $message_body
+//                        ));
+//
+//
+//                $gcm_result = AppHelper::curl_call($url_gcm, $headers_gcm, $data_string_gcm);
+//
+//                $result_object = json_decode($gcm_result);
+//
+//                $removableStatuses = array();
+//                $removableStatuses[] = 'NotRegistered';
+//                $removableStatuses[] = 'InvalidRegistration';
+//                $removableStatuses[] = 'MismatchSenderId';
+//
+//                if ($result_object->failure > 0 || $result_object->canonical_ids > 0) {
+//                    foreach ($registration_ids_gcm as $key => $value) {
+//
+//                        $returnedErrorCode = isset($result_object->results[$key]->error) ? $result_object->results[$key]->error : '';
+//
+//                        if (in_array($returnedErrorCode, $removableStatuses)) {
+//
+//                            $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
+//
+//                            $data->is_active = 'N';
+//
+//                            if (!$data->save()) {
+//                                return array('code' => 1, 'output' => $data->errors);
+//                            }
+//                        } else {
+//
+//                            $new_registration_id = isset($result_object->results[$key]->registration_id) ? $result_object->results[$key]->registration_id : false;
+//
+//                            if ($new_registration_id) {
+//
+//                                $row = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $new_registration_id));
+//
+//                                if (empty($row)) {
+//
+//                                    $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
+//
+//                                    $data->registration_id = $new_registration_id;
+//                                    $data->is_active = 'Y';
+//
+//                                    if (!$data->save()) {
+//                                        return array('code' => 1, 'output' => $data->errors);
+//                                    }
+//
+//
+//                                } else {
+//
+//                                    $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $value));
+//
+//                                    $data->is_active = 'N';
+//
+//                                    if (!$data->save()) {
+//                                        return array('code' => 1, 'output' => $data->errors);
+//                                    }
+//
+//
+//                                }
+//
+//                                $data = new NotificationRegistrationIdLogs();
+//
+//                                $data->old_registration_id = $value;
+//                                $data->new_registration_id = $new_registration_id;
+//
+//                                if (!$data->save()) {
+//                                    return array('code' => 1, 'output' => $data->errors);
+//                                }
+//
+//                            }
+//                        }
+//                    }
+//                }
+//
+//        }
+//
+//        if(!empty($registration_ids_ios)) {
+//
+//                $ios_result .= self::sendIOSPushNotification($registration_ids_ios, $message_body);
+//
+//        }
+//
+//        $combined_response = array();
+//
+//        if (!empty($gcm_result)) {
+//            $combined_response['gcm'] = $gcm_result;
+//            $result .= " gcm_response::" . $gcm_result;
+//        }
+//
+//        if (!empty($ios_result)) {
+//            $combined_response['ios'] = $ios_result;
+//            $result .= PHP_EOL . " ios_response::" . $ios_result;
+//        }
+//
+//        if(!empty($result)){
+//            $log_result = self::log_notification_response($combined_response, $notification_log_id);
+//            if($log_result['code'] == 1){
+//                return $log_result;
+//            }
+//        }
+        
+        return array('code' => 0, 'output' => '');
     }
 
     public static function log_notification_request($registration_ids_all, $message_to_send, $filter_criteria, $send_from, $notification_type) {
@@ -1420,6 +1428,9 @@ class AppCore {
                     'action-loc-key'=>"VIEW"));
 
             $message_body_ios = array();
+            if(isset($message_to_send['robotId'])){
+              $message_body_ios['robotId'] = $message_to_send['robotId'];
+            }
             if(isset($message_to_send['notificationId'])){
                $message_body_ios['id'] = $message_to_send['notificationId'];
             }
@@ -1778,6 +1789,9 @@ class AppCore {
                 'action-loc-key'=>"VIEW"));
 
         $message_body_ios = array();
+        if(isset($message_body['robotId'])){
+           $message_body_ios['robotId'] = $message_body['robotId'];
+        }
         if(isset($message_body['notificationId'])){
            $message_body_ios['id'] = $message_body['notificationId'];
         }
@@ -1785,7 +1799,7 @@ class AppCore {
         $message_body_ios['time'] = $message_body['time'];
 
         $body['raw_data'] = $message_body_ios;
-
+        
         // Encode the payload as JSON
         $payload = json_encode($body);
 
