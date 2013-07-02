@@ -88,30 +88,44 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number provided but keys not provided.
 								<ul>
-									<li>{"status":-1,"message":"Provide atleast one data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Provide atleast one data.","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If serial number and key provided but both blob_data[] and
-								encoded_blob_data[] are not provided.
+							<li>If serial number and key provided but both blob_data[] and encoded_blob_data[] are not provided.
 								<ul>
-									<li>{"status":-1,"message":"Provide atleast one data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Provide atleast one data.","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(serial number) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.post_custom_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.post_custom_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If files not supported
+                                                                <ul>
+									<li>
+                                                                            {"status":-1,"message":"Only jpg\/jpeg\/gif\/png files are supported by custom data","error":{"code":"-157","message":"Unsupported file type"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -198,19 +212,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":""Serial number does not exist""}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(serial number) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.get_customs"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_customs","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -280,19 +298,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot custom id does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot custom id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot custom id does not exist","error":{"code":"-138","message":"Robot custom id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(robot_custom_id) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_custom_id
-										in method robot.get_custom_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_custom_id in method robot.get_custom_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -455,45 +477,60 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot custom id does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot custom id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot custom id does not exist","error":{"code":"-138","message":"Robot custom id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If custom id provided but keys not provided.
 								<ul>
-									<li>{"status":-1,"message":"Provide atleast one data and
-										version."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_custom_id in method robot.get_custom_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If custom id and keys provided but
-								blob_data_version[],blob_data[] and encoded_blob_data[] are not
-								provided.
+							<li>If custom id and keys provided but blob_data_version[],blob_data[] and encoded_blob_data[] are not provided.
 								<ul>
-									<li>{"status":-1,"message":"Provide atleast one data and
-										version."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_custom_id in method robot.get_custom_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If custom id ,keys and blob_data_version[] are provided but
 								blob_data_version[] not matching with latest blob_data_version.
 								<ul>
-									<li>{"status":-1,"message":"Version mismatch for (key_name)"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Version mismatch for (key_name)", "error":{"code":-130, "message":"Version mismatch for blob data."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If custom id and keys and blob_data_version[] provided but
 								keys are not exist
 								<ul>
-									<li>{"status":-1,"message":"(key_name) not found."}</li>
+									<li>
+                                                                            {"status":-1,"message":"(key_name) not found.", "error":{"code":-129, "message":"Version mismatch for xml data"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(robot_custom_id) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_custom_id
-										in method robot.update_custom_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_custom_id in method robot.update_custom_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If files not supported
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Only jpg\/jpeg\/gif\/png files are supported by custom data","error":{"code":"-157","message":"Unsupported file type"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -578,19 +615,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot custom id does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot custom id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot custom id does not exist","error":{"code":"-138","message":"Robot custom id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(robot_custom_id) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_custom_id
-										in method robot.delete_custom_data"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Missing parameter robot_custom_id in method robot.delete_custom_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>

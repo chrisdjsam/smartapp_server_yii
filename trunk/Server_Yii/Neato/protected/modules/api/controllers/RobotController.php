@@ -48,7 +48,7 @@ class RobotController extends APIController {
 		if($robot !== null ){
 			if ($robot->serial_number === $robot_serial_no){
 				$response_message = self::yii_api_echo('This robot serial number already exists.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::ROBOT_SERIAL_NUMBER_EXISTS);
 			}
 		}
 		$model = new Robot();
@@ -58,7 +58,7 @@ class RobotController extends APIController {
 		$chat_details = AppCore::create_chat_user_for_robot();
 		if(!$chat_details['jabber_status']){
 			$message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
 		}
 		$model->chat_id = $chat_details['chat_id'];
 		$model->chat_pwd = $chat_details['chat_pwd'];
@@ -78,7 +78,7 @@ class RobotController extends APIController {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot could not be created because jabber service is not responding');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
 		}
 	}
    /**
@@ -352,7 +352,7 @@ class RobotController extends APIController {
 				
 			}else if(!$prevent_termination){
 				$message = self::yii_api_echo("error deleting robot $robot_serial_no.");
-				self::terminate(-1, $message);
+				self::terminate(-1, $message, APIConstant::COULD_NOT_DELETE_ROBOT);
 			}
 		}
 			
@@ -409,7 +409,7 @@ class RobotController extends APIController {
     */
 	
 	public function actionSetProfileDetails(){
-	
+           
 		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
 	
 		$robot_profile = Yii::app()->request->getParam('profile', '');
@@ -448,14 +448,13 @@ class RobotController extends APIController {
 			self::success(1);
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 		}
 	
 	}
 
 
 	public function actionSetProfileDetails2(){
-	
                 $serial_number = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($serial_number);
 	
@@ -469,17 +468,18 @@ class RobotController extends APIController {
                 $expected_time = 1;
                 
                 if(empty($source_serial_number) && empty($source_smartapp_id)){
-                    self::terminate(-1, "Please provide atleast one source(source_serial_number or source_smartapp_id)");
+                    self::terminate(-1, "Please provide atleast one source(source_serial_number or source_smartapp_id)", APIConstant::MISSING_SOURCE_SERIAL_NUMBER_OR_SOURCE_SMARTAPP_ID);
                 }
                 
                 if(!empty($source_smartapp_id)){
                    if (!AppHelper::is_valid_email($source_smartapp_id)) {
-                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.');
+                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.', APIConstant::SOURCE_SMARTAPP_ID_NOT_VALID);
                    } 
                    
                    $user_data = User::model()->find('email = :email', array(':email' => $source_smartapp_id));
                    if(empty($user_data)){
-                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.');
+                       
+                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.', APIConstant::SOURCE_SMARTAPP_ID_NOT_EXIST);
                    }
                    
                    $associated_user_check = false;
@@ -489,7 +489,7 @@ class RobotController extends APIController {
                         }
                     }
                     if(!$associated_user_check){
-                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot');
+                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot', APIConstant::SOURCE_SMARTAPP_ID_IS_NOT_ASSOCIATED_WITH_ROBOT);
                     }
                     
                 }
@@ -586,7 +586,7 @@ class RobotController extends APIController {
 			self::successWithExtraParam(1, array('expected_time' => $expected_time));
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 		}
 	
 	}        
@@ -608,17 +608,17 @@ class RobotController extends APIController {
                 $expected_time = 1;
                 
                 if(empty($source_serial_number) && empty($source_smartapp_id)){
-                    self::terminate(-1, "Please provide atleast one source(source_serial_number or source_smartapp_id)");
+                    self::terminate(-1, "Please provide atleast one source(source_serial_number or source_smartapp_id)", APIConstant::MISSING_SOURCE_SERIAL_NUMBER_OR_SOURCE_SMARTAPP_ID);
                 }
                 
                 if(!empty($source_smartapp_id)){
                    if (!AppHelper::is_valid_email($source_smartapp_id)) {
-                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.');
+                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.', APIConstant::SOURCE_SMARTAPP_ID_NOT_VALID);
                    } 
                    
                    $user_data = User::model()->find('email = :email', array(':email' => $source_smartapp_id));
                    if(empty($user_data)){
-                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.');
+                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.', APIConstant::SOURCE_SMARTAPP_ID_NOT_EXIST);
                    }
                    
                    $associated_user_check = false;
@@ -628,7 +628,7 @@ class RobotController extends APIController {
                         }
                     }
                     if(!$associated_user_check){
-                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot');
+                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot', APIConstant::SOURCE_SMARTAPP_ID_IS_NOT_ASSOCIATED_WITH_ROBOT);
                     }
                     
                 }
@@ -720,7 +720,7 @@ class RobotController extends APIController {
 			self::successWithExtraParam(1, array('expected_time' => $expected_time, 'timestamp'=>$utc));
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_SERIAL_NUMBER);
 		}
 	
 	}                
@@ -745,7 +745,7 @@ class RobotController extends APIController {
                                 }
                             }
                             if(count($profileArray) == 2){
-                                self::terminate(-1, "Sorry, entered key is invalid");
+                                self::terminate(-1, "Sorry, entered key is invalid", APIConstant::KEY_NOT_VALID);
                             }
                             
                         }
@@ -753,7 +753,7 @@ class RobotController extends APIController {
                         self::success($response_data);
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_SERIAL_NUMBER);
 		}
 	
 	}        
@@ -778,7 +778,7 @@ class RobotController extends APIController {
                                 }
                             }
                             if(count($profileArray) == 2){
-                                self::terminate(-1, "Sorry, entered key is invalid");
+                                self::terminate(-1, "Sorry, entered key is invalid", APIConstant::KEY_NOT_VALID);
                             }
                             
                         }
@@ -786,7 +786,7 @@ class RobotController extends APIController {
                         self::success($response_data);
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_SERIAL_NUMBER);
 		}
 	
 	}                
@@ -806,11 +806,11 @@ class RobotController extends APIController {
                             $response_data = array("success"=>true);
                             self::success($response_data);
                         } else {
-                            self::terminate(-1, "Sorry, entered key is invalid");
+                            self::terminate(-1, "Sorry, entered key is invalid", APIConstant::KEY_NOT_VALID);
                         }
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_SERIAL_NUMBER);
 		}
 	
 	}        
@@ -831,12 +831,12 @@ class RobotController extends APIController {
 
                 if(!empty($source_smartapp_id)){
                    if (!AppHelper::is_valid_email($source_smartapp_id)) {
-                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.');
+                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.', APIConstant::SOURCE_SMARTAPP_ID_NOT_VALID);
                    } 
                    
                    $user_data = User::model()->find('email = :email', array(':email' => $source_smartapp_id));
                    if(empty($user_data)){
-                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.');
+                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.', APIConstant::SOURCE_SMARTAPP_ID_NOT_EXIST);
                    }
                    
                    $associated_user_check = false;
@@ -846,7 +846,7 @@ class RobotController extends APIController {
                         }
                     }
                     if(!$associated_user_check){
-                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot');
+                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot', APIConstant::SOURCE_SMARTAPP_ID_IS_NOT_ASSOCIATED_WITH_ROBOT);
                     }
                     
                 }
@@ -896,12 +896,12 @@ class RobotController extends APIController {
                             self::success($response_data);
                             
                         } else {
-                            self::terminate(-1, "Sorry, entered key is invalid");
+                            self::terminate(-1, "Sorry, entered key is invalid", APIConstant::KEY_NOT_VALID);
                         }
                         
 		}else{
 			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_SERIAL_NUMBER);
 		}
 	
 	}        
@@ -1014,7 +1014,7 @@ class RobotController extends APIController {
 		}
 		else{
 			$response_message = self::yii_api_echo('Email does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::EMAIL_DOES_NOT_EXIST);
 		}
 
 	}
@@ -1076,7 +1076,7 @@ class RobotController extends APIController {
 				}
 			}else {
 				$response_message=self::yii_api_echo('Email does not exist.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::EMAIL_DOES_NOT_EXIST);
 			}
 		}else{
 			$user_robots_delete = UsersRobot::model()->deleteAllByAttributes(array('id_robot' => $robot->id));
@@ -1288,7 +1288,7 @@ class RobotController extends APIController {
             self::success($response_data);
             
         } else {
-            self::terminate(-1, "Provided robot type is not valid");
+            self::terminate(-1, "Provided robot type is not valid", APIConstant::ROBOT_TYPE_NOT_VALID);
         }
         
     }
@@ -1324,7 +1324,7 @@ class RobotController extends APIController {
             self::success($response_data);
             
         } else {
-            self::terminate(-1, "Associated robot type does not exist");
+            self::terminate(-1, "Associated robot type does not exist", APIConstant::ROBOT_TYPE_NOT_VALID);
         }
 
     }
@@ -1348,7 +1348,7 @@ class RobotController extends APIController {
         $config_key_value = Yii::app()->request->getParam('config_key_value', '');
         
         if(!ctype_digit($sleep_time) || !ctype_digit($wakeup_time)){
-            self::terminate(-1, "Please enter valid sleep time or wakeup time");
+            self::terminate(-1, "Please enter valid sleep time or wakeup time", APIConstant::SLEEP_OR_WAKEUP_TIME_NOT_VALID);
         }
         
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
@@ -1357,7 +1357,7 @@ class RobotController extends APIController {
         $robot->lag_time = $wakeup_time;
         
         if(!$robot->save()) {
-            self::terminate(-1, "Set robot configuration failed due to database problem");
+            self::terminate(-1, "Set robot configuration failed due to database problem", APIConstant::CONFIGURATION_FAILED);
         }
         
         $utc = $robot->updated_on;
@@ -1440,8 +1440,9 @@ class RobotController extends APIController {
         
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
         
-        $token = md5($robot.time());
-        
+        $token = UniqueToken::hash(($robot->id+(hexdec(uniqid()))/100000), 8);
+        $token = preg_replace('/0*/', '', $token, 1);
+                
         RobotUserAssociationTokens::model()->deleteAll('robot_id = :robot_id', array(':robot_id' => $robot->id));
         
         $robot_user_association_token = new RobotUserAssociationTokens();
@@ -1463,19 +1464,19 @@ class RobotController extends APIController {
         $token = Yii::app()->request->getParam('token', '');
         
         if(!AppHelper::is_valid_email($email)) {
-            self::terminate(-1, "Please enter valid email address");
+            self::terminate(-1, "Please enter valid email address", APIConstant::EMAIL_NOT_VALID);
         }
         
         $user_model = User::model()->findByAttributes(array("email" => $email));
         
         if(empty($user_model)){
-            self::terminate(-1, "Sorry, provided email does not exist");
+            self::terminate(-1, "Sorry, provided email does not exist", APIConstant::EMAIL_DOES_NOT_EXIST);
         }
         
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $token));
         
         if(empty($robot_user_association_token)){
-            self::terminate(-1, "Please enter valid token");
+            self::terminate(-1, "Please enter valid token" , APIConstant::TOKEN_NOT_INVALID);
         }
         
         $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
@@ -1487,7 +1488,7 @@ class RobotController extends APIController {
         
         if ($time_diff > $token_lifetime) {
             $robot_user_association_token ->delete();
-            self::terminate(-1, "Sorry, provided token is expired");
+            self::terminate(-1, "Sorry, provided token is expired", APIConstant::TOKEN_EXPIRED);
         } 
         
         $user_id = $user_model->id;

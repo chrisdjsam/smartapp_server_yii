@@ -211,15 +211,15 @@ class UserController extends APIController {
 						}
 					}else{
 						$response_message = self::yii_api_echo('User could not be authenticated');
-						self::terminate(-1, $response_message);
+                                                self::terminate(-1, $response_message, APIConstant::AUTHENTICATION_FAILED);
 					}
 				}else{
 					$response_message = self::yii_api_echo('Missing parameter password in method auth.get_user_auth_token');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::MISSING_PASSWORD);
 				}
 			}else{
 				$response_message = self::yii_api_echo('Missing parameter email in method auth.get_user_auth_token');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::PARAMETER_MISSING);
 			}
 		}else if($account_type == 'Facebook'){
 			if($user_social_id !== ''){
@@ -265,15 +265,15 @@ class UserController extends APIController {
 					}
 				}else{
 					$response_message = self::yii_api_echo('User could not be authenticated');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::SOCIAL_ID_NOT_EXIST);
 				}
 			}else{
 				$response_message = self::yii_api_echo('Missing parameter user_social_id in method auth.get_user_auth_token');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::PARAMETER_MISSING);
 			}
 		}else{
 			$response_message = self::yii_api_echo('Account Type is not supported');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_ACCOUNT_TYPE);
 		}
 
 	}
@@ -339,12 +339,14 @@ class UserController extends APIController {
 				$response_data = array("success"=>true, "message"=>$response_message);
 				self::success($response_data);
 			}else{
-				$response_message = "Error in generating new password.";
+                            $response_message = "Error in generating new password.";
+                            $error_key = APIConstant::PROBLEM_IN_SETTING_NEW_PASSWORD;
 			}
 			
 		}else{
 			$response_message = "Email does not exist.";
-			self::terminate(-1, $response_message);
+                        $error_key =  APIConstant::EMAIL_DOES_NOT_EXIST;
+			self::terminate(-1, $response_message, $error_key);
 		}
 		
 		
@@ -398,6 +400,7 @@ class UserController extends APIController {
 	* </ul>
 	 */
 	public function actionChangePassword(){
+                
 
 		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
 		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
@@ -431,22 +434,26 @@ class UserController extends APIController {
 						self::success($response_data);
 					}else{
 						$response_message = "Problem in setting new password.";
+                                                $error_key = APIConstant::PROBLEM_IN_SETTING_NEW_PASSWORD ;
 					}
 					
 				}else{
 				$response_message = "Password should contain atleast one character.";			
+                                $error_key = APIConstant::PASS_CONTAIN_ATLEAST_ONE_CHAR;
 				}
 				
 			}else{
 			$response_message = "Old password does not match with user password.";			
+                        $error_key = APIConstant::OLD_PASS_NOT_MATCH_EXISTING_PASS;
 			}
 					
 			
 		}else{
-			$response_message = "User could not be authenticated.";			
+			$response_message = "User could not be authenticated.";	
+                        $error_key = APIConstant::AUTH_TOKEN_AGAINST_EMAIL_DOES_NOT_EXIST;
 		}
 		
-		self::terminate(-1, $response_message);
+		self::terminate(-1, $response_message, $error_key);
 		
 	}
 	
@@ -534,7 +541,7 @@ class UserController extends APIController {
 			self::success($response_data);
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::API_KEY_MISSING_OR_INCORRECT);
 		}
 	}
 
@@ -606,7 +613,7 @@ class UserController extends APIController {
 				$keys[] = $key;
 				if(trim($value) === ''){
 					$message = self::yii_api_echo("Invalid value for key $key.");
-					self::terminate(-1, $message);
+					self::terminate(-1, $message, APIConstant::PROFILE_KEY_VALUE_NOT_PROVIDED);
 				}
 				
 				switch ($key) {
@@ -658,19 +665,22 @@ class UserController extends APIController {
 					
 				}else{
 					$response_message = "Error in setting user attributes.";
+                                        self::terminate(-1, $response_message, APIConstant::COULD_NOT_SET_USER_ATTRIBUTES);                                        
+                                        
 				}
 				
 			} else {
-				$response_message = "Error in setting user attributes.";
+                                $response_message = "Error in setting user attributes.";
+                                self::terminate(-1, $response_message, APIConstant::COULD_NOT_SET_USER_ATTRIBUTES);
 			}
 			
 			
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
+                        self::terminate(-1, $response_message, APIConstant::USER_ID_NOT_FOUND);
 		}
-		
-		self::terminate(-1, $response_message);
-		
+                self::terminate(-1, $response_message, APIConstant::USER_ID_NOT_FOUND);
+	
 	}
 	
 	/**
@@ -722,22 +732,21 @@ class UserController extends APIController {
 			
 			$user_device =  UserDevices::model()->findByAttributes(array("id_user"=>$user->id));
 			if($user_device && $user_device->idDeviceDetails){
-				$device_details = $user_device->idDeviceDetails; 
-				$user_attributes = array("name"=>$device_details->name, "operating_system" => $device_details->operating_system, "version" => $device_details->version);
-				$response_data = array("success"=>true, "user_attributes"=> $user_attributes);
-				self::success($response_data);
+                            $device_details = $user_device->idDeviceDetails; 
+                            $user_attributes = array("name"=>$device_details->name, "operating_system" => $device_details->operating_system, "version" => $device_details->version);
+                            $response_data = array("success"=>true, "user_attributes"=> $user_attributes);
+                            self::success($response_data);
 			}else{
-				
-				$response_message ="Attributes not found for this user";
-				
+                            $response_message ="Attributes not found for this user";
+                            self::terminate(-1, $response_message, APIConstant::USER_ATTRIBUTE_NOT_FOUND);
 			}
 			
-		}else{
-			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
+		}else{                   
+                    $response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
 		}
 		
-		self::terminate(-1, $response_message);
-				
+                self::terminate(-1, $response_message, APIConstant::API_KEY_MISSING_OR_INCORRECT);
+		
 	}
 	
 	
@@ -796,7 +805,7 @@ class UserController extends APIController {
 			self::success($users_arr);
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::API_KEY_MISSING_OR_INCORRECT);
 		}
 	}
 
@@ -840,7 +849,7 @@ class UserController extends APIController {
 			}
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::API_KEY_MISSING_OR_INCORRECT);
 		}
 	}
 
@@ -888,7 +897,7 @@ class UserController extends APIController {
 		}else{
 			$response_message = self::yii_api_echo('Method call failed the User Authentication');
 		}
-		self::terminate(-1, $response_message);
+		self::terminate(-1, $response_message, APIConstant::AUTHENTICATION_FAILED);
 	}
 
 	/**
@@ -956,7 +965,7 @@ class UserController extends APIController {
 					}
 				}else {
 					$response_message = self::yii_api_echo('Serial number does not exist');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 				}
 			}else{
 				$user_robots_delete = UsersRobot::model()->deleteAllByAttributes(array('id_user' => $user->id));
@@ -970,7 +979,7 @@ class UserController extends APIController {
 			}
 		}else{
 			$response_message = self::yii_api_echo('Email does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::EMAIL_DOES_NOT_EXIST);
 		}
 
 	}
@@ -1047,19 +1056,18 @@ class UserController extends APIController {
 		$user_email = Yii::app()->request->getParam('email', '');
                 $alternate_user_email = Yii::app()->request->getParam('alternate_email', '');
                 $is_create_user2 = Yii::app()->request->getParam('is_create_user2', '');
-                
 		if(!AppHelper::is_valid_email($user_email)){
 			$message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
 		}
                 if(!empty($alternate_user_email)){
                     if(!AppHelper::is_valid_email($alternate_user_email)){
 			$message = self::yii_api_echo("The alternate email address you have provided does not appear to be a valid email address.");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::ALTERNATE_EMAIL_NOT_VALID);
                     }
                     if($user_email === $alternate_user_email){
                         $message = self::yii_api_echo("The alternate email address you have provided should be differ from primary one.");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::ALTERNATE_EMAIL_NOT_VALID);
                     }
                 }
                 
@@ -1069,9 +1077,8 @@ class UserController extends APIController {
 
 		if($user_account_type !== 'Native' && trim($user_social_id) == ''){
 			$message = self::yii_api_echo("Missing parameter external_social_id in method user.create");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::PARAMETER_MISSING);
 		}
-
 		$user_social_additional_attributes = $_REQUEST['social_additional_attributes'];
 
 		$user_encrypted_password = AppHelper::one_way_encrypt($user_password);
@@ -1091,7 +1098,7 @@ class UserController extends APIController {
 				$chat_details = AppCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
-					self::terminate(-1, $message);
+					self::terminate(-1, $message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
 				}
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
@@ -1152,17 +1159,16 @@ class UserController extends APIController {
 						//delete created user
 						$user_model->delete();
 						$response_message = self::yii_api_echo('This social information already exists.');
-						self::terminate(-1, $response_message);
+                                                
+						self::terminate(-1, $response_message, APIConstant::SOCIAL_INFO_EXISTS);
 					}
 				}
-
 				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
 				$response_data = array();
 				$response_data['success'] = true;
 				$response_data['guid'] = $user_model->id;
 				$response_data['user_handle'] = $user_auth_token;
                                 $response_data['validation_status'] = ($user_model->is_validated == 0) ? -1 : 0 ;
-
 				self::success($response_data);
 			}elseif($user_account_type == 'Facebook'){
 				$social_service_type_model = Socialservicetype::model()->find('name=:name', array(':name' => "Facebook"));
@@ -1184,7 +1190,6 @@ class UserController extends APIController {
 					$user_social_service_model->raw_data = array();
 
 					if (!$user_social_service_model->save()) {
-						//AppHelper::dump($user_social_service_model->getErrors());
 					}
 
 					$response_data = array();
@@ -1197,16 +1202,16 @@ class UserController extends APIController {
 
 					self::success($response_data);
 				}else{
-					$response_message = self::yii_api_echo('This email address has been already registered.');
-					self::terminate(-1, $response_message);
+                                        $response_message = self::yii_api_echo('This email address has been already registered.');
+					self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
 				}
 			}else{
 				$response_message = self::yii_api_echo('This email address has been already registered.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
 			}
 		}else{
 			$response_message = self::yii_api_echo('Account Type is NOT supported.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_ACCOUNT_TYPE);
 		}
 	}
 
@@ -1215,19 +1220,19 @@ class UserController extends APIController {
 		$user_name = Yii::app()->request->getParam('name', '');
 		$user_email = Yii::app()->request->getParam('email', '');
                 $alternate_user_email = Yii::app()->request->getParam('alternate_email', '');
-                                
+                
 		if(!AppHelper::is_valid_email($user_email)){
 			$message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
 		}
                 if(!empty($alternate_user_email)){
                     if(!AppHelper::is_valid_email($alternate_user_email)){
 			$message = self::yii_api_echo("The alternate email address you have provided does not appear to be a valid email address.");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::ALTERNATE_EMAIL_NOT_VALID);
                     }
                     if($user_email === $alternate_user_email){
                         $message = self::yii_api_echo("The alternate email address you have provided should be differ from primary one.");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::ALTERNATE_EMAIL_DOES_NOT_EXIST);
                     }
                 }
                 
@@ -1237,7 +1242,7 @@ class UserController extends APIController {
 
 		if($user_account_type !== 'Native' && trim($user_social_id) == ''){
 			$message = self::yii_api_echo("Missing parameter external_social_id in method user.create");
-			self::terminate(-1, $message);
+			self::terminate(-1, $message, APIConstant::PARAMETER_MISSING);
 		}
 
 		$user_social_additional_attributes = $_REQUEST['social_additional_attributes'];
@@ -1246,6 +1251,7 @@ class UserController extends APIController {
 
 		if($user_account_type == 'Native' || $user_account_type == 'Facebook'){
 			$user = User::model()->findByAttributes(array('email' => $user_email));
+                        
 			if($user === null){
 				$user_model = new User;
 
@@ -1259,7 +1265,7 @@ class UserController extends APIController {
 				$chat_details = AppCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
-					self::terminate(-1, $message);
+					self::terminate(-1, $message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
 				}
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
@@ -1315,7 +1321,7 @@ class UserController extends APIController {
 						//delete created user
 						$user_model->delete();
 						$response_message = self::yii_api_echo('This social information already exists.');
-						self::terminate(-1, $response_message);
+						self::terminate(-1, $response_message,  APIConstant::SOCIAL_INFO_EXISTS);
 					}
 				}
 
@@ -1362,15 +1368,15 @@ class UserController extends APIController {
 					self::success($response_data);
 				}else{
 					$response_message = self::yii_api_echo('This email address has been already registered.');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
 				}
 			}else{
 				$response_message = self::yii_api_echo('This email address has been already registered.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
 			}
 		}else{
 			$response_message = self::yii_api_echo('Account Type is NOT supported.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_ACCOUNT_TYPE);
 		}
 	}        
         
@@ -1410,7 +1416,7 @@ class UserController extends APIController {
 			foreach ($user_profile as $key => $value){
 				if($value === ''){
 					$message = self::yii_api_echo("Invalid value for key $key.");
-					self::terminate(-1, $message);
+					self::terminate(-1, $message, APIConstant::PROFILE_KEY_VALUE_NOT_PROVIDED);
 				}
 				switch ($key) {
 					case "name":
@@ -1429,7 +1435,7 @@ class UserController extends APIController {
 			self::success(1);
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::AUTH_TOKEN_AGAINST_EMAIL_DOES_NOT_EXIST);
 		}
 	}
 
@@ -1523,7 +1529,7 @@ class UserController extends APIController {
         
         if (!AppHelper::is_valid_email($user_email)) {
             $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
-            self::terminate(-1, $message);
+            self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
         }
         
         $data = User::model()->find('email = :email', array(':email' => $user_email));
@@ -1553,7 +1559,7 @@ class UserController extends APIController {
             
         } else {
             $message = self::yii_api_echo("The email address you have provided does not exist in our system.");
-            self::terminate(-1, $message);
+            self::terminate(-1, $message, APIConstant::EMAIL_DOES_NOT_EXIST);
         }
         
     }
@@ -1566,7 +1572,7 @@ class UserController extends APIController {
         
         if (!AppHelper::is_valid_email($user_email)) {
             $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
-            self::terminate(-1, $message);
+            self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
         }
         
         
@@ -1594,7 +1600,7 @@ class UserController extends APIController {
                     $data->validation_counter = $validation_counter + 1;
 
                     if (!$data->save()) {
-                        self::terminate(-1, $data->error);
+                        // self::terminate(-1, $data->error);
                     }
 
                     $response_data['success'] = true;
@@ -1602,22 +1608,49 @@ class UserController extends APIController {
                     self::success($response_data);
                 } else {
                     $message = self::yii_api_echo("Sorry, You have crossed resend validation email limit.");
-                    self::terminate(-1, $message);
+                    self::terminate(-1, $message, APIConstant::CROSSED_RESEND_EMAIL_LIMIT);
                 }
                 
             } else {
                 
                 $message = self::yii_api_echo("The email address you have provided is already activated.");
-                self::terminate(-1, $message);
+                self::terminate(-1, $message, APIConstant::EMAIL_ALREADY_ACTIVATED);
                 
             }
         } else {
             $message = self::yii_api_echo("The email address you have provided does not exist in our system.");
-            self::terminate(-1, $message);
+            self::terminate(-1, $message, APIConstant::EMAIL_DOES_NOT_EXIST);
         }
         
         
     }
+    
+    public function actionGetErrorCode() {
+        
+        $error_code = Yii::app()->request->getParam('error_code', '');
+        
+        $response = array();
+        
+        if(!empty($error_code)){
+            
+            $message = APIConstant::getMessageForErrorCode($error_code);
+            
+            $response = array($error_code=>  $message);
+            
+            if($message == $error_code) {
+                
+                 self::terminate(-1, $message, APIConstant::ERROR_CODE_NOT_EXIST);
+                
+            }
+            
+        }else {
+            $response = APIConstant::$english;
+            krsort($response);
+        }
+                
+        self::success($response);
+    }
+
 
 
 }

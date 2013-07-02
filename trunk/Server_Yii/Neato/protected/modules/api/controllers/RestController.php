@@ -46,8 +46,8 @@ class RestController extends APIController {
 		self::expose_function('auth.get_user_auth_token',
 				"user/GetAuthToken",
 				array( 'account_type' => array ('type' => 'string', 'required' => true),
-						'email' => array ('type' => 'string', 'required' => false),
-						'password' => array ('type' => 'string', 'required' => false),
+						'email' => array ('type' => 'string', 'required' => true),
+						'password' => array ('type' => 'string', 'required' => true),
 						'external_social_id' => array ('type' => 'string', 'required' => false),
 				),
 				"Get user profile labels",
@@ -59,14 +59,13 @@ class RestController extends APIController {
 		self::expose_function('user.change_password',
 				"user/ChangePassword",
 				array( 
-						'auth_token' => array ('type' => 'string', 'required' => true),
 						'password_new' => array ('type' => 'string', 'required' => true),
 						'password_old' => array ('type' => 'string', 'required' => true),
 				),
 				"Change user password",
 				'POST',
 				true,
-				false);
+				true);
 		
 		self::expose_function('user.forget_password',
 				"user/ForgetPassword",
@@ -144,7 +143,7 @@ class RestController extends APIController {
                 
 		self::expose_function('user.set_account_details',
 				"user/SetAccountDetails",
-				array('email' => array ('type' => 'string','required' => false),
+				array('email' => array ('type' => 'string','required' => true),
 						'profile' => array ('type' => 'array'),),
 				"Set account detals",
 				'POST',
@@ -219,6 +218,16 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+                
+                self::expose_function('user.get_error_code',
+				"user/getErrorCode",
+				array('error_code' => array ('type' => 'string', 'required' => false),						
+				),
+				"Error message detail from error code",
+				'POST',
+				true,
+				false);
+                
 
 		self::expose_function('robot.create',
 				"robot/create",
@@ -409,7 +418,7 @@ class RestController extends APIController {
 				"message/SendNotificationToGivenEmails",
 				array(
 						'emails' => array ('type' => 'array', 'default'=>array()),
-						'message' => array ('type' => 'string', 'default'=>''),
+						'message' => array ('type' => 'string', 'default'=>'', 'required' => true),
                                                 'notification_type' => array ('type' => 'string', 'default'=>''),
 				),
 				"send notification to associated users",
@@ -858,7 +867,7 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-		
+                
 		
 				
 		
@@ -879,7 +888,7 @@ class RestController extends APIController {
 		// method must be exposed
 		if (!isset($this->API_METHODS[$method])) {
 			$msg = self::yii_api_echo('APIException:MethodCallNotImplemented', array($method));
-			self::terminate(-1, $msg);
+			self::terminate(-1, $msg, APIConstant::METHOD_CALL_NOT_IMPLEMENTED);
 			//throw new APIException($msg);
 		}
 
@@ -887,7 +896,7 @@ class RestController extends APIController {
 		if (!(isset($this->API_METHODS[$method]["function"]))) {
 
 			$msg = self::yii_api_echo('APIException:FunctionDoesNotExist', array($method));
-			self::terminate(-1, $msg);
+			self::terminate(-1, $msg, APIConstant::METHOD_CALL_NOT_IMPLEMENTED);
 			//throw new APIException($msg);
 		}
 
@@ -895,7 +904,7 @@ class RestController extends APIController {
 		if (strcmp(self::get_call_method(), $this->API_METHODS[$method]["call_method"]) != 0) {
 			$msg = self::yii_api_echo('CallException:InvalidCallMethod', array($method,
 					$this->API_METHODS[$method]["call_method"]));
-			self::terminate(-1, $msg);
+			self::terminate(-1, $msg, APIConstant::METHOD_CALL_NOT_IMPLEMENTED);
 			//throw new CallException($msg);
 		}
 
@@ -990,14 +999,14 @@ class RestController extends APIController {
 			if (!is_array($value) || !isset($value['type'])) {
 
 				$msg = self::yii_api_echo('APIException:InvalidParameter', array($key, $method));
-				self::terminate(-1, $msg);
+				self::terminate(-1, $msg, APIConstant::PARAMETER_MISSING);
 				//throw new APIException($msg);
 			}
 
 			// Check that the variable is present in the request if required
 			if ($value['required'] && !array_key_exists($key, $parameters)) {
 				$msg = self::yii_api_echo('APIException:MissingParameterInMethod', array($key, $method));
-				self::terminate(-1, $msg);
+				self::terminate(-1, $msg, APIConstant::PARAMETER_MISSING);
 				//throw new APIException($msg);
 			}
 		}
@@ -1029,7 +1038,7 @@ class RestController extends APIController {
 		// method must be exposed
 		if (!isset($this->API_METHODS[$method])) {
 			$msg = self::yii_api_echo('APIException:MethodCallNotImplemented', array($method));
-			self::terminate(-1, $msg);
+			self::terminate(-1, $msg, APIConstant::METHOD_CALL_NOT_IMPLEMENTED);
 			//throw new APIException($msg);
 		}
 
@@ -1037,7 +1046,7 @@ class RestController extends APIController {
 		if ($this->API_METHODS[$method]["require_api_auth"] == true) {
 			if (AppCore::authenticate_api_key() == false) {
 				$msg = self::yii_api_echo('APIException:APIAuthenticationFailed');
-				self::terminate(-1, $msg);
+				self::terminate(-1, $msg, APIConstant::API_KEY_MISSING_OR_INCORRECT);
 				//throw new APIException($msg);
 			}
 		}
@@ -1046,7 +1055,7 @@ class RestController extends APIController {
 		if ($this->API_METHODS[$method]["require_user_auth"] == true) {
 			if (AppCore::authenticate_user_token() == false) {
 				$msg = self::yii_api_echo('APIException:UserAuthenticationFailed');
-				self::terminate(-1, $msg);
+				self::terminate(-1, $msg, APIConstant::AUTHENTICATION_FAILED);
 				//throw new APIException($msg);
 				//throw new APIException($user_pam->getFailureMessage());
 			}

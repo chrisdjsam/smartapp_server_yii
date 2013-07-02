@@ -41,9 +41,9 @@ class APIController extends Controller {
 	 * @param  $message
 	 * @param  $callback
 	 */
-	protected function terminate($errorCode, $message, $callback = '') {
-		$content = array('status' => $errorCode, 'message' => $message);
-		AppCore::ws_log_details(0, $content);
+	protected function terminate($status, $message, $errorCode = 0, $callback = '') {
+            $content = array('status' => $status, 'message' => $message, 'error' => array('code' => $errorCode, 'message' => APIConstant::getMessageForErrorCode($errorCode)));
+            AppCore::ws_log_details(0, $content);
 		$this->renderPartial('/default/defaultView', array('callback' => $callback, 'content' => $content));
 		Yii::app()->end();
 	}
@@ -110,7 +110,7 @@ class APIController extends Controller {
 		}
 		else if(!$prevent_termination){
 			$response_message = self::yii_api_echo('Robot serial number does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 		}
 	}
 	
@@ -129,7 +129,7 @@ class APIController extends Controller {
 		}
 		else if(!$prevent_termination){
 			$response_message = self::yii_api_echo('User ID does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::USER_ID_NOT_FOUND);
 		}
 	}
 	
@@ -145,14 +145,14 @@ class APIController extends Controller {
 			
 			if($robot->robotAtlas){
 				$response_message = self::yii_api_echo('Robot can have only one atlas');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::ATLAS_ALREADY_ADDED);
 			}else{
 				return $robot;
 			}
 		}
 		else{
 			$response_message = self::yii_api_echo('Serial number does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 		}
 	}
 			
@@ -169,7 +169,7 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot map id does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ROBOT_MAP_ID_DOES_NOT_EXIST);
 		}
 	}
 
@@ -185,7 +185,7 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot atlas id does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ROBOT_ATLAS_ID_DOES_NOT_EXIST);
 		}
 	}
 
@@ -201,7 +201,7 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('grid image id does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::GRID_IMAGE_DOES_NOT_EXIST_FOR_ATLAS_ID_AND_GRID_ID);
 		}
 	}
 	
@@ -220,7 +220,7 @@ class APIController extends Controller {
 		else{
 			if($prevent_termination === true) {return null;}
 			$response_message = self::yii_api_echo('Combination of atlas id and grid id does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::GRID_IMAGE_DOES_NOT_EXIST_FOR_ATLAS_ID_AND_GRID_ID);
 		}
 	}
 
@@ -232,7 +232,7 @@ class APIController extends Controller {
 	protected function verify_for_empty_grid_id($id_grid){
 		if(trim($id_grid) == ""){
 			$response_message = self::yii_api_echo('id_grid should contain atleast one character or number .');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::GRID_ID_CONTAIN_ATLEAST_ONE_CHAR_OR_NUMBER);
 		}else{
 			return trim($id_grid);
 		}
@@ -249,7 +249,7 @@ class APIController extends Controller {
 		if($atlas_grid_image !== null ){
 			
 			$response_message = self::yii_api_echo('Combination of atlas id and grid id exist. Try updating for same.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::GRID_IMAGE_EXISTS_FOR_ATLAS_ID_AND_GRID_ID);
 			
 		}
 		else{
@@ -269,7 +269,7 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot schedule id does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ROBOT_SCHEDULE_ID_DOES_NOT_EXIST);
 		}
 	}
 
@@ -284,7 +284,7 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot schedule type is  not valid');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::SCHEDULE_TYPE_NOT_VALID_OR_MISSING);
 		}
 	}
 
@@ -300,7 +300,7 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot custom id does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ROBOT_CUSTOM_ID_NOT_EXIST);
 		}
 	}
 	
@@ -317,7 +317,7 @@ class APIController extends Controller {
 		}
 		else{
 			$response_message = self::yii_api_echo('Atlas id does not exist');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ROBOT_ATLAS_ID_DOES_NOT_EXIST);
 		}
 	}
 }

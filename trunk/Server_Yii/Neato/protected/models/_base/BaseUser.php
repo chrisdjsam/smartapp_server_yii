@@ -92,7 +92,7 @@ class BaseUser extends GxActiveRecord
                         'alternate_email' => 'Alternate Email',
 			'is_emailVerified' => 'Is Email Verified',
 			'is_admin' => 'Is Admin',
-			'created_on' => 'Created On',
+			'created_on' => 'Created on',
 			'chat_id' => 'Chat ID',
 			'chat_pwd' => 'Chat Password',
 			'is_active' => 'Is Active',

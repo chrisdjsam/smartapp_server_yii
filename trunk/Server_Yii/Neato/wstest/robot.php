@@ -36,27 +36,31 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(name) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter name in method
-										robot.create"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter name in method robot.create","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Robot serial number is duplicate
 								<ul>
-									<li>{"status":-1,"message":"This robot serial number already
-										exists."}</li>
+									<li>
+                                                                            {"status":-1,"message":"This robot serial number already exists.", "error":{"code":"-118","message":"This robot serial number already exists."}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If Jabber service is not able to create chat user
 								<ul>
-									<li>{"status":-1,"message":"Robot could not be created because
-										jabber service in not responding."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot could not be created because jabber service in not responding.", "error":{"code":-108, "message":"Robot could not be created because jabber service in not responding."}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -139,19 +143,23 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method
-										robot.is_robot_online"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.is_online","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist", "error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -220,24 +228,34 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If serial_number is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.set_profile_details", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If profile key is not added:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter profile in method
-										robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter profile in method robot.set_profile_details","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        <li>If Robot serial number does not exist
+                                                                <ul>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
+								</ul>
+                                                        </li>
 
 						</ul>
 					</div>
@@ -315,46 +333,72 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If serial_number is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.set_profile_details2", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        <li>If serial number does not exist
+                                                                 <ul>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
+                                                                        </li>
+                                                                 </ul>
+                                                        </li>
 
 							<li>If source_serial_number or source_smartapp_id is missing:
 								<ul>
-									<li>{"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)", "error":{"code":"-148","message":"Missing parameter source serial number or source smartapp id in method call"}}
+                                                                        </li>
 								</ul>
 							</li>                                                        
                                                         
 							<li>If source_smartapp_id is invalid:
 								<ul>
-									<li>{"status":-1,"message":"Please enter valid email address in field source_smartapp_id."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid email address in field source_smartapp_id.", "error":{"code":"-149","message":"Please enter valid email id in the field source smartapp id"}}
+                                                                        </li>
 								</ul>
 							</li>                                                                                                                
                                                         
 							<li>If source_smartapp_id does not exist:
 								<ul>
-									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system.","error":{"code":"-150","message":"Sorry, Provided source_smartapp_id(email) does not exist in our system"}}
+                                                                        </li>
 								</ul>
 							</li>                                                                                                                                                                        
 
 							<li>If source_smartapp_id(email) is not associated with given robot:
 								<ul>
-									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot","error":{"code":"-151","message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}}
+                                                                        </li>
 								</ul>
 							</li>                                                                                                                                                                        
                                                         
+                                                        <li>If entered key is invalid:
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid","error":{"code":"-152","message":"Sorry, entered key does not match with serial number."}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        
 							<li>If profile key is not added:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter profile in method
-										robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter profile in method robot.set_profile_details2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -454,52 +498,65 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If serial_number is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.set_profile_details3", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If source_serial_number or source_smartapp_id is missing:
 								<ul>
-									<li>{"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)","error":{"code":"-148","message":"Missing parameter source serial number or source smartapp id in method call"}}
+                                                                        </li>
 								</ul>
 							</li>                                                        
                                                         
 							<li>If source_smartapp_id is invalid:
 								<ul>
-									<li>{"status":-1,"message":"Please enter valid email address in field source_smartapp_id."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid email address in field source_smartapp_id.","error":{"code":"-149","message":"Please enter valid email id in the field source smartapp id"}}
+                                                                        </li>
 								</ul>
 							</li>                                                                                                                
                                                         
 							<li>If source_smartapp_id does not exist:
 								<ul>
-									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system.","error":{"code":"-150","message":"Sorry, Provided source_smartapp_id(email) does not exist in our system"}}
+                                                                        </li>
 								</ul>
 							</li>                                                                                                                                                                        
 
 							<li>If source_smartapp_id(email) is not associated with given robot:
 								<ul>
-									<li>{"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot","error":{"code":"-151","message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
                                                         <li>If cause_agent_id is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter cause_agent_id in method robot.set_profile_details3"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter cause_agent_id in method robot.set_profile_details3","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
 							<li>If profile key is not added:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter profile in method
-										robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter profile in method robot.set_profile_details3","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -616,22 +673,24 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If serial_number is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.set_profile_details", "error":{"code":"-102","message":"Missing parameter in method call"}}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
 							<li>If serial_number is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Robot serial number does not exist"}
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114, "message":"Robot serial number does not exist"}}
                                                                         </li>
 								</ul>
 							</li>                                                        
@@ -639,7 +698,7 @@
 							<li>If key is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Sorry, entered key is invalid"}
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid","error":{"code":"-152","message":"Sorry, entered key does not match with serial number."}}
                                                                         </li>
 								</ul>
 							</li>                                                        
@@ -723,22 +782,24 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If serial_number is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.set_profile_details2", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
 							<li>If serial_number is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Robot serial number does not exist"}
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
                                                                         </li>
 								</ul>
 							</li>                                                        
@@ -746,10 +807,50 @@
 							<li>If key is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Sorry, entered key is invalid"}
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid","error":{"code":"-152","message":"Sorry, entered key does not match with serial number."}}
                                                                         </li>
 								</ul>
-							</li>                                                        
+							</li>
+                                                        
+                                                        <li>If source_serial_number or source_smartapp_id is missing:
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)", "error":{"code":"-148","message":"Missing parameter source serial number or source smartapp id in method call"}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        
+                                                        <li>If source smartapp id does not exist
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system.","error":{"code":"-150","message":"Sorry, Provided source_smartapp_id(email) does not exist in our system"}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        
+                                                        <li>If source smartapp id is incorrect
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Please enter valid email address in field source_smartapp_id.", "error":{"code":"-149","message":"Please enter valid email id in the field source smartapp id"}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        
+                                                        <li>If source smartapp id is not associated with any robot
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot","error":{"code":"-151","message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        
+                                                        <li>If profile key is not added 
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Missing parameter profile in method robot.set_profile_details2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
 
 						</ul>
 					</div>
@@ -820,28 +921,32 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If serial_number is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.delete_robot_profile_key", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
                                                         <li>If key is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter key in method robot.get_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter key in method robot.delete_robot_profile_key","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
 							<li>If serial_number is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Robot serial number does not exist"}
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
                                                                         </li>
 								</ul>
 							</li>                                                        
@@ -849,7 +954,7 @@
 							<li>If key is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Sorry, entered key is invalid"}
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid","error":{"code":"-152","message":"Sorry, entered key does not match with serial number."}}
                                                                         </li>
 								</ul>
 							</li>                                                        
@@ -927,34 +1032,40 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
 							<li>If serial_number is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.delete_robot_profile_key2", "error":{"code":"-102","message":"Missing parameter in method call"}}
+									</li>
 								</ul>
 							</li>
                                                         
                                                         <li>If key is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter key in method robot.get_profile_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter key in method robot.delete_robot_profile_key2", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
                                                         <li>If cause_agent_id is not provided:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter cause_agent_id in method robot.delete_robot_profile_key2"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter cause_agent_id in method robot.delete_robot_profile_key2", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
 							<li>If serial_number is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Robot serial number does not exist"}
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
                                                                         </li>
 								</ul>
 							</li>                                                        
@@ -962,10 +1073,34 @@
 							<li>If key is invalid:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Sorry, entered key is invalid"}
+                                                                            {"status":-1,"message":"Sorry, entered key is invalid", "error":{"code":"-152","message":"Sorry, entered key does not match with serial number."}}
                                                                         </li>
 								</ul>
-							</li>                                                        
+							</li>
+                                                        
+                                                        <li>If source smartapp id is incorrect
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid email address in field source_smartapp_id.", "error":{"code":"-149","message":"Please enter valid email id in the field source smartapp id"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If source smartapp id does not exist
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system.", "error":{"code":"-150","message":"Sorry, Provided source_smartapp_id(email) does not exist in our system"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If Provided source_smartapp_id(email) is not associated with given robot
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot","error":{"code":"-151","message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}}
+                                                                        </li>
+								</ul>
+							</li>
 
 						</ul>
 					</div>
@@ -1081,19 +1216,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>{
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a parameter is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.get_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_details", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist", "error":{"code":-114, "message":"Serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -1170,19 +1309,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(serial_number) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.get_associated_users"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_associated_users", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist", "error":{"code":-114, "message":"Serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -1261,21 +1404,41 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Email is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter email in method
-										robot.set_user"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter email in method robot.set_user", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Robot serial number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.set_user"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.set_user", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
+                                                        </li>
+                                                        
+                                                        <li>If email does not exist
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Email does not exist","error":{"code":"-112","message":"Email does not exist."}}
+                                                                        </li>
+								</ul>
+                                                        </li>
+                                                        
+                                                        <li>If serial number does not exist
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
+								</ul>
+                                                        </li>
 						
 						</ul>
 					</div>
@@ -1368,13 +1531,30 @@
 
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If serial number is missing
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If email is invalid
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Email does not exist.","error":{"code":"-112","message":"Email does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -1450,19 +1630,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If parameter serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.get_details"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_details", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114, "message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -1538,19 +1722,23 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method
-										robot.is_robot_online"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_presence_status", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -1625,19 +1813,23 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method
-										robot.is_robot_online"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.ping_from_robot", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -1721,19 +1913,23 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method
-										robot.is_robot_online"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.is_robot_online_virtual", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -1807,18 +2003,23 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a robot_type is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_type in method robot.get_robot_type_metadata_using_type"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_type in method robot.get_robot_type_metadata_using_type", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If entered robot_type is invalid
 								<ul>
-									<li>{"status":-1,"message":"Provided robot type is not valid"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Provided robot type is not valid", "error":{"code":"-142","message":"Robot Type is not valid"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -1891,18 +2092,23 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_type_metadata_using_id"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_type_metadata_using_id", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -1978,23 +2184,30 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_type_metadata_using_id"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.set_robot_configuration", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter sleep_time in method robot.set_robot_configuration", "error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If provided sleep time or wakeup time is invalid
 								<ul>
-									<li>{"status":-1,"message":"Please enter valid sleep time or wakeup time"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid sleep time or wakeup time","error":{"code":"-156","message":"Please enter valid sleep time or wakeup time"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -2090,18 +2303,23 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_type_metadata_using_id"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_configuration", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -2177,20 +2395,24 @@
 						Failure Responses: <br />
 						<ul>
 							<li>If API Key is missing:
-
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial_number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_token_for_robot_user_association"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Missing parameter serial_number in method robot.get_token_for_robot_user_association", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -2271,38 +2493,51 @@
 							<li>If API Key is missing:
 
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a email is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter email in method robot.robot_user_association_by_token"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Missing parameter email in method robot.robot_user_association_by_token", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If serial number does not exist
+							<li>If email does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, provided email does not exist", "error":{"code":"-112","message":"Email does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If a token is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter token in method robot.robot_user_association_by_token"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter token in method robot.robot_user_association_by_token","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If provide token is invalid
 								<ul>
-									<li>{"status":-1,"message":"Please enter valid token"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid token","error":{"code":"-154","message":"Please enter valid token"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If provide email is invalid
 								<ul>
-									<li>{"status":-1,"message":"Please enter valid email address"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid email address", "error":{"code":"-105","message":"The email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If provide token is expired
 								<ul>
-									<li>{"status":-1,"message":"Sorry, provided token is expired"}</li>
+									<li>
+                                                                            {"status":-1,"message": "Sorry, provided token is expired","error":{"code":"-155","message":"Sorry, provided token is expired"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>

@@ -69,7 +69,7 @@ class MessageController extends APIController {
 
 		if(!self::check_for_user_robot_association($id_user, $serial_number)){
 			$response_message = "User robot association does not exist.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::USER_AND_ROBOT_ASSOCIATION_DOES_NOT_EXIST);
 		}
 		
 		$message = Yii::app()->request->getParam('message', '');
@@ -81,7 +81,7 @@ class MessageController extends APIController {
 			self::success($response_data);
 		}else{
 			$response_message = "Message could not be sent to robot $serial_number.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MESSAGE_SENDING_FAILED);
 		}
 	
 	}
@@ -163,7 +163,7 @@ class MessageController extends APIController {
 	
 		if(!in_array($message_type, array('XMPP','xmpp','Xmpp'))){
 			$response_message = "$message_type does not match supported message type XMPP";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MESSAGE_TYPE_DOES_NOT_MATCH);
 		}
 	
 		$serial_number = Yii::app()->request->getParam('serial_number', '');
@@ -180,7 +180,7 @@ class MessageController extends APIController {
 			$response_data = array("success"=>true, "message"=>$response_message);
 			self::success($response_data);
 		}else{
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MESSAGE_SENDING_FAILED);
 		}
 	}
         
@@ -206,12 +206,8 @@ class MessageController extends APIController {
 		}
 	
 		$response_message = "Message is sent to $count user(s).";
-//		if($count){
-			$response_data = array("success"=>true, "message"=>$response_message);
-			self::success($response_data);
-//		}else{
-//			self::terminate(-1, $response_message);
-//		}
+                $response_data = array("success"=>true, "message"=>$response_message);
+                self::success($response_data);
 	}        
         
         public function actionSendNotificationToGivenRegistrationIds(){
@@ -221,13 +217,13 @@ class MessageController extends APIController {
                 $notification_type = Yii::app()->request->getParam('notification_type', '1');
                 
                 if(empty($registration_ids)){
-                    self::terminate(-1, 'Provide at least one registration id');
+                    self::terminate(-1, 'Provide at least one registration id', APIConstant::PARAMETER_MISSING);
                 }
 
 		$response = AppCore::send_notification_to_given_registration_ids($registration_ids, $message, $notification_type);
                 
                 if($response['code'] == 1){
-                    self::terminate(-1, $response['output']);
+                    self::terminate(-1, $response['output'], APIConstant::REGISTRATION_IDS_NOT_VALID);
                 }
 
                 $response_data = array("success"=>true, "message"=>$response['output']);
@@ -251,7 +247,7 @@ class MessageController extends APIController {
                 }
                 
                 if(empty($user_ids_to_send_notification)) {
-                    self::terminate(-1, "Sorry, there is no user associated");
+                    self::terminate(-1, "Sorry, there is no user associated", APIConstant::NO_USER_FOUND_FOR_ROBOT);
                 }
                 
                 $send_from = Array();
@@ -263,9 +259,9 @@ class MessageController extends APIController {
                 }
                 
 		$response = AppCore::send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message, $send_from, $notification_type);
-                
+                 
                 if($response['code'] == 1){
-                    self::terminate(-1, $response['output']);
+                    self::terminate(-1, $response['output'], APIConstant::MESSAGE_SENDING_FAILED);
                 }
 
                 $response_data = array("success"=>true);
@@ -280,7 +276,7 @@ class MessageController extends APIController {
                 $notification_type = Yii::app()->request->getParam('notification_type', '1');
                 
                 if($message_oject === null) {
-                    self::terminate(-1, "The json message you have provided does not appear to be a valid.");
+                    self::terminate(-1, "The json message you have provided does not appear to be a valid.", APIConstant::JSON_OBJECT_NOT_VALID);
                 }
                 
                 $robot = self::verify_for_robot_serial_number_existence($serial_number);
@@ -294,10 +290,6 @@ class MessageController extends APIController {
                     
                 }
                 
-                if(empty($user_ids_to_send_notification)) {
-//                    self::terminate(-1, "Sorry, There is not single user who is associated with given robot");
-                }
-                
                 $message_description = Array();
                 
                 foreach ($message_oject->notifications as $value) {
@@ -308,7 +300,7 @@ class MessageController extends APIController {
                 }
 
                 if(empty($message_description)) {
-                    self::terminate(-1, "Sorry, json which you have provided in message parameter is invalid");
+                    self::terminate(-1, "Sorry, json which you have provided in message parameter is invalid", APIConstant::JSON_OBJECT_NOT_VALID);
                 }
                 
                 $send_from = Array();
@@ -318,7 +310,7 @@ class MessageController extends APIController {
 		$response = AppCore::send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from, $notification_type);
                 
                 if($response['code'] == 1){
-                    self::terminate(-1, $response['output']);
+                    self::terminate(-1, $response['output'], APIConstant::MESSAGE_SENDING_FAILED);
                 }
 
                 $response_data = array("success"=>true);
@@ -340,21 +332,21 @@ class MessageController extends APIController {
                         }
                     }
                     if(!empty($invalid_emails)){
-                        self::terminate(-1, 'Please provide valid email address (Invalid emails: ' . json_encode($invalid_emails) . ')');
+                        self::terminate(-1, 'Please provide valid email address (Invalid emails: ' . json_encode($invalid_emails) . ')', APIConstant::EMAIL_NOT_VALID);
                     }
                     
                 } else {
-                    self::terminate(-1, 'Please provide at least one email address');
+                    self::terminate(-1, 'Please provide at least one email address', APIConstant::PARAMETER_MISSING);
                 }
                 
                 if(empty($message)){
-                    self::terminate(-1, 'Message field can not be blank');
+                    self::terminate(-1, 'Message field can not be blank', APIConstant::PARAMETER_MISSING);
                 }
                 
 		$response = AppCore::send_notification_to_given_emails($emails, $message, $notification_type);
                 
                 if($response['code'] == 1){
-                    self::terminate(-1, $response['output']);
+                    self::terminate(-1, $response['output'], APIConstant::MESSAGE_SENDING_FAILED);
                 }
 
                 $response_data = array("success"=>true, "message"=>$response['output']);
@@ -369,13 +361,13 @@ class MessageController extends APIController {
                 $device_type = Yii::app()->request->getParam('device_type', '');
 
                 if (!AppHelper::is_valid_email($user_email)) {
-                    self::terminate(-1, 'Please enter valid email address.');
+                    self::terminate(-1, 'Please enter valid email address.', APIConstant::EMAIL_NOT_VALID);
                 }
 
                 $user_data = User::model()->findByAttributes(array('email' => $user_email));
 
                 if (empty($user_data)) {
-                    self::terminate(-1, 'Sorry, Provided user email address does not exist in our system.');
+                    self::terminate(-1, 'Sorry, Provided user email address does not exist in our system.', APIConstant::EMAIL_DOES_NOT_EXIST);
                 }
 
                 $response = AppCore::store_registration_id($user_data->id, $registration_id, $device_type);
@@ -391,7 +383,7 @@ class MessageController extends APIController {
                 $response = AppCore::remove_registration_id($registration_id);
 
                 if($response['code'] == 1 && $response['output'] == 'not_found') {
-                    self::terminate(-1, 'Sorry, Provided registration id does not exist in our system');
+                    self::terminate(-1, 'Sorry, Provided registration id does not exist in our system', APIConstant::REGISTRATION_IDS_NOT_VALID);
                 }
                 
                 $response_data = array("success" => true, "message" => $response['output']);
@@ -467,7 +459,7 @@ class MessageController extends APIController {
             }
 
             if (empty($select_reg_key_id)) {
-                self::terminate(-1, 'Sorry, Provided registration ids are not registered');
+                self::terminate(-1, 'Sorry, Provided registration ids are not registered', APIConstant::REGISTRATION_IDS_NOT_VALID);
             }
             
             $result = Array();
@@ -557,11 +549,11 @@ class MessageController extends APIController {
                 
                 $response = AppCore::send_notification($all_registration_ids, $message_to_send, $send_from, null, $filter_criteria);
             }else{
-                self::terminate(-1, 'Sorry, There is not a single registration id to send notification');
+                self::terminate(-1, 'Sorry, There is not a single registration id to send notification', APIConstant::REGISTRATION_IDS_NOT_VALID);
             }
             
             if($response['code'] == 1){
-                self::terminate(-1, 'Sorry, Provided registration ids are not registered');
+                self::terminate(-1, 'Sorry, Provided registration ids are not registered', APIConstant::MESSAGE_SENDING_FAILED);
             }else {
                 $response_data = array("success" => true, "message" => $response['output']);
                 self::success($response_data);
@@ -659,11 +651,11 @@ class MessageController extends APIController {
             $json_object = json_decode(Yii::app()->request->getParam('json_object', ''));
             
             if(!AppHelper::is_valid_email($email)){
-                    self::terminate(-1, "The email address you have provided does not appear to be a valid email address.");
+                    self::terminate(-1, "The email address you have provided does not appear to be a valid email address.", APIConstant::EMAIL_NOT_VALID);
             }
             
             if($json_object === null) {
-                    self::terminate(-1, "The JSON Object you have provided does not appear to be a valid.");
+                    self::terminate(-1, "The JSON Object you have provided does not appear to be a valid.", APIConstant::JSON_OBJECT_NOT_VALID);
             }
             
             $user_data = User::model()->find('email = :email', array(':email' => $email));
@@ -704,7 +696,7 @@ class MessageController extends APIController {
                 }
                 
             } else {
-                    self::terminate(-1, "Sorry, email address that you provided does not exist our database");
+                    self::terminate(-1, "Sorry, email address that you provided does not exist our database", APIConstant::EMAIL_DOES_NOT_EXIST);
             }
             
         }
@@ -714,7 +706,7 @@ class MessageController extends APIController {
             
             if(!AppHelper::is_valid_email($email)){
                     $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
-                    self::terminate(-1, $message);
+                    self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
             }
             
             $user_data = User::model()->find('email = :email', array(':email' => $email));
@@ -736,15 +728,14 @@ class MessageController extends APIController {
                         $response_data['notifications'] = $notifications;
                         
                     } else {
-                        self::terminate(-1, "Please first set user push notification preferences for the email address that you have provided and then try again.");
+                        self::terminate(-1, "Please first set user push notification preferences for the email address that you have provided and then try again.", APIConstant::USER_PREFERENCE_NOT_VALID);
                     }
         
                     self::success($response_data);
                     
             } else {
-                    self::terminate(-1, "Sorry, email address that you provided does not exist our database");
+                    self::terminate(-1, "Sorry, email address that you provided does not exist our database", APIConstant::EMAIL_DOES_NOT_EXIST);
             }
             
         }
-        
 }

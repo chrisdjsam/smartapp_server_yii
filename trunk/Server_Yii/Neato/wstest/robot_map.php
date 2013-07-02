@@ -96,19 +96,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial no is not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist", "error":{"code":-114, "message":"Serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.get_maps"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.post_map_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -203,15 +207,27 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number is not exist
 								<ul>
-									<li>{"status":-1,"message":""Serial number does not exist""}</li>
+									<li>
+                                                                            {"status":-1,"message":""Serial number does not exist"", "error":{"code":-114, "message":""Serial number does not exist""}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        <li>If serial number is missing.
+                                                                 <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_maps","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+                                                                 </ul>
+                                                        </li>
+                                                            
+                                                            
 						</ul>
 					</div>
 				</td>
@@ -286,19 +302,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot map id is not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot map id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot map id does not exist", "error":{"code":-127, "message":"Robot map id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(robot_map_id) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_map_id in
-										method robot.get_map_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_map_id in method robot.get_map_data", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -450,37 +470,44 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot map id is not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot map id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot map id does not exist", "error":{"code":-127, "message":"Robot map id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If both the data versions are missing
 								<ul>
-									<li>{"status":-1,"message":"Provide at least one data
-										version(xml or blob)."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Provide at least one data version(xml or blob).", "error":{"code":"-128","message":"Provide at least one data version(xml or blob) or schedule type."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If xml data version is provided, not matching with latest xml
-								data version
+							<li>If xml data version is provided, not matching with latest xml data version
 								<ul>
-									<li>{"status":-1,"message":"Version mismatch for xml data."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Version mismatch for xml data.", "error":{"code":-129, "message":"Version mismatch for xml data."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If blob data version is provided, not matching with latest
-								blob data version
+							<li>If blob data version is provided, not matching with latest blob data version
 								<ul>
-									<li>{"status":-1,"message":"Version mismatch for blob data."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Version mismatch for blob data.", "error":{"code":-130, "message":"Version mismatch for blob data"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(robot_map_id) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_map_id in
-										method robot.update_map_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_map_id in method robot.update_map_data", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -579,19 +606,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot map id is not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot map id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot map id does not exist", "error":{"code":-127, "message":"Robot map id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a parameter is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_map_id in
-										method robot.delete_map"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_map_id in method robot.delete_map", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>

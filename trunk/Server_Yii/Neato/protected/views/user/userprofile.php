@@ -99,6 +99,7 @@ $this->breadcrumbs = array(
             $chat_attribute,
             'chat_id',
             'chat_pwd',
+            'created_on',
         );
     }
     

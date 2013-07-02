@@ -62,6 +62,11 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
         
         $robot_type = isset($model->robotRobotTypes->robotType) ? $model->robotRobotTypes->robotType->name . ' (' . $model->robotRobotTypes->robotType->type . ')' : '';
         
+        $created_on = 'Unavailable';
+        if(!is_null($model->created_on)){
+            $created_on = date("Y-m-d H:i:s", $model->created_on);;
+        } 
+        
 	$this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model,
 			'attributes'=>array(
@@ -97,6 +102,11 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 					'label' =>'Wakeup Time',
 					'type'=>'raw',
 					'value' => $sleep_lag_time['lag_time'] . ' seconds',
+					),
+                                        array(
+					'label' =>'Created on',
+					'type'=>'raw',
+					'value' => $created_on,
 					),
                             ),
 			)); ?>

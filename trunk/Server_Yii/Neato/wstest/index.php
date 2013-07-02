@@ -124,6 +124,9 @@ padding-right: 50px;
                                                                                         <li>
                                                                                             <a href="user.php#Resend Validation Email"class="new-api">Resend Validation Email</a>
                                                                                         </li>
+                                                                                         <li>
+                                                                                            <a href="user.php#Get Error Code"class="new-api">Get Error Detail By Error Code</a>
+                                                                                        </li>
 										</ul>
 									</td>
 								</tr>

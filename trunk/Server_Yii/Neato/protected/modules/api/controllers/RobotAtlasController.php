@@ -61,7 +61,7 @@ class RobotAtlasController extends APIController {
 		
 		if(!AppCore::validate_atlas_xml_data($xml_data)){
 			$response_message = self::yii_api_echo('Invalid xml data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::INVALID_XML);
 		}
 
 		$robot_atlas_model = new RobotAtlas();
@@ -225,7 +225,7 @@ class RobotAtlasController extends APIController {
 		if (isset($robot_xml_data_version)){
 			if(isset($robot_xml_data_version) && $robot_xml_data_version != $robot_xml_data_latest_version){
 				$response_message = self::yii_api_echo('Version mismatch for xml data.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
 			}
 			$old_xml_data_file_path = '';
 
@@ -234,7 +234,7 @@ class RobotAtlasController extends APIController {
 
 				if(!AppCore::validate_atlas_xml_data($xml_data)){
 					$response_message = self::yii_api_echo('Invalid xml data.');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::INVALID_XML);
 				}
 				//storing xml data
 
@@ -421,7 +421,7 @@ class RobotAtlasController extends APIController {
 			self::success($response_data);
 		}else{
 			$response_message = self::yii_api_echo("Robot atlas does not exist for this robot");
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ROBOT_ATLAS_ID_DOES_NOT_EXIST);
 		}
 		
 	}
@@ -439,7 +439,7 @@ class RobotAtlasController extends APIController {
 		if( !isset($_FILES['RobotAtlas']) || (! file_exists($xml_data_temp_file_path = $_FILES['RobotAtlas']['tmp_name']['xml_data_file_name']) &&
 				! file_exists($xml_data_temp_file_path = $_FILES['RobotAtlas']['tmp_name']['xml_data_file_name']))){
 			$response_message = self::yii_api_echo('Please Provide XML data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_XML_DATA);
 		}
 		
 		$encoded_xml_data="";
@@ -474,7 +474,7 @@ class RobotAtlasController extends APIController {
 		if( !isset($_FILES['RobotAtlas']) || (! file_exists($xml_data_temp_file_path = $_FILES['RobotAtlas']['tmp_name']['xml_data_file_name']) &&
 				! file_exists($xml_data_temp_file_path = $_FILES['RobotAtlas']['tmp_name']['xml_data_file_name']))){
 			$response_message = self::yii_api_echo('Please Provide XML data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_XML_DATA);
 		}
 	
 		$encoded_blob_data="";
