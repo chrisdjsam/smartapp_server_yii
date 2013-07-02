@@ -834,7 +834,7 @@ class AppCore {
 
 	}
 
-    public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $_GET, $modelName, $sWhere = "", $join_flag = false) {
+    public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $sGet, $modelName, $sWhere = "", $join_flag = false) {
         
         /* 
          * Define $sWhereOriginal to fetch Total data count
@@ -845,9 +845,9 @@ class AppCore {
          * Paging
          */
         $sLimit = "";
-        if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
-            $sLimit = "LIMIT " . intval($_GET['iDisplayStart']) . ", " .
-                    intval($_GET['iDisplayLength']);
+        if (isset($sGet['iDisplayStart']) && $sGet['iDisplayLength'] != '-1') {
+            $sLimit = "LIMIT " . intval($sGet['iDisplayStart']) . ", " .
+                    intval($sGet['iDisplayLength']);
         }
 
 
@@ -855,12 +855,12 @@ class AppCore {
          * Ordering
          */
         $sOrder = "";
-        if (isset($_GET['iSortCol_0'])) {
+        if (isset($sGet['iSortCol_0'])) {
             $sOrder = "ORDER BY  ";
-            for ($i = 0; $i < intval($_GET['iSortingCols']); $i++) {
-                if ($_GET['bSortable_' . intval($_GET['iSortCol_' . $i])] == "true") {
-                    $sOrder .= $aColumns[intval($_GET['iSortCol_' . $i])] . "
-                    " . ($_GET['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
+            for ($i = 0; $i < intval($sGet['iSortingCols']); $i++) {
+                if ($sGet['bSortable_' . intval($sGet['iSortCol_' . $i])] == "true") {
+                    $sOrder .= $aColumns[intval($sGet['iSortCol_' . $i])] . "
+                    " . ($sGet['sSortDir_' . $i] === 'asc' ? 'asc' : 'desc') . ", ";
                 }
             }
 
@@ -878,7 +878,7 @@ class AppCore {
          * on very large tables, and MySQL's regex functionality is very limited
          */
 //        $sWhere = "";
-        if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+        if (isset($sGet['sSearch']) && $sGet['sSearch'] != "") {
             
             if(!empty($sWhere)){
                 $sWhere .= ' AND (';
@@ -887,8 +887,8 @@ class AppCore {
             }
             
             for ($i = 0; $i < count($aColumns); $i++) {
-                if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true") {
-                    $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch']) . "%' OR ";
+                if (isset($sGet['bSearchable_' . $i]) && $sGet['bSearchable_' . $i] == "true") {
+                    $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($sGet['sSearch']) . "%' OR ";
                 }
             }
             $sWhere = substr_replace($sWhere, "", -3);
@@ -897,13 +897,13 @@ class AppCore {
 
         /* Individual column filtering */
         for ($i = 0; $i < count($aColumns); $i++) {
-            if (isset($_GET['bSearchable_' . $i]) && $_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != '') {
+            if (isset($sGet['bSearchable_' . $i]) && $sGet['bSearchable_' . $i] == "true" && $sGet['sSearch_' . $i] != '') {
                 if ($sWhere == "") {
                     $sWhere = "WHERE ";
                 } else {
                     $sWhere .= " AND ";
                 }
-                $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
+                $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($sGet['sSearch_' . $i]) . "%' ";
             }
         }
 
@@ -948,7 +948,7 @@ class AppCore {
          * Output
          */
         $output = array(
-            'sEcho' => intval($_GET['sEcho']),
+            'sEcho' => intval($sGet['sEcho']),
             'iTotalRecords' => $iTotal,
             'iTotalDisplayRecords' => $iFilteredTotal,
             'rResult' => $rResult
