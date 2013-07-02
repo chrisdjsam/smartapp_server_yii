@@ -41,19 +41,24 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If id_atlas is incorrect:
 								<ul>
-									<li> {"status":-1,"message":"Robot atlas id does not exist"}</li>
+									<li> 
+                                                                            {"status":-1,"message":"Robot atlas id does not exist","error":{"code":"-132","message":"Robot atlas id does not exist."}}
+                                                                        </li>
 								</ul>
 								
 							<li>If grid image exist for provided 'id_atlas' and 'id_grid' combination:
 								<ul>
-									<li> {"status":-1,"message":"Combination of atlas id and grid id exist. Try updating for same."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Combination of atlas id and grid id exist. Try updating for same.","error":{"code":"-136","message":"Combination of atlas id and grid id exist. Try updating for same."}}
+                                                                        </li>
 								</ul>	
 							</li>
 														
@@ -146,16 +151,59 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If id_atlas is incorrect:
 								<ul>
-									<li> {"status":-1,"message":"Robot atlas id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot atlas id does not exist","error":{"code":"-132","message":"Robot atlas id does not exist."}}
+                                                                        </li>
 								</ul>
-							
+                                                        </li>
+                                                        
+                                                        <li>If id_grid is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter id_grid in method robot.update_grid_image","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If id_atlas is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter id_atlas in method robot.update_grid_image","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If blob_data_version is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter blob_data_version in method robot.update_grid_image","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If encoded_blob_data is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter encoded_blob_data in method robot.update_grid_image","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If mismatch for blob data:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Version mismatch for blob data.","error":{"code":"-130","message":"Version mismatch for blob data."}}
+                                                                        </li>
+								</ul>
+							</li>
 						</ul>
 					</div>
 				</td>
@@ -247,26 +295,40 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If id_atlas is incorrect:
 								<ul>
-									<li> {"status":-1,"message":"Robot atlas id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot atlas id does not exist","error":{"code":"-132","message":"Robot atlas id does not exist."}}
+                                                                        </li>
 								</ul>
 								
 							<li>If grid image unavailable for provided 'id_atlas' and 'id_grid' combination:
 								<ul>
-									<li> {"status":-1,"message":"Combination of atlas id and grid id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Combination of atlas id and grid id does not exist","error":{"code":"-137","message":"Combination of atlas id and grid id does not exist."}}
+                                                                        </li>
 								</ul>	
 							</li>
-							<li>If 'id_grid' is incorrect:
-								<ul>
-									<li> {"status":-1,"message":"Combination of atlas id and grid id does not exist"}</li>
-								</ul>	
-							</li>
+                                                        <li>If id_atlas is missing 
+                                                                <ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter id_atlas in method robot.update_grid_image","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+                                                        </li>
+                                                         <li>If id_grid is missing  
+                                                                <ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter id_grid in method robot.update_grid_image","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+                                                        </li>
 							
 						</ul>
 					</div>

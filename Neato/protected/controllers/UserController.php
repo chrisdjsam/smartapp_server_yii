@@ -138,7 +138,7 @@ class UserController extends Controller
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
 					Yii::app()->user->setFlash('warning', $message);
-					throw new CHttpException(501, $message);
+					throw new CHttpException(501, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 				}
 
 				$user_model->chat_id = $chat_details['chat_id'];
@@ -282,7 +282,7 @@ class UserController extends Controller
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
 					Yii::app()->user->setFlash('warning', $message);
-					throw new CHttpException(501, $message);
+					throw new CHttpException(501, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 				}
 
 				$user_model->chat_id = $chat_details['chat_id'];

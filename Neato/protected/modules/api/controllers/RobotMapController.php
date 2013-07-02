@@ -107,7 +107,7 @@ class RobotMapController extends APIController {
                 
 		if(!AppCore::validate_map_xml_data($xml_data)){
 			$response_message = self::yii_api_echo('Invalid xml data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::INVALID_XML);
 		}
 
 		$robot_map_model = new RobotMap();
@@ -122,7 +122,7 @@ class RobotMapController extends APIController {
                 $uploads_dir = '';
                 
                 if($xml_data) {                         
-                
+                    
                     $back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
                     $uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
                     // Add check to see if the folder already exists
@@ -373,12 +373,12 @@ class RobotMapController extends APIController {
 
 			if($robot_xml_data_version && $robot_xml_data_version != $robot_xml_data_latest_version){
 				$response_message = self::yii_api_echo('Version mismatch for xml data.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
 			}
 
 			if($robot_blob_data_version && $robot_blob_data_version != $robot_blob_data_latest_version){
 				$response_message = self::yii_api_echo('Version mismatch for blob data.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
 			}
 
 			$old_xml_data_file_path = '';
@@ -389,7 +389,7 @@ class RobotMapController extends APIController {
 
 				if(!AppCore::validate_map_xml_data($xml_data)){
 					$response_message = self::yii_api_echo('Invalid xml data.');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::INVALID_XML);
 				}
 				//storing xml data
 
@@ -508,7 +508,7 @@ class RobotMapController extends APIController {
 
 		}else{
 			$response_message = self::yii_api_echo('Provide at least one data version(xml or blob).');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
 		}
 	}
 
@@ -691,7 +691,7 @@ class RobotMapController extends APIController {
 		   		)
 		){
 		   	$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
 		   }
 	
 	
@@ -737,7 +737,7 @@ class RobotMapController extends APIController {
 				 ! (isset($_FILES['RobotMap']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotMap']['tmp_name']['blob_data_file_name']))
 				)){
 			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
 		}
 		
 		$xml_data = "";

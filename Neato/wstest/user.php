@@ -41,15 +41,26 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Application details not found for given ID.
 								<ul>
-									<li>{"status":-1,"message":"App Id does not exist."}</li>
+									<li>
+                                                                            {"status":-1,"message":"App Id does not exist.","error":{"code":"-103","message":"App Id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        <li> If parameter is missing:
+                                                                 <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Missing parameter app_id in method user.check_for_upgrades","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+                                                            
+                                                                </ul>
+                                                        </li>
 
 						</ul>
 					</div>
@@ -154,43 +165,58 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If unsupported account type is passed
+							<li>If unsupported account type is passed:
 								<ul>
-									<li>{"status":-1,"message":"Account Type is NOT supported."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-103, "message":"Account Type is NOT supported."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter name in method
-										user.create"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter name in method user.create" , "error":{"code":-102, "message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							
-							<li>If Email does not valid
+							<li>If Email does not valid:
 								<ul>
-									<li>{"status":-1,"message":"The email address you provided does
-										not appear to be a valid email address."}</li>
+									<li>
+                                                                            {"status":-1,"message":"The email address you provided does not appear to be a valid email address.", "error":{"code":-105, "message":"The email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
 								</ul>
 							
-							<li>If email already exists and account type is native
+							<li>If email already exists and account type is native:
 								<ul>
-									<li>{"status":-1,"message":"This email address has already been
-										registered."}</li>
+									<li>
+                                                                            {"status":-1,"message":"This email address has already been registered.", "error":{"code":-106, "message":"This email address has already been registered."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If Social information exists and the account type is Facebook
+							<li>If Social information exists and the account type is Facebook:
 								<ul>
-									<li>{"status":-1,"message":"This social information already
-										exists."}</li>
+									<li>
+                                                                            {"status":-1,"message":"This social information already exists.", "error":{"code":-107, "message":"This social information already exists."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        	<li>If external_social_id is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter external_social_id in method user.create","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Jabber service does not able to create chat user
 								<ul>
-									<li>{"status":-1,"message":"User could not be created because
-										jabber service in not responding."}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be created because jabber service in not responding.", "error":{"code":-108, "message":"User could not be created because jabber service in not responding."}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -315,26 +341,45 @@
 
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 
-							<li>If incorrect email/password combination and account type is
-								Native
+							<li>If incorrect email/password combination and account type is Native:
 								<ul>
-									<li>{"status":-1,"message":"User could not be authenticated"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If incorrect external social ID and account type is Facebook
+							<li>If incorrect external social ID and account type is Facebook:
 								<ul>
-									<li>{"status":-1,"message":"User could not be authenticated"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-145","message":"Social id does not exist. "}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If unsupported account type is passed (e.g. Google, for the
-								time being)
+							<li>If unsupported account type is passed (e.g. Google, for the time being)
 								<ul>
-									<li>{"status":-1,"message":"Account Type is not supported"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Account Type is not supported", "error":{"code":-103, "message":"Account Type is not supported."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If Parameter(email) is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter email in method auth.get_user_auth_token","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If account type is facebook and external_social_id is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter user_social_id in method auth.get_user_auth_token", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 
@@ -419,16 +464,25 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the Auth token
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        <li>If add detail key is invalid:
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Invalid value for key www.","error":{"code":"-109","message":"Invalid value for key"}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
 						</ul>
 					</div>
 				</td>
@@ -508,25 +562,32 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the User Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If value not provided for profile key:
 								<ul>
-									<li>{"status":-1,"message":"Invalid value for key operating_system."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Invalid value for key.","error":{"code":"-109","message":"Invalid value for key"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If problem in setting user attributes:
 								<ul>
-									<li>{"status":-1,"message":"Error in setting user attributes."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Error in setting user attributes.", "error":{"code":-162, "message":"Error in setting user attributes."}}
+                                                                        </li>
 								</ul>
 							</li>
 							
@@ -602,19 +663,24 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the User Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If Attributes are not set:
 								<ul>
-									<li>{"status":-1,"message":"Attributes not found for this user"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Attributes not found for this user", "error":{"code":"-158","message":"No attribute found for this user"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
@@ -687,26 +753,41 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token does not exist:
 								<ul>
-									<li>{"status":-1,"message":"User could not be authenticated."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If old password does not match with user's existing password:
 								<ul>
-									<li>{"status":-1,"message":"Old password does not match with user password."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Old password does not match with user password.", "error":{"code":"-110","message":"Old password does not match with user password."}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If new password is empty or has only spaces:
 						 		<ul>
-						 			<li>{"status":-1,"message":"Password should contain atleast one character."}</li>
+						 			<li>
+                                                                            {"status":-1,"message":"Password should contain atleast one character.", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 						 		</ul>
 						 	</li>
+                                                        <li>If parameter(password_new) is missing:
+                                                                <ul>
+						 			<li>
+                                                                            {"status":-1,"message":"Missing parameter password_new in method user.change_password","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+						 		</ul>
+                                                            
+                                                        </li>
 							
 						</ul>
 					</div>
@@ -787,14 +868,17 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If email address not found in database:
 								<ul>
-									<li>{"status":-1,"message":"Email does not exist."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Email does not exist.", "error":{"code":"-112","message":"Email does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							
@@ -896,14 +980,16 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the Auth token
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -991,14 +1077,16 @@
 
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the Auth token
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -1074,14 +1162,16 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the User
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication" , "error":{"code":-101, "message":"Method call failed the API Authentication."}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -1154,13 +1244,16 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Auth token against provided email does not exist:
 								<ul>
-									<li>{"status":-1,"message":"User could not be authenticated"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-101","message":"Method call failed the API Authentication"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -1254,20 +1347,33 @@
 
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Email does not exist:
 								<ul>
-									<li>{"status":-1,"message":"Email does not exist."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Email does not exist.", "error":{"code":"-112","message":"Email does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist", "error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        <li>If parameter(email) is missing:
+                                                                <ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter email in method user.disassociate_robot","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+                                                            
+                                                        </li>
 						</ul>
 					</div>
 				</td>
@@ -1366,52 +1472,68 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If unsupported account type is passed
 								<ul>
-									<li>{"status":-1,"message":"Account Type is NOT supported."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Account Type is NOT supported.", "error":{"code":-103, "message":"Account Type is NOT supported."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(name) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter name in method
-										user.create"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter name in method user.create","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Email does not valid
 								<ul>
-									<li>{"status":-1,"message":"The email address you provided does
-										not appear to be a valid email address."}</li>
+									<li>
+                                                                            {"status":-1,"message":"The email address you provided does not appear to be a valid email address.", "error":{"code":-105, "message":"The email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If Alternate Email does not valid
 								<ul>
-									<li>{"status":-1,"message":"The alternate email address you provided does
-										not appear to be a valid email address."}</li>
+									<li>
+                                                                            {"status":-1,"message":"The alternate email address you provided does not appear to be a valid email address.", "error":{"code":"-115","message":"The alternate email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If email already exists and account type is native
 								<ul>
-									<li>{"status":-1,"message":"This email address has already been
-										registered."}</li>
+									<li>
+                                                                            {"status":-1,"message":"This email address has already been registered.", "error":{"code":-106, "message":"This email address has already been registered."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Social information exists and the account type is Facebook
 								<ul>
-									<li>{"status":-1,"message":"This social information already
-										exists."}</li>
+									<li>
+                                                                            {"status":-1,"message":"This social information already exists.", "error":{"code":"-107","message":"This social information already exists."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If Jabber service does not able to create chat user
 								<ul>
-									<li>{"status":-1,"message":"User could not be created because
-										jabber service in not responding."}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be created because jabber service in not responding.", "error":{"code":-108, "message":"User could not be created because jabber service in not responding."}}
+                                                                        </li>
 								</ul>
 							</li>
-
+                                                        <li>If Social information is missing and the account type is Facebook:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter external_social_id in method user.create","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
 						</ul>
 					</div>
 				</td>
@@ -1528,21 +1650,22 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If email is missing or invalid
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}
+                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address.","error":{"code":"-105","message":"The email address you provided does not appear to be a valid email address."}}
                                                                         </li>
 								</ul>
 							</li>
 							<li>If provided email does not exist in database
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"The email address you have provided does not exist in our system."}
+                                                                            {"status":-1,"message":"The email address you have provided does not exist in our system.","error":{"code":"-112","message":"Email does not exist."}}
                                                                         </li>
 								</ul>
 							</li>
@@ -1617,36 +1740,37 @@
 
 							<li>If API Key is missing or not correct:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+										<li>
+                                        	{"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                        </li>
 								</ul>
 							</li>
 							<li>If email is missing or invalid
 								<ul>
-									<li>
-                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}
-                                                                        </li>
+										<li>
+                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address.","error":{"code":"-105","message":"The email address you provided does not appear to be a valid email address."}}
+                                        </li>
 								</ul>
 							</li>
 							<li>If provided email does not exist in database
 								<ul>
-									<li>
-                                                                            {"status":-1,"message":"The email address you have provided does not exist in our system."}
-                                                                        </li>
+										<li>
+                                        	{"status":-1,"message":"The email address you have provided does not exist in our system.","error":{"code":"-112","message":"Email does not exist."}}
+                                        </li>
 								</ul>
 							</li>
                                                         <li>If resend limit exceeds
 								<ul>
-									<li>
-                                                                            {"status":-1,"message":"Sorry, You crossed resend validation email limit."}
-                                                                        </li>
+										<li>
+                                           	{"status":-1,"message":"Sorry, You crossed resend validation email limit.", "error":{"code":"-116","message":"Sorry, You crossed resend validation email limit."}}
+                                        </li>
 								</ul>
 							</li>
                                                         <li>If provided email already activated
 								<ul>
-									<li>
-                                                                            {"status":-1,"message":"The email address you have provided is already activated."}
-                                                                        </li>
+										<li>
+                                            {"status":-1,"message":"The email address you have provided is already activated.","error":{"code":"-117","message":"The email address you have provided is already activated."}}}
+                                        </li>
 								</ul>
 							</li>
 
@@ -1668,6 +1792,85 @@
                         
 			<tr>
 				<td><input type="button" name='submit' dummy='ResendValidationEmail'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+<form action="<?php echo($baseURL)?>user.get_error_code" method='POST'
+		id='get_error_code' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Get Error Code" colspan="2"><label>Get Error Detail By Error Code </label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get_error_code <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.get_error_code<br /> Parameters:
+						<ul>
+
+                                                        <li><b>api_key</b> :Your API Key</li>
+							<li><b>email</b> :Email of the user</li>
+
+						</ul>
+						Success Responses:
+						<ul>
+							<li>If error code exist
+								<ul>
+									<li>
+										{"status":0,"result":{"-174":"Method call failed the API Authentication"}}
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+										<li>
+                                        {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                    	</li>
+								</ul>
+							</li>
+                                                        <li>If Error code does not exist:
+								<ul>
+									<li>{"status":-1,"message":"-189","error":{"code":"-175","message":"Provided error code does not exist."}}</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			
+			<tr>
+				<td>error_code</td>
+				<td><input type="text" name='error_code'></td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='get_error_code'
 					value='Submit' class='submit_form'></td>
 				<td></td>
 			</tr>

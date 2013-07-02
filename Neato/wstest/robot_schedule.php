@@ -97,24 +97,30 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial no is not exist
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robotschedule.post_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robotschedule.post_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If schedule type not valid or missing
 								<ul>
-									<li>{"status":-1,"message":"Robot schedule type is not valid"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Robot schedule type is not valid", "error":{"code":-133, "message":"Robot schedule type is not valid."}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -216,19 +222,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number is not exist
 								<ul>
-									<li>{"status":-1,"message":""Serial number does not exist""}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robotschedule.get_schedules"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robotschedule.get_schedules","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -307,19 +317,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot schedule id is not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot schedule id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot schedule id does not exist","error":{"code":"-134","message":"Robot schedule id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(robot_schedule_id) is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_schedule_id
-										in method robotschedule.get_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_schedule_id in method robotschedule.get_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -473,42 +487,53 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                             {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If robot schedule id is not exist
+							<li>If robot schedule id is not exist:
 								<ul>
-									<li>{"status":-1,"message":"Robot schedule id does not exist"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Robot schedule id does not exist","error":{"code":"-134","message":"Robot schedule id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If parameter robot schedule id is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_schedule_id
-										in method robotschedule.update_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_schedule_id in method robotschedule.update_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If schedule type not valid or missing
 								<ul>
-									<li>{"status":-1,"message":"Robot schedule type is not valid"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Robot schedule type is not valid", "error":{"code":-133, "message":"Robot schedule type is not valid."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If both the data versions are missing
 								<ul>
-									<li>{"status":-1,"message":"Provide at least one data
-										version(xml or blob) or schedule type."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Provide at least one data version(xml or blob) or schedule type.","error":{"code":"-128","message":"Provide at least one data version(xml or blob) or schedule type."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If xml data version is provided, not matching with latest xml
 								data version
 								<ul>
-									<li>{"status":-1,"message":"Version mismatch for xml data."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Version mismatch for schedule xml data.","error":{"code":"-129","message":"Version mismatch for xml data."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If blob data version is provided, not matching with latest
 								blob data version
 								<ul>
-									<li>{"status":-1,"message":"Version mismatch for blob data."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Version mismatch for schedule blob data.","error":{"code":"-130","message":"Version mismatch for blob data."}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -614,18 +639,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If robot schedule id is not exist
+							<li>If robot schedule id is not exist:
 								<ul>
-									<li>{"status":-1,"message":"Robot schedule id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot schedule id does not exist","error":{"code":"-134","message":"Robot schedule id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a parameter is missing
+							<li>If a parameter(robot_schedule_id) is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_schedule_id in method robotschedule.delete_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter robot_schedule_id in method robotschedule.delete_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -699,28 +729,37 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot_serial_number is not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot_serial_number is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_serial_number in method robotschedule.get_schedule_based_on_type"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Missing parameter robot_serial_number in method robotschedule.get_schedule_based_on_type","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If schedule_type is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter schedule_type in method robotschedule.get_schedule_based_on_type"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter schedule_type in method robotschedule.get_schedule_based_on_type","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         <li>If didn't get any schedule data:
 								<ul>
-									<li>{"status":-1,"message":"Sorry, we didn't find any schedule data for given robot serial number and schedule type"}</li>
+									<li>
+                                                                             {"status":-1,"message":"Sorry, we didn't find any schedule data for given robot serial number and schedule type","error":{"code":"-159","message":"No schedule data found for this robot"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         

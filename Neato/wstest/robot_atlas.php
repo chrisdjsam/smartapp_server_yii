@@ -37,30 +37,37 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If serial number does not exists
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a serial number is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.add_atlas"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.add_atlas","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If XML data is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter xml_data in
-										method robot.add_atlas"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter xml_data in method robot.add_atlas","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If atlas already added
 								<ul>
-									<li>{"status":-1,"message":"Robot can have only one atlas"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot can have only one atlas","error":{"code":"-131","message":"Robot can have only one atlas"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
@@ -136,24 +143,30 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot serial_number does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot serial_number does not exist."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot atlas id does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot atlas does not exist for this robot"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot atlas does not exist for this robot","error":{"code":"-132","message":"Robot atlas id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a parameter is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter serial_number in
-										method robot.get_atlas_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.get_atlas_data","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -245,51 +258,60 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot atlas id does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot atlas id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot atlas id does not exist","error":{"code":"-132","message":"Robot atlas id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If xml data version is provided, not matching with latest xml
-								data version
+							<li>If xml data version is provided, not matching with latest xml data version
 								<ul>
-									<li>{"status":-1,"message":"Version mismatch for xml data."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Version mismatch for xml data.","error":{"code":"-129","message":"Version mismatch for xml data."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If xml data version is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter xml_data_version
-										in method robot.update_atlas"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter xml_data_version in method robot.update_atlas","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If XML data is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter xml_data in
-										method robot.update_atlas"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter xml_data in method robot.update_atlas","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If atlas_id parameter is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter atlas_id in
-										method robot.update_atlas"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter atlas_id in method robot.update_atlas","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If serial number does not exists
 								<ul>
-									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
-							<li>If a serial number is missing
+<!--							<li>If a serial number is missing
 								<ul>
 									<li>{"status":-1,"message":"Missing parameter serial_number in
 										method robot.add_atlas"}</li>
 								</ul>
-							</li>
+							</li>-->
 						</ul>
 					</div>
 				</td>
@@ -378,19 +400,23 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If robot atlas id does not exist
 								<ul>
-									<li>{"status":-1,"message":"Robot atlas id does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Atlas id does not exist","error":{"code":"-132","message":"Robot atlas id does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							<li>If a parameter is missing
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter robot_atlas_id in
-										method robot.get_atlas_data"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter atlas_id in method robot.delete_atlas","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>
@@ -462,14 +488,25 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If id_atlas is incorrect or missing:
 								<ul>
-									<li> {"status":-1,"message":"Robot atlas id does not exist"}</li>
+									<li> 
+                                                                            {"status":-1,"message":"Robot atlas id does not exist","error":{"code":"-132","message":"Robot atlas id does not exist."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If parameter(id_atlas) is missing:
+								<ul>
+									<li> 
+                                                                            {"status":-1,"message":"Missing parameter id_atlas in method robot.get_atlas_grid_metadata","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							

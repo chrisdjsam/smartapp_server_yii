@@ -60,7 +60,8 @@ class AppController extends APIController {
 			self::success($response_data);
 		}else{
 			$response_message = "App Id does not exist.";
-			self::terminate(-1, $response_message);
+                        self::terminate(-1, $response_message, APIConstant::APP_DETAILS_NOT_FOUND);
+                        
 		}
 	
 	}
@@ -77,20 +78,20 @@ class AppController extends APIController {
 		$app_id = trim($app_id);
 		if(!is_numeric($app_id) && !is_int($app_id) ){
 			$response_message = "app_id should be an integer only.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::APP_ID_SHOULD_BE_INTEGER);
 		}	
 		
 		$appInfo = AppInfo::model()->findByAttributes(array("app_id"=>$app_id));
 		
 		if($appInfo !== null){
 			$response_message = "app_id already exist.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::APP_ID_ALREADY_EXIST);
 		}
 		
 		$upgrade_status = $_POST['AppInfo']['upgrade_status'];
 		if($upgrade_status == null){
 			$response_message = "Please mention upgrade status.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::UPGRADE_STATUS_MISSING);
 		}
 		
 		$current_app_version = $_POST['AppInfo']['current_app_version'];
@@ -115,7 +116,7 @@ class AppController extends APIController {
 			self::success($response_message);
 		}else{
 			$response_message = "Problem adding new app version.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ERROR_IN_ADDING_NEW_APP);
 		}
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
@@ -141,7 +142,7 @@ class AppController extends APIController {
 		
 		if($appInfo == null){
 			$response_message = "app_id does not exist.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::APP_DETAILS_NOT_FOUND);
 		}	
 		
 		
@@ -166,7 +167,7 @@ class AppController extends APIController {
 			self::success($response_message);
 		}else{
 			$response_message = "Problem updating app version.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ERROR_UPDATING_APP_VERSION);
 		}
 	
 		$this->renderPartial('/default/defaultView', array('content' => $content));
@@ -185,7 +186,7 @@ class AppController extends APIController {
 	
 		if($appInfo == null){
 			$response_message = "app_id does not exist.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::APP_DETAILS_NOT_FOUND);
 		}
 		
 	
@@ -196,7 +197,7 @@ class AppController extends APIController {
 			self::success($response_message);
 		}else{
 			$response_message = "Problem deleting app version.";
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::ERROR_DELETING_APP_VERSION);
 		}
 	
 		$this->renderPartial('/default/defaultView', array('content' => $content));

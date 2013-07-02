@@ -113,7 +113,7 @@ class RobotScheduleController extends APIController {
 
 		if(!AppCore::validate_schedule_xml_data($xml_data)){
 			$response_message = self::yii_api_echo('Invalid xml data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::INVALID_XML);
 		}
 
 		$robot_schedule_model = new RobotSchedule();
@@ -404,15 +404,15 @@ class RobotScheduleController extends APIController {
 
 		if($robot_schedule_xml_data_version && $robot_schedule_xml_data_version != $robot_schedule_xml_data_latest_version){
 			$response_message = self::yii_api_echo('Version mismatch for schedule xml data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
 		}
 
 		if($robot_schedule_blob_data_version && $robot_schedule_blob_data_version != $robot_schedule_blob_data_latest_version){
 			$response_message = self::yii_api_echo('Version mismatch for schedule blob data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
 		}
 
-		if($robot_schedule_type || $robot_schedule_xml_data_version || $robot_schedule_blob_data_version){
+		if($robot_schedule_xml_data_version || $robot_schedule_blob_data_version){
 
 			$old_schedule_xml_data_file_path = '';
 			$old_schedule_blob_data_file_path = '';
@@ -422,7 +422,7 @@ class RobotScheduleController extends APIController {
 
 				if(!AppCore::validate_schedule_xml_data($xml_data)){
 					$response_message = self::yii_api_echo('Invalid xml data.');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::INVALID_XML);
 				}
 				//storing xml data
 
@@ -538,7 +538,7 @@ class RobotScheduleController extends APIController {
 			}
 		}else{
 			$response_message = self::yii_api_echo('Provide at least one data version(xml or blob) or schedule type.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
 		}
 
 	}
@@ -721,7 +721,7 @@ class RobotScheduleController extends APIController {
 				 ! (isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))
 				)){
 			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
 		}
 
 		$xml_data = "";
@@ -762,7 +762,7 @@ class RobotScheduleController extends APIController {
 				 ! (isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))
 				)){
 			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
 		}
 	
 		$xml_data = "";
@@ -836,10 +836,9 @@ class RobotScheduleController extends APIController {
                 }
                 
                 if(empty($robot_schedule_arr)){
-			self::terminate(-1, "Sorry, we didn't find any schedule data for given robot serial number and schedule type");
+			self::terminate(-1, "Sorry, we didn't find any schedule data for given robot serial number and schedule type", APIConstant::NO_SCHEDULE_DATA_FOUND);
                 }
                 self::success($robot_schedule_arr);
-                
         }
 
 }   

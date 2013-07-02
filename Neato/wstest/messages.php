@@ -41,32 +41,65 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
-							<li>If serial_nubmer not found:
+							<li>If serial_number not found:
 								<ul>
-									<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114, "message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If user_id not found:
 								<ul>
-									<li>{"status":-1,"message":"User ID does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User ID does not exist", "error":{"code":"-119","message":"User ID does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If user and robot association not exist:
 								<ul>
-									<li>{"status":-1,"message":"User robot association does not exist."}</li>
+									<li>
+                                                                            {"status":-1,"message":"User robot association does not exist.", "error":{"code":"-120","message":"User robot association does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If message sending failed:
 								<ul>
-									<li>{"status":-1,"message":"Message could not be sent to robot sr1."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Message could not be sent to robot sr1.", "error":{"code":-121, "message":"Message could not be sent to robot "}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If user id is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter user_id in method message.send_xmpp_message_to_robot","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If serial_number is missing:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Message could not be sent to robot sr1.", "error":{"code":-121, "message":"Message could not be sent to robot "}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If message sending failed:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_xmpp_message_to_robot","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 								
@@ -160,26 +193,57 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If sending failed:
 								<ul>
-									<li>{"status":-1,"message":"Message is sent to 0 user(s)."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Message is sent to 0 user(s).", "error":{"code":"-121","message":"Message could not be sent to robot"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If serial_nubmer not found:
 								<ul>
-									<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114, "message":"Robot serial number does not exist"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If message_type does not match:
 								<ul>
-									<li>{"status":-1,"message":"XMP does not match supported message type XMPP"}</li>
+									<li>
+                                                                            {"status":-1,"message":"XMP does not match supported message type XMPP", "error":{"code":"-122","message":"Does not match supported message type"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If message_type is missing
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter message_type in method message.send_message_to_associated_users","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                         <li>If serial_number is missing
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_message_to_associated_users","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                         <li>If message is missing
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter message in method message.send_message_to_associated_users","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 														
@@ -270,14 +334,33 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If serial_nubmer not found:
 								<ul>
-									<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_xmpp_message_to_all_associated_users2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>if message is missing
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter message in method message.send_xmpp_message_to_all_associated_users2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If Robot serial number does not exist"
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 														
@@ -371,15 +454,16 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
                                                         <li>If emails is missing:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Please provide at least one email address"}
+                                                                            {"status":-1,"message":"Please provide at least one email address", "error":{"code":"-102","message":"Missing parameter in method call"}}
                                                                         </li>
 								</ul>
 							</li>
@@ -387,7 +471,7 @@
                                                         <li>If message is missing:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Message field can not be blank"}
+                                                                            {"status":-1,"message":"Message field can not be blank", "error":{"code":"-102","message":"Missing parameter in method call"}}
                                                                         </li>
 								</ul>
 							</li>
@@ -395,7 +479,7 @@
 							<li>If there no registration id for given email ids
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Please register notification for given emails ( Causing Emails : < list of all unregistered emails > )"}
+                                                                            {"status":-1,"message":"Please register notification for given emails ( Causing Emails : < list of all unregistered emails > )", "error":{"code":"-121","message":"Message could not be sent to robot"}}
                                                                         </li>
 								</ul>
 							</li>
@@ -403,7 +487,15 @@
                                                         <li>If provide email address is not present in database
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Provided emails addresses are not exist in our system ( Causing Emails : < list of all unavailable emails > ))"}
+                                                                            {"status":-1,"message":"Provided emails addresses are not exist in our system ( Causing Emails : < list of all unavailable emails > ))", "error":{"code":"-121","message":"Message could not be sent to robot"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+                                                          <li>If email is invalid
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Please provide valid email address (Invalid emails: [])","error":{"code":"-105","message":"The email address you provided does not appear to be a valid email address."}}
                                                                         </li>
 								</ul>
 							</li>
@@ -500,15 +592,16 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
                                                         <li>If registration id is missing:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Provide at least one registration id"}
+                                                                            {"status":-1,"message":"Provide at least one registration id", "error":{"code":"-102","message":"Missing parameter in method call"}}
                                                                         </li>
 								</ul>
 							</li>
@@ -516,22 +609,16 @@
                                                         <li>If message is missing:
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Missing parameter message in method message.send_notification_to_given_registration_ids"}
-                                                                        </li>
-								</ul>
-							</li>
-							
-							<li>If notification sending failed:
-								<ul>
-									<li>
-                                                                            {"status":0,"result":{"success":true,"message":" gcm_response::{\"multicast_id\":5148050980863601594,\"success\":0,\"failure\":1,\"canonical_ids\":0,\"results\":[{\"error\":\"MismatchSenderId\"}]}"}}
+                                                                            {"status":-1,"message":"Missing parameter message in method message.send_notification_to_given_registration_ids","error":{"code":"-102","message":"Missing parameter in method call"}}
                                                                         </li>
 								</ul>
 							</li>
 							
 							<li>If given registration ids are not registered:
 								<ul>
-									<li>{"status":-1,"message":"Provided Registration Ids are not registered, please register it first then try again... (Causing Registration Ids : < list of all unregistered ids >)"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Provided Registration Ids are not registered, please register it first then try again... (Causing Registration Ids : < list of all unregistered ids >)", error":{"code":"-125","message":"Invalid registration IDs"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
@@ -627,15 +714,16 @@
                             <ul>
                                 <li>If API Key is missing:
                                     <ul>
-                                        <li>{"status":-1,"message":"Method call failed the API
-                                            Authentication"}</li>
+                                        <li>
+                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                        </li>
                                     </ul>
                                 </li>
 
                                 <li>If serial_number is missing:
                                     <ul>
                                         <li>
-                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_notification_to_all_users_of_robot"}
+                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_notification_to_all_users_of_robot", "error":{"code":"-102","message":"Missing parameter in method call"}}
                                         </li>
                                     </ul>
                                 </li>
@@ -643,28 +731,32 @@
                                 <li>If message is missing:
                                     <ul>
                                         <li>
-                                            {"status":-1,"message":"Missing parameter message in method message.send_notification_to_given_registration_ids"}
+                                            {"status":-1,"message":"Missing parameter message in method message.send_notification_to_given_registration_ids", "error":{"code":"-102","message":"Missing parameter in method call"}}
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li>If notification sending failed:
+                                <li>If there is not single user with notification registration:
                                     <ul>
                                         <li>
-                                            {"status":0,"result":{"success":true,"message":"Notification Response ::  gcm_response::{\"multicast_id\":6511743384611729934,\"success\":0,\"failure\":1,\"canonical_ids\":0,\"results\":[{\"error\":\"MismatchSenderId\"}]} and Unable to send notification to users yogesh, ninad, pradip Because they are not registered"}}
+                                            {"status":-1,"message":"Sorry, there is not single user who is registered for notification","error":{"code":"-121","message":"Message could not be sent to robot"}}
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li>If there is not single user with notification registration
+                                <li>If Robot serial number is incorrect:
                                     <ul>
-                                        <li>{"status":-1,"message":"Sorry , there is not single user who is registered for notification"}</li>
+                                        <li>
+                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114, "message":"Robot serial number does not exist"}}
+                                        </li>
                                     </ul>
                                 </li>
-
-                                <li>If enter wrong serial_number
+                                
+                                <li>If no user is associated
                                     <ul>
-                                        <li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+                                        <li>
+                                            {"status":-1,"message":"Sorry, there is no user associated","error":{"code":"-123","message":"No user was found for robot"}}
+                                        </li>
                                     </ul>
                                 </li>
 
@@ -757,15 +849,16 @@
                             <ul>
                                 <li>If API Key is missing:
                                     <ul>
-                                        <li>{"status":-1,"message":"Method call failed the API
-                                            Authentication"}</li>
+                                        <li>
+                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                        </li>
                                     </ul>
                                 </li>
 
                                 <li>If serial_number is missing:
                                     <ul>
                                         <li>
-                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_notification_to_all_users_of_robot"}
+                                            {"status":-1,"message":"Missing parameter serial_number in method message.send_notification_to_all_users_of_robot", "error":{"code":"-102","message":"Missing parameter in method call"}}
                                         </li>
                                     </ul>
                                 </li>
@@ -773,22 +866,24 @@
                                 <li>If message is missing:
                                     <ul>
                                         <li>
-                                            {"status":-1,"message":"Missing parameter message in method message.send_notification_to_given_registration_ids"}
+                                             {"status":-1,"message":"Missing parameter message in method message.send_notification_to_given_registration_ids", "error":{"code":"-102","message":"Missing parameter in method call"}}
                                         </li>
                                     </ul>
                                 </li>
 
-<!--                                <li>If notification sending failed:
+                                <li>If Json message is invalid
                                     <ul>
                                         <li>
-                                            {"status":-1,"message":"Failed to send push notification"}
+                                            {"status":-1,"message":"The json message you have provided does not appear to be a valid.","error":{"code":"-126","message":"The JSON Object you have provided does not appear to be a valid."}}
                                         </li>
                                     </ul>
-                                </li>-->
+                                </li>
 
                                 <li>If enter wrong serial_number
                                     <ul>
-                                        <li>{"status":-1,"message":"Robot serial number does not exist"}</li>
+                                        <li>
+                                            {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114, "message":"Robot serial number does not exist"}}
+                                        </li>
                                     </ul>
                                 </li>
 
@@ -889,22 +984,35 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If user's email not found:
 								<ul>
-									<li>{"status":-1,"message":"Sorry, Provided user email address does not exist in our system."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided user email address does not exist in our system.", "error":{"code":"-112","message":"Email does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If provide invalid email address:
 								<ul>
-									<li>{"status":-1,"message":"Please enter valid email address."}</li>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid email address.", "error":{"code":"-105","message":"The email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        
+                                                        <li>If user's email is missing
+                                                                <ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter user_email in method message.notification_registration","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+                                                        </li>
 														
 						</ul>
 					</div>
@@ -989,20 +1097,25 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If registration is not found:
 								<ul>
-									<li>{"status":-1,"message":"Sorry, Provided registration id does not exist in our system"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, Provided registration id does not exist in our system", "error":{"code":"-125","message":"Invalid registration IDs"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If registration id field is blank:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter registration_id in method message.notification_unregistration"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter registration_id in method message.notification_unregistration", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 														
@@ -1085,38 +1198,49 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If email address is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter email in method message.set_user_push_notification_options"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter email in method message.set_user_push_notification_options", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If json_object is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter json_object in method message.set_user_push_notification_options"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter json_object in method message.set_user_push_notification_options", "error":{"code":"-102","message":"Missing parameter in method call"}}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
                                                         <li>If given email address is not valid,
 								<ul>
-									<li>{"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}</li>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address.", "error":{"code":-105, "message":"The email address you have provided does not appear to be a valid email address"}}
+                                                                        </li>
 								</ul>
 							</li>                                                        
                                                         
                                                         <li>If given email address does not exist in database,
 								<ul>
-									<li>{"status":-1,"message":"Sorry, email address that you provided does not exist our database"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, email address that you provided does not exist our database", "error":{"code":-112, "message":"Email does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
 														
                                                         <li>If given json_object is not valid,
 								<ul>
-									<li>{"status":-1,"message":"The JSON Object you have provided does not appear to be a valid."}</li>
+									<li>
+                                                                            {"status":-1,"message":"The JSON Object you have provided does not appear to be a valid.", "error":{"code":"-126","message":"The JSON Object you have provided does not appear to be a valid."}}
+                                                                        </li>
 								</ul>
 							</li>                                                        
 						</ul>
@@ -1195,28 +1319,44 @@
 						<ul>
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
 							<li>If email is missing:
 								<ul>
-									<li>{"status":-1,"message":"Missing parameter email in method message.get_user_push_notification_options"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter email in method message.get_user_push_notification_options", error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
 								</ul>
 							</li>
 							
                                                         <li>If given email address is not valid,
 								<ul>
-									<li>{"status":-1,"message":"The email address you have provided does not appear to be a valid email address."}</li>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address.", error":{"code":"-105","message":"The email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
 								</ul>
 							</li>
                                                         
                                                         <li>If given email address does not exist in database,
 								<ul>
-									<li>{"status":-1,"message":"Sorry, email address that you provided does not exist our database"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Sorry, email address that you provided does not exist our database", "error":{"code":-112, "message":"Email does not exist."}}
+                                                                        </li>
 								</ul>
 							</li>
+                                                        
+                                                        <li>If push notification preferences for the email address
+                                                                <ul>
+									<li>
+                                                                            {"status":-1,"message":"Please first set user push notification preferences for the email address that you have provided and then try again.","error":{"code":"-124","message":"User preference does not permit this operation."}}
+                                                                        </li>
+								</ul>
+                                                            
+                                                        </li>
 														
 						</ul>
 					</div>

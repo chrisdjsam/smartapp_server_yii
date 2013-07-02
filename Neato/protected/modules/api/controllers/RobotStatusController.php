@@ -18,7 +18,6 @@ class RobotStatusController extends APIController {
         include_once Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database_config.php';
         
         $env = array();
-//        $env[] = $local;
         $env[] = $dev;
         $env[] = $staging;
         
@@ -82,7 +81,6 @@ class RobotStatusController extends APIController {
         include_once Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database_config.php';
         
         $env = array();
-//        $env[] = $local;
         $env[] = $dev;
         $env[] = $staging;
         
@@ -97,6 +95,5 @@ class RobotStatusController extends APIController {
             echo 'data is stored';
         }
         
-    }
-    
+    }   
 }

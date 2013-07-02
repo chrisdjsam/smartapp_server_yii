@@ -174,7 +174,7 @@ class GridImageController extends APIController {
 		if (isset($robot_blob_data_version)){
 			if(isset($robot_blob_data_version) && $robot_blob_data_version != $robot_blob_data_latest_version){
 				$response_message = self::yii_api_echo('Version mismatch for blob data.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
 			}
 		}
 		
@@ -249,7 +249,7 @@ class GridImageController extends APIController {
 	public function actionAdd(){		
 		if(!$_POST['AtlasGridImage']['id_grid']){
 			$response_message = self::yii_api_echo('Please Provide Grid ID.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::GRID_ID_MISSING);
 		}else{
 			self::verify_for_empty_grid_id($_POST['AtlasGridImage']['id_grid']);
 		}
@@ -257,7 +257,7 @@ class GridImageController extends APIController {
 		if( !isset($_FILES['AtlasGridImage']) || (! file_exists($xml_data_temp_file_path = $_FILES['AtlasGridImage']['tmp_name']['blob_data_file_name']) &&
 				! file_exists($xml_data_temp_file_path = $_FILES['AtlasGridImage']['tmp_name']['blob_data_file_name']))){
 			$response_message = self::yii_api_echo('Please Provide Blob data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::BLOB_DATA_MISSING);
 		}
 		
 		$encoded_blob_data="";
@@ -294,7 +294,7 @@ class GridImageController extends APIController {
 		if( !isset($_FILES['AtlasGridImage']) || (! file_exists($xml_data_temp_file_path = $_FILES['AtlasGridImage']['tmp_name']['blob_data_file_name']) &&
 				! file_exists($xml_data_temp_file_path = $_FILES['AtlasGridImage']['tmp_name']['blob_data_file_name']))){
 			$response_message = self::yii_api_echo('Please Provide Blob data.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::BLOB_DATA_MISSING);
 		}
 			
 		
@@ -395,7 +395,7 @@ class GridImageController extends APIController {
 			self::success($response_data);
 		}else{
 				$response_message = self::yii_api_echo('Error while deleting grid image');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::ERROR_DELETING_GRID_IMAGE);
 		
 		}
 	}

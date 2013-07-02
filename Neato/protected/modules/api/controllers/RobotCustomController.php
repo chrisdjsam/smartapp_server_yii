@@ -140,11 +140,10 @@ class RobotCustomController extends APIController {
 		$robot_id = $robot->id;
 		
 		$encoded_blob_data_arr = Yii::app()->request->getParam('encoded_blob_data', '');
-// 		var_dump($_FILES); die;
 		if (!$encoded_blob_data_arr || !isset($_FILES['blob_data'])) {
 			if (!$encoded_blob_data_arr){
 				$response_message = self::yii_api_echo('Provide atleast one data.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::PARAMETER_MISSING);
 			}
 			foreach ($encoded_blob_data_arr as $key=>$value){
 				$is_encode_blob_data_exist = false;
@@ -156,7 +155,7 @@ class RobotCustomController extends APIController {
 			}
 			if ($is_encode_blob_data_exist){
 				$response_message = self::yii_api_echo('Provide atleast one data.');
-				self::terminate(-1, $response_message);
+				self::terminate(-1, $response_message, APIConstant::PARAMETER_MISSING);
 			}
 		}
 
@@ -179,7 +178,7 @@ class RobotCustomController extends APIController {
 
 				if(!in_array($custom_blob_data_file_extension, $suported_extension_arr)){
 					$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
 				}
 			}
 		}
@@ -192,7 +191,7 @@ class RobotCustomController extends APIController {
 
 					if(!in_array($custom_blob_data_file_extension, $suported_extension_arr)){
 						$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
-						self::terminate(-1, $response_message);
+						self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
 					}
 				}
 			}
@@ -554,15 +553,15 @@ class RobotCustomController extends APIController {
 				$latest_version = $robot_custom_model->getBlobDataLatestVersion($key);
 				if (!$latest_version){
 					$response_message = self::yii_api_echo("$key not found.");
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
 				}elseif($latest_version !== $blob_data_version){
 					$response_message = self::yii_api_echo("Version mismatch for $key.");
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
 				}
 			}
 		}else{
 			$response_message = self::yii_api_echo('Provide atleast one data and version.');
-			self::terminate(-1, $response_message);
+			self::terminate(-1, $response_message, APIConstant::PARAMETER_MISSING);
 		}
 
 		$encoded_blob_data_arr = Yii::app()->request->getParam('encoded_blob_data', '');
@@ -590,7 +589,7 @@ class RobotCustomController extends APIController {
 
 				if(!in_array($custom_blob_data_file_extension, $suported_extension_arr)){
 					$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
-					self::terminate(-1, $response_message);
+					self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
 				}
 			}
 		}
@@ -602,7 +601,7 @@ class RobotCustomController extends APIController {
 
 					if(!in_array($custom_blob_data_file_extension, $suported_extension_arr)){
 						$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
-						self::terminate(-1, $response_message);
+						self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
 					}
 				}
 			}
