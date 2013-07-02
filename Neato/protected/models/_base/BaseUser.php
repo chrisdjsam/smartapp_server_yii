@@ -9,7 +9,7 @@
  * @property string $password
  * @property string $reset_password
  * @property string $email
- * @property integer $is_emailVerified
+ * @property integer $is_email_validated?
  * @property integer $is_admin
  * @property string $created_on
  * @property string $chat_id
@@ -97,7 +97,7 @@ class BaseUser extends GxActiveRecord
 			'chat_pwd' => 'Chat Password',
 			'is_active' => 'Is Active',
                         'validation_key' => 'Validation Key',
-                        'is_validated' => 'Validate Email',
+                        'is_validated' => 'Is email validated?',
                         'validation_counter' => 'Validation Counter',
                         'push_notification_preference' => 'Push Notification Preference',
                     

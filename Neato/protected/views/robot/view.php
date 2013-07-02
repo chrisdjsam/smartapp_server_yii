@@ -44,7 +44,12 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<!--<a href="<?php echo $this->createUrl('robot/delete',array('rid'=>AppHelper::two_way_string_encrypt($model->id)))?>" -->
 	<!-- 				title="Delete robot" class="neato-button delete-single-item">Delete</a>  -->
 	<!-- 	</div> -->
-	<br />
+        <div class="action-button-container">
+                <?php 
+                    print '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($model->id))).'" class="neato-button" title="Edit" robot "'.$model->serial_number.'">Edit</a>';
+                ?>
+        </div>
+        <br />
 	<div class="robot-data-table-heading">Basic Information</div>
 	<?php
         
@@ -83,6 +88,16 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 					'type'=>'raw',
 					'value' => $last_ping,
 					),
+                                        array(
+					'label' =>'Sleep Time',
+					'type'=>'raw',
+					'value' => $sleep_lag_time['sleep_time'] . ' seconds',
+					),
+                                        array(
+					'label' =>'Wakeup Time',
+					'type'=>'raw',
+					'value' => $sleep_lag_time['lag_time'] . ' seconds',
+					),
                             ),
 			)); ?>
 	<?php
@@ -103,6 +118,7 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
         
 	<div class="action-button-container">
 		<a class="send-to-base-command neato-button neato-button-large"
+                        href=<?php echo $this->createUrl('api/Robot/SendToBaseCommand',array('chat_id'=>AppHelper::two_way_string_encrypt($model->chat_id)))?>
 			title="Send to Base">Send to Base</a>
 	</div>
 

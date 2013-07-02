@@ -1705,12 +1705,12 @@
 						<ul>
 							<li>If everything goes fine and robot is online
 								<ul>
-									<li>{"status":0,"result":{"online":true,"message":"Robot 1234 is online."}}</li>
+									<li>{"status":0,"result":{"online":true,"message":"Robot 1 is online.","expected_time":12}}</li>
 								</ul>
 							</li>
 							<li>If everything goes fine and robot is offline
 								<ul>
-									<li>{"status":0,"result":{"online":false,"message":"Robot 1234 is offline."}}</li>
+									<li>{"status":0,"result":{"online":false,"message":"Robot 1 is offline.","expected_time":-12}}</li>
 								</ul>
 							</li>
 						</ul>
@@ -1940,5 +1940,408 @@
 	</form>
 
 
+	<form action="<?php echo($baseURL)?>robot.set_robot_configuration" method='POST'
+		id='set_robot_configuration' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Set Robot Configuration" colspan="2"><label>Set Robot Configuration</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to set robot configuration. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.set_robot_configuration<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of the robot</li>
+                                                        <li><b>sleep_time</b> :Sleep Time of the robot in seconds</li>
+                                                        <li><b>wakeup_time</b> :Wakeup time of the robot in seconds</li>
+                                                        <li><b>config_key_value</b> :Robot Configuration Key Value (Optional)</li>
+						</ul>
+						Success Response:
+						<ul>
+                                                        <li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"timestamp":1370422277}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_type_metadata_using_id"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+                                                        <li>If provided sleep time or wakeup time is invalid
+								<ul>
+									<li>{"status":-1,"message":"Please enter valid sleep time or wakeup time"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+
+			<tr>
+				<td>sleep_time</td>
+				<td><input type="text" name='sleep_time'>
+				</td>
+			</tr>
+
+			<tr>
+				<td>wakeup_time</td>
+				<td><input type="text" name='wakeup_time'>
+				</td>
+			</tr>
+                        
+                        <tr>
+				<td id='labelPlaceholderRow5' colspan="2"></td>
+			</tr>
+			<tr>
+				<td><input type="text" name='labelName' value='' id='labelName5'
+					class='removeFromRequest'>
+				</td>
+				<td>
+					<div id='addLabelLink5'>Add Robot Config Key</div>
+				</td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='set_robot_configuration'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+	<form action="<?php echo($baseURL)?>robot.get_robot_configuration" method='POST'
+		id='get_robot_configuration' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Get Robot Configuration" colspan="2"><label>Get Robot Configuration</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to get robot configuration. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.get_robot_configuration<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of the robot</li>
+						</ul>
+						Success Response:
+						<ul>
+                                                        <li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"serial_number":"1","sleep_time":"1","wakeup_time":"100","timestamp":"1370527227","config_key_value":{"real":"mask","real1":"steal1","k1":"v1","k2":"v2"}}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_robot_type_metadata_using_id"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='get_robot_configuration'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+	<form action="<?php echo($baseURL)?>robot.get_token_for_robot_user_association" method='POST'
+		id='get_token_for_robot_user_association' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Get Token for Robot-User Association" colspan="2"><label>Get Token for Robot-User Association</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to Get Token for Robot-User Association. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.get_token_for_robot_user_association<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>serial_number</b> :Serial Number of the robot</li>
+						</ul>
+                                                
+                                                Note:
+                                                <ul>
+							<li>Token will be expired after 5 minutes.</li>
+						</ul>
+                                                
+						Success Response:
+						<ul>
+                                                        <li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"token":"6a077b7c2fee661ffa43d35bdca0e286"}}</li>
+								</ul>
+							</li>
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a serial_number is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_token_for_robot_user_association"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='get_token_for_robot_user_association'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+	<form action="<?php echo($baseURL)?>robot.robot_user_association_by_token" method='POST'
+		id='robot_user_association_by_token' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Robot-User Association by Token" colspan="2"><label>Robot-User Association by Token</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to set Robot-User Association by Token. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.robot_user_association_by_token<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>email</b> :User email address</li>
+                                                        <li><b>token</b> :Token which is get in 'Robot-User Association by Token' API</li>
+						</ul>
+						Success Response:
+						<ul>
+                                                        <li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"Robot-User association is done successfully"}}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If user is already associated,
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"User robot association already exists."}}</li>
+								</ul>
+							</li>
+                                                        
+						</ul>
+                                                
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+
+								<ul>
+									<li>{"status":-1,"message":"Method call failed the API
+										Authentication"}</li>
+								</ul>
+							</li>
+							<li>If a email is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter email in method robot.robot_user_association_by_token"}</li>
+								</ul>
+							</li>
+							<li>If serial number does not exist
+								<ul>
+									<li>{"status":-1,"message":"Serial number does not exist"}</li>
+								</ul>
+							</li>
+                                                        <li>If a token is missing
+								<ul>
+									<li>{"status":-1,"message":"Missing parameter token in method robot.robot_user_association_by_token"}</li>
+								</ul>
+							</li>
+                                                        <li>If provide token is invalid
+								<ul>
+									<li>{"status":-1,"message":"Please enter valid token"}</li>
+								</ul>
+							</li>
+                                                        <li>If provide email is invalid
+								<ul>
+									<li>{"status":-1,"message":"Please enter valid email address"}</li>
+								</ul>
+							</li>
+                                                        <li>If provide token is expired
+								<ul>
+									<li>{"status":-1,"message":"Sorry, provided token is expired"}</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'>
+				</td>
+			</tr>
+                        
+			<tr>
+				<td>token</td>
+				<td><input type="text" name='token'>
+				</td>
+			</tr>                        
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='robot_user_association_by_token'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
 
 <?php include_once 'common_footer.php';?>

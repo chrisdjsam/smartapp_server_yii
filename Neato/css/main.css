@@ -1082,6 +1082,10 @@ table.detail-view {
 	width: 100px;
 }
 
+.rounded-corners a.requires-confirmation-reset-password{
+    width:105px;
+}
+
 a.user-neato-button {
 	width: 95px;
 }
@@ -1256,4 +1260,8 @@ table.detail-view td {
 .robot_time_instruct {
     color: gray; 
     font-style: italic;
+}
+
+.paginate_button_disabled {
+    display: none;
 }

@@ -160,6 +160,7 @@ $(document).ready(function(){
         "aaSorting": [ [1,'asc']],
         "bProcessing": true,
         "bServerSide": true,
+        "sPaginationType": "full_numbers",       
         "sAjaxSource": app_base_url + '/api/robot/RobotDataTable',
         "fnServerData": function ( sSource, aoData, fnCallback ) {
             $.ajax( {
@@ -207,6 +208,7 @@ $(document).ready(function(){
         "aaSorting": [ [1,'asc']],
         "bProcessing": true,
         "bServerSide": true,
+        "sPaginationType": "full_numbers",       
         "sAjaxSource": app_base_url + '/api/user/UserDataTable',
         "fnServerData": function ( sSource, aoData, fnCallback ) {
             $.ajax( {
@@ -242,6 +244,7 @@ $(document).ready(function(){
     $('.online-robot-table').dataTable(
     {
         "bStateSave":true,
+        "sPaginationType": "full_numbers",
         "fnStateSave": function (oSettings, oData) {
             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
         },
@@ -260,6 +263,7 @@ $(document).ready(function(){
     $('.virtually-online-robot-table').dataTable(
     {
         "bStateSave":true,
+        "sPaginationType": "full_numbers",
         "fnStateSave": function (oSettings, oData) {
             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
         },
@@ -278,6 +282,7 @@ $(document).ready(function(){
     $('.online-user-table').dataTable(
     {
         "bStateSave":true,
+        "sPaginationType": "full_numbers",
         "fnStateSave": function (oSettings, oData) {
             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
         },
@@ -304,6 +309,7 @@ $(document).ready(function(){
     $('.user-robot-table').dataTable(
     {
         "bStateSave":true,
+        "sPaginationType": "full_numbers",
         "fnStateSave": function (oSettings, oData) {
             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
         },
@@ -321,13 +327,14 @@ $(document).ready(function(){
     $('.wslogging-table').dataTable(
     {
         "iDisplayLength": 25,
-        "aaSorting": [ [9,'desc']]
+        "aaSorting": [ [9,'desc']],
         }		
     );
         
     $('.robot_types-table').dataTable(
     {
         "bStateSave":true,
+        "sPaginationType": "full_numbers",
         "fnStateSave": function (oSettings, oData) {
             sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
         },
@@ -400,7 +407,30 @@ $(document).ready(function(){
     });
 
     $('.send-to-base-command').live('click', function(){
-        alert("Not implemented yet!");
+        var urlToSendToBaseCommand = $(this).attr("href");
+        $.ajax({
+            type: 'POST',
+            url: urlToSendToBaseCommand,
+            dataType: 'jsonp',
+            success: function(r) {
+                hideWaitDialog();
+                if (r.status === 0) {
+                    generate_noty("success", "You have successfully sent <b>send to base</b> command.");
+                } else { // Handle errors
+                    generate_noty("error", "Error while sending 'send to base' command.");
+                }
+            },
+            error: function(r) {
+                hideWaitDialog();
+                generate_noty("error", "Error while sending 'send to base' command.");
+            },
+            beforeSend: function(){
+                showWaitDialog();
+            },
+            complete: function(){
+                hideWaitDialog();
+            }
+        });
         return false;
     });
 
@@ -647,7 +677,7 @@ function dataTableForAll(handle, length, url, colomns_to_disable_sort, default_s
         "fnStateLoad": function (oSettings) {
             return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
         },
-//        "sPaginationType": "full_numbers",
+      "sPaginationType": "full_numbers",
         "bProcessing": true,
         "bServerSide": true,
         "iDisplayLength" : length,

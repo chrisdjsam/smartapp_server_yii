@@ -26,6 +26,7 @@ $(document).ready(function(){
         loadEmails();
         setProfileDetails2();
         setProfileDetails3();
+        setRobotConfiguration();
 	
 var options = {
  		beforeSubmit:  showRequest,  // pre-submit callback
@@ -176,6 +177,32 @@ function setProfileDetails3(){
 			}else{
 				existingLabelNameArray.push(labelNameVal);
 				$('#labelPlaceholderRow4').append("<table style='width:100%'><tr><td class = \"label_field\">" + labelNameVal+"</td><td class = \" value_field\"><input type='text' name='profile[" + labelNameVal + "]'></tr></td><table>");
+
+			}
+		}else{
+			alert('Key can NOT be empty');
+		}
+	});
+}
+
+function setRobotConfiguration(){
+
+	existingLabelNameArray = new Array();
+	$('#addLabelLink5').click(function(){
+		labelNameVal = $('#labelName5').val();
+		if($.trim(labelNameVal)!=''){
+			labelExists = false;
+			for(i=0; i<existingLabelNameArray.length; i++){
+				existingLabel = existingLabelNameArray[i];
+				if(existingLabel == labelNameVal){
+					labelExists = true;
+				}
+			}
+			if(labelExists){
+				alert('Key already added');
+			}else{
+				existingLabelNameArray.push(labelNameVal);
+				$('#labelPlaceholderRow5').append("<table style='width:100%'><tr><td class = \"label_field\">" + labelNameVal+"</td><td class = \" value_field\"><input type='text' name='config_key_value[" + labelNameVal + "]'></tr></td><table>");
 
 			}
 		}else{

@@ -59,4 +59,18 @@ class Robot extends BaseRobot
 		}
 		return false;
 	}
+        
+        public function beforeSave() {
+            
+            $utc_str = gmdate("M d Y H:i:s", time());
+            $utc = strtotime($utc_str);
+        
+            if ($this->isNewRecord) {
+                $this->created_on = $utc;
+            }
+            $this->updated_on = $utc;
+
+            return parent::beforeSave();
+            
+        }
 }

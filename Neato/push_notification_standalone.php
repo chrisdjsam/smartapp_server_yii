@@ -182,7 +182,7 @@ function curl_call($url, $headers, $data_string) {
 
 function sendIOSPushNotification($deviceToken, $message_body) {
 
-    $iOSCertificatesPath = Yii::app()->basePath . DIRECTORY_SEPARATOR . 'certificates' . DIRECTORY_SEPARATOR . 'neato.pem';
+    $iOSCertificatesPath = './neato.pem';
 
     // Put your private key's passphrase here:
     $passphrase = 'neato123';

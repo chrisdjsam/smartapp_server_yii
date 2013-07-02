@@ -288,6 +288,50 @@ class RestController extends APIController {
 				true,
 				false);                                                
                 
+		self::expose_function('robot.set_robot_configuration',
+				"robot/setRobotConfiguration",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+                                    'sleep_time' => array ('type' => 'string', 'required' => true),
+                                    'wakeup_time' => array ('type' => 'string', 'required' => true),
+                                    'config_key_value' => array ('type' => 'array', 'default' => array()),
+				),
+				"Set Robot Configuration",
+				'POST',
+				true,
+				false);                                                
+
+		self::expose_function('robot.get_robot_configuration',
+				"robot/getRobotConfiguration",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+				),
+				"Get Robot Configuration",
+				'POST',
+				true,
+				false);                                                                
+
+		self::expose_function('robot.get_token_for_robot_user_association',
+				"robot/getTokenForRobotUserAssociation",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+				),
+				"Get Token for Robot-User Association",
+				'POST',
+				true,
+				false);                                                                
+                
+		self::expose_function('robot.robot_user_association_by_token',
+				"robot/robotUserAssociationByToken",
+				array(
+                                    'email' => array ('type' => 'string', 'required' => true),
+                                    'token' => array ('type' => 'string', 'required' => true),
+				),
+				"Robot-User Association by Token",
+				'POST',
+				true,
+				false);                                                                                
+                
 		self::expose_function('message.send_xmpp_message_to_robot',
 				"message/SendXmppMessageToRobot",
 				array(

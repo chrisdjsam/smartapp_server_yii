@@ -9,7 +9,11 @@
  * @property string $serial_number
  * @property string $chat_id
  * @property string $chat_pwd
+ * @property string $sleep_time
+ * @property string $lag_time
  * @property string $value_extra
+ * @property string $updated_on
+ * @property string $created_on
  * The followings are the available model relations:
  * @property UsersRobots[] $usersRobots
  */
@@ -44,9 +48,12 @@ class BaseRobot extends GxActiveRecord
 				array('serial_number, chat_id, chat_pwd', 'required'),
 				array('name, serial_number, chat_id, chat_pwd', 'length', 'max'=>100),
 				array('serial_number', 'unique', 'className'=>'Robot'),
+                                array('sleep_time, lag_time', 'numerical', 'integerOnly'=>true),
+                                array('lag_time, sleep_time', 'timeValidators'),
+                                
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
-				array('id, name, serial_number, chat_id, chat_pwd, value_extra', 'safe', 'on'=>'search'),
+				array('id, name, serial_number, chat_id, chat_pwd, sleep_time, lag_time, value_extra, updated_on, created_on', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,7 +86,11 @@ class BaseRobot extends GxActiveRecord
 				'robot_serial_number' => 'Robot Serial Number',
 				'chat_id' => 'Chat ID',
 				'chat_pwd' => 'Chat Password',
+                                'sleep_time' => 'Sleep Time',
+                                'lag_time' => 'Wakeup Time',
                                 'value_extra' => 'Extra Value',
+                                'updated_on' => 'Updated on',
+                                'created_on' => 'Created on',
                     
 		);
 	}
@@ -100,10 +111,39 @@ class BaseRobot extends GxActiveRecord
 		$criteria->compare('serial_number',$this->serial_number,true);
 		$criteria->compare('chat_id',$this->chat_id,true);
 		$criteria->compare('chat_pwd',$this->chat_pwd,true);
+                $criteria->compare('sleep_time',$this->value_extra,true);
+                $criteria->compare('lag_time',$this->value_extra,true);
                 $criteria->compare('value_extra',$this->value_extra,true);
+                $criteria->compare('updated_on',$this->updated_on,true);
+                $criteria->compare('created_on',$this->created_on,true);
 
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
 		));
 	}
+        
+        public function timeValidators()
+        {
+            if ($this->lag_time)
+            {
+                $labels = $this->attributeLabels(); // Getting labels of the attributes
+                if($this->sleep_time == '')
+                {
+                   $this->addError("sleep_time", $labels["sleep_time"]." cannot be blank.");
+                }
+                // More dependent on type can be written here
+            }
+            
+            if ($this->sleep_time)
+            {
+                $labels = $this->attributeLabels(); // Getting labels of the attributes
+                if($this->lag_time == '')
+                {
+                   $this->addError("lag_time", $labels["lag_time"]." cannot be blank.");
+                }
+                // More dependent on type can be written here
+            }
+            
+        }
+        
 }

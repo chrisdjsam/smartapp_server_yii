@@ -61,11 +61,14 @@ class RobotController extends Controller
                     $last_ping = 'Unavailable';
                 }
                 
+                $sleep_lag_time = AppCore::getSleepLagTime($model);
+                                
 		$this->render('view',array(
 				'model'=>$model,
 				'isOnline'=>$isOnline,
 				'scroll_to'=>$scroll_to,
-                                'last_ping'=>$last_ping
+                                'last_ping'=>$last_ping,
+                                'sleep_lag_time'=>$sleep_lag_time  
 		));
 	}
 
