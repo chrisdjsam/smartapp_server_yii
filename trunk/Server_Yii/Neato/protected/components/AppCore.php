@@ -522,6 +522,13 @@ class AppCore {
 				'editrobot:ok' => "You have successfully updated a robot having serial number: <b> %s </b>.",
 				'editrobotexist:ok' => "The Serial number <b> %s </b> is already registered.",
 				'deleterobot:ok' => "You have successfully deleted a robot.",
+                    
+                                /** 
+                                 * robot type
+                                 */
+                                 
+                                'addrobot:type:ok' => "You have successfully added the robot type : <b> %s </b>.",
+                                'editrobot:type:ok' => "You have successfully updated the robot type : <b> %s </b>.",
 
 				/**
 				 * user
@@ -1850,6 +1857,21 @@ class AppCore {
             } 
         }
         return false;
+    }
+    
+    public static function deleteRobotType($chosen_robot){
+        
+        foreach ($chosen_robot as $type_id) {
+            
+            RobotTypeMetadata::model()->deleteAll('robot_type_id = :robot_type_id', array(':robot_type_id' => $type_id));
+            
+            $robot_type_data = RobotTypes::model()->find('type = :type', array(':type'=>Yii::app()->params['default_robot_type']));
+            RobotRobotTypes::model()->updateAll(array('robot_type_id'=>$robot_type_data->id), 'robot_type_id = :robot_type_id', array(':robot_type_id'=>$type_id));
+            
+            RobotTypes::model()->deleteAll('id = :id', array(':id' => $type_id));
+            
+        }
+        return array('status'=> 0, 'message'=> 'Robot type have been deleted succussfully');
     }
 
 }

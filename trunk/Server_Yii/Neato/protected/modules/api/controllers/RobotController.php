@@ -67,8 +67,11 @@ class RobotController extends APIController {
                     
                         $robot_robot_type = new RobotRobotTypes();
                         $robot_robot_type->robot_id = $model->id;
-                        $robot_robot_type->robot_type_id = Yii::app()->params['default_robot_type'];
-                        $robot_robot_type->save();
+                        $robot_type_data = RobotTypes::model()->find('type = :type', array(':type'=>Yii::app()->params['default_robot_type']));
+                        if(!empty($robot_type_data)){
+                            $robot_robot_type->robot_type_id = $robot_type_data->id;
+                            $robot_robot_type->save();
+                        }
                         
 			$response_data = array("success"=>true, "message"=>self::yii_api_echo('Robot created successfully.'));
 			self::success($response_data);
@@ -1278,6 +1281,17 @@ class RobotController extends APIController {
             self::terminate(-1, "Associated robot type does not exist");
         }
 
+    }
+    
+    public function actionDeleteType(){
+        
+        $chosen_type = Yii::app()->request->getParam('chosen_type', array());
+        
+        $result = AppCore::deleteRobotType($chosen_type);
+        
+        $this->renderPartial('/default/defaultView', array('content' => $result));
+        Yii::app()->end();
+        
     }
     
 }
