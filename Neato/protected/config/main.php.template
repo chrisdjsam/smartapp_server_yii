@@ -133,7 +133,7 @@ return array(
 		'robot-stop-cleaning-command' => '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>-889275714</signature></header><payload><command><commandid>102</commandid><commanddata/></command></payload></packet>',
                 'notification-log-directory-name' => 'notification_logs',
                 'gcm_api_key' => '<YOUR_GCM_API_KEY_HERE>',
-                'default_robot_type' => 1,
+                'default_robot_type' => 100,
                 'env' => 'prod',
                 'neato_amqp_publisher_path' => '<YOUR_NEATO_AMQP_PUBLISHER_PATH_HERE>',
 	),
