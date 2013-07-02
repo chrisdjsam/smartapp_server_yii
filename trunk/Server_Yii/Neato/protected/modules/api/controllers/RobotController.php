@@ -158,6 +158,7 @@ class RobotController extends APIController {
             
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+                $expected_time = 1;
 		
 		if($robot !== null ){
 			
@@ -166,22 +167,23 @@ class RobotController extends APIController {
                         $online_users_chat_ids = AppCore::getOnlineUsers();
                         if(in_array($robot->chat_id, $online_users_chat_ids)){
                                 $response_message = "Robot ".$robot_serial_no." is online.";
-                                $response_data = array("online"=>true, "message"=>$response_message);
+                                $response_data = array("online"=>true, "message"=>$response_message, "expected_time"=>$expected_time);
                         }else if(!empty ($data)){
                                 $latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
                                 
-                                $app_config = AppConfiguration::model()->find('_key = :_key', array(':_key' => 'ROBOT_PING_INTERVAL'));
-                                $robot_ping_interval = $app_config->value;
+                                $sleep_lag_time = AppCore::getSleepLagTime($robot);
+                                $robot_ping_interval = $sleep_lag_time['sleep_time'] + $sleep_lag_time['lag_time'] ;
                                 
                                 $current_system_timestamp = time();
                                 $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
+                                $expected_time = $robot_ping_interval - $time_diff;
                                 
                                 if($time_diff > $robot_ping_interval){
                                     $response_message = "Robot ".$robot_serial_no." is offline.";
-                                    $response_data = array("online"=>false, "message"=>$response_message);
+                                    $response_data = array("online"=>false, "message"=>$response_message, "expected_time"=>$expected_time);
                                 } else {
                                     $response_message = "Robot ".$robot_serial_no." is online.";
-                                    $response_data = array("online"=>true, "message"=>$response_message);
+                                    $response_data = array("online"=>true, "message"=>$response_message, "expected_time"=>$expected_time);
                                 }
                                 
                         } else {
@@ -1099,7 +1101,16 @@ class RobotController extends APIController {
 
 		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
 
-		$start_command = Yii::app()->params['robot-start-cleaning-command'];
+                $utc_str = gmdate("M d Y H:i:s", time());
+                $utc = strtotime($utc_str);
+
+                $xmpp_message_model = new XmppMessageLogs();
+                $xmpp_message_model->save();
+                $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>101</command><requestId>" . $xmpp_message_model->id . "</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params><cleaningModifier>1</cleaningModifier><cleaningMode>2</cleaningMode><cleaningCategory>2</cleaningCategory></params></request></payload></packet>";
+                $xmpp_message_model->xmpp_message = $message;
+                $xmpp_message_model->save();
+                
+		$start_command = $message; //Yii::app()->params['robot-start-cleaning-command'];
 		$message= AppCore::send_chat_message($from, $to, $start_command);
 		$content = array('status' => 0);
 
@@ -1116,15 +1127,50 @@ class RobotController extends APIController {
 		$to = AppHelper::two_way_string_decrypt($chat_id);
 
 		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
+                
+                $utc_str = gmdate("M d Y H:i:s", time());
+                $utc = strtotime($utc_str);
 
-		$stop_command = Yii::app()->params['robot-stop-cleaning-command'];
+                $xmpp_message_model = new XmppMessageLogs();
+                $xmpp_message_model->save();
+                $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>102</command><requestId>e2438667-ec03-4f7d-a910-9b6b3345bb3f</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
+                $xmpp_message_model->xmpp_message = $message;
+                $xmpp_message_model->save();
+
+		$stop_command = $message; //Yii::app()->params['robot-stop-cleaning-command'];
 		$message= AppCore::send_chat_message($from, $to, $stop_command);
 		$content = array('status' => 0);
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 	}
         
-        
+        /**
+	 * Send to base command to a particular robot.
+	 * It is called by ajax call.
+	 */
+	public function actionSendToBaseCommand()
+	{
+		$chat_id = Yii::app()->request->getParam('chat_id', '');
+		$to = AppHelper::two_way_string_decrypt($chat_id);
+
+		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
+                
+                $utc_str = gmdate("M d Y H:i:s", time());
+                $utc = strtotime($utc_str);
+
+                $xmpp_message_model = new XmppMessageLogs();
+                $xmpp_message_model->save();
+                $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>104</command><requestId>b1bf7055-5e84-4b4d-89e7-1f65dfe51144</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
+                $xmpp_message_model->xmpp_message = $message;
+                $xmpp_message_model->save();
+
+		$stop_command = $message;
+		$message= AppCore::send_chat_message($from, $to, $stop_command);
+		$content = array('status' => 0);
+
+		$this->renderPartial('/default/defaultView', array('content' => $content));
+	}
+                
         public function actionRobotDataTable() {
                 $userColumns = array('id', 'serial_number');
                 $userIndexColumn = "id";
@@ -1291,6 +1337,181 @@ class RobotController extends APIController {
         
         $this->renderPartial('/default/defaultView', array('content' => $result));
         Yii::app()->end();
+        
+    }
+    
+    public function actionSetRobotConfiguration() {
+        
+        $serial_number = Yii::app()->request->getParam('serial_number', '');
+        $sleep_time = Yii::app()->request->getParam('sleep_time', '');
+        $wakeup_time = Yii::app()->request->getParam('wakeup_time', '');
+        $config_key_value = Yii::app()->request->getParam('config_key_value', '');
+        
+        if(!ctype_digit($sleep_time) || !ctype_digit($wakeup_time)){
+            self::terminate(-1, "Please enter valid sleep time or wakeup time");
+        }
+        
+        $robot = self::verify_for_robot_serial_number_existence($serial_number);
+        
+        $robot->sleep_time = $sleep_time;
+        $robot->lag_time = $wakeup_time;
+        
+        if(!$robot->save()) {
+            self::terminate(-1, "Set robot configuration failed due to database problem");
+        }
+        
+        $utc = $robot->updated_on;
+        
+        if(!empty($config_key_value)){
+            
+            foreach ($config_key_value as $key => $value){
+                $key = trim($key);
+                $data = RobotConfigKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
+                if(!empty($data)){
+                    $data->value = $value;
+                    $data->update();
+                } else {
+                    $robot_config_key_value = new RobotConfigKeyValues();
+                    $robot_config_key_value->robot_id = $robot->id;
+                    $robot_config_key_value->_key = $key ;
+                    $robot_config_key_value->value = $value ;
+                    $robot_config_key_value->save();                                                    
+                }
+            }
+            
+        }
+        
+        $xmpp_message_model = new XmppMessageLogs();
+        $xmpp_message_model->save();
+        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5002</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId></params></request></payload></packet>';
+        $xmpp_message_model->xmpp_message = $message;
+        $xmpp_message_model->save();
+
+        $online_users_chat_ids = AppCore::getOnlineUsers();
+
+        foreach ($robot->usersRobots as $userRobot){
+            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                    AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+            }
+        }
+        
+        $response_data = array( 
+                                "success"=>true, 
+                                "timestamp"=>$utc
+                              );
+        
+        self::success($response_data);
+        
+    }
+    
+    public function actionGetRobotConfiguration() {
+        
+        $serial_number = Yii::app()->request->getParam('serial_number', '');
+        
+        $robot = self::verify_for_robot_serial_number_existence($serial_number);
+        
+        $result = AppCore::getSleepLagTime($robot);
+        
+        $sleep_time = $result['sleep_time'];
+        $lag_time = $result['lag_time'];
+                
+        $response_data = array( 
+                                "success"=>true, 
+                                "serial_number"=>$robot->serial_number,
+                                "sleep_time"=>$sleep_time,
+                                "wakeup_time"=>$lag_time,
+                                "timestamp"=>$robot->updated_on,
+                              );
+        
+        $robotConfigKeyValues = RobotConfigKeyValues::model()->findAll('robot_id = :robot_id', array(':robot_id' => $robot->id));
+        if(!empty($robotConfigKeyValues)){
+            foreach ($robotConfigKeyValues as $key_value) {
+                $response_data['config_key_value'][$key_value->_key] = $key_value->value;
+            }
+        } 
+        
+        self::success($response_data);
+        
+    }
+    
+    public function actionGetTokenForRobotUserAssociation() {
+        
+        $serial_number = Yii::app()->request->getParam('serial_number', '');
+        
+        $robot = self::verify_for_robot_serial_number_existence($serial_number);
+        
+        $token = md5($robot.time());
+        
+        RobotUserAssociationTokens::model()->deleteAll('robot_id = :robot_id', array(':robot_id' => $robot->id));
+        
+        $robot_user_association_token = new RobotUserAssociationTokens();
+        
+        $robot_user_association_token->robot_id = $robot->id;
+        $robot_user_association_token->token = $token;
+        
+        $robot_user_association_token->save();
+        
+        $response_data = array('success' => true, 'token' => $robot_user_association_token->token);
+        
+        self::success($response_data);
+        
+    }
+    
+    public function actionRobotUserAssociationByToken() {
+        
+        $email = Yii::app()->request->getParam('email', '');
+        $token = Yii::app()->request->getParam('token', '');
+        
+        if(!AppHelper::is_valid_email($email)) {
+            self::terminate(-1, "Please enter valid email address");
+        }
+        
+        $user_model = User::model()->findByAttributes(array("email" => $email));
+        
+        if(empty($user_model)){
+            self::terminate(-1, "Sorry, provided email does not exist");
+        }
+        
+        $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $token));
+        
+        if(empty($robot_user_association_token)){
+            self::terminate(-1, "Please enter valid token");
+        }
+        
+        $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
+
+        $token_timestamp = strtotime($robot_user_association_token->created_on);
+
+        $current_system_timestamp = time();
+        $time_diff = ($current_system_timestamp - $token_timestamp);
+        
+        if ($time_diff > $token_lifetime) {
+            $robot_user_association_token ->delete();
+            self::terminate(-1, "Sorry, provided token is expired");
+        } 
+        
+        $user_id = $user_model->id;
+        $robot_id = $robot_user_association_token->robot_id;
+        
+        $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
+        
+        if(! is_null($user_robot_model)){
+            $response_data = array('success' => true, 'message' => 'User robot association already exists.');
+        }else{
+            
+           $user_robot_obj = new UsersRobot();
+           
+           $user_robot_obj->id_user =  $user_id;
+           $user_robot_obj->id_robot = $robot_id;
+           
+           $user_robot_obj->save();
+           
+           $response_data = array('success' => true, 'message' => 'Robot-User association is done successfully');
+           
+        }
+        
+        $robot_user_association_token ->delete();
+        self::success($response_data);
         
     }
     

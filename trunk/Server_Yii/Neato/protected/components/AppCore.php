@@ -1873,6 +1873,29 @@ class AppCore {
         }
         return array('status'=> 0, 'message'=> 'Robot type have been deleted succussfully');
     }
+    
+    public static function getSleepLagTime($robot) {
+        
+        $sleep_time = Yii::app()->params['default_sleep_time']; // in minutes
+        $lag_time = Yii::app()->params['default_lag_time']; // in seconds
+        
+        if(isset($robot->sleep_time) && isset($robot->lag_time)){
+            $sleep_time = $robot->sleep_time;
+            $lag_time = $robot->lag_time;
+        } else {
+            if(isset($robot->robotRobotTypes->robotType->robotTypeMetadatas)){
+                foreach ($robot->robotRobotTypes->robotType->robotTypeMetadatas as $metadata) {
+                    if($metadata->_key == 'sleep_time'){
+                        $sleep_time = $metadata->value;
+                    } elseif($metadata->_key == 'lag_time'){
+                        $lag_time = $metadata->value;
+                    }
+                }
+            }
+        }
+        
+        return array('sleep_time'=>$sleep_time, 'lag_time'=>$lag_time);
+    }
 
 }
 

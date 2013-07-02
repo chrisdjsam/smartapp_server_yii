@@ -219,6 +219,8 @@ CREATE TABLE IF NOT EXISTS `robots` (
   `serial_number` varchar(100) CHARACTER SET utf8 NOT NULL,
   `chat_id` varchar(100) CHARACTER SET utf8 NOT NULL,
   `chat_pwd` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `sleep_time` int(11) DEFAULT NULL,
+  `lag_time` int(11) DEFAULT NULL,
   `value_extra` varchar(1000) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `serial_number` (`serial_number`)
@@ -237,6 +239,21 @@ CREATE TABLE IF NOT EXISTS `robot_atlas` (
   `version` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_robot` (`id_robot`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `robot_config_key_values`
+--
+
+CREATE TABLE IF NOT EXISTS `robot_config_key_values` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `robot_id` bigint(11) NOT NULL,
+  `_key` varchar(1000) CHARACTER SET utf8 DEFAULT NULL,
+  `value` longtext CHARACTER SET utf8,
+  PRIMARY KEY (`id`),
+  KEY `robot_id` (`robot_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -507,6 +524,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `password`, `reset_password`, `email`, `is_emailVerified`, `is_admin`, `created_on`, `chat_id`, `chat_pwd`, `is_active`) VALUES
+(1, 'admin', '=UlVadFVYh2USxGZ2RFbSVFZEZlVUxmQXJFbwlnUtFzUZZlSZZlM0gnVGFUP', '=UlVKdFVYZ1aiZkWy90Vxc1UFp1caZlWhJmRkhmVrpFViJDazZVMJhnVGFUP', 'admin@neatorobotics.com', 1, 1, '2013-02-07 12:17:42', '1352014076_user@rajatogo', '1352014076_user', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -652,6 +676,13 @@ CREATE TABLE IF NOT EXISTS `robot_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `robot_types`
+--
+
+INSERT INTO `robot_types` (`id`, `type`, `name`) VALUES
+(1, '100', 'Basic');
+
 -- --------------------------------------------------------
 
 --
@@ -665,7 +696,15 @@ CREATE TABLE IF NOT EXISTS `robot_type_metadata` (
   `value` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `robot_type_id` (`robot_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `robot_type_metadata`
+--
+
+INSERT INTO `robot_type_metadata` (`id`, `robot_type_id`, `_key`, `value`) VALUES
+(1, 1, 'sleep_time', '120'),
+(2, 1, 'lag_time', '15');
 
 
 --
@@ -688,13 +727,19 @@ ALTER TABLE `atlas_grid_image`
 -- Constraints for table `notification_registrations`
 --
 ALTER TABLE `notification_registrations`
-  ADD CONSTRAINT `notification_registrations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `notification_registrations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `robot_atlas`
 --
 ALTER TABLE `robot_atlas`
   ADD CONSTRAINT `robot_atlas_ibfk_1` FOREIGN KEY (`id_robot`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `robot_config_key_values`
+--
+ALTER TABLE `robot_config_key_values`
+  ADD CONSTRAINT `robot_config_key_values_ibfk_1` FOREIGN KEY (`robot_id`) REFERENCES `robots` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `robot_customs`
@@ -795,7 +840,7 @@ ALTER TABLE `users_socialservices`
 -- Constraints for table `user_push_notification_preferences`
 --
 ALTER TABLE `user_push_notification_preferences`
-  ADD CONSTRAINT `user_push_notification_preferences_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `user_push_notification_preferences_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `ws_logging`

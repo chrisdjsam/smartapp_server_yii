@@ -12,7 +12,10 @@ $this->breadcrumbs=array(
 ?>
 <fieldset class='data-container static-data-container'>
 	<legend>Update Robot</legend>
-	<p class="list_details">Please update robot information.</p>
+	<p class="list_details">
+            Please update robot information.<br />
+            If you enter sleep time, you must enter wakeup time and vice versa.
+        </p>
         
 	<?php 
         

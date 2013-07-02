@@ -33,8 +33,14 @@ class UserController extends Controller
 		$h_id = Yii::app()->request->getParam('h', AppHelper::two_way_string_encrypt(Yii::app()->user->id));
 		$id = AppHelper::two_way_string_decrypt($h_id);
                 
+                $h = Yii::app()->request->getParam('h', false);
+                $url = $this->createUrl('user/userprofile');
+                if ($h){
+                    $url = $this->createUrl('user/userprofile',array('h'=>Yii::app()->request->getParam('h', '')));
+                }
+                
 		if (Yii::app()->user->getIsGuest()) {
-			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/user/userprofile');
+			Yii::app()->user->setReturnUrl($url);
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
                 
@@ -60,7 +66,7 @@ class UserController extends Controller
                     if($update_user->save()){
                         $message = "Profile updated successfully.";
 			Yii::app()->user->setFlash('success', $message);
-                        $this->redirect(Yii::app()->request->baseUrl.'/user/userprofile');
+                        $this->redirect($url);
                     }                        
                     
                 }

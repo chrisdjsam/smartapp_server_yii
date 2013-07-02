@@ -28,6 +28,16 @@ $this->breadcrumbs = array(
     <?php if (Yii::app()->user->id == $model->id) { ?>
         <p class="list_details">
             Please review your profile information.<br />
+            Click on edit to update profile.<br />
+            <?php 
+            if(Yii::app()->user->isAdmin){
+                ?>
+                Now we require that you validate your registered email within 1 hour of registration. <br/>
+                For some reason if you could not validate your email, as an admin, you can validate it by selecting "yes" against the "Is email validated?".<br />
+                    <?php
+            }
+            ?>
+            
         </p>
     <?php } ?>
 
@@ -56,6 +66,9 @@ $this->breadcrumbs = array(
             password for this user would reset the user's old password and send an
             email mentioning user's new password.<br />And user would not able to
             login using old password.<br />
+            Click on edit to update user profile.<br />
+            Now we require that user validates his registered email within 1 hour of registration. <br/>
+            For some reason if user could not validate his email, as an admin, you can validate his email by selecting "yes" against the "Is email validated?".<br />
         </p>
         <div class="action_delete_reset">
             <div class="action-button-container">

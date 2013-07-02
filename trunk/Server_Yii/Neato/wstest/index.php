@@ -193,7 +193,15 @@ padding-right: 50px;
                                                                                         <li><a href="robot.php#Get Robot Type Metadata Using Robot Type" class="new-api">Get Robot Type Metadata Using Robot Type</a>
 											</li>											                                                                                        
                                                                                         <li><a href="robot.php#Get Robot Type Metadata Using Robot Id" class="new-api">Get Robot Type Metadata Using Robot Id</a>
-											</li>											                                                                                                                                                                                
+											</li>
+                                                                                        <li><a href="robot.php#Set Robot Configuration" class="new-api">Set Robot Configuration</a>
+											</li>
+                                                                                        <li><a href="robot.php#Get Robot Configuration" class="new-api">Get Robot Configuration</a>
+											</li>
+                                                                                        <li><a href="robot.php#Get Token for Robot-User Association" class="new-api">Get Token for Robot-User Association</a>
+											</li>
+                                                                                        <li><a href="robot.php#Robot-User Association by Token" class="new-api">Robot-User Association by Token</a>
+											</li>
 										</ul>
 									</td>
 								</tr>
