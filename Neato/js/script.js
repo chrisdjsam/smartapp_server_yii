@@ -1,5 +1,4 @@
 var genericDataTable;
-//var method_to_call = '';
 
 $('.btn-facebook').click(function() {
     //$(".login-element").hide();
@@ -323,6 +322,24 @@ $(document).ready(function(){
     {
         "iDisplayLength": 25,
         "aaSorting": [ [9,'desc']]
+        }		
+    );
+        
+    $('.robot_types-table').dataTable(
+    {
+        "bStateSave":true,
+        "fnStateSave": function (oSettings, oData) {
+            sessionStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+        },
+        "fnStateLoad": function (oSettings) {
+            return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
+        },
+        "iDisplayLength": 25,
+        "aoColumnDefs": [{
+            "bSortable":false, 
+            'aTargets': [0, 5]
+            }],
+        "aaSorting": [ [1,'asc']]
         }		
     );
 	

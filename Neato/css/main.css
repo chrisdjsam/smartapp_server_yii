@@ -837,7 +837,7 @@ input,textarea {
 	word-wrap: break-word;
 }
 
-.pretty-table .pretty-table-center-td,.pretty-table .pretty-table-center-th
+.pretty-table .pretty-table-center-td,.pretty-table .pretty-table-center-th, .robot_types-table td 
 	{
 	text-align: center;
 }
@@ -939,7 +939,7 @@ input,textarea {
 	width: 199px;
 }
 
-a.neato-button {
+a.neato-button, div.neato-button {
 	
 	width: 65px;
 }
@@ -1247,4 +1247,13 @@ div.update_user_form {
 
 table.detail-view td {
     word-break: break-all;
+}
+
+.robot_type_label {
+    margin-right: 15px;
+}
+
+.robot_time_instruct {
+    color: gray; 
+    font-style: italic;
 }
