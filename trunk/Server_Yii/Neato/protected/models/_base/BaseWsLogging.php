@@ -16,6 +16,7 @@
  * @property string $response_data
  * @property integer $status
  * @property string $date_and_time
+ * @property string $response_time
  *
  * The followings are the available model relations:
  * @property Sites $idSite
@@ -55,7 +56,7 @@ class BaseWsLogging extends GxActiveRecord
 			array('remote_address, method_name, api_key', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_site, remote_address, method_name, api_key, response_type, handler_name, request_type, request_data, response_data, status, date_and_time', 'safe', 'on'=>'search'),
+			array('id, id_site, remote_address, method_name, api_key, response_type, handler_name, request_type, request_data, response_data, status, date_and_time, response_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +90,9 @@ class BaseWsLogging extends GxActiveRecord
 			'response_data' => 'Response Data',
 			'status' => 'Status',
 			'date_and_time' => 'Date And Time',
+                        'response_time' => 'Response Time',
+                    
+                    
 		);
 	}
 
@@ -115,6 +119,7 @@ class BaseWsLogging extends GxActiveRecord
 		$criteria->compare('response_data',$this->response_data,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('date_and_time',$this->date_and_time,true);
+                $criteria->compare('response_time',$this->response_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

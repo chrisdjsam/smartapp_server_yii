@@ -33,6 +33,20 @@ class APIController extends Controller {
 
             $event->handled = TRUE;
         }
+        
+        /**
+         * Override beforeAction mathod to set user session data
+         * @param type $action
+         * @return boolean
+         */
+        function beforeAction($action) {
+            parent::beforeAction($action);
+            
+            Yii::app()->params['start_time'] = round(microtime(true) * 1000);
+            
+            return true;
+            
+        }
 
     /**
 	 * Common code to all API Controllers to terminate API call with an error

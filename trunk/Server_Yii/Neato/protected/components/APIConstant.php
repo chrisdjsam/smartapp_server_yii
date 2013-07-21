@@ -10,9 +10,9 @@ class APIConstant {
     const EMAIL_EXISTS = '-106';
     const SOCIAL_INFO_EXISTS = '-107';
     const UNAVAILABLE_JABBER_SERVICE = '-108';
-    const PROFILE_KEY_VALUE_NOT_PROVIDED = '-109';
+    const ERROR_INVALID_USER_ACCOUNT_DETAIL = '-109';
     const OLD_PASS_NOT_MATCH_EXISTING_PASS = '-110';
-    const PASS_CONTAIN_ATLEAST_ONE_CHAR = '-111';
+    const ERROR_INVALID_ROBOT_ACCOUNT_DETAIL = '-111';
     const EMAIL_DOES_NOT_EXIST = '-112';
     const AUTH_TOKEN_AGAINST_EMAIL_DOES_NOT_EXIST = '-113';
     const SERIAL_NUMBER_DOES_NOT_EXIST = '-114';
@@ -77,7 +77,9 @@ class APIConstant {
     const ERROR_DELETING_APP_VERSION = '-173';
     const API_KEY_MISSING_OR_INCORRECT = '-174';
     const ERROR_CODE_NOT_EXIST = '-175';
-
+    const JSON_WITH_INVALID_KEYS = '-176';
+    const PASS_CONTAIN_ATLEAST_ONE_CHAR = '-177';
+    
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
         APIConstant::APP_DETAILS_NOT_FOUND => 'App Id does not exist.',
@@ -86,8 +88,8 @@ class APIConstant {
         APIConstant::EMAIL_NOT_VALID => 'The email address you provided does not appear to be a valid email address.',
         APIConstant::EMAIL_EXISTS => 'This email address has already been registered.',
         APIConstant::SOCIAL_INFO_EXISTS => 'This social information already exists.',
-        APIConstant::UNAVAILABLE_JABBER_SERVICE => 'User could not be created because jabber service in not responding.',
-        APIConstant::PROFILE_KEY_VALUE_NOT_PROVIDED => 'Invalid value for key',
+        APIConstant::UNAVAILABLE_JABBER_SERVICE => 'Jabber service in not responding.',
+        APIConstant::ERROR_INVALID_USER_ACCOUNT_DETAIL => 'Invalid user account details.',
         APIConstant::OLD_PASS_NOT_MATCH_EXISTING_PASS => 'Old password does not match with user password.',
         APIConstant::PASS_CONTAIN_ATLEAST_ONE_CHAR => 'Password should contain atleast one character.',
         APIConstant::EMAIL_DOES_NOT_EXIST => 'Email does not exist.',
@@ -154,6 +156,8 @@ class APIConstant {
         APIConstant::ERROR_DELETING_APP_VERSION => 'Problem deleting app version.',
         APIConstant::AUTHENTICATION_FAILED => 'User authentication failed',
         APIConstant::ERROR_CODE_NOT_EXIST => 'Provided error code does not exist.',
+        APIConstant::JSON_WITH_INVALID_KEYS => 'Provided JSON does not contain considered keys. Please refer respective API document.',
+        APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL => 'Invalid robot account detail',
     );
 
     static function getMessageForErrorCode($errorCode) {

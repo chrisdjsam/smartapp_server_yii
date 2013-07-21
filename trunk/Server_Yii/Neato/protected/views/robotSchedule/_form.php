@@ -66,18 +66,48 @@
 	}
 	
 	function showComplete( response_data, statusText, xhr, $form){
-		hideWaitDialog();
+		
 		response_data = $.parseJSON(response_data.responseText);
 		
 		if(response_data.status === 0){
-			var redirect_url = $('#cancel_upload').attr('href');
-			generate_noty("success", "You have successfully updted a robot schedule data.");
-			window.location = location.protocol+'//'+window.location.hostname+redirect_url;
-			
+                    updateScheduleData();       
 		}else if(response_data.status === -1){
        	 	generate_noty("error", response_data.message);
 		}
 	}
+        
+        function updateScheduleData(){
+                  
+            var robot_id = '<?php echo $sr_no;?>';
+            
+            $.ajax({
+                type: 'POST',
+                url: app_base_url +'/api/RobotSchedule/setKeyValueAndSendXMPP',
+                dataType: 'json',
+                data: {
+                    serial_number: robot_id
+                },
+                success: function(r) {
+                    
+                    hideWaitDialog();
+                    
+                    if(r.code == 0){
+                        var redirect_url = $('#cancel_upload').attr('href');
+                        generate_noty("success", "You have successfully updted a robot schedule data.");
+                        window.location = location.protocol+'//'+window.location.hostname+redirect_url;
+                    } else {
+                        generate_noty("error", "Error on while adding/updating schedule");
+                    }
+                },
+                error: function(r) {
+                    generate_noty("error", "Error on while setting schedule key, value and sending XMPP message");
+                }
+
+        
+            });
+                  
+        }
+        
 
 </script>
 

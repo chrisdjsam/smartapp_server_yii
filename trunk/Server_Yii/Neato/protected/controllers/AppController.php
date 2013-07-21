@@ -64,4 +64,55 @@ class AppController extends Controller
 	
 	
 	}
+        
+        public function actionLog(){
+            
+                if (Yii::app()->user->getIsGuest()) {
+			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/app/log');
+			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
+		}
+                
+                $this->render('log');
+            
+        }
+        
+        public function actionWebServiceLog() {
+            
+                $dataColumns = array('remote_address', 'method_name', 'request_data', 'response_data', 'response_time', 'date_and_time', 'id');
+                $dataIndexColumn = "id";
+                $dataTable = "ws_logging";
+
+                $dataDataModelName = 'WsLogging';
+
+                $result = AppCore::dataTableOperation($dataColumns, $dataIndexColumn, $dataTable, $_GET, $dataDataModelName);
+
+                /*
+                 * Output
+                 */
+                $output = array(
+                    'sEcho' => $result['sEcho'],
+                    'iTotalRecords' => $result['iTotalRecords'],
+                    'iTotalDisplayRecords' => $result['iTotalDisplayRecords'],
+                    'aaData' => array()
+                );
+
+                foreach ($result['rResult'] as $data) {
+
+                    $row = array();
+                    
+                    $row[] = $data->remote_address;
+                    $row[] = $data->method_name;
+                    $row[] = json_encode(unserialize($data->request_data));
+                    $row[] = json_encode(unserialize($data->response_data));;
+                    $row[] = $data->response_time;
+                    $row[] = $data->date_and_time;
+                    
+                    $output['aaData'][] = $row;
+
+                }
+
+                $this->renderPartial('/default/defaultView', array('content' => $output));
+                
+        }
+        
 }

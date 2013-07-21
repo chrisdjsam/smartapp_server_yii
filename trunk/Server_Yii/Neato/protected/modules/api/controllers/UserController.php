@@ -68,6 +68,8 @@ class UserController extends APIController {
 				$this->renderPartial('/default/defaultView', array('content' => $content));
 				Yii::app()->end();
 			}
+                        
+                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
 			//send welocom messsage
 			$login_link = $this->createUrl("/user/login");
 			AppEmail::emailWelcomeNewUser($user_model->email, $user_model->name, $new_password, $login_link);
@@ -613,7 +615,7 @@ class UserController extends APIController {
 				$keys[] = $key;
 				if(trim($value) === ''){
 					$message = self::yii_api_echo("Invalid value for key $key.");
-					self::terminate(-1, $message, APIConstant::PROFILE_KEY_VALUE_NOT_PROVIDED);
+					self::terminate(-1, $message, APIConstant::ERROR_INVALID_USER_ACCOUNT_DETAIL);
 				}
 				
 				switch ($key) {
@@ -1073,6 +1075,14 @@ class UserController extends APIController {
                 
 		$user_password = $_REQUEST['password'];
 		$user_account_type = Yii::app()->request->getParam('account_type', '');
+                
+                if($user_account_type == 'Native' && empty($user_password)){
+                    $message = self::yii_api_echo("Missing parameter password in method user.create");
+                    self::terminate(-1, $message, APIConstant::PARAMETER_MISSING);
+                }
+                
+                $user_password = empty($user_password) ? time(): $user_password;
+                
 		$user_social_id = $_REQUEST['external_social_id'];
 
 		if($user_account_type !== 'Native' && trim($user_social_id) == ''){
@@ -1098,7 +1108,7 @@ class UserController extends APIController {
 				$chat_details = AppCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
-					self::terminate(-1, $message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
+                                        self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 				}
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
@@ -1163,6 +1173,9 @@ class UserController extends APIController {
 						self::terminate(-1, $response_message, APIConstant::SOCIAL_INFO_EXISTS);
 					}
 				}
+                                
+                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+                                
 				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
 				$response_data = array();
 				$response_data['success'] = true;
@@ -1191,7 +1204,7 @@ class UserController extends APIController {
 
 					if (!$user_social_service_model->save()) {
 					}
-
+                                        
 					$response_data = array();
 					$response_data['message'] = self::yii_api_echo("Merged");
 					$user_auth_token = AppCore::create_user_auth_token($user->id);
@@ -1265,7 +1278,7 @@ class UserController extends APIController {
 				$chat_details = AppCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
-					self::terminate(-1, $message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
+					self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 				}
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
@@ -1324,6 +1337,8 @@ class UserController extends APIController {
 						self::terminate(-1, $response_message,  APIConstant::SOCIAL_INFO_EXISTS);
 					}
 				}
+                                
+                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
 
 				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
 				$response_data = array();
@@ -1416,7 +1431,7 @@ class UserController extends APIController {
 			foreach ($user_profile as $key => $value){
 				if($value === ''){
 					$message = self::yii_api_echo("Invalid value for key $key.");
-					self::terminate(-1, $message, APIConstant::PROFILE_KEY_VALUE_NOT_PROVIDED);
+					self::terminate(-1, $message, APIConstant::ERROR_INVALID_USER_ACCOUNT_DETAIL);
 				}
 				switch ($key) {
 					case "name":

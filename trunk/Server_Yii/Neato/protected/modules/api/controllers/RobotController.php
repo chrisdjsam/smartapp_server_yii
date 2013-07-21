@@ -43,7 +43,7 @@ class RobotController extends APIController {
 	public function actionCreate(){
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot_name = Yii::app()->request->getParam('name', '');
-
+                
 		$robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
 		if($robot !== null ){
 			if ($robot->serial_number === $robot_serial_no){
@@ -58,7 +58,7 @@ class RobotController extends APIController {
 		$chat_details = AppCore::create_chat_user_for_robot();
 		if(!$chat_details['jabber_status']){
 			$message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
-			self::terminate(-1, $message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
+			self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 		}
 		$model->chat_id = $chat_details['chat_id'];
 		$model->chat_pwd = $chat_details['chat_pwd'];
@@ -78,7 +78,7 @@ class RobotController extends APIController {
 		}
 		else{
 			$response_message = self::yii_api_echo('Robot could not be created because jabber service is not responding');
-			self::terminate(-1, $response_message, APIConstant::UNABLE_TO_CREATE_JABBER_SERVICE);
+			self::terminate(-1, $response_message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 		}
 	}
    /**
@@ -172,7 +172,7 @@ class RobotController extends APIController {
                                 $latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
                                 
                                 $sleep_lag_time = AppCore::getSleepLagTime($robot);
-                                $robot_ping_interval = $sleep_lag_time['sleep_time'] + $sleep_lag_time['lag_time'] ;
+                                $robot_ping_interval = $sleep_lag_time['sleep_time'];
                                 
                                 $current_system_timestamp = time();
                                 $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
@@ -419,6 +419,9 @@ class RobotController extends APIController {
                                 $key = trim($key);
 				switch ($key) {
 					case "name":
+                                                if(empty($value)){
+                                                    self::terminate(-1, 'Robot name can not be empty', APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
+                                                }
 						$robot->name = $value;
 						$robot->save();
 						break;
@@ -507,6 +510,9 @@ class RobotController extends APIController {
                                 $key = trim($key);
 				switch ($key) {
 					case "name":
+                                                if(empty($value)){
+                                                    self::terminate(-1, 'Robot name can not be empty', APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
+                                                }
 						$robot->name = $value;
 						$robot->save();
 						break;
@@ -543,6 +549,25 @@ class RobotController extends APIController {
                         $xmpp_message_model->save();
                         
                         $online_users_chat_ids = AppCore::getOnlineUsers();
+                        
+                        if(!in_array($robot->chat_id, $online_users_chat_ids)){
+                                
+                                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
+
+                                $sleep_lag_time = AppCore::getSleepLagTime($robot);
+                                $robot_ping_interval = $sleep_lag_time['sleep_time'];
+                                
+                                $expected_time = $robot_ping_interval;
+                                
+                                if(isset($robot_ping_data[0]->ping_timestamp)){
+                                
+                                    $latest_ping_timestamp = strtotime($robot_ping_data[0]->ping_timestamp);
+                                    $current_system_timestamp = time();
+                                    $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
+                                    $expected_time = $robot_ping_interval - $time_diff;
+                                    
+                                }
+                        }
                             
                         if(!empty($source_serial_number) && $source_serial_number == $serial_number){
                             foreach ($robot->usersRobots as $userRobot){
@@ -554,31 +579,13 @@ class RobotController extends APIController {
                         } else if(!empty($source_smartapp_id)) {
 
                             AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
-                            if(!in_array($robot->chat_id, $online_users_chat_ids)){
-                                
-                                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
-                                
-//                                $robot_ping_data_set = isset($robot_ping_data[0]->ping_timestamp) ? $robot_ping_data[0]->ping_timestamp : '';
-                                
-                                $app_config = AppConfiguration::model()->find('_key = :_key', array(':_key' => 'ROBOT_PING_INTERVAL'));
-                                $robot_ping_interval = $app_config->value;
-                                $expected_time = $robot_ping_interval;
-                                
-                                if(isset($robot_ping_data[0]->ping_timestamp)){
-                                
-                                    $latest_ping_timestamp = strtotime($robot_ping_data[0]->ping_timestamp);
-                                    $current_system_timestamp = time();
-                                    $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
-                                    $expected_time = $robot_ping_interval - $time_diff;
-                                    
-                                }
-                            }
+                            
                             foreach ($robot->usersRobots as $userRobot){
                                 if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
                                     if($user_data->chat_id != $userRobot->idUser->chat_id){
                                         AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
                                     }
-                                }                                   
+                                }
                             }
                             
                         }
@@ -592,11 +599,11 @@ class RobotController extends APIController {
 	}        
         
 	public function actionSetProfileDetails3(){
-	
+            
                 $serial_number = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($serial_number);
-	
-		$source_serial_number = Yii::app()->request->getParam('source_serial_number', '');
+
+                $source_serial_number = Yii::app()->request->getParam('source_serial_number', '');
                 $source_smartapp_id = Yii::app()->request->getParam('source_smartapp_id', '');
                 $cause_agent_id = Yii::app()->request->getParam('cause_agent_id', '');
                 $value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));
@@ -643,76 +650,47 @@ class RobotController extends APIController {
                         $robot->save();
                         
 			foreach ($robot_profile as $key => $value){
-                                $key = trim($key);
-				switch ($key) {
-					case "name":
-						$robot->name = $value;
-						$robot->save();
-						break;
-					
-					default:
-                                            $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
-                                            if(!empty($data)){
-                                                $data->value = $value;
-                                                $data->timestamp = $utc;
-                                                $data->update();
-                                            } else {
-                                                $robot_key_value = new RobotKeyValues();
-                                                $robot_key_value->robot_id = $robot->id;
-                                                $robot_key_value->_key = $key ;
-                                                $robot_key_value->value = $value ;
-                                                $robot_key_value->timestamp = $utc;
-                                                $robot_key_value->save();                                                    
-                                            }
-                                        break;
-				}
+                            $key = trim($key);
+                            $key_value_result = AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+                            
+                            if($key_value_result['code'] == 1){
+                                self::terminate(-1, 'Robot name can not be empty', $key_value_result['error']);
+                            }
 			}
                         
-                        $xmpp_message_model = new XmppMessageLogs();
-                        $xmpp_message_model->save();
-                        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><causeAgentId>' . $cause_agent_id . '</causeAgentId></params></request></payload></packet>';
-                        $xmpp_message_model->xmpp_message = $message;
-                        $xmpp_message_model->save();
+                        $message = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
                         
                         $online_users_chat_ids = AppCore::getOnlineUsers();
-                            
+                        
+                        if(!in_array($robot->chat_id, $online_users_chat_ids)){
+
+                            $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
+
+                            $sleep_lag_time = AppCore::getSleepLagTime($robot);
+                            $robot_ping_interval = $sleep_lag_time['sleep_time'];
+
+                            $expected_time = $robot_ping_interval;
+
+                            if(isset($robot_ping_data[0]->ping_timestamp)){
+
+                                $latest_ping_timestamp = strtotime($robot_ping_data[0]->ping_timestamp);
+                                $current_system_timestamp = time();
+                                $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
+                                $expected_time = $robot_ping_interval - $time_diff;
+
+                            }
+                        }
+
                         if(!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag){
                             
-                            foreach ($robot->usersRobots as $userRobot){
-                                if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                                        AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-                                }
-                            }
-                            AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+                            AppCore::sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message);
                             
                         } else if(!empty($source_smartapp_id)) {
 
-
-                            if(!in_array($robot->chat_id, $online_users_chat_ids)){
-                                
-                                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
-                                
-                                $app_config = AppConfiguration::model()->find('_key = :_key', array(':_key' => 'ROBOT_PING_INTERVAL'));
-                                $robot_ping_interval = $app_config->value;
-                                $expected_time = $robot_ping_interval;
-                                
-                                if(isset($robot_ping_data[0]->ping_timestamp)){
-                                
-                                    $latest_ping_timestamp = strtotime($robot_ping_data[0]->ping_timestamp);
-                                    $current_system_timestamp = time();
-                                    $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
-                                    $expected_time = $robot_ping_interval - $time_diff;
-                                    
-                                }
-                            }
-                            
                             if($notification_flag){
-                                AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
-                                foreach ($robot->usersRobots as $userRobot){
-                                    if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                                        AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
-                                    }                                   
-                                }
+                                
+                                AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids);
+                                
                             }
                             
                         }
@@ -1096,22 +1074,31 @@ class RobotController extends APIController {
 	 */
 	public function actionSendStartCommand()
 	{
-		$chat_id = Yii::app()->request->getParam('chat_id', '');
-		$to = AppHelper::two_way_string_decrypt($chat_id);
-
-		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
+                $chat_id = Yii::app()->request->getParam('chat_id', '');
+                $to = AppHelper::two_way_string_decrypt($chat_id);
+                $robot = Robot::model()->find('chat_id = :chat_id', array(':chat_id' => $to));
 
                 $utc_str = gmdate("M d Y H:i:s", time());
                 $utc = strtotime($utc_str);
-
+                
+                $key = Yii::app()->params['cleaning_command'];
+                
                 $xmpp_message_model = new XmppMessageLogs();
                 $xmpp_message_model->save();
                 $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>101</command><requestId>" . $xmpp_message_model->id . "</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params><cleaningModifier>1</cleaningModifier><cleaningMode>2</cleaningMode><cleaningCategory>2</cleaningCategory></params></request></payload></packet>";
                 $xmpp_message_model->xmpp_message = $message;
                 $xmpp_message_model->save();
+                                
+                AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
                 
-		$start_command = $message; //Yii::app()->params['robot-start-cleaning-command'];
-		$message= AppCore::send_chat_message($from, $to, $start_command);
+                $user_id = Yii::app()->user->id;
+                $user_data = User::model()->findByPk($user_id);
+                $cause_agent_id = Yii::app()->session['cause_agent_id'];
+                $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                $online_users_chat_ids = AppCore::getOnlineUsers();
+                
+                AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                
 		$content = array('status' => 0);
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
@@ -1124,21 +1111,27 @@ class RobotController extends APIController {
 	public function actionSendStopCommand()
 	{
 		$chat_id = Yii::app()->request->getParam('chat_id', '');
-		$to = AppHelper::two_way_string_decrypt($chat_id);
-
-		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
+		
+                $to = AppHelper::two_way_string_decrypt($chat_id);
+                
+                $robot = Robot::model()->find('chat_id = :chat_id', array(':chat_id' => $to));
                 
                 $utc_str = gmdate("M d Y H:i:s", time());
                 $utc = strtotime($utc_str);
-
-                $xmpp_message_model = new XmppMessageLogs();
-                $xmpp_message_model->save();
-                $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>102</command><requestId>e2438667-ec03-4f7d-a910-9b6b3345bb3f</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
-                $xmpp_message_model->xmpp_message = $message;
-                $xmpp_message_model->save();
-
-		$stop_command = $message; //Yii::app()->params['robot-stop-cleaning-command'];
-		$message= AppCore::send_chat_message($from, $to, $stop_command);
+                
+                $key = Yii::app()->params['cleaning_command'];
+                $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>102</command><requestId>aa8edd62-7eee-4cc0-9f5d-c34d0e0d6759</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
+                                
+                AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+                
+                $user_id = Yii::app()->user->id;
+                $user_data = User::model()->findByPk($user_id);
+                $cause_agent_id = Yii::app()->session['cause_agent_id'];
+                $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                $online_users_chat_ids = AppCore::getOnlineUsers();
+                
+                AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                
 		$content = array('status' => 0);
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
@@ -1152,20 +1145,25 @@ class RobotController extends APIController {
 	{
 		$chat_id = Yii::app()->request->getParam('chat_id', '');
 		$to = AppHelper::two_way_string_decrypt($chat_id);
-
-		$from = User::model()->findByPk(Yii::app()->user->id)->chat_id;
+                
+                $robot = Robot::model()->find('chat_id = :chat_id', array(':chat_id' => $to));
                 
                 $utc_str = gmdate("M d Y H:i:s", time());
                 $utc = strtotime($utc_str);
-
-                $xmpp_message_model = new XmppMessageLogs();
-                $xmpp_message_model->save();
-                $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>104</command><requestId>b1bf7055-5e84-4b4d-89e7-1f65dfe51144</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
-                $xmpp_message_model->xmpp_message = $message;
-                $xmpp_message_model->save();
-
-		$stop_command = $message;
-		$message= AppCore::send_chat_message($from, $to, $stop_command);
+                
+                $key = Yii::app()->params['cleaning_command'];
+                $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>104</command><requestId>7990013f-e2a1-4942-ab0f-edd0afeffb1a</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
+                                
+                AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+                
+                $user_id = Yii::app()->user->id;
+                $user_data = User::model()->findByPk($user_id);
+                $cause_agent_id = Yii::app()->session['cause_agent_id'];
+                $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                $online_users_chat_ids = AppCore::getOnlineUsers();
+                
+                AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                
 		$content = array('status' => 0);
 
 		$this->renderPartial('/default/defaultView', array('content' => $content));
@@ -1253,7 +1251,7 @@ class RobotController extends APIController {
         $status = Yii::app()->request->getParam('status', '');
         
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
-		
+
         if($robot !== null ){
             
             $message = 'robot ping have been recorded';
@@ -1381,19 +1379,7 @@ class RobotController extends APIController {
             
         }
         
-        $xmpp_message_model = new XmppMessageLogs();
-        $xmpp_message_model->save();
-        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5002</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId></params></request></payload></packet>';
-        $xmpp_message_model->xmpp_message = $message;
-        $xmpp_message_model->save();
-
-        $online_users_chat_ids = AppCore::getOnlineUsers();
-
-        foreach ($robot->usersRobots as $userRobot){
-            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                    AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-            }
-        }
+        AppCore::sendXmppMessageToAssociatesUsers($robot, $utc);
         
         $response_data = array( 
                                 "success"=>true, 

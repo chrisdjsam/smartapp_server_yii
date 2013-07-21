@@ -96,7 +96,7 @@ class RestController extends APIController {
 				"user/create",
 				array('name' => array ('type' => 'string'),
 						'email' => array ('type' => 'string', 'default' => ''),
-						'password' => array ('type' => 'string', 'required' => false, 'default'=>time()),
+						'password' => array ('type' => 'string', 'required' => false, 'default'=>''),
 						'account_type' => array ('type' => 'string'),
 						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
 						'social_additional_attributes' => array('type'=>'array', 'default'=>array()),
@@ -383,7 +383,6 @@ class RestController extends APIController {
 				array(
 						'registration_ids' => array ('type' => 'array', 'default'=>array()),
 						'message' => array ('type' => 'string', 'required' => true),
-                                                'notification_type' => array ('type' => 'string', 'default'=>''),
 				),
 				"send notification to associated users",
 				'POST',
@@ -395,7 +394,6 @@ class RestController extends APIController {
 				array(
 						'serial_number' => array ('type' => 'array', 'required' => true),
 						'message' => array ('type' => 'string', 'required' => true),
-                                                'notification_type' => array ('type' => 'string', 'default'=>''),
 				),
 				"send notification to associated users",
 				'POST',
@@ -407,7 +405,6 @@ class RestController extends APIController {
 				array(
 						'serial_number' => array ('type' => 'array', 'required' => true),
 						'message' => array ('type' => 'string', 'required' => true),
-                                                'notification_type' => array ('type' => 'string', 'default'=>''),
 				),
 				"send notification to associated users",
 				'POST',
@@ -419,7 +416,6 @@ class RestController extends APIController {
 				array(
 						'emails' => array ('type' => 'array', 'default'=>array()),
 						'message' => array ('type' => 'string', 'default'=>'', 'required' => true),
-                                                'notification_type' => array ('type' => 'string', 'default'=>''),
 				),
 				"send notification to associated users",
 				'POST',

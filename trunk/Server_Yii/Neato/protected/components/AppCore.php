@@ -114,12 +114,19 @@ class AppCore {
 			$online_users = array();
 			$online_users = array_filter(explode("\n", $output));
 			for($i=0; $i<count($online_users); $i++){
-				$online_user_str = $online_users[$i];
+                            
+                                $online_user = isset($online_users[$i])? $online_users[$i] : '' ;
+                                if(empty($online_user)){
+                                    continue;
+                                }
+                                
+				$online_user_str = $online_user;
 				$pos = strpos($online_user_str, '/');
 				if($pos){
 					$online_user_str = substr($online_user_str,0, $pos);
 				}
 				$online_users_array[] = $online_user_str;
+                                
 			}
 		}else{
 			$online_users_array = explode(',', Yii::app()->params['dummy-online-users']);
@@ -173,10 +180,12 @@ class AppCore {
 			$success_string = strtolower("successfully registered");
 			$message_string = isset($output[0])? $output[0] : '';
 			$message_string = strtolower($message_string);
-
-			if(strpos($message_string, $success_string) == -1){
-				$chat_details['jabber_status'] = false;
-			}
+                        
+			preg_match("/$success_string/i", $message_string, $matches);
+                        
+                        if($status != 0 || empty($matches)){
+                            $chat_details['jabber_status'] = false;
+                        }
 		}
 		return $chat_details;
 	}
@@ -187,6 +196,7 @@ class AppCore {
 	 * @return array
 	 */
 	public static function create_chat_user_for_user(){
+           
 		$chat_details = array();
 		$ts=time();
 
@@ -204,15 +214,17 @@ class AppCore {
 			$jabberRegisterString = 'sudo ejabberdctl register '.$chat_user.' '.$ejabberd_node.' '.$chat_pwd.' 2>&1';
 			exec($jabberRegisterString, $output, $status);
 
-			$success_string = strtolower("successfully registered");
+            $success_string = strtolower("successfully registered");
 			$message_string = isset($output[0])? $output[0] : '';
 			$message_string = strtolower($message_string);
-
-			if(strpos($message_string, $success_string) == -1){
-				$chat_details['jabber_status'] = false;
-			}
+                        
+                        preg_match("/$success_string/i", $message_string, $matches);
+                        
+                        if($status != 0 || empty($matches)){
+                            $chat_details['jabber_status'] = false;
+                        }
 		}
-		return $chat_details;
+                return $chat_details;
 	}
 
 	/**
@@ -724,7 +736,11 @@ class AppCore {
 				if(!is_null($api_user_model)){
 					$site_id = $api_user_model->id_site;
 				}
-
+                                
+                                $start_time = Yii::app()->params['start_time'];
+                                $end_time = round(microtime(true) * 1000);
+                                
+                                $response_time = $end_time - $start_time;
 
 				$ws_logging_model = new WsLogging();
 				$ws_logging_model->id_site = $site_id;
@@ -737,8 +753,10 @@ class AppCore {
 				$ws_logging_model->request_data = $serialized_request_data;
 				$ws_logging_model->response_data = $serialized_response_data;
 				$ws_logging_model->status = $status;
+                                $ws_logging_model->response_time = $response_time;
 
 				$ws_logging_model->save();
+                                
 			}
 		} catch (Exception $e) {
 			//do nothing
@@ -958,7 +976,7 @@ class AppCore {
     }
 
 
-    public static function send_notification_to_given_registration_ids($registration_ids, $message_to_send, $notification_type) {
+    public static function send_notification_to_given_registration_ids($registration_ids, $message_to_send) {
 
         $response = self::scanGivenRegistrationIds($registration_ids);
 
@@ -970,13 +988,13 @@ class AppCore {
         $registration_ids_all['gcm'] = $response['registration_ids_by_type']['gcm'];
         $registration_ids_all['ios'] = $response['registration_ids_by_type']['ios'];
 
-        $result = self::send_notification($registration_ids_all, $message_to_send, null, $notification_type);
+        $result = self::send_notification($registration_ids_all, $message_to_send, null);
 
         return $result;
 
     }
 
-    public static function send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message_to_send, $send_from, $notification_type) {
+    public static function send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message_to_send, $send_from) {
 
         $AppCoreObj = new AppCore();
         $response = $AppCoreObj->fetchRegistrationIdsForGivenUserIds($user_ids_to_send_notification);
@@ -989,7 +1007,7 @@ class AppCore {
         $registration_ids_all['gcm'] = isset($response['output']['gcm']) ? $response['output']['gcm'] : array();
         $registration_ids_all['ios'] = isset($response['output']['ios']) ? $response['output']['ios'] : array();
 
-        $result = self::send_notification($registration_ids_all, $message_to_send, $send_from, $notification_type);
+        $result = self::send_notification($registration_ids_all, $message_to_send, $send_from);
 
         if(isset($response['extra'])){
             return array('code' => 0, 'output' => "Notification Response :: " . $result['output'] . " and Unable to send notification to users " . $response['extra'] . " Because they are not registered");
@@ -1051,7 +1069,7 @@ class AppCore {
 
     }
 
-    public static function send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from, $notification_type) {
+    public static function send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from) {
 
         $user_ids_not_found_error = array();
         $user_registration_ids_not_found = array();
@@ -1087,7 +1105,7 @@ class AppCore {
                 $registration_ids_all['gcm'] = isset($response['output']['gcm']) ? $response['output']['gcm'] : array();
                 $registration_ids_all['ios'] = isset($response['output']['ios']) ? $response['output']['ios'] : array();
 
-                $result[$id] = self::send_notification($registration_ids_all, $description, $send_from, $notification_type);
+                $result[$id] = self::send_notification($registration_ids_all, $description, $send_from);
 
 //                if(isset($response['extra'])){
 //                    return array('code' => 0, 'output' => "Notification Response :: " . $result['output'] . " and Unable to send notification to users " . $response['extra'] . " Because they are not registered");
@@ -1103,8 +1121,7 @@ class AppCore {
 
     }
 
-    public static function send_notification_to_given_emails($emails, $message_to_send, $notification_type) {
-
+    public static function send_notification_to_given_emails($emails, $message_to_send) {
         $response = self::scanGivenEmails($emails);
 
         if($response['code'] == 1){
@@ -1115,7 +1132,7 @@ class AppCore {
         $registration_ids_all['gcm'] = isset($response['output']['gcm']) ? $response['output']['gcm'] : array();
         $registration_ids_all['ios'] = isset($response['output']['ios']) ? $response['output']['ios'] : array();
 
-        $result = self::send_notification($registration_ids_all, $message_to_send, null, $notification_type);
+        $result = self::send_notification($registration_ids_all, $message_to_send, null);
 
         return array('code' => 0, 'output' => 'Notification sent to registration ids : ' . json_encode($response['output']) );
 
@@ -1221,7 +1238,7 @@ class AppCore {
 
     }
 
-    public static function send_notification($registration_ids_all, $message_to_send, $send_from = Array(), $notification_type = '1', $filter_criteria = 'Selected Devices') {
+      public static function send_notification($registration_ids_all, $message_to_send, $send_from = Array(), $filter_criteria = 'Selected Devices') {
 
         $gcm_result = '';
         $ios_result = '';
@@ -1247,7 +1264,7 @@ class AppCore {
             $message_body['notificationId'] =$notification_details->id;
         }
 
-        $log_result = self::log_notification_request($registration_ids_all, $message_body, $filter_criteria, $send_from, $notification_type);
+        $log_result = self::log_notification_request($registration_ids_all, $message_body, $filter_criteria, $send_from);
 
         if($log_result['code'] == 1){
             return $log_result;
@@ -1384,7 +1401,7 @@ class AppCore {
         return array('code' => 0, 'output' => '');
     }
 
-    public static function log_notification_request($registration_ids_all, $message_to_send, $filter_criteria, $send_from, $notification_type) {
+        public static function log_notification_request($registration_ids_all, $message_to_send, $filter_criteria, $send_from) {
 
         $notification_to = Array();
         $combined_request = Array();
@@ -1477,7 +1494,6 @@ class AppCore {
         $data->notification_to = $notification_to_str;
         $data->request = $combined_request_str;
         $data->send_from = serialize($send_from);
-        $data->notification_type = $notification_type;
 
         if (!$data->save()) {
             return array('code' => 1, 'output' => $data->errors);
@@ -1759,6 +1775,33 @@ class AppCore {
         }
 
     }
+    
+    public static function setDefaultUserPushNotificationOptions($user_id) {
+        
+            $json_object = json_decode(Yii::app()->params['default_json_for_notification_preference']);
+                    
+            $userPushNotificationPreferencesObj = UserPushNotificationPreferences::model()->findAll('user_id = :user_id', array(':user_id' => $user_id));
+
+            if(empty($userPushNotificationPreferencesObj)){
+
+                    foreach ($json_object->notifications as $value) {
+
+                            $userPushNotificationPreferencesObj = new UserPushNotificationPreferences();
+                            self::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
+
+                    }
+
+            } else {
+
+                    foreach ($json_object->notifications as $key => $value) {
+
+                            self::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+
+                    }
+
+            }
+        
+    }
 
     public static function sendIOSPushNotification($deviceToken, $message_body){
 
@@ -1876,7 +1919,7 @@ class AppCore {
     
     public static function getSleepLagTime($robot) {
         
-        $sleep_time = Yii::app()->params['default_sleep_time']; // in minutes
+        $sleep_time = Yii::app()->params['default_sleep_time']; // in seconds
         $lag_time = Yii::app()->params['default_lag_time']; // in seconds
         
         if(isset($robot->sleep_time) && isset($robot->lag_time)){
@@ -1895,6 +1938,125 @@ class AppCore {
         }
         
         return array('sleep_time'=>$sleep_time, 'lag_time'=>$lag_time);
+    }
+    
+    public static function sendXmppMessageToAssociatesUsers($robot, $utc){
+        $xmpp_message_model = new XmppMessageLogs();
+        $xmpp_message_model->save();
+        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5002</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId></params></request></payload></packet>';
+        $xmpp_message_model->xmpp_message = $message;
+        $xmpp_message_model->save();
+
+        $online_users_chat_ids = self::getOnlineUsers();
+        
+        AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+        foreach ($robot->usersRobots as $userRobot){
+            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                    AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+            }
+        }
+    }
+    
+    public static function setRobotKeyValue($key_value){
+        $command_key = ($key_value['key']);
+        $command_value = ($key_value['value']);
+        $robot = $key_value['robot'];
+        
+        $utc_str = gmdate("M d Y H:i:s", time());
+        $utc = strtotime($utc_str);
+      
+        $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $command_key,':robot_id' => $robot->id));
+        
+        if(!empty($data)){
+            $data->value = $command_value;
+            $data->timestamp = $utc;
+            $data->update();
+        } else {
+            $robot_key_value = new RobotKeyValues();
+            $robot_key_value->robot_id = $robot->id;
+            $robot_key_value->_key = $command_key;
+            $robot_key_value->value = $command_value;
+            $robot_key_value->timestamp = $utc;
+            $robot_key_value->save(); 
+        }
+        
+        $user_id = Yii::app()->user->id;
+        $user_data = User::model()->findByPk($user_id);
+        
+        $cause_agent_id = Yii::app()->session['cause_agent_id'];
+        
+        $xmpp_message_model = new XmppMessageLogs();
+        $xmpp_message_model->save();
+        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><causeAgentId>' . $cause_agent_id . '</causeAgentId></params></request></payload></packet>';
+        $xmpp_message_model->xmpp_message = $message;
+        $xmpp_message_model->save();
+                        
+        $online_users_chat_ids = AppCore::getOnlineUsers();
+        AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+        foreach ($robot->usersRobots as $userRobot){
+            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+            }                                   
+        }
+
+    }
+    
+    public static function setRobotKeyValueDetail($robot, $key, $value, $utc){
+        switch ($key) {
+            case "name":
+                    if(empty($value)){
+                        return array('code'=>1, 'error'=>APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
+                    }
+                    $robot->name = $value;
+                    $robot->save();
+                    break;
+
+            default:
+                $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
+                if(!empty($data)){
+                    $data->value = $value;
+                    $data->timestamp = $utc;
+                    $data->update();
+                } else {
+                    $robot_key_value = new RobotKeyValues();
+                    $robot_key_value->robot_id = $robot->id;
+                    $robot_key_value->_key = $key ;
+                    $robot_key_value->value = $value ;
+                    $robot_key_value->timestamp = $utc;
+                    $robot_key_value->save();                                                    
+                }
+                break;
+        }
+        return array('code'=>0);
+    }
+    
+    public static function xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc){
+        
+        $xmpp_message_model = new XmppMessageLogs();
+        $xmpp_message_model->save();
+        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><causeAgentId>' . $cause_agent_id . '</causeAgentId></params></request></payload></packet>';
+        $xmpp_message_model->xmpp_message = $message;
+        $xmpp_message_model->save();
+        
+        return $message;
+    }
+    
+    public static function sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message){
+        AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+        foreach ($robot->usersRobots as $userRobot){
+            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                self::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+            }
+        }
+    }
+    
+    public static function sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids){
+        AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+        foreach ($robot->usersRobots as $userRobot){
+            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+                AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+            }                                   
+        }
     }
 
 }
