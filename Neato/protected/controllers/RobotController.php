@@ -39,12 +39,9 @@ class RobotController extends Controller
                 if(in_array($model->chat_id, AppCore::getOnlineUsers())){
                     $isOnline = 1; // 1 for online
                 } else {
-                    $robot_ping_interval = 0;
-                    if(isset($model->robotRobotTypes->robotType->robotTypeMetadatas)){
-                        foreach ($model->robotRobotTypes->robotType->robotTypeMetadatas as $metadata) {
-                            $robot_ping_interval = $robot_ping_interval + $metadata->value;
-                        }
-                    }
+                    
+                    $sleep_lag_time = AppCore::getSleepLagTime($model);
+                    $robot_ping_interval = $sleep_lag_time['sleep_time'];
                     
                     if(AppCore::getVirtuallyOnlinRobots($model->id, $robot_ping_interval)){
                         $isOnline = 3; // 3 for virtually online
@@ -129,6 +126,26 @@ class RobotController extends Controller
                                 $robot_robot_type->robot_type_id = $_POST['RobotTypes']['type'];
                                 $robot_robot_type->save();
                                 
+                                $utc = $model->updated_on;
+                                
+                                if(!empty($model->name)){
+                                    
+                                    $robot = $model;
+                                    $robot_name = $model-> name;
+                                    $key = Yii::app()->params['robot_name_key'];
+                                    
+                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
+                                    
+                                    $user_id = Yii::app()->user->id;
+                                    $user_data = User::model()->findByPk($user_id);
+                                    $cause_agent_id = Yii::app()->session['cause_agent_id'];
+                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                                    $online_users_chat_ids = AppCore::getOnlineUsers();
+
+                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                                    
+                                }
+
 				$msg = AppCore::yii_echo("addrobot:ok", $model->serial_number);
 				Yii::app()->user->setFlash('success', $msg);
 				$this->actionList();
@@ -335,7 +352,7 @@ class RobotController extends Controller
 			Yii::app()->user->setReturnUrl($url);
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
-
+           
 		$h_id = Yii::app()->request->getParam('h', '');
 		if($h_id == ''){
 			$this->redirect(array('list'));
@@ -344,27 +361,50 @@ class RobotController extends Controller
 		self::check_function_argument($id);
                 
 		$model=$this->loadModel($id);
+                $robot_name_before_update = $model->name;
                 $robot_type_model = new RobotTypes();
-
-		// Uncomment the following line if AJAX validation is needed
+                
+                // Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation(array($model,$robot_type_model));
-
+                
                 if(isset($model->robotRobotTypes)){
                     $robot_type_model = $model->robotRobotTypes->robotType;
                 }
-                
+               
 		if(isset($_POST['Robot'], $_POST['RobotTypes']))
 		{
 			$model->attributes=$_POST['Robot'];
+                        
 			if($model->save()){
-
+                            
                                 // update robot type
                                 $robot_robot_type = RobotRobotTypes::model()->find('robot_id = :robot_id', array(':robot_id' => $model->id));
                                 $robot_robot_type->robot_type_id = $_POST['RobotTypes']['type'];
                                 $robot_robot_type->save();
-                            
+                                
+                                $utc = $model->updated_on;
+                                
 				$msg = AppCore::yii_echo("editrobot:ok",$model->serial_number);
 				Yii::app()->user->setFlash('success', $msg);
+                                
+                                $robot = $model;
+                                $robot_name = $model-> name;
+                                $key = Yii::app()->params['robot_name_key'];
+
+                                if($robot_name_before_update != $model-> name){
+                                    
+                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
+                                    
+                                    $user_id = Yii::app()->user->id;
+                                    $user_data = User::model()->findByPk($user_id);
+                                    $cause_agent_id = Yii::app()->session['cause_agent_id'];
+                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                                    $online_users_chat_ids = AppCore::getOnlineUsers();
+
+                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                                    
+                                }
+                                
 				$this->redirect(array('list'));
                                 
 			}else {
@@ -372,7 +412,7 @@ class RobotController extends Controller
 				Yii::app()->user->setFlash('error', $msg);
 			}
 		}
-
+                
 		$this->render('update',array(
 				'model'=>$model,
                                 'robot_type_model'=>$robot_type_model,

@@ -435,7 +435,6 @@
 							<li><b>api_key</b> 		: Your API Key</li>
 							<li><b>emails</b>               : Emails to send notification.</li>
 							<li><b>message</b> 		: Message Text.</li>
-                                                        <li><b>notification_type</b> 	: Notification Type ( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' ).</li>
 						</ul>
 				
 
@@ -527,13 +526,6 @@
 				</td>
 			</tr>
                         
-                        <tr>
-                            <td>notification_type</td>
-                            <td>
-                                <input type="text" name='notification_type'>
-                                <span style="color: blue;">( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' )</span>
-                            </td>
-                        </tr>
 			
 			<tr>
 				<td><input type="button" name='submit' dummy='notification_to_all_by_emails'
@@ -573,7 +565,6 @@
 							<li><b>api_key</b> 		: Your API Key</li>
 							<li><b>registration_ids</b>     : Registration Ids to send notification.</li>
 							<li><b>message</b> 		: Message Text.</li>
-                                                        <li><b>notification_type</b> 	: Notification Type ( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' ).</li>
 						</ul>
 				
 
@@ -649,13 +640,6 @@
 				</td>
 			</tr>
                         
-                        <tr>
-                            <td>notification_type</td>
-                            <td>
-                                <input type="text" name='notification_type'>
-                                <span style="color: blue;">( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' )</span>
-                            </td>
-                        </tr>
 			
 			<tr>
 				<td><input type="button" name='submit' dummy='notification_to_all'
@@ -695,7 +679,6 @@
                                 <li><b>api_key</b> 		: Your API Key</li>
                                 <li><b>serial_number</b>        : Serial Number of Robot.</li>
                                 <li><b>message</b> 		: Message Text.</li>
-                                <li><b>notification_type</b> 	: Notification Type ( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' ).</li>
                             </ul>
 
 
@@ -785,13 +768,6 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td>notification_type</td>
-                    <td>
-                        <input type="text" name='notification_type'>
-                        <span style="color: blue;">( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' )</span>
-                    </td>
-                </tr>
 
                 <tr>
                     <td><input type="button" name='submit' dummy='notification_to_all_associated_users'
@@ -830,7 +806,6 @@
                                 <li><b>api_key</b> 		: Your API Key</li>
                                 <li><b>serial_number</b>        : Serial Number of Robot.</li>
                                 <li><b>message</b> 		: JSON object in '{"notifications":[{"id":"101"}]}' format.</li>
-                                <li><b>notification_type</b> 	: Notification Type ( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' ).</li>
                             </ul>
 
 
@@ -912,13 +887,6 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td>notification_type</td>
-                    <td>
-                        <input type="text" name='notification_type'>
-                        <span style="color: blue;">( Consideration: 1 for 'system', 2 for 'activities' and 3 for 'sos' )</span>
-                    </td>
-                </tr>
 
                 <tr>
                     <td><input type="button" name='submit' dummy='notification_to_all_associated_users2'

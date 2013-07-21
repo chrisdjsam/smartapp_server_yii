@@ -147,6 +147,7 @@ class UserController extends Controller
 				if($user_model->save()){
 					$msg = AppCore::yii_echo("adduser:ok",$user_name);
 					Yii::app()->user->setFlash('success', $msg);
+                                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
 				}
 				$this->redirect(array('list'));
 			}else {
@@ -181,7 +182,8 @@ class UserController extends Controller
 			if($login_model->validate() && $login_model->login())
 			{
                                 
-
+                                Yii::app()->session['cause_agent_id'] = UniqueToken::hash(time(), 8);
+                                
                                 $is_validated = (boolean)Yii::app()->user->isValidated;
                                 $message = 'You have been logged in Successfully.';
 

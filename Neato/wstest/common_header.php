@@ -165,8 +165,9 @@ tr.Facebook {
 
 							<li>If API Key is missing:
 								<ul>
-									<li>{"status":-1,"message":"Method call failed the API
-										Authentication"}</li>
+									<li>
+                                                                            {"status":-1,"message":"Method call failed the API Authentication","error":{"code":"-174","message":"Method call failed the API Authentication"}}
+                                                                        </li>
 								</ul>
 							</li>
 						</ul>

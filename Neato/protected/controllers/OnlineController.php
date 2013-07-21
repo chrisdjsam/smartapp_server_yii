@@ -35,12 +35,8 @@ class OnlineController extends Controller
                                 $virtually_online_robots[] = $robot;
 			} else {
                             
-                            $robot_ping_interval = 0;
-                            if(isset($robot->robotRobotTypes->robotType->robotTypeMetadatas)){
-                                foreach ($robot->robotRobotTypes->robotType->robotTypeMetadatas as $metadata) {
-                                    $robot_ping_interval = $robot_ping_interval + $metadata->value;
-                                }
-                            }
+                            $sleep_lag_time = AppCore::getSleepLagTime($robot);
+                            $robot_ping_interval = $sleep_lag_time['sleep_time'];
                             
                             if(AppCore::getVirtuallyOnlinRobots($robot->id, $robot_ping_interval)){
                                 $virtually_online_robots[] = $robot;

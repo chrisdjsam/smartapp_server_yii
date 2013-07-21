@@ -1101,7 +1101,7 @@ a.user-neato-button {
 }
 
 fieldset.robot-online-fieldset{
-	min-height: auto;
+	min-height: 0px !important;
 }
 
 .list-add_app_version {

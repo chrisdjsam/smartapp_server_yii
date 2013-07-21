@@ -214,13 +214,12 @@ class MessageController extends APIController {
             
                 $registration_ids = array_values( array_filter(array_unique(Yii::app()->request->getParam('registration_ids', ''))) );
 		$message = Yii::app()->request->getParam('message', '');
-                $notification_type = Yii::app()->request->getParam('notification_type', '1');
                 
                 if(empty($registration_ids)){
                     self::terminate(-1, 'Provide at least one registration id', APIConstant::PARAMETER_MISSING);
                 }
 
-		$response = AppCore::send_notification_to_given_registration_ids($registration_ids, $message, $notification_type);
+                $response = AppCore::send_notification_to_given_registration_ids($registration_ids, $message);
                 
                 if($response['code'] == 1){
                     self::terminate(-1, $response['output'], APIConstant::REGISTRATION_IDS_NOT_VALID);
@@ -235,7 +234,6 @@ class MessageController extends APIController {
             
                 $serial_number = Yii::app()->request->getParam('serial_number', '');
 		$message = Yii::app()->request->getParam('message', '');
-                $notification_type = Yii::app()->request->getParam('notification_type', '1');
                 
                 $send_from_indicator = Yii::app()->request->getParam('send_from', '');
                 
@@ -258,7 +256,7 @@ class MessageController extends APIController {
                     $send_from['data'] = Yii::app()->user->id;
                 }
                 
-		$response = AppCore::send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message, $send_from, $notification_type);
+                $response = AppCore::send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message, $send_from);
                  
                 if($response['code'] == 1){
                     self::terminate(-1, $response['output'], APIConstant::MESSAGE_SENDING_FAILED);
@@ -273,7 +271,6 @@ class MessageController extends APIController {
             
                 $serial_number = Yii::app()->request->getParam('serial_number', '');
 		$message_oject = json_decode(Yii::app()->request->getParam('message', ''));
-                $notification_type = Yii::app()->request->getParam('notification_type', '1');
                 
                 if($message_oject === null) {
                     self::terminate(-1, "The json message you have provided does not appear to be a valid.", APIConstant::JSON_OBJECT_NOT_VALID);
@@ -292,13 +289,21 @@ class MessageController extends APIController {
                 
                 $message_description = Array();
                 
-                foreach ($message_oject->notifications as $value) {
-                    $message_data = PushNotificationTypes::model()->find('id = :id', array(':id' => $value->id));
-                    if(!empty($message_data)){
-                        $message_description[$value->id] = $message_data->description;
+                if(isset($message_oject->notifications)){
+                    foreach ($message_oject->notifications as $value) {
+                        if(isset($value->id)){
+                            $message_data = PushNotificationTypes::model()->find('id = :id', array(':id' => $value->id));
+                            if(!empty($message_data)){
+                                $message_description[$value->id] = $message_data->description;
+                            }
+                        }else{
+                            self::terminate(-1, "Provided JSON does not contain considered keys i.e 'id'.", APIConstant::JSON_WITH_INVALID_KEYS);
+                        }
                     }
+                }else {
+                    self::terminate(-1, "Provided JSON does not contain considered keys i.e 'notifications'.", APIConstant::JSON_WITH_INVALID_KEYS);
                 }
-
+                
                 if(empty($message_description)) {
                     self::terminate(-1, "Sorry, json which you have provided in message parameter is invalid", APIConstant::JSON_OBJECT_NOT_VALID);
                 }
@@ -307,7 +312,7 @@ class MessageController extends APIController {
                 $send_from['type'] = 'robot';
                 $send_from['data'] = $serial_number;
 
-		$response = AppCore::send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from, $notification_type);
+                $response = AppCore::send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from);
                 
                 if($response['code'] == 1){
                     self::terminate(-1, $response['output'], APIConstant::MESSAGE_SENDING_FAILED);
@@ -322,7 +327,6 @@ class MessageController extends APIController {
             
                 $emails = array_values( array_filter(array_unique(Yii::app()->request->getParam('emails', ''))) );
 		$message = trim(Yii::app()->request->getParam('message', '')); 
-                $notification_type = Yii::app()->request->getParam('notification_type', '1');
                 
                 if(!empty($emails)){
                     $invalid_emails = Array();
@@ -343,7 +347,7 @@ class MessageController extends APIController {
                     self::terminate(-1, 'Message field can not be blank', APIConstant::PARAMETER_MISSING);
                 }
                 
-		$response = AppCore::send_notification_to_given_emails($emails, $message, $notification_type);
+                $response = AppCore::send_notification_to_given_emails($emails, $message);
                 
                 if($response['code'] == 1){
                     self::terminate(-1, $response['output'], APIConstant::MESSAGE_SENDING_FAILED);
@@ -547,7 +551,8 @@ class MessageController extends APIController {
                 $send_from['type'] = 'user';
                 $send_from['data'] = Yii::app()->user->id;
                 
-                $response = AppCore::send_notification($all_registration_ids, $message_to_send, $send_from, null, $filter_criteria);
+//                $response = AppCore::send_notification($all_registration_ids, $message_to_send, $send_from, null, $filter_criteria);
+                $response = AppCore::send_notification($all_registration_ids, $message_to_send, $send_from, $filter_criteria);
             }else{
                 self::terminate(-1, 'Sorry, There is not a single registration id to send notification', APIConstant::REGISTRATION_IDS_NOT_VALID);
             }
@@ -658,6 +663,10 @@ class MessageController extends APIController {
                     self::terminate(-1, "The JSON Object you have provided does not appear to be a valid.", APIConstant::JSON_OBJECT_NOT_VALID);
             }
             
+            if(!isset($json_object->notifications) || !isset($json_object->global)){
+                self::terminate(-1, "Provided JSON does not contain considered keys like 'notifications', 'global' etc.", APIConstant::JSON_WITH_INVALID_KEYS);
+            }
+            
             $user_data = User::model()->find('email = :email', array(':email' => $email));
             
 //          format of entered json object {"global":"true", "notifications":[{"key":"101", "value":"true"}, {"key":"102", "value":"true"}, {"key":"103", "value":"true"}]}
@@ -676,8 +685,12 @@ class MessageController extends APIController {
                     if(empty($userPushNotificationPreferencesObj)){
                             
                             foreach ($json_object->notifications as $value) {
-                                $userPushNotificationPreferencesObj = new UserPushNotificationPreferences();
-                                AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
+                                if(isset($value->value) && isset($value->key) ) {
+                                    $userPushNotificationPreferencesObj = new UserPushNotificationPreferences();
+                                    AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
+                                }else {
+                                    self::terminate(-1, "Provided JSON does not contain considered keys like 'value', 'key' etc.", APIConstant::JSON_WITH_INVALID_KEYS);
+                                }
                             }
                             
                     } else {
@@ -685,7 +698,11 @@ class MessageController extends APIController {
                             $message = 'Successfully updated user push notification preferences.';
                         
                             foreach ($json_object->notifications as $key => $value) {
-                                AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+                                if(isset($value->value) && isset($value->key) ) {
+                                    AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+                                }else {
+                                    self::terminate(-1, "Provided JSON does not contain considered keys like 'value', 'key' etc.", APIConstant::JSON_WITH_INVALID_KEYS);
+                                }
                             }
                             
                     }

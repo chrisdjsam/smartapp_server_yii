@@ -126,7 +126,7 @@ class RobotScheduleController extends APIController {
 		if(!$robot_schedule_model->save()){
 			//need to work
 		}
-
+                
 		//storing xml data
                 
                 $schedule_xml_data_file_name = '';
@@ -139,7 +139,7 @@ class RobotScheduleController extends APIController {
                     $uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $robot_schedule_model->id;
                     // Add check to see if the folder already exists
                     if(!is_dir($uploads_dir_for_robot_schedule)){
-                            mkdir($uploads_dir_for_robot_schedule);
+                        mkdir($uploads_dir_for_robot_schedule);
                     }
                     $uploads_dir = $uploads_dir_for_robot_schedule . DIRECTORY_SEPARATOR . Yii::app()->params['robot-schedule_xml-data-directory-name'];
                     // Add check to see if the folder already exists
@@ -237,6 +237,7 @@ class RobotScheduleController extends APIController {
 		$robot_schedule_model->blob_data_file_name = $schedule_blob_data_file_name;
 
 		if($robot_schedule_model->update()){
+                    
 			$response_message = self::yii_api_echo('Robot schedule data stored successfully.');
 			$response_data = array("success"=>true, "robot_schedule_id"=>$robot_schedule_model->id,"schedule_type" =>$robot_schedule_model->type, "xml_data_version"=>$schedule_xml_data_file_version, "blob_data_version"=>$schedule_blob_data_file_version, 'schedule_version' => $robot_schedule_model->XMLDataLatestVersion);
 			self::success($response_data);
@@ -385,7 +386,7 @@ class RobotScheduleController extends APIController {
 		$robot_schedule_id = Yii::app()->request->getParam('robot_schedule_id', '');
 		$robot_schedule_model = self::verify_for_robot_schedule_id_existence($robot_schedule_id);
 
-		$robot_schedule_type = Yii::app()->request->getParam('schedule_type', '');
+                $robot_schedule_type = Yii::app()->request->getParam('schedule_type', '');
 		$old_robot_schedule_type = $robot_schedule_model->type;
 
 		$robot_schedule_xml_data_version = Yii::app()->request->getParam('xml_data_version', '');
@@ -416,7 +417,7 @@ class RobotScheduleController extends APIController {
 
 			$old_schedule_xml_data_file_path = '';
 			$old_schedule_blob_data_file_path = '';
-
+                        
 			if ($robot_schedule_xml_data_version){
 				$xml_data = Yii::app()->request->getParam('xml_data', '');
 
@@ -533,7 +534,8 @@ class RobotScheduleController extends APIController {
 				if($old_schedule_blob_data_file_path != ''){
 					unlink($old_schedule_blob_data_file_path);
 				}
-				$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully updated robot schedule data.'), 'schedule_version' => $robot_schedule_model->XMLDataLatestVersion);
+                                
+                                $response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully updated robot schedule data.'), 'schedule_version' => $robot_schedule_model->XMLDataLatestVersion);
 				self::success($response_data);
 			}
 		}else{
@@ -700,8 +702,31 @@ class RobotScheduleController extends APIController {
 		$h_id = Yii::app()->request->getParam('h', '');
 		$id = AppHelper::two_way_string_decrypt($h_id);
 		self::check_function_argument($id);
-
+                
+                $robot_schedule_model = RobotSchedule::model()->findByPk($id);
+                
 		if(RobotSchedule::model()->deleteByPk($id)){
+                    
+                        $robot_id = $robot_schedule_model->id_robot;
+
+                        $robot = Robot::model()->find('id = :id', array(':id' => $robot_id));
+
+                        $key = Yii::app()->params['schedule_key'];
+                        $value = Yii::app()->params['schedule_value'];
+                        
+                        $utc_str = gmdate("M d Y H:i:s", time());
+                        $utc = strtotime($utc_str);
+
+                        AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+
+                        $user_id = Yii::app()->user->id;
+                        $user_data = User::model()->findByPk($user_id);
+                        $cause_agent_id = Yii::app()->session['cause_agent_id'];
+                        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                        $online_users_chat_ids = AppCore::getOnlineUsers();
+
+                        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                    
 			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 			$uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $id;
 			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_schedule);
@@ -788,8 +813,8 @@ class RobotScheduleController extends APIController {
 		$_POST['schedule_type'] = $_POST['RobotSchedule']['type'];;
 		$_POST['xml_data'] = $xml_data;
 		$_POST['encoded_blob_data'] = $encoded_blob_data;
-	
-		self::actionUpdateData();
+
+                self::actionUpdateData();
 	
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 	
@@ -839,6 +864,40 @@ class RobotScheduleController extends APIController {
 			self::terminate(-1, "Sorry, we didn't find any schedule data for given robot serial number and schedule type", APIConstant::NO_SCHEDULE_DATA_FOUND);
                 }
                 self::success($robot_schedule_arr);
+        }
+        
+        public function actionSetKeyValueAndSendXMPP(){
+            
+            $robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+
+            $robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+            
+            $content = array('code'=> 1);
+
+            if(!empty($robot)){
+                
+                $key = Yii::app()->params['schedule_key'];
+                $value = Yii::app()->params['schedule_value'];
+
+                $utc_str = gmdate("M d Y H:i:s", time());
+                $utc = strtotime($utc_str);
+
+                AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+
+                $user_id = Yii::app()->user->id;
+                $user_data = User::model()->findByPk($user_id);
+                $cause_agent_id = Yii::app()->session['cause_agent_id'];
+                $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                $online_users_chat_ids = AppCore::getOnlineUsers();
+
+                AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                
+                $content = array('code'=> 0);
+                
+            }
+            
+            $this->renderPartial('/default/defaultView', array('content' => $content));
+            
         }
 
 }   
