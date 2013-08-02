@@ -363,6 +363,8 @@ class MessageController extends APIController {
                 $user_email = Yii::app()->request->getParam('user_email', '');
                 $registration_id = Yii::app()->request->getParam('registration_id', '');
                 $device_type = Yii::app()->request->getParam('device_type', '');
+                $application_id = Yii::app()->request->getParam('application_id', '');
+                $notification_server_type = Yii::app()->request->getParam('notification_server_type', '');
 
                 if (!AppHelper::is_valid_email($user_email)) {
                     self::terminate(-1, 'Please enter valid email address.', APIConstant::EMAIL_NOT_VALID);
@@ -373,8 +375,8 @@ class MessageController extends APIController {
                 if (empty($user_data)) {
                     self::terminate(-1, 'Sorry, Provided user email address does not exist in our system.', APIConstant::EMAIL_DOES_NOT_EXIST);
                 }
-
-                $response = AppCore::store_registration_id($user_data->id, $registration_id, $device_type);
+                
+                $response = AppCore::store_registration_id($user_data->id, $registration_id, $device_type, $application_id, $notification_server_type);
 
                 $response_data = array("success" => true, "message" => $response);
                 self::success($response_data);
@@ -487,7 +489,7 @@ class MessageController extends APIController {
             $message_to_send = '';
             
             $filter_criteria = 'Selected Devices';
-
+            
             foreach ($notification_data as $data) {
 
                 if ($data['name'] == 'message_to_send') {

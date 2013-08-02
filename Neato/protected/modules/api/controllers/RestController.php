@@ -429,6 +429,8 @@ class RestController extends APIController {
                                                 'user_email' => array ('type' => 'string', 'required' => true),
 						'registration_id' => array ('type' => 'string', 'required' => true),
 						'device_type' => array ('type' => 'string', 'required' => true),
+                                                'application_id' => array ('type' => 'string', 'required' => false),
+                                                'notification_server_type' => array ('type' => 'string', 'required' => false),
 				),
 				"Store Registration Id To Send Notification",
 				'POST',

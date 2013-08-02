@@ -922,11 +922,12 @@
 						message.notification_registration<br /> 
 						Parameters:
 						<ul>
-							<li><b>api_key</b>         :Your API Key</li>
-							<li><b>user_email</b>      :User's email for whom you are storing registration id.</li>
-							<li><b>registration_id</b> :Registration Id</li>
-							<li><b>device_type</b>     :Device Type ( Consideration: 1 for 'Android Device', 2 for 'iPhone Device' ).</li>
-						
+							<li><b>api_key</b>                  :Your API Key</li>
+							<li><b>user_email</b>               :User's email for whom you are storing registration id.</li>
+							<li><b>registration_id</b>          :Registration Id</li>
+							<li><b>device_type</b>              :Device Type ( Consideration: 1 for 'Android Device', 2 for 'iPhone Device' ).</li>
+                                                        <li><b>application_id</b>           :Application Id</li>
+                                                        <li><b>notification_server_type</b> :Notification Server Type</li>
 						</ul>
 				
 
@@ -1009,6 +1010,20 @@
 				<td>
                                     <input type="text" name='device_type'>
                                     <span style="color: blue;">( Consideration: 1 for 'Android Device', 2 for 'iPhone Device' )</span>
+                                </td>
+			</tr>
+                        
+                        <tr>
+				<td>application_id</td>
+				<td>
+                                    <input type="text" name='application_id'>
+                                </td>
+			</tr>
+                        
+                        <tr>
+				<td>notification_server_type</td>
+				<td>
+                                    <input type="text" name='notification_server_type'>
                                 </td>
 			</tr>
 			

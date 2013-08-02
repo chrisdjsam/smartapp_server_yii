@@ -6,7 +6,7 @@
  */
 
 function send_push_notification($environmentWithId) {
-
+    
     if (empty($environmentWithId)) {
         return;
     }
@@ -35,7 +35,7 @@ function send_push_notification($environmentWithId) {
         $dbname = "dev_neato";
     } else if ($env === "local") {
         $username = "root";
-        $password = "";
+        $password = "root";
         $hostname = "localhost";
         $dbname = "neato";
     } else {
@@ -67,10 +67,12 @@ function send_push_notification($environmentWithId) {
         $notification_to = unserialize($notification_data_to_consume['notification_to']);
 
         $message_body = unserialize($notification_data_to_consume['message']);
-        
+ 
         $registration_ids_gcm = $notification_to['gcm'];
         $registration_ids_ios = $notification_to['ios'];
-
+//        $registration_type_gcm = $notification_to['gcm_type'];
+        $registration_type_ios = $notification_to['ios_type'];
+      
         if (!empty($registration_ids_gcm)) {
 
             // API key from Google APIs
@@ -130,7 +132,7 @@ function send_push_notification($environmentWithId) {
 
         if (!empty($registration_ids_ios)) {
 
-            $ios_result .= sendIOSPushNotification($registration_ids_ios, $message_body);
+            $ios_result .= sendIOSPushNotification($registration_ids_ios, $message_body, $registration_type_ios);
         }
 
         $combined_response = array();
@@ -180,25 +182,25 @@ function curl_call($url, $headers, $data_string) {
     return $response;
 }
 
-function sendIOSPushNotification($deviceToken, $message_body) {
+function sendIOSPushNotification($deviceToken, $message_body, $registration_type_ios) {
 
-    $iOSCertificatesPath = './neato.pem';
+    //$iOSCertificatesPath = './neato.pem';
 
     // Put your private key's passphrase here:
-    $passphrase = 'neato123';
+//    $passphrase = 'neato123';
 
-    $ctx = stream_context_create();
-    stream_context_set_option($ctx, 'ssl', 'local_cert', $iOSCertificatesPath);
-    stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+//    $ctx = stream_context_create();
+//    stream_context_set_option($ctx, 'ssl', 'local_cert', $iOSCertificatesPath);
+//    stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+//
+//    // Open a connection to the APNS server
+//    $fp = stream_socket_client(
+//            'ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
 
-    // Open a connection to the APNS server
-    $fp = stream_socket_client(
-            'ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
-
-    if (!$fp) {
-        exit("Failed to connect: $err $errstr" . PHP_EOL);
-    }
-
+    
+    $fp_dev = fp_for_dev();
+    $fp_prod = fp_for_prod();
+    
 //        echo 'Connected to APNS' . PHP_EOL;
 
     $loc_key = array();
@@ -230,14 +232,24 @@ function sendIOSPushNotification($deviceToken, $message_body) {
     $payload = json_encode($body);
 
     $result = '';
+    
+    $app_type_index = 0;
 
     foreach ($deviceToken as $reg_id) {
+        
+        $fp = $fp_dev;
+        
+        if($registration_type_ios[$app_type_index] == 'Prod'){
+            $fp = $fp_prod;
+        }
 
         // Build the binary notification
         $msg = chr(0) . pack('n', 32) . pack('H*', $reg_id) . pack('n', strlen($payload)) . $payload;
 
         // Send it to the server
         $result .= fwrite($fp, $msg, strlen($msg)) . ' ';
+        
+        $app_type_index++;
     }
 
     // Close the connection to the server
@@ -245,5 +257,49 @@ function sendIOSPushNotification($deviceToken, $message_body) {
 
     return $result;
 }
+
+function fp_for_dev(){
+    
+        $iOSCertificatesPath = './neato.pem';
+    
+        $passphrase = 'neato123';
+
+        $ctx = stream_context_create();
+        stream_context_set_option($ctx, 'ssl', 'local_cert', $iOSCertificatesPath);
+        stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+
+        // Open a connection to the APNS server
+        $fp_dev = stream_socket_client(
+            'ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
+        
+        if (!$fp_dev) {
+            exit("Failed to connect: $err $errstr" . PHP_EOL);
+        }
+
+        return $fp_dev;
+}
+
+function fp_for_prod(){
+    
+        $iOSCertificatesPath = './neato.pem';
+
+        $passphrase = 'neato123';
+
+        $ctx = stream_context_create();
+        stream_context_set_option($ctx, 'ssl', 'local_cert', $iOSCertificatesPath);
+        stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+
+        // Open a connection to the APNS server
+        $fp_prod = stream_socket_client(
+            'ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
+        
+        if (!$fp_prod) {
+            exit("Failed to connect: $err $errstr" . PHP_EOL);
+        }
+
+        return $fp_prod;
+    
+}
+
 ?>
 

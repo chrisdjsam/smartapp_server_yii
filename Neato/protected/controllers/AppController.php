@@ -99,11 +99,11 @@ class AppController extends Controller
                 foreach ($result['rResult'] as $data) {
 
                     $row = array();
-                    
+
                     $row[] = $data->remote_address;
                     $row[] = $data->method_name;
                     $row[] = json_encode(unserialize($data->request_data));
-                    $row[] = json_encode(unserialize($data->response_data));;
+                    $row[] = json_encode(unserialize($data->response_data));
                     $row[] = $data->response_time;
                     $row[] = $data->date_and_time;
                     
