@@ -9,7 +9,8 @@
  * @property string $registration_id
  * @property string $device_type
  * @property string $created_on
- *
+ * @property string $application_id
+ * @property string $notification_server_type
  * The followings are the available model relations:
  * @property Users $user
  */
@@ -47,10 +48,10 @@ class BaseNotificationRegistrations extends CActiveRecord
 			array('device_type, is_active', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, registration_id, device_type, created_on', 'safe', 'on'=>'search'),
+			array('id, user_id, registration_id, device_type, created_on, application_id, notification_server_type', 'safe', 'on'=>'search'),
 		);
 	}
-
+            
 	/**
 	 * @return array relational rules.
 	 */
@@ -74,6 +75,8 @@ class BaseNotificationRegistrations extends CActiveRecord
 			'registration_id' => 'Registration',
 			'device_type' => 'Device Type',
 			'created_on' => 'Created On',
+                        'application_id' => 'Application Id',
+                        'notification_server_type' => 'Notification Server Type',
 		);
 	}
 
@@ -93,6 +96,8 @@ class BaseNotificationRegistrations extends CActiveRecord
 		$criteria->compare('registration_id',$this->registration_id,true);
 		$criteria->compare('device_type',$this->device_type,true);
 		$criteria->compare('created_on',$this->created_on,true);
+                $criteria->compare('application_id',$this->application_id,true);
+                $criteria->compare('notification_server_type',$this->notification_server_type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -1265,13 +1265,13 @@ class AppCore {
         }
 
         $log_result = self::log_notification_request($registration_ids_all, $message_body, $filter_criteria, $send_from);
-
+            
         if($log_result['code'] == 1){
             return $log_result;
         } else {
             $notification_log_id = $log_result['output'];
         }
-        
+
 //        include Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'push_notification_standalone.php';
 //        send_push_notification('local|'.$notification_log_id);
         
@@ -1407,10 +1407,26 @@ class AppCore {
         $combined_request = Array();
         $combined_request_gcm = '';
         $combined_request_ios = '';
-
+        
         $registration_ids_all_gcm = $registration_ids_all['gcm'];
         $registration_ids_all_ios = $registration_ids_all['ios'];
+        
+        $registration_all_gcm_type['gcm_type'] = array();
+        $registration_all_ios_type['ios_type'] = array();
 
+        foreach($registration_ids_all_gcm as $value){
+
+            $registration_gcm_data = NotificationRegistrations::model()->find('registration_id = :registration_id', array(':registration_id' => $value));
+            $registration_all_gcm_type['gcm_type'][] = $registration_gcm_data->notification_server_type;
+        
+        }
+        
+        foreach($registration_ids_all_ios as $value){
+            
+            $registration_ios_data = NotificationRegistrations::model()->find('registration_id = :registration_id', array(':registration_id' => $value));
+            $registration_all_ios_type['ios_type'][] = $registration_ios_data->notification_server_type;
+        }
+        
         if ( !empty($registration_ids_all_gcm) ) {
 
 // Replace with real BROWSER API key from Google APIs
@@ -1484,6 +1500,9 @@ class AppCore {
 
         $notification_to['gcm'] = $registration_ids_all_gcm;
         $notification_to['ios'] = $registration_ids_all_ios;
+        $notification_to['gcm_type'] = $registration_all_gcm_type['gcm_type'];
+        $notification_to['ios_type'] = $registration_all_ios_type['ios_type'];
+        
         $notification_to_str = serialize($notification_to);
 
         $data = new NotificationLogs();
@@ -1498,7 +1517,7 @@ class AppCore {
         if (!$data->save()) {
             return array('code' => 1, 'output' => $data->errors);
         }
-
+        
         return array('code' => 0, 'output' => $data->id);
 
 //       $notification_log_id = insert_data("INSERT INTO `gt_notification_logs`(`message`, `action`, `json_response`, `filter_criteria`, `notification_to`, `request`) VALUES ( '" . addslashes($message_to_send) . "', 'Notification Sending Initiated', '', '$filter_criteria', '$notification_to_str', '" . addslashes($combined_request_str) . "')");
@@ -1524,7 +1543,7 @@ class AppCore {
 
     }
 
-    public static function store_registration_id($user_id, $registration_id, $device_type) {
+    public static function store_registration_id($user_id, $registration_id, $device_type, $application_id, $notification_server_type) {
 
         $data = NotificationRegistrations::model()->findByAttributes(array('registration_id' => $registration_id));
 
@@ -1535,7 +1554,10 @@ class AppCore {
             $model->user_id = $user_id;
             $model->registration_id = $registration_id;
             $model->device_type = $device_type;
+            $model->application_id = $application_id;
+            $model->notification_server_type = $notification_server_type;
 
+            
             if (!$model->save()) {
                 return $model->errors;
             }
@@ -1548,6 +1570,8 @@ class AppCore {
             $model->user_id = $user_id;
             $model->registration_id = $registration_id;
             $model->device_type = $device_type;
+            $model->application_id = $application_id;
+            $model->notification_server_type = $notification_server_type;
             $model->is_active = 'Y';
             if (!$model->save()) {
                 return $model->errors;
