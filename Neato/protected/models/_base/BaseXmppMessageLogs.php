@@ -35,10 +35,10 @@ class BaseXmppMessageLogs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('xmpp_message', 'safe'),
+			array('xmpp_message, send_from, send_at', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, xmpp_message', 'safe', 'on'=>'search'),
+			array('id, xmpp_message, send_from, send_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +61,8 @@ class BaseXmppMessageLogs extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'xmpp_message' => 'Xmpp Message',
+                        'send_from' => 'Send From',
+                        'send_at' => 'Send at',
 		);
 	}
 
@@ -77,6 +79,9 @@ class BaseXmppMessageLogs extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('xmpp_message',$this->xmpp_message,true);
+                $criteria->compare('send_from',$this->send_from,true);
+                $criteria->compare('send_at',$this->send_at,true);
+                
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
