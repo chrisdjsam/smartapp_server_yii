@@ -392,7 +392,7 @@ class RobotScheduleController extends APIController {
 		$robot_schedule_xml_data_version = Yii::app()->request->getParam('xml_data_version', '');
 		$robot_schedule_blob_data_version = Yii::app()->request->getParam('blob_data_version', '');
 
-		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
+                $encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
 
 		$robot_schedule_xml_data_latest_version = $robot_schedule_model->XMLDataLatestVersion;
 		$robot_schedule_blob_data_latest_version = $robot_schedule_model->BlobDataLatestVersion;
@@ -738,49 +738,59 @@ class RobotScheduleController extends APIController {
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 	}
 
-	public function actionAdd(){
-		
-		
-		if(!isset($_FILES['RobotSchedule'])||
-				(! (isset($_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'])) &&
-				 ! (isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))
-				)){
-			$response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
-			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
-		}
+        public function actionAdd() {
+            
+            if (!isset($_FILES['RobotSchedule']) ||
+                    (!(isset($_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'])) &&
+                    !(isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']))
+                    )) {
+                $response_message = self::yii_api_echo('Provide at least one data (xml or blob).');
+                self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
+            }
 
-		$xml_data = "";
-		$encoded_blob_data = "";
-		if(isset($_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'])){
-			$xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'];
-			$handle = fopen($xml_data_temp_file_path, "r");
-			$xml_data = fread($handle, filesize($xml_data_temp_file_path));
-			fclose($handle);
-		}else{
-			unset($_POST['xml_data_version']);
-		}
-			
-		if(isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name'])){
-			$blob_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name'];
-			$handle = fopen($blob_data_temp_file_path, "r");
-			$original_content = fread($handle, filesize($blob_data_temp_file_path));
-			fclose($handle);
-			$encoded_blob_data = base64_encode($original_content);
-		}else{
-			unset($_POST['blob_data_version']);
-		}
-		
-		
-		$_POST['schedule_type'] = $_POST['RobotSchedule']['type'];
-		$_POST['xml_data'] = $xml_data;		
-		$_POST['encoded_blob_data'] = $encoded_blob_data;
-		
-		self::actionPostData();
-		
-		$this->renderPartial('/default/defaultView', array('content' => $content));
-		
-	}
-	
+            $xml_data = "";
+            $encoded_blob_data = "";
+            if (isset($_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'])) {
+                $xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'];
+                $handle = fopen($xml_data_temp_file_path, "r");
+                $xml_data = fread($handle, filesize($xml_data_temp_file_path));
+                fclose($handle);
+            } else {
+                unset($_POST['xml_data_version']);
+            }
+            if (isset($_FILES['RobotSchedule']['tmp_name']['blob_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name'])) {
+                $blob_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['blob_data_file_name'];
+                $handle = fopen($blob_data_temp_file_path, "r");
+                $original_content = fread($handle, filesize($blob_data_temp_file_path));
+                fclose($handle);
+                $encoded_blob_data = base64_encode($original_content);
+            } else {
+                unset($_POST['blob_data_version']);
+            }
+            $robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+            $robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+
+            if (count($robot->robotSchedules) > 0) {
+
+                $_POST['robot_schedule_id'] = $robot->robotSchedules[0]->id;
+
+                $_POST['xml_data_version'] = $robot->robotSchedules[0]->robotScheduleXmlDataVersions[0]->version;
+                $_POST['blob_data_version'] = $robot->robotSchedules[0]->robotScheduleBlobDataVersions[0]->version;
+
+                $_POST['yt0'] = 'Save';
+
+                self::actionUpdate();
+            } else {
+
+                $_POST['schedule_type'] = $_POST['RobotSchedule']['type'];
+                $_POST['xml_data'] = $xml_data;
+                $_POST['encoded_blob_data'] = $encoded_blob_data;
+
+                self::actionPostData();
+            }
+            $this->renderPartial('/default/defaultView', array('content' => $content));
+        }
+        
 	public function actionUpdate(){
 		if(!isset($_FILES['RobotSchedule'])||
 				(! (isset($_FILES['RobotSchedule']['tmp_name']['xml_data_file_name']) && file_exists($xml_data_temp_file_path = $_FILES['RobotSchedule']['tmp_name']['xml_data_file_name'])) &&
