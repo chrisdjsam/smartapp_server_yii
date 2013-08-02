@@ -121,19 +121,19 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 		to this robot.
 	</p>
         
-	<div class="action-button-container">
+	<div class="action-button-container send-to-base-command_btn">
 		<a class="send-to-base-command neato-button neato-button-large"
                         href=<?php echo $this->createUrl('api/Robot/SendToBaseCommand',array('chat_id'=>AppHelper::two_way_string_encrypt($model->chat_id)))?>
 			title="Send to Base">Send to Base</a>
 	</div>
 
-	<div class="action-button-container">
+	<div class="action-button-container send-stop-command_btn hide">
 		<a class="send-stop-command neato-button neato-button-large"
 			href=<?php echo $this->createUrl('api/Robot/SendStopCommand',array('chat_id'=>AppHelper::two_way_string_encrypt($model->chat_id)))?>
 			title="Stop Cleaning">Stop Cleaning</a>
 	</div>
 
-	<div class="action-button-container">
+	<div class="action-button-container send-start-command_btn">
 		<a class="send-start-command neato-button neato-button-large"
 			href=<?php echo $this->createUrl('api/Robot/SendStartCommand',array('chat_id'=>AppHelper::two_way_string_encrypt($model->chat_id)))?>
 			title="Start Cleaning">Start Cleaning</a>
@@ -453,6 +453,8 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<p class="noData">Robot map not available</p>
 	<?php }?>
 	<input type="hidden" id = "scroll_section" value="<?php echo $scroll_to?>"/>
+        <input type="hidden" id = "command_check_time_limit" value="<?php echo Yii::app()->params['command_check_time_limit']?>"/>
+        <input type="hidden" id = "view_robot_serial_number" value="<?php echo $model->serial_number; ?>"/>
 </fieldset>
 
 <script>
@@ -461,4 +463,9 @@ $(window).load(function () {
 	location.hash = section;
 	});
  
+ $(document).ready(function(){
+    currentRobotStatus(<?php echo $model->serial_number; ?>);
+ });
+
+
 </script>

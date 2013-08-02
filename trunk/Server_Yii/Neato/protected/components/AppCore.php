@@ -1969,6 +1969,10 @@ class AppCore {
         $xmpp_message_model->save();
         $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5002</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId></params></request></payload></packet>';
         $xmpp_message_model->xmpp_message = $message;
+        
+        $xmpp_message_model->send_from = $robot->id;
+        $xmpp_message_model->send_at = $utc;
+        
         $xmpp_message_model->save();
 
         $online_users_chat_ids = self::getOnlineUsers();
@@ -2012,6 +2016,10 @@ class AppCore {
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
         $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><causeAgentId>' . $cause_agent_id . '</causeAgentId></params></request></payload></packet>';
+        
+        $xmpp_message_model->send_from = $robot->id;
+        $xmpp_message_model->send_at = $utc;
+        
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
                         
@@ -2059,6 +2067,10 @@ class AppCore {
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
         $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><causeAgentId>' . $cause_agent_id . '</causeAgentId></params></request></payload></packet>';
+        
+        $xmpp_message_model->send_from = $robot->id;
+        $xmpp_message_model->send_at = $utc;
+        
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
         
@@ -2083,6 +2095,20 @@ class AppCore {
         }
     }
 
+    
+     public static function checkRobotStatus($robot){
+         
+        $content = array('code' => 10001);
+         
+        $data = RobotKeyValues::model()->find('robot_id = :robot_id and _key =:_key', array(':robot_id' => $robot->id, ':_key' => 'robotCurrentState'));
+                
+        if(!empty($data)){
+            $content = array('code' => $data->value);
+        }
+          
+        return $content;
+     }
+    
 }
 
 ?>

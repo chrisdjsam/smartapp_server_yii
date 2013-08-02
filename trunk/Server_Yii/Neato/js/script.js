@@ -1,4 +1,14 @@
 var genericDataTable;
+var check_command_interval;
+var check_status_interval;
+var end_time;
+var current_time;
+
+var command_error_msg = "Robot didn't receive respective command";
+var command_success_msg = "Respective command is received by robot";
+
+var robot_status_code = '10001';
+
 
 $('.btn-facebook').click(function() {
     //$(".login-element").hide();
@@ -352,6 +362,20 @@ $(document).ready(function(){
 	
     $('.send-start-command').live('click', function(){
         var urlToSendStartCommand = $(this).attr("href");
+
+        var serial_number = $('#view_robot_serial_number').val();
+        
+        var time_limit = $('#command_check_time_limit').val();
+        
+        end_time = new Date().getTime()+parseInt(time_limit);
+       
+        command_error_msg = "Robot didn't receive cleaning command";
+        command_success_msg = "Robot starts cleaning";
+        robot_status_code = '10002';
+        
+        stopCommandStatus();
+        commandStatus(serial_number);
+        
         $.ajax({
             type: 'POST',
             url: urlToSendStartCommand,
@@ -380,6 +404,20 @@ $(document).ready(function(){
 	
     $('.send-stop-command').live('click', function(){
         var urlToSendStartCommand = $(this).attr("href");
+        
+        var serial_number = $('#view_robot_serial_number').val();
+        
+        var time_limit = $('#command_check_time_limit').val();
+        
+        end_time = new Date().getTime()+parseInt(time_limit);
+                      
+        command_error_msg = "Robot didn't receive stop command";
+        command_success_msg = "Robot stops cleaning";
+        robot_status_code = '10005';
+        
+        stopCommandStatus();
+        commandStatus(serial_number);
+        
         $.ajax({
             type: 'POST',
             url: urlToSendStartCommand,
@@ -408,6 +446,20 @@ $(document).ready(function(){
 
     $('.send-to-base-command').live('click', function(){
         var urlToSendToBaseCommand = $(this).attr("href");
+                        
+        var serial_number = $('#view_robot_serial_number').val();
+        
+        var time_limit = $('#command_check_time_limit').val();
+        
+        end_time = new Date().getTime()+parseInt(time_limit);
+        
+        command_error_msg = "Robot didn't receive 'send to base' command";
+        command_success_msg = "Robot received 'send to base' command";
+        robot_status_code = '10009';
+                      
+        stopCommandStatus();
+        commandStatus(serial_number);
+        
         $.ajax({
             type: 'POST',
             url: urlToSendToBaseCommand,
@@ -744,4 +796,106 @@ function notification_history_table(handle, length, url, colomns_to_disable_sort
     }else{
         dataTableForAll(handle, length, url, colomns_to_disable_sort, default_sorting, method_to_call);
     }
+}
+
+function f_timer(serial_number){
+    
+    var urlToCallRepeatdlyAction =  app_base_url + '/api/Robot/RobotCurrentStatus';
+    
+    current_time = new Date().getTime();;
+        
+    if(current_time > end_time){
+        generate_noty("error", command_error_msg);
+        stopCommandStatus();
+    }
+
+    $.ajax({
+            type: 'POST',
+            url: urlToCallRepeatdlyAction,
+            dataType: 'jsonp',
+            data: {
+                serial_number : serial_number,
+            },
+            success: function(r) {
+                
+                if (r.code == robot_status_code) {
+                    
+                    generate_noty("success", command_success_msg);
+                    stopCommandStatus();
+                    
+                }
+                
+            }
+            
+    });
+    
+}
+
+function commandStatus(serial_number){
+    
+    check_command_interval = setInterval(function(){ f_timer(serial_number);}, 4000);
+                 
+}
+
+function currentRobotStatus(serial_number){
+    
+    check_status_interval = setInterval(function(){ hideCommandKey(serial_number);}, 2000);
+                 
+}
+
+function stopCommandStatus() {
+    clearInterval(check_command_interval);
+}
+
+function hideCommandKey(serial_number){
+    
+    var urlToCheckRobotAction =  app_base_url + '/api/Robot/RobotCurrentStatus';
+    
+    $.ajax({
+            type: 'POST',
+            url: urlToCheckRobotAction,
+            dataType: 'jsonp',
+            data:{
+                serial_number: serial_number
+            },
+            success: function(r) {
+                
+                switch(r.code)
+                {
+//                    case '10001':
+//                      break;
+
+                    case '10002':
+                        $('.send-start-command_btn').hide();
+                        $('.send-stop-command_btn').show();
+                      break;
+
+                    case '10005':
+                        $('.send-stop-command_btn').hide();
+                        $('.send-start-command_btn').show();
+                      break;
+
+//                    case '10007':
+//                      break;
+
+                    case '10008':
+                        $('.send-start-command_btn').hide();
+                        $('.send-stop-command_btn').show();
+                      break;
+
+//                    case '10009':
+//                      break;
+
+//                    case '10010':
+//                      break;
+
+                    default:
+                        $('.send-stop-command_btn').hide();
+                        $('.send-start-command_btn').show();
+                  
+                }
+            }
+
+    });
+
 }

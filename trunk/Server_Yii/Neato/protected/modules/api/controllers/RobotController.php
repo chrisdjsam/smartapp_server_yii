@@ -545,6 +545,10 @@ class RobotController extends APIController {
                         $xmpp_message_model = new XmppMessageLogs();
                         $xmpp_message_model->save();
                         $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId></params></request></payload></packet>';
+                        
+                        $xmpp_message_model->send_from = $robot->id;
+                        $xmpp_message_model->send_at = $utc;
+                        
                         $xmpp_message_model->xmpp_message = $message;
                         $xmpp_message_model->save();
                         
@@ -838,6 +842,10 @@ class RobotController extends APIController {
                             $xmpp_message_model = new XmppMessageLogs();
                             $xmpp_message_model->save();
                             $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><causeAgentId>' . $cause_agent_id . '</causeAgentId></params></request></payload></packet>';
+                            
+                            $xmpp_message_model->send_from = $robot->id;
+                            $xmpp_message_model->send_at = $utc;
+                            
                             $xmpp_message_model->xmpp_message = $message;
                             $xmpp_message_model->save();
 
@@ -1086,6 +1094,10 @@ class RobotController extends APIController {
                 $xmpp_message_model = new XmppMessageLogs();
                 $xmpp_message_model->save();
                 $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>101</command><requestId>" . $xmpp_message_model->id . "</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params><cleaningModifier>1</cleaningModifier><cleaningMode>2</cleaningMode><cleaningCategory>2</cleaningCategory></params></request></payload></packet>";
+                
+                $xmpp_message_model->send_from = $robot->id;
+                $xmpp_message_model->send_at = $utc;
+        
                 $xmpp_message_model->xmpp_message = $message;
                 $xmpp_message_model->save();
                                 
@@ -1096,7 +1108,7 @@ class RobotController extends APIController {
                 $cause_agent_id = Yii::app()->session['cause_agent_id'];
                 $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
                 $online_users_chat_ids = AppCore::getOnlineUsers();
-                
+
                 AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
                 
 		$content = array('status' => 0);
@@ -1501,5 +1513,17 @@ class RobotController extends APIController {
         self::success($response_data);
         
     }
-    
+ 
+    public function actionRobotCurrentStatus() {
+         
+        $serial_number = Yii::app()->request->getParam('serial_number', '');
+     
+        $robot = self::verify_for_robot_serial_number_existence($serial_number);
+     
+        $robot_status = AppCore::checkRobotStatus($robot);
+                
+        $this->renderPartial('/default/defaultView', array('content' => $robot_status));
+        
+     }
 }
+    
