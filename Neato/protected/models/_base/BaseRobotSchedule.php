@@ -63,8 +63,8 @@ class BaseRobotSchedule extends GxActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-				'robotScheduleBlobDataVersions' => array(self::HAS_MANY, 'RobotScheduleBlobDataVersion', 'id_robot_schedule'),
-				'robotScheduleXmlDataVersions' => array(self::HAS_MANY, 'RobotScheduleXmlDataVersion', 'id_robot_schedule'),
+                                'robotScheduleBlobDataVersions' => array(self::HAS_MANY, 'RobotScheduleBlobDataVersion', 'id_robot_schedule', 'order'=>'robotScheduleBlobDataVersions.version DESC'),
+                                'robotScheduleXmlDataVersions' => array(self::HAS_MANY, 'RobotScheduleXmlDataVersion', 'id_robot_schedule', 'order'=>'robotScheduleXmlDataVersions.version DESC'),
 				'idRobot' => array(self::BELONGS_TO, 'Robot', 'id_robot'),
 		);
 	}
