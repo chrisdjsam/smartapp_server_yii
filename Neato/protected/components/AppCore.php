@@ -106,33 +106,23 @@ class AppCore {
 	 * @return array of chat IDs of all online users and robots.
 	 */
 	public static function getOnlineUsers(){
+            
 		$online_users_array = array();
-		if(Yii::app()->params['isjabbersetup']){
-			$cmd = "sudo ejabberdctl connected_users";
-			$output = shell_exec($cmd);
-			$output = strval($output);
-			$online_users = array();
-			$online_users = array_filter(explode("\n", $output));
-			for($i=0; $i<count($online_users); $i++){
-                            
-                                $online_user = isset($online_users[$i])? $online_users[$i] : '' ;
-                                if(empty($online_user)){
-                                    continue;
-                                }
-                                
-				$online_user_str = $online_user;
-				$pos = strpos($online_user_str, '/');
-				if($pos){
-					$online_user_str = substr($online_user_str,0, $pos);
-				}
-				$online_users_array[] = $online_user_str;
-                                
-			}
-		}else{
-			$online_users_array = explode(',', Yii::app()->params['dummy-online-users']);
-		}
-		return $online_users_array;
+	
+                    $online_users = OnlineChatId::model()->findAll();
+                    
+                    foreach ($online_users as $online_chat_ids){
+                        $online_users_array[] = $online_chat_ids->chat_id;
+                    }
+
+                    return $online_users_array;
 	}
+        
+         public static function microtime_float()
+            {
+                list($usec, $sec) = explode(" ", microtime());
+                return ((float)$usec + (float)$sec);
+            }
 
 
 	/**
@@ -141,11 +131,34 @@ class AppCore {
 	 *
 	 */
 	public static function send_chat_message($from, $to, $message){
+            
 		if(Yii::app()->params['isjabbersetup']){
-			$message = escapeshellarg($message);
-			$cmd = "sudo ejabberdctl send-message-chat ". $from . " " . $to . " " . $message;
-			$output = shell_exec($cmd);
-			$output = strval($output);
+                        
+                        $is_jabber_setup = Yii::app()->params['isjabbersetup'];
+                        
+                        $utc_str = self::microtime_float();
+                        $xmpp_uid = 'xmpp_' . $utc_str * 10000;
+                        
+                        $message = escapeshellarg($message);
+                        
+                        $XmppNotificationViaMQ = new XmppNotificationViaMQ();
+
+                        $XmppNotificationViaMQ->xmpp_uid = $xmpp_uid;
+                        $XmppNotificationViaMQ->from = $from;
+                        $XmppNotificationViaMQ->to = $to;
+                        $XmppNotificationViaMQ->message = $message;
+                        $XmppNotificationViaMQ->is_jabber_setup = $is_jabber_setup;
+                        $XmppNotificationViaMQ->save();
+                        
+                        
+//                        include Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'xmpp_notification_via_mq_standalone.php';
+//                        send_xmpp_notification_via_mq('local|'.$xmpp_uid);
+                        
+                        
+                        $cmdParam = Yii::app()->params['env'] . "|" . $xmpp_uid;
+                        $cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_xmpp_path'];
+                        shell_exec($cmdStr . " '" . $cmdParam . "'");
+			
 			return true;
 		}else{
 			return false;
@@ -2107,7 +2120,7 @@ class AppCore {
           
         return $content;
      }
-    
+     
 }
 
 ?>
