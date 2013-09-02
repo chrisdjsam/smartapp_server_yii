@@ -58,7 +58,7 @@ class RobotStatusController extends APIController {
         $robot_data = mysql_fetch_array(mysql_query("SELECT * FROM `robots` WHERE chat_id = '$chat_id'"));
         
         if(!empty($robot_data)){
-            mysql_query("INSERT INTO `robot_ping_log`(`robot_id`, `ping_timestamp`, `status`) VALUES (" . $robot_data['id'] . ", " . new CDbExpression('NOW()') . ", '$message')");
+            mysql_query("INSERT INTO `robot_ping_log`(`serial_number`, `ping_timestamp`, `status`) VALUES (" . $robot_data['serial_number'] . ", " . new CDbExpression('NOW()') . ", '$message')");
             mysql_close($dbhandle);
             return true;
         }

@@ -1896,12 +1896,11 @@ class AppCore {
 
     }
 
-    public static function getLatestPingTimestampFromRobot($robot_id) {
-
+       public static function getLatestPingTimestampFromRobot($serial_number) {
             $criteria = new CDbCriteria;
-            $criteria->select = array('id','robot_id','ping_timestamp');
-            $criteria->condition = "robot_id = :robot_id";
-            $criteria->params = array(':robot_id' => $robot_id);
+            $criteria->select = array('id','serial_number','ping_timestamp');
+            $criteria->condition = "serial_number = :serial_number";
+            $criteria->params = array(':serial_number' => $serial_number);
             $criteria->order = 'ping_timestamp DESC';
             $data = RobotPingLog::model()->findAll($criteria);
 
@@ -1909,9 +1908,9 @@ class AppCore {
 
     }
     
-    public static function getVirtuallyOnlinRobots($robot_id, $robot_ping_interval) {
+      public static function getVirtuallyOnlinRobots($serial_number, $robot_ping_interval) {
         
-        $data = self::getLatestPingTimestampFromRobot($robot_id);
+        $data = self::getLatestPingTimestampFromRobot($serial_number);
 
         if (!empty($data)) {
             $latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
