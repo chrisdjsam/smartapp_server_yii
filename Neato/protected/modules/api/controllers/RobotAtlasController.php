@@ -51,55 +51,55 @@ class RobotAtlasController extends APIController {
      *		
      *	</ul>
 	 */
-	public function actionPostAtlas(){
-		
-		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
-		$robot = self::verify_for_robot_atlas_repetition($robot_serial_no);
-		
-		$robot_id = $robot->id;
-		$xml_data = Yii::app()->request->getParam('xml_data', '');
-		
-		if(!AppCore::validate_atlas_xml_data($xml_data)){
-			$response_message = self::yii_api_echo('Invalid xml data.');
-			self::terminate(-1, $response_message, APIConstant::INVALID_XML);
-		}
-
-		$robot_atlas_model = new RobotAtlas();
-		$robot_atlas_model->id_robot = $robot_id;
-		if(!$robot_atlas_model->save()){
-			//need to work
-		}
-
-		//storing xml data
-		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $robot->id;
-		// Add check to see if the folder already exists
-		if(!is_dir($uploads_dir_for_robot)){
-			mkdir($uploads_dir_for_robot);
-		}
-		$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-xml-data-directory-name'];
-		// Add check to see if the folder already exists
-		if(!is_dir($uploads_dir)){
-			mkdir($uploads_dir);
-		}
-
-		$xml_data_file_name = time(). '.xml';
-		$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
-
-		$xml_file_handle = fopen($full_file_path_xml_data, 'w');
-		fwrite($xml_file_handle, $xml_data);//@todo need to handle file write exceptions
-		fclose($xml_file_handle);
-		$xml_data_file_version = 1;
-
-		$robot_atlas_model->xml_data_file_name = $xml_data_file_name;
-		$robot_atlas_model->version = $xml_data_file_version;
-
-		if($robot_atlas_model->update()){
-			$response_message = "You have successfully added Robot Atlas";
-			$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$xml_data_file_version, "message"=>self::yii_api_echo($response_message), "atlas_id"=>$robot_atlas_model->id);
-			self::success($response_data);
-		}
-	}
+//	public function actionPostAtlas(){
+//		
+//		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+//		$robot = self::verify_for_robot_atlas_repetition($robot_serial_no);
+//		
+//		$robot_id = $robot->id;
+//		$xml_data = Yii::app()->request->getParam('xml_data', '');
+//		
+//		if(!AppCore::validate_atlas_xml_data($xml_data)){
+//			$response_message = self::yii_api_echo('Invalid xml data.');
+//			self::terminate(-1, $response_message, APIConstant::INVALID_XML);
+//		}
+//
+//		$robot_atlas_model = new RobotAtlas();
+//		$robot_atlas_model->id_robot = $robot_id;
+//		if(!$robot_atlas_model->save()){
+//			//need to work
+//		}
+//
+//		//storing xml data
+//		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $robot->id;
+//		// Add check to see if the folder already exists
+//		if(!is_dir($uploads_dir_for_robot)){
+//			mkdir($uploads_dir_for_robot);
+//		}
+//		$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-xml-data-directory-name'];
+//		// Add check to see if the folder already exists
+//		if(!is_dir($uploads_dir)){
+//			mkdir($uploads_dir);
+//		}
+//
+//		$xml_data_file_name = time(). '.xml';
+//		$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
+//
+//		$xml_file_handle = fopen($full_file_path_xml_data, 'w');
+//		fwrite($xml_file_handle, $xml_data);//@todo need to handle file write exceptions
+//		fclose($xml_file_handle);
+//		$xml_data_file_version = 1;
+//
+//		$robot_atlas_model->xml_data_file_name = $xml_data_file_name;
+//		$robot_atlas_model->version = $xml_data_file_version;
+//
+//		if($robot_atlas_model->update()){
+//			$response_message = "You have successfully added Robot Atlas";
+//			$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$xml_data_file_version, "message"=>self::yii_api_echo($response_message), "atlas_id"=>$robot_atlas_model->id);
+//			self::success($response_data);
+//		}
+//	}
 
 	/**
 	 * Method to update / Add atlas. For update, provieds an option to delete all previous grids when atlas is being updated with new file.
@@ -184,96 +184,96 @@ class RobotAtlasController extends APIController {
 	 *	</li>
 	 *</ul>
 	 */
-	public function actionUpdateAtlas(){
-		
-		$response_message = "";
-		$delete_response_message = "";
-		$update_response_message = "";
-		
-		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
-		
-		$robot_atlas_id = Yii::app()->request->getParam('atlas_id', '');
-		
-		if($robot_atlas_id == 0){
-			self::actionPostAtlas();
-		}
-		
-		$delete_grids = Yii::app()->request->getParam('delete_grids', '');
-		
-		$robot_atlas_model = self::verify_for_robot_atlas_id_existence($robot_atlas_id);
-
-		$robot_xml_data_version = Yii::app()->request->getParam('xml_data_version', '');
-		$robot_xml_data_latest_version = $robot_atlas_model->XMLDataLatestVersion;
-		
-		if($delete_grids == "1"){
-			$atlasGridImages= AtlasGridImage::model()->findAll('id_atlas = :id_atlas', array(':id_atlas' => $robot_atlas_id));
-			$response_data = array();
-			$gridIds = array();
-			foreach ($atlasGridImages as $grid_image){
-				if($grid_image->delete()){
-					$gridIds[] = $grid_image->id;
-				}
-			}
-			
-			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-			$uploads_dir_for_robot= Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR .  $robot_atlas_model->id_robot;
-			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-blob-data-directory-name'];
-			AppHelper::deleteDirectoryRecursively($uploads_dir);
-			
-			$delete_response_message = 'You have successfully deleted ' .count($gridIds) .' grids';
-		}
-		if (isset($robot_xml_data_version)){
-			if(isset($robot_xml_data_version) && $robot_xml_data_version != $robot_xml_data_latest_version){
-				$response_message = self::yii_api_echo('Version mismatch for xml data.');
-				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
-			}
-			$old_xml_data_file_path = '';
-
-			if ($robot_xml_data_version){
-				$xml_data = Yii::app()->request->getParam('xml_data', '');
-
-				if(!AppCore::validate_atlas_xml_data($xml_data)){
-					$response_message = self::yii_api_echo('Invalid xml data.');
-					self::terminate(-1, $response_message, APIConstant::INVALID_XML);
-				}
-				//storing xml data
-
-				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR .  $robot_atlas_model->id_robot;
-
-				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-xml-data-directory-name'];
-
-				$xml_data_file_name = time(). '.xml';
-				$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
-				$old_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_atlas_model->xml_data_file_name;
-
-				$xml_file_handle = fopen($full_file_path_xml_data, 'w');
-				fwrite($xml_file_handle,$xml_data);//@todo need to handle file write exceptions
-				fclose($xml_file_handle);
-
-				$xml_data_file_version = $robot_xml_data_latest_version + 1;
-				$robot_atlas_model->xml_data_file_name = $xml_data_file_name;
-				$robot_atlas_model->version = $xml_data_file_version;
-
-			}
-
-			if($robot_atlas_model->update()){
-				if($old_xml_data_file_path != ''){
-					unlink($old_xml_data_file_path);
-				}
-				$update_response_message = 'You have successfully updated robot atlas data.';
-			}
-		}
-		
-		if($delete_response_message != ''){
-			$response_message = $delete_response_message .', '. $update_response_message;
-		}else{
-			$response_message  = $update_response_message;
-		}
-		
-		$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$robot_atlas_model->version, "message"=>self::yii_api_echo($response_message), "atlas_id"=>$robot_atlas_model->id);
-		self::success($response_data);
-	}
+//	public function actionUpdateAtlas(){
+//		
+//		$response_message = "";
+//		$delete_response_message = "";
+//		$update_response_message = "";
+//		
+//		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+//		
+//		$robot_atlas_id = Yii::app()->request->getParam('atlas_id', '');
+//		
+//		if($robot_atlas_id == 0){
+//			self::actionPostAtlas();
+//		}
+//		
+//		$delete_grids = Yii::app()->request->getParam('delete_grids', '');
+//		
+//		$robot_atlas_model = self::verify_for_robot_atlas_id_existence($robot_atlas_id);
+//
+//		$robot_xml_data_version = Yii::app()->request->getParam('xml_data_version', '');
+//		$robot_xml_data_latest_version = $robot_atlas_model->XMLDataLatestVersion;
+//		
+//		if($delete_grids == "1"){
+//			$atlasGridImages= AtlasGridImage::model()->findAll('id_atlas = :id_atlas', array(':id_atlas' => $robot_atlas_id));
+//			$response_data = array();
+//			$gridIds = array();
+//			foreach ($atlasGridImages as $grid_image){
+//				if($grid_image->delete()){
+//					$gridIds[] = $grid_image->id;
+//				}
+//			}
+//			
+//			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//			$uploads_dir_for_robot= Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR .  $robot_atlas_model->id_robot;
+//			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-blob-data-directory-name'];
+//			AppHelper::deleteDirectoryRecursively($uploads_dir);
+//			
+//			$delete_response_message = 'You have successfully deleted ' .count($gridIds) .' grids';
+//		}
+//		if (isset($robot_xml_data_version)){
+//			if(isset($robot_xml_data_version) && $robot_xml_data_version != $robot_xml_data_latest_version){
+//				$response_message = self::yii_api_echo('Version mismatch for xml data.');
+//				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
+//			}
+//			$old_xml_data_file_path = '';
+//
+//			if ($robot_xml_data_version){
+//				$xml_data = Yii::app()->request->getParam('xml_data', '');
+//
+//				if(!AppCore::validate_atlas_xml_data($xml_data)){
+//					$response_message = self::yii_api_echo('Invalid xml data.');
+//					self::terminate(-1, $response_message, APIConstant::INVALID_XML);
+//				}
+//				//storing xml data
+//
+//				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR .  $robot_atlas_model->id_robot;
+//
+//				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-xml-data-directory-name'];
+//
+//				$xml_data_file_name = time(). '.xml';
+//				$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
+//				$old_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_atlas_model->xml_data_file_name;
+//
+//				$xml_file_handle = fopen($full_file_path_xml_data, 'w');
+//				fwrite($xml_file_handle,$xml_data);//@todo need to handle file write exceptions
+//				fclose($xml_file_handle);
+//
+//				$xml_data_file_version = $robot_xml_data_latest_version + 1;
+//				$robot_atlas_model->xml_data_file_name = $xml_data_file_name;
+//				$robot_atlas_model->version = $xml_data_file_version;
+//
+//			}
+//
+//			if($robot_atlas_model->update()){
+//				if($old_xml_data_file_path != ''){
+//					unlink($old_xml_data_file_path);
+//				}
+//				$update_response_message = 'You have successfully updated robot atlas data.';
+//			}
+//		}
+//		
+//		if($delete_response_message != ''){
+//			$response_message = $delete_response_message .', '. $update_response_message;
+//		}else{
+//			$response_message  = $update_response_message;
+//		}
+//		
+//		$response_data = array("success"=>true, "robot_atlas_id"=>$robot_atlas_model->id, "xml_data_version"=>$robot_atlas_model->version, "message"=>self::yii_api_echo($response_message), "atlas_id"=>$robot_atlas_model->id);
+//		self::success($response_data);
+//	}
 
 	/**
 	 * Method to give detials of all associated grid Blob data.
@@ -305,27 +305,27 @@ class RobotAtlasController extends APIController {
 	 *</ul> 
 	 */
 	
-	public function actionGetAtlasGridMetadata(){
-	
-		$id_atlas = Yii::app()->request->getParam('id_atlas', '');
-		$robotAtlas = self::verify_for_robot_atlas_id_existence($id_atlas);
-	
-		$atlasGridImages = array();
-	
-		$atlasGridImages= AtlasGridImage::model()->findAll('id_atlas = :id_atlas', array(':id_atlas' => $robotAtlas->id));
-		$response_data = array();
-		foreach ($atlasGridImages as $atlasGridImage){
-				
-			$response_data[] = array(
-					'id_grid'=>$atlasGridImage->id_grid,
-					'blob_data_file_name'=>$atlasGridImage->BlobDataURL,
-					'version'=>$atlasGridImage->version,
-			);
-				
-		}
-	
-		self::success($response_data);
-	}
+//	public function actionGetAtlasGridMetadata(){
+//	
+//		$id_atlas = Yii::app()->request->getParam('id_atlas', '');
+//		$robotAtlas = self::verify_for_robot_atlas_id_existence($id_atlas);
+//	
+//		$atlasGridImages = array();
+//	
+//		$atlasGridImages= AtlasGridImage::model()->findAll('id_atlas = :id_atlas', array(':id_atlas' => $robotAtlas->id));
+//		$response_data = array();
+//		foreach ($atlasGridImages as $atlasGridImage){
+//				
+//			$response_data[] = array(
+//					'id_grid'=>$atlasGridImage->id_grid,
+//					'blob_data_file_name'=>$atlasGridImage->BlobDataURL,
+//					'version'=>$atlasGridImage->version,
+//			);
+//				
+//		}
+//	
+//		self::success($response_data);
+//	}
 	
 	/**
 	 * Method to delete atlas record, XML file and all related grid blob data files.
@@ -359,19 +359,19 @@ class RobotAtlasController extends APIController {
 	 *		</li>
 	 *	</ul>
 	 */	
-	public function actionDelete(){
-		$id_atlas = Yii::app()->request->getParam('atlas_id', '');
-		$robot_atlas = self::verify_for_atlas_id_existence($id_atlas);
-		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-		$uploads_dir_for_robot_atlas = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $robot_atlas->id_robot;
-		if($robot_atlas->delete()){
-			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_atlas);
-		
-			$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully deleted robot atlas.'));
-			
-			self::success($response_data);
-		}
-	}
+//	public function actionDelete(){
+//		$id_atlas = Yii::app()->request->getParam('atlas_id', '');
+//		$robot_atlas = self::verify_for_atlas_id_existence($id_atlas);
+//		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//		$uploads_dir_for_robot_atlas = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $robot_atlas->id_robot;
+//		if($robot_atlas->delete()){
+//			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_atlas);
+//		
+//			$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully deleted robot atlas.'));
+//			
+//			self::success($response_data);
+//		}
+//	}
 	
 	/**
 	 * Method to get atlas details.
@@ -410,21 +410,21 @@ class RobotAtlasController extends APIController {
 	*	</li>
 	*</ul>
 	 */
-	public function actionGetData(){
-		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
-		$robot_atlas_model = RobotAtlas::model()->findByAttributes(array('id_robot'=> $robot->id));
-		if($robot_atlas_model){
-			$response_data = array( "atlas_id" => $robot_atlas_model->id,
-					"xml_data_url" => $robot_atlas_model->XMLDataURL,
-					"version" => $robot_atlas_model->version,
-			);
-			self::success($response_data);
-		}else{
-			$response_message = self::yii_api_echo("Robot atlas does not exist for this robot");
-			self::terminate(-1, $response_message, APIConstant::ROBOT_ATLAS_ID_DOES_NOT_EXIST);
-		}
-		
-	}
+//	public function actionGetData(){
+//		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
+//		$robot_atlas_model = RobotAtlas::model()->findByAttributes(array('id_robot'=> $robot->id));
+//		if($robot_atlas_model){
+//			$response_data = array( "atlas_id" => $robot_atlas_model->id,
+//					"xml_data_url" => $robot_atlas_model->XMLDataURL,
+//					"version" => $robot_atlas_model->version,
+//			);
+//			self::success($response_data);
+//		}else{
+//			$response_message = self::yii_api_echo("Robot atlas does not exist for this robot");
+//			self::terminate(-1, $response_message, APIConstant::ROBOT_ATLAS_ID_DOES_NOT_EXIST);
+//		}
+//		
+//	}
 
 	/**
 	 * A Deligate method which is intended to be called from Web-End.

@@ -174,7 +174,7 @@ class MessageController extends APIController {
 		foreach ($robot->usersRobots as $userRobot){
 			$count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 		}
-	
+                
 		$response_message = "Message is sent to $count user(s).";
 		if($count){
 			$response_data = array("success"=>true, "message"=>$response_message);
@@ -226,43 +226,6 @@ class MessageController extends APIController {
                 }
 
                 $response_data = array("success"=>true, "message"=>$response['output']);
-		self::success($response_data);
-
-        }
-        
-        public function actionSendNotificationToAllUsersOfRobot(){
-            
-                $serial_number = Yii::app()->request->getParam('serial_number', '');
-		$message = Yii::app()->request->getParam('message', '');
-                
-                $send_from_indicator = Yii::app()->request->getParam('send_from', '');
-                
-                $robot = self::verify_for_robot_serial_number_existence($serial_number);
-                
-                $user_ids_to_send_notification = Array();
-                foreach ($robot->usersRobots as $user) {
-                    $user_ids_to_send_notification[] = $user->id_user;
-                }
-                
-                if(empty($user_ids_to_send_notification)) {
-                    self::terminate(-1, "Sorry, there is no user associated", APIConstant::NO_USER_FOUND_FOR_ROBOT);
-                }
-                
-                $send_from = Array();
-                $send_from['type'] = 'robot';
-                $send_from['data'] = $serial_number;
-                if($send_from_indicator == '1'){
-                    $send_from['type'] = 'user';
-                    $send_from['data'] = Yii::app()->user->id;
-                }
-                
-                $response = AppCore::send_notification_to_all_users_of_robot($user_ids_to_send_notification, $message, $send_from);
-                 
-                if($response['code'] == 1){
-                    self::terminate(-1, $response['output'], APIConstant::MESSAGE_SENDING_FAILED);
-                }
-
-                $response_data = array("success"=>true);
 		self::success($response_data);
 
         }

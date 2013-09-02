@@ -408,199 +408,56 @@ class RobotController extends APIController {
 	* 
     */
 	
-	public function actionSetProfileDetails(){
-           
-		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
-	
-		$robot_profile = Yii::app()->request->getParam('profile', '');
-
-		if ($robot !== null){
-			foreach ($robot_profile as $key => $value){
-                                $key = trim($key);
-				switch ($key) {
-					case "name":
-                                                if(empty($value)){
-                                                    self::terminate(-1, 'Robot name can not be empty', APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
-                                                }
-						$robot->name = $value;
-						$robot->save();
-						break;
-					
-					default:
-                                            $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
-                                            if(!empty($data)){
+//	public function actionSetProfileDetails(){
+//           
+//		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
+//	
+//		$robot_profile = Yii::app()->request->getParam('profile', '');
+//
+//		if ($robot !== null){
+//			foreach ($robot_profile as $key => $value){
+//                                $key = trim($key);
+//				switch ($key) {
+//					case "name":
 //                                                if(empty($value)){
-//                                                    RobotKeyValues::model()->deleteAll('id = :id', array(':id' => $data->id));
-//                                                } else {
-                                                    $data->value = $value;
-                                                    $data->update();
+//                                                    self::terminate(-1, 'Robot name can not be empty', APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
 //                                                }
-                                            } else {
-//                                                if(empty($value)){
-//                                                    continue;
-//                                                }                                                
-                                                $robot_key_value = new RobotKeyValues();
-                                                $robot_key_value->robot_id = $robot->id;
-                                                $robot_key_value->_key = $key ;
-                                                $robot_key_value->value = $value ;
-                                                $robot_key_value->save();                                                    
-                                            }
-                                        break;
-				}
-			}
-			self::success(1);
-		}else{
-			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
-		}
-	
-	}
+//						$robot->name = $value;
+//						$robot->save();
+//						break;
+//					
+//					default:
+//                                            $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
+//                                            if(!empty($data)){
+////                                                if(empty($value)){
+////                                                    RobotKeyValues::model()->deleteAll('id = :id', array(':id' => $data->id));
+////                                                } else {
+//                                                    $data->value = $value;
+//                                                    $data->update();
+////                                                }
+//                                            } else {
+////                                                if(empty($value)){
+////                                                    continue;
+////                                                }                                                
+//                                                $robot_key_value = new RobotKeyValues();
+//                                                $robot_key_value->robot_id = $robot->id;
+//                                                $robot_key_value->_key = $key ;
+//                                                $robot_key_value->value = $value ;
+//                                                $robot_key_value->save();                                                    
+//                                            }
+//                                        break;
+//				}
+//			}
+//			self::success(1);
+//		}else{
+//			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
+//			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
+//		}
+//	
+//	}
 
 
-	public function actionSetProfileDetails2(){
-                $serial_number = Yii::app()->request->getParam('serial_number', '');
-		$robot = self::verify_for_robot_serial_number_existence($serial_number);
-	
-		$source_serial_number = Yii::app()->request->getParam('source_serial_number', '');
-                $source_smartapp_id = Yii::app()->request->getParam('source_smartapp_id', '');
-                $value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));
-                $robot_profile = Yii::app()->request->getParam('profile', '');
-                
-                $utc_str = gmdate("M d Y H:i:s", time());
-                $utc = strtotime($utc_str);
-                $expected_time = 1;
-                
-                if(empty($source_serial_number) && empty($source_smartapp_id)){
-                    self::terminate(-1, "Please provide atleast one source(source_serial_number or source_smartapp_id)", APIConstant::MISSING_SOURCE_SERIAL_NUMBER_OR_SOURCE_SMARTAPP_ID);
-                }
-                
-                if(!empty($source_smartapp_id)){
-                   if (!AppHelper::is_valid_email($source_smartapp_id)) {
-                        self::terminate(-1, 'Please enter valid email address in field source_smartapp_id.', APIConstant::SOURCE_SMARTAPP_ID_NOT_VALID);
-                   } 
-                   
-                   $user_data = User::model()->find('email = :email', array(':email' => $source_smartapp_id));
-                   if(empty($user_data)){
-                       
-                       self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) does not exist in our system.', APIConstant::SOURCE_SMARTAPP_ID_NOT_EXIST);
-                   }
-                   
-                   $associated_user_check = false;
-                   foreach ($user_data->usersRobots as $usersRobot) {
-                        if($usersRobot->id_robot == $robot->id){ 
-                            $associated_user_check = true;
-                        }
-                    }
-                    if(!$associated_user_check){
-                        self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot', APIConstant::SOURCE_SMARTAPP_ID_IS_NOT_ASSOCIATED_WITH_ROBOT);
-                    }
-                    
-                }
-                    
-                if($value_extra != null){
-                   $value_extra = serialize($value_extra);
-                }
-                
-		if ($robot !== null){
-                    
-                        $robot->value_extra = $value_extra;
-                        $robot->save();
-                        
-			foreach ($robot_profile as $key => $value){
-                                $key = trim($key);
-				switch ($key) {
-					case "name":
-                                                if(empty($value)){
-                                                    self::terminate(-1, 'Robot name can not be empty', APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
-                                                }
-						$robot->name = $value;
-						$robot->save();
-						break;
-					
-					default:
-                                            $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
-                                            if(!empty($data)){
-//                                                if(empty($value)){
-//                                                    RobotKeyValues::model()->deleteAll('id = :id', array(':id' => $data->id));
-//                                                } else {
-                                                    $data->value = $value;
-                                                    $data->timestamp = $utc;
-                                                    $data->update();
-//                                                }
-                                            } else {
-//                                                if(empty($value)){
-//                                                    continue;
-//                                                }
-                                                $robot_key_value = new RobotKeyValues();
-                                                $robot_key_value->robot_id = $robot->id;
-                                                $robot_key_value->_key = $key ;
-                                                $robot_key_value->value = $value ;
-                                                $robot_key_value->timestamp = $utc;
-                                                $robot_key_value->save();                                                    
-                                            }
-                                        break;
-				}
-			}
-                        
-                        $xmpp_message_model = new XmppMessageLogs();
-                        $xmpp_message_model->save();
-                        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>5001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId></params></request></payload></packet>';
-                        
-                        $xmpp_message_model->send_from = $robot->id;
-                        $xmpp_message_model->send_at = $utc;
-                        
-                        $xmpp_message_model->xmpp_message = $message;
-                        $xmpp_message_model->save();
-                        
-                        $online_users_chat_ids = AppCore::getOnlineUsers();
-                        
-                        if(!in_array($robot->chat_id, $online_users_chat_ids)){
-                                
-                                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
 
-                                $sleep_lag_time = AppCore::getSleepLagTime($robot);
-                                $robot_ping_interval = $sleep_lag_time['sleep_time'];
-                                
-                                $expected_time = $robot_ping_interval;
-                                
-                                if(isset($robot_ping_data[0]->ping_timestamp)){
-                                
-                                    $latest_ping_timestamp = strtotime($robot_ping_data[0]->ping_timestamp);
-                                    $current_system_timestamp = time();
-                                    $time_diff = ($current_system_timestamp - $latest_ping_timestamp);
-                                    $expected_time = $robot_ping_interval - $time_diff;
-                                    
-                                }
-                        }
-                            
-                        if(!empty($source_serial_number) && $source_serial_number == $serial_number){
-                            foreach ($robot->usersRobots as $userRobot){
-
-                                if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                                        AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-                                }
-                            }
-                        } else if(!empty($source_smartapp_id)) {
-
-                            AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
-                            
-                            foreach ($robot->usersRobots as $userRobot){
-                                if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                                    if($user_data->chat_id != $userRobot->idUser->chat_id){
-                                        AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
-                                    }
-                                }
-                            }
-                            
-                        }
-                        
-			self::successWithExtraParam(1, array('expected_time' => $expected_time));
-		}else{
-			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
-		}
-	
-	}        
         
 	public function actionSetProfileDetails3(){
             
@@ -772,29 +629,7 @@ class RobotController extends APIController {
 	
 	}                
         
-	public function actionDeleteRobotProfileKey(){
-                    
-                $serial_number = Yii::app()->request->getParam('serial_number', '');
-                $key = Yii::app()->request->getParam('key', '');
-                
-		$robot = self::verify_for_robot_serial_number_existence($serial_number);
-		
-		if ($robot !== null){
-
-                        $result = RobotKeyValues::model()->deleteAll('robot_id = :robot_id AND _key = :_key', array(':robot_id' => $robot->id, ':_key' => $key));                        
-                        
-                        if($result) {
-                            $response_data = array("success"=>true);
-                            self::success($response_data);
-                        } else {
-                            self::terminate(-1, "Sorry, entered key is invalid", APIConstant::KEY_NOT_VALID);
-                        }
-		}else{
-			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
-			self::terminate(-1, $response_message, APIConstant::MISSING_SERIAL_NUMBER);
-		}
 	
-	}        
         
 	public function actionDeleteRobotProfileKey2(){
                     
@@ -1202,10 +1037,7 @@ class RobotController extends APIController {
                     $row = array();
                     
                     $schedule = '';
-                    $atlas = '';
-                    $grid = '';
-                    $map = '';
-                    
+                  
                     $select_checkbox = '<input type="checkbox" name="chooseoption[]" value="'.$robot->id.'" class="choose-option">';
                     $serial_number = '<a rel="'.$this->createUrl('/robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" href="'.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" class="qtiplink robot-qtip" title="View details of ('.$robot->serial_number.')">'.$robot->serial_number.'</a>';
                     $robot_type = isset($robot->robotRobotTypes->robotType) ? $robot->robotRobotTypes->robotType->name . ' (' . $robot->robotRobotTypes->robotType->type . ')' : '';
@@ -1222,21 +1054,11 @@ class RobotController extends APIController {
                         }
                     }
                     
-                    if ($robot->doesMapExist()) {
-                        $map = '<a href="'.$this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($robot->id), 'scroll_to' => 'map_section')) .'" title="View map details of robot ('.$robot->serial_number.')"> Yes </a>';
-                    }	
                     
                     if ($robot->doesScheduleExist()) {
 			$schedule ='<a href="'.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'schedule_section')).'" title="View schedule details of robot ('.$robot->serial_number.')"> Yes </a>';					
                     }	
 
-                    if ($robot->doesAtlasExist()){
-                        $atlas ='<a href='.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'atlas_section')).' title="View atlas details of robot ('.$robot->serial_number.')"> Yes </a>';
-                    }	
-                    
-                    if ($robot->doesAtlasExist() && $robot->robotAtlas->doesGridImageExist()){
-			$grid =  '<a href="'.$this->createUrl('/robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id), 'scroll_to'=>'atlas_section')).'" title="View atlas details of robot ('.$robot->serial_number.')"> Yes </a>';
-                    }	
                     
                     $edit = '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($robot->id))).'" title="Edit robot '.$robot->serial_number.'">edit</a>';
                     
@@ -1245,9 +1067,6 @@ class RobotController extends APIController {
                     $row[] = $robot_type;
                     $row[] = $associated_users;
                     $row[] = $schedule;
-                    $row[] = $atlas;
-                    $row[] = $grid;
-                    $row[] = $map;
                     $row[] = $edit;
                     
                     $output['aaData'][] = $row;

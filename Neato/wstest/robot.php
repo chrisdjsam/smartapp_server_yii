@@ -197,7 +197,7 @@
 	</form>
 	
 
-	<form action="<?php echo($baseURL)?>robot.set_profile_details"
+<!--	<form action="<?php echo($baseURL)?>robot.set_profile_details"
 		method='POST' id='robotsetprofiledetails' class='ajaxified_forms'>
 		<table class='custom_table'>
 			<tr>
@@ -297,10 +297,10 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</form>-->
 
 
-	<form action="<?php echo($baseURL)?>robot.set_profile_details2"
+<!--	<form action="<?php echo($baseURL)?>robot.set_profile_details2"
 		method='POST' id='robotsetprofiledetails2' class='ajaxified_forms'>
 		<table class='custom_table'>
 			<tr>
@@ -460,7 +460,7 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</form>-->
 
 
 	<form action="<?php echo($baseURL)?>robot.set_profile_details3"
@@ -892,111 +892,7 @@
 	</form>
 
 
-	<form action="<?php echo($baseURL)?>robot.delete_robot_profile_key"
-		method='POST' id='delete_robot_profile_key' class='ajaxified_forms'>
-		<table class='custom_table'>
-			<tr>
-				<td id="Delete Robot Profile Key" colspan="2"><label>Delete Robot Profile Key</label></td>
-			</tr>
-			<tr>
-				<td colspan="2" class='api_description'>
-					<div class='toggle_details'>More</div>
-
-					<div class='details_div'>
-						POST method to delete robot's profile key. <br /> <br /> URL:
-						<?php echo($baseURL)?>
-						robot.delete_robot_profile_key<br /> Parameters:
-						<ul>
-							<li><b>api_key</b> :Your API Key</li>
-							<li><b>serial_number</b> :Serial Number of robot</li>
-                                                        <li><b>key</b> :Key</li>
-						</ul>
-						Success Response:
-						<ul>                                                        
-                                                        <li>{"status":0,"result":{"success":true}}</li>
-						</ul>
-
-						Failure Responses: <br />
-						<ul>
-
-							<li>If API Key is missing or not correct:
-								<ul>
-									<li>
-                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
-                                                                        </li>
-								</ul>
-							</li>
-
-							<li>If serial_number is not provided:
-								<ul>
-									<li>
-                                                                            {"status":-1,"message":"Missing parameter serial_number in method robot.delete_robot_profile_key", "error":{"code":"-102","message":"Missing parameter in method call"}}
-                                                                        </li>
-								</ul>
-							</li>
-                                                        
-                                                        <li>If key is not provided:
-								<ul>
-									<li>
-                                                                            {"status":-1,"message":"Missing parameter key in method robot.delete_robot_profile_key","error":{"code":"-102","message":"Missing parameter in method call"}}
-                                                                        </li>
-								</ul>
-							</li>
-                                                        
-							<li>If serial_number is invalid:
-								<ul>
-									<li>
-                                                                            {"status":-1,"message":"Robot serial number does not exist","error":{"code":"-114","message":"Serial number does not exist."}}
-                                                                        </li>
-								</ul>
-							</li>                                                        
-                                                        
-							<li>If key is invalid:
-								<ul>
-									<li>
-                                                                            {"status":-1,"message":"Sorry, entered key is invalid","error":{"code":"-152","message":"Sorry, entered key does not match with serial number."}}
-                                                                        </li>
-								</ul>
-							</li>                                                        
-
-						</ul>
-					</div>
-				</td>
-			</tr>
-
-			<tr>
-				<td class='label_field'>api_key</td>
-				<td class='value_field'><input type="text" name='api_key'
-					class='api_keys' value='<?php echo($api_key);?>' /></td>
-			</tr>
-                        
-			<tr>
-				<td>serial_number</td>
-				<td>
-                                    <input type="text" name='serial_number'>
-                                </td>
-			</tr>
-			<tr>
-				<td>key</td>
-				<td>
-                                    <input type="text" name='key'>
-                                </td>
-			</tr>
-                        
-			<tr>
-				<td>
-                                    <input type="button" name='submit' dummy='delete_robot_profile_key' value='Submit' class='submit_form'>
-				</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<div class='request_div'>View Request</div> <br />
-					<div class='response_div'>View Response</div>
-				</td>
-			</tr>
-		</table>
-	</form>
+	
 
 	<form action="<?php echo($baseURL)?>robot.delete_robot_profile_key2"
 		method='POST' id='delete_robot_profile_key2' class='ajaxified_forms'>

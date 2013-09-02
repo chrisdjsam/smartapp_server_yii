@@ -96,143 +96,143 @@ class RobotMapController extends APIController {
 	 *	</li>
 	 *</ul>
 	 */
-	public function actionPostData(){
-
-		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
-		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
-		$robot_id = $robot->id;
-		$xml_data = Yii::app()->request->getParam('xml_data', '');
-
-		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
-                
-		if(!AppCore::validate_map_xml_data($xml_data)){
-			$response_message = self::yii_api_echo('Invalid xml data.');
-			self::terminate(-1, $response_message, APIConstant::INVALID_XML);
-		}
-
-		$robot_map_model = new RobotMap();
-		$robot_map_model->id_robot = $robot_id;
-		if(!$robot_map_model->save()){
-			//need to work
-		}
-
-		//storing xml data
-                $xml_data_file_name = '';
-                $xml_data_file_version = 1;
-                $uploads_dir = '';
-                
-                if($xml_data) {                         
-                    
-                    $back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-                    $uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
-                    // Add check to see if the folder already exists
-                    if(!is_dir($uploads_dir_for_robot)){
-                            mkdir($uploads_dir_for_robot);
-                    }
-                    $uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-xml-data-directory-name'];
-                    // Add check to see if the folder already exists
-                    if(!is_dir($uploads_dir)){
-                            mkdir($uploads_dir);
-                    }
-
-                    $xml_data_file_name = time(). '.xml';
-                    $full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
-
-                    $xml_file_handle = fopen($full_file_path_xml_data, 'w');
-               
-                    fwrite($xml_file_handle, $xml_data);//@todo need to handle file write exceptions
-                    
-                    fclose($xml_file_handle);
-                    $xml_data_file_version = 1;
-
-                }
-                    
-                $robot_map_xml_data_model = new RobotMapXmlDataVersion();
-                $robot_map_xml_data_model->id_robot_map = $robot_map_model->id;
-                $robot_map_xml_data_model->version = $xml_data_file_version;
-                if(!$robot_map_xml_data_model->save()){
-                        //need to work
-                }
-                
-		//storing blob data
-		$blob_data_file_name = '';
-		$blob_data_file_version = 1;
-		$uploads_dir = '';
-
-		if($encoded_blob_data !== ''){
-			$decoded_blob_data = base64_decode($encoded_blob_data);
-			$f = finfo_open();
-			$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
-			finfo_close($f);
-			$blob_data_file_extension = 'jpg';
-			if(strpos($mime_type, "image")!== false){
-				$blob_data_file_extension = str_replace("image/","",$mime_type);
-			}
-
-			$blob_data_file_name = time(). "." .$blob_data_file_extension;
-
-			$blob_data = $decoded_blob_data;
-
-			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-			$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir_for_robot)){
-				mkdir($uploads_dir_for_robot);
-			}
-			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-blob-data-directory-name'];
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir)){
-				mkdir($uploads_dir);
-			}
-			$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
-
-			$blob_file_handle = fopen($full_file_path_blob_data, 'w');
-			fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
-			fclose($blob_file_handle);
-		}
-		elseif(isset($_FILES['blob_data'])){
-			$blob_data_temp_file_path = $_FILES['blob_data']['tmp_name'];
-			$blob_data_file_extension = pathinfo($_FILES['blob_data']['name'], PATHINFO_EXTENSION);
-			$blob_data_file_name = time(). "." .$blob_data_file_extension;
-
-			$handle = fopen($blob_data_temp_file_path, "r");
-			$blob_data = fread($handle, filesize($blob_data_temp_file_path));
-			fclose($handle);
-
-			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-			$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir_for_robot)){
-				mkdir($uploads_dir_for_robot);
-			}
-			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-blob-data-directory-name'];
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir)){
-				mkdir($uploads_dir);
-			}
-			$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
-
-			$blob_file_handle = fopen($full_file_path_blob_data, 'w');
-			fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
-			fclose($blob_file_handle);
-		}
-
-		$robot_map_blob_data_model = new RobotMapBlobDataVersion();
-		$robot_map_blob_data_model->id_robot_map = $robot_map_model->id;
-		$robot_map_blob_data_model->version = $blob_data_file_version;
-		if(!$robot_map_blob_data_model->save()){
-			//need to work
-		}
-
-		$robot_map_model->xml_data_file_name = $xml_data_file_name;
-		$robot_map_model->blob_data_file_name = $blob_data_file_name;
-
-		if($robot_map_model->save()){
-			$response_message = self::yii_api_echo('Robot Map data stored successfully.');
-			$response_data = array("success"=>true, "robot_map_id"=>$robot_map_model->id, "xml_data_version"=>$xml_data_file_version, "blob_data_version"=>$blob_data_file_version);
-			self::success($response_data);
-		}
-	}
+//	public function actionPostData(){
+//
+//		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+//		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
+//		$robot_id = $robot->id;
+//		$xml_data = Yii::app()->request->getParam('xml_data', '');
+//
+//		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
+//                
+//		if(!AppCore::validate_map_xml_data($xml_data)){
+//			$response_message = self::yii_api_echo('Invalid xml data.');
+//			self::terminate(-1, $response_message, APIConstant::INVALID_XML);
+//		}
+//
+//		$robot_map_model = new RobotMap();
+//		$robot_map_model->id_robot = $robot_id;
+//		if(!$robot_map_model->save()){
+//			//need to work
+//		}
+//
+//		//storing xml data
+//                $xml_data_file_name = '';
+//                $xml_data_file_version = 1;
+//                $uploads_dir = '';
+//                
+//                if($xml_data) {                         
+//                    
+//                    $back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//                    $uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
+//                    // Add check to see if the folder already exists
+//                    if(!is_dir($uploads_dir_for_robot)){
+//                            mkdir($uploads_dir_for_robot);
+//                    }
+//                    $uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-xml-data-directory-name'];
+//                    // Add check to see if the folder already exists
+//                    if(!is_dir($uploads_dir)){
+//                            mkdir($uploads_dir);
+//                    }
+//
+//                    $xml_data_file_name = time(). '.xml';
+//                    $full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
+//
+//                    $xml_file_handle = fopen($full_file_path_xml_data, 'w');
+//               
+//                    fwrite($xml_file_handle, $xml_data);//@todo need to handle file write exceptions
+//                    
+//                    fclose($xml_file_handle);
+//                    $xml_data_file_version = 1;
+//
+//                }
+//                    
+//                $robot_map_xml_data_model = new RobotMapXmlDataVersion();
+//                $robot_map_xml_data_model->id_robot_map = $robot_map_model->id;
+//                $robot_map_xml_data_model->version = $xml_data_file_version;
+//                if(!$robot_map_xml_data_model->save()){
+//                        //need to work
+//                }
+//                
+//		//storing blob data
+//		$blob_data_file_name = '';
+//		$blob_data_file_version = 1;
+//		$uploads_dir = '';
+//
+//		if($encoded_blob_data !== ''){
+//			$decoded_blob_data = base64_decode($encoded_blob_data);
+//			$f = finfo_open();
+//			$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
+//			finfo_close($f);
+//			$blob_data_file_extension = 'jpg';
+//			if(strpos($mime_type, "image")!== false){
+//				$blob_data_file_extension = str_replace("image/","",$mime_type);
+//			}
+//
+//			$blob_data_file_name = time(). "." .$blob_data_file_extension;
+//
+//			$blob_data = $decoded_blob_data;
+//
+//			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//			$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
+//			// Add check to see if the folder already exists
+//			if(!is_dir($uploads_dir_for_robot)){
+//				mkdir($uploads_dir_for_robot);
+//			}
+//			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-blob-data-directory-name'];
+//			// Add check to see if the folder already exists
+//			if(!is_dir($uploads_dir)){
+//				mkdir($uploads_dir);
+//			}
+//			$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
+//
+//			$blob_file_handle = fopen($full_file_path_blob_data, 'w');
+//			fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
+//			fclose($blob_file_handle);
+//		}
+//		elseif(isset($_FILES['blob_data'])){
+//			$blob_data_temp_file_path = $_FILES['blob_data']['tmp_name'];
+//			$blob_data_file_extension = pathinfo($_FILES['blob_data']['name'], PATHINFO_EXTENSION);
+//			$blob_data_file_name = time(). "." .$blob_data_file_extension;
+//
+//			$handle = fopen($blob_data_temp_file_path, "r");
+//			$blob_data = fread($handle, filesize($blob_data_temp_file_path));
+//			fclose($handle);
+//
+//			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//			$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_model->id;
+//			// Add check to see if the folder already exists
+//			if(!is_dir($uploads_dir_for_robot)){
+//				mkdir($uploads_dir_for_robot);
+//			}
+//			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-blob-data-directory-name'];
+//			// Add check to see if the folder already exists
+//			if(!is_dir($uploads_dir)){
+//				mkdir($uploads_dir);
+//			}
+//			$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
+//
+//			$blob_file_handle = fopen($full_file_path_blob_data, 'w');
+//			fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
+//			fclose($blob_file_handle);
+//		}
+//
+//		$robot_map_blob_data_model = new RobotMapBlobDataVersion();
+//		$robot_map_blob_data_model->id_robot_map = $robot_map_model->id;
+//		$robot_map_blob_data_model->version = $blob_data_file_version;
+//		if(!$robot_map_blob_data_model->save()){
+//			//need to work
+//		}
+//
+//		$robot_map_model->xml_data_file_name = $xml_data_file_name;
+//		$robot_map_model->blob_data_file_name = $blob_data_file_name;
+//
+//		if($robot_map_model->save()){
+//			$response_message = self::yii_api_echo('Robot Map data stored successfully.');
+//			$response_data = array("success"=>true, "robot_map_id"=>$robot_map_model->id, "xml_data_version"=>$xml_data_file_version, "blob_data_version"=>$blob_data_file_version);
+//			self::success($response_data);
+//		}
+//	}
 
 	/**
 	 * API to update map data
@@ -357,160 +357,160 @@ class RobotMapController extends APIController {
 	 *	</li>
 	 *</ul>
 	 */
-	public function actionUpdateData(){
-		$robot_map_id = Yii::app()->request->getParam('map_id', '');
-		$robot_map_model = self::verify_for_robot_map_id_existence($robot_map_id);
-
-		$robot_xml_data_version = Yii::app()->request->getParam('xml_data_version', '');
-		$robot_blob_data_version = Yii::app()->request->getParam('blob_data_version', '');
-
-		$robot_xml_data_latest_version = $robot_map_model->XMLDataLatestVersion;
-		$robot_blob_data_latest_version = $robot_map_model->BlobDataLatestVersion;
-
-		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
-
-		if ($robot_xml_data_version || $robot_blob_data_version){
-
-			if($robot_xml_data_version && $robot_xml_data_version != $robot_xml_data_latest_version){
-				$response_message = self::yii_api_echo('Version mismatch for xml data.');
-				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
-			}
-
-			if($robot_blob_data_version && $robot_blob_data_version != $robot_blob_data_latest_version){
-				$response_message = self::yii_api_echo('Version mismatch for blob data.');
-				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
-			}
-
-			$old_xml_data_file_path = '';
-			$old_blob_data_file_path = '';
-
-			if ($robot_xml_data_version){
-				$xml_data = Yii::app()->request->getParam('xml_data', '');
-
-				if(!AppCore::validate_map_xml_data($xml_data)){
-					$response_message = self::yii_api_echo('Invalid xml data.');
-					self::terminate(-1, $response_message, APIConstant::INVALID_XML);
-				}
-				//storing xml data
-
-				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_id;
-				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-xml-data-directory-name'];
-                                
-                                if (!is_dir($uploads_dir)) {
-                                   mkdir($uploads_dir);
-                                }
-                                
-				$xml_data_file_name = time(). '.xml';
-				$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
-                                
-                                if($robot_map_model->xml_data_file_name != ''){
-                                    $old_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_map_model->xml_data_file_name;
-                                }
-                                
-				$xml_file_handle = fopen($full_file_path_xml_data, 'w');
-				fwrite($xml_file_handle,$xml_data);//@todo need to handle file write exceptions
-				fclose($xml_file_handle);
-
-				$xml_data_file_version = $robot_xml_data_latest_version + 1;
-				$robot_map_model->xml_data_file_name = $xml_data_file_name;
-
-
-				$robot_map_xml_data_model = new RobotMapXmlDataVersion();
-				$robot_map_xml_data_model->id_robot_map = $robot_map_id;
-				$robot_map_xml_data_model->version = $xml_data_file_version;
-				if(!$robot_map_xml_data_model->save()){
-					//need to work
-				}
-			}
-
-			//storing blob data
-			if ($robot_blob_data_version){
-				$blob_data_file_name = '';
-
-				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_id;
-
-				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-blob-data-directory-name'];
-
-				if($encoded_blob_data !== ''){
-					$decoded_blob_data = base64_decode($encoded_blob_data);
-					$f = finfo_open();
-					$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
-					finfo_close($f);
-
-					$blob_data_file_extension = 'jpg';
-					if(strpos($mime_type, "image")!== false){
-						$blob_data_file_extension = str_replace("image/","",$mime_type);
-					}
-
-					$blob_data_file_name = time(). "." .$blob_data_file_extension;
-
-					$blob_data = $decoded_blob_data;
-
-					// Add check to see if the folder already exists
-					if(!is_dir($uploads_dir)){
-						mkdir($uploads_dir);
-					}
-					$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
-
-					$blob_file_handle = fopen($full_file_path_blob_data, 'w');
-					fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
-					fclose($blob_file_handle);
-				}
-				elseif(isset($_FILES['blob_data'])){
-					$blob_data_temp_file_path = $_FILES['blob_data']['tmp_name'];
-					$blob_data_file_extension = pathinfo($_FILES['blob_data']['name'], PATHINFO_EXTENSION);
-					$blob_data_file_name = time(). "." .$blob_data_file_extension;
-
-					$temp_file_handle = fopen($blob_data_temp_file_path, "r");
-					$blob_data = fread($temp_file_handle, filesize($blob_data_temp_file_path));
-					fclose($temp_file_handle);
-
-					// Add check to see if the folder already exists
-					if(!is_dir($uploads_dir)){
-						mkdir($uploads_dir);
-					}
-					$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
-
-					$blob_file_handle = fopen($full_file_path_blob_data, 'w');
-					fwrite($blob_file_handle, $blob_data);//@todo need to handle file write exceptions
-					fclose($blob_file_handle);
-				}
-
-				if($robot_map_model->blob_data_file_name != ''){
-					$old_blob_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_map_model->blob_data_file_name;
-				}
-
-				$blob_data_file_version = $robot_blob_data_latest_version + 1;
-				$robot_map_model->blob_data_file_name = $blob_data_file_name;
-
-				$robot_map_blob_data_model = new RobotMapBlobDataVersion();
-				$robot_map_blob_data_model->id_robot_map = $robot_map_id;
-				$robot_map_blob_data_model->version = $blob_data_file_version;
-				if(!$robot_map_blob_data_model->save()){
-					//need to work
-				}
-			}
-
-			$robot_map_model->updated_on = date("Y-m-d H:i:s");
-
-			if($robot_map_model->update()){
-				if($old_xml_data_file_path != ''){
-					unlink($old_xml_data_file_path);
-				}
-				if($old_blob_data_file_path != ''){
-					unlink($old_blob_data_file_path);
-				}
-				$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully updated robot map data.'));
-				self::success($response_data);
-			}
-
-		}else{
-			$response_message = self::yii_api_echo('Provide at least one data version(xml or blob).');
-			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
-		}
-	}
+//	public function actionUpdateData(){
+//		$robot_map_id = Yii::app()->request->getParam('map_id', '');
+//		$robot_map_model = self::verify_for_robot_map_id_existence($robot_map_id);
+//
+//		$robot_xml_data_version = Yii::app()->request->getParam('xml_data_version', '');
+//		$robot_blob_data_version = Yii::app()->request->getParam('blob_data_version', '');
+//
+//		$robot_xml_data_latest_version = $robot_map_model->XMLDataLatestVersion;
+//		$robot_blob_data_latest_version = $robot_map_model->BlobDataLatestVersion;
+//
+//		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
+//
+//		if ($robot_xml_data_version || $robot_blob_data_version){
+//
+//			if($robot_xml_data_version && $robot_xml_data_version != $robot_xml_data_latest_version){
+//				$response_message = self::yii_api_echo('Version mismatch for xml data.');
+//				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
+//			}
+//
+//			if($robot_blob_data_version && $robot_blob_data_version != $robot_blob_data_latest_version){
+//				$response_message = self::yii_api_echo('Version mismatch for blob data.');
+//				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
+//			}
+//
+//			$old_xml_data_file_path = '';
+//			$old_blob_data_file_path = '';
+//
+//			if ($robot_xml_data_version){
+//				$xml_data = Yii::app()->request->getParam('xml_data', '');
+//
+//				if(!AppCore::validate_map_xml_data($xml_data)){
+//					$response_message = self::yii_api_echo('Invalid xml data.');
+//					self::terminate(-1, $response_message, APIConstant::INVALID_XML);
+//				}
+//				//storing xml data
+//
+//				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_id;
+//				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-xml-data-directory-name'];
+//                                
+//                                if (!is_dir($uploads_dir)) {
+//                                   mkdir($uploads_dir);
+//                                }
+//                                
+//				$xml_data_file_name = time(). '.xml';
+//				$full_file_path_xml_data = $uploads_dir. DIRECTORY_SEPARATOR . $xml_data_file_name;
+//                                
+//                                if($robot_map_model->xml_data_file_name != ''){
+//                                    $old_xml_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_map_model->xml_data_file_name;
+//                                }
+//                                
+//				$xml_file_handle = fopen($full_file_path_xml_data, 'w');
+//				fwrite($xml_file_handle,$xml_data);//@todo need to handle file write exceptions
+//				fclose($xml_file_handle);
+//
+//				$xml_data_file_version = $robot_xml_data_latest_version + 1;
+//				$robot_map_model->xml_data_file_name = $xml_data_file_name;
+//
+//
+//				$robot_map_xml_data_model = new RobotMapXmlDataVersion();
+//				$robot_map_xml_data_model->id_robot_map = $robot_map_id;
+//				$robot_map_xml_data_model->version = $xml_data_file_version;
+//				if(!$robot_map_xml_data_model->save()){
+//					//need to work
+//				}
+//			}
+//
+//			//storing blob data
+//			if ($robot_blob_data_version){
+//				$blob_data_file_name = '';
+//
+//				$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//				$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_id;
+//
+//				$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-blob-data-directory-name'];
+//
+//				if($encoded_blob_data !== ''){
+//					$decoded_blob_data = base64_decode($encoded_blob_data);
+//					$f = finfo_open();
+//					$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
+//					finfo_close($f);
+//
+//					$blob_data_file_extension = 'jpg';
+//					if(strpos($mime_type, "image")!== false){
+//						$blob_data_file_extension = str_replace("image/","",$mime_type);
+//					}
+//
+//					$blob_data_file_name = time(). "." .$blob_data_file_extension;
+//
+//					$blob_data = $decoded_blob_data;
+//
+//					// Add check to see if the folder already exists
+//					if(!is_dir($uploads_dir)){
+//						mkdir($uploads_dir);
+//					}
+//					$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
+//
+//					$blob_file_handle = fopen($full_file_path_blob_data, 'w');
+//					fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
+//					fclose($blob_file_handle);
+//				}
+//				elseif(isset($_FILES['blob_data'])){
+//					$blob_data_temp_file_path = $_FILES['blob_data']['tmp_name'];
+//					$blob_data_file_extension = pathinfo($_FILES['blob_data']['name'], PATHINFO_EXTENSION);
+//					$blob_data_file_name = time(). "." .$blob_data_file_extension;
+//
+//					$temp_file_handle = fopen($blob_data_temp_file_path, "r");
+//					$blob_data = fread($temp_file_handle, filesize($blob_data_temp_file_path));
+//					fclose($temp_file_handle);
+//
+//					// Add check to see if the folder already exists
+//					if(!is_dir($uploads_dir)){
+//						mkdir($uploads_dir);
+//					}
+//					$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
+//
+//					$blob_file_handle = fopen($full_file_path_blob_data, 'w');
+//					fwrite($blob_file_handle, $blob_data);//@todo need to handle file write exceptions
+//					fclose($blob_file_handle);
+//				}
+//
+//				if($robot_map_model->blob_data_file_name != ''){
+//					$old_blob_data_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $robot_map_model->blob_data_file_name;
+//				}
+//
+//				$blob_data_file_version = $robot_blob_data_latest_version + 1;
+//				$robot_map_model->blob_data_file_name = $blob_data_file_name;
+//
+//				$robot_map_blob_data_model = new RobotMapBlobDataVersion();
+//				$robot_map_blob_data_model->id_robot_map = $robot_map_id;
+//				$robot_map_blob_data_model->version = $blob_data_file_version;
+//				if(!$robot_map_blob_data_model->save()){
+//					//need to work
+//				}
+//			}
+//
+//			$robot_map_model->updated_on = date("Y-m-d H:i:s");
+//
+//			if($robot_map_model->update()){
+//				if($old_xml_data_file_path != ''){
+//					unlink($old_xml_data_file_path);
+//				}
+//				if($old_blob_data_file_path != ''){
+//					unlink($old_blob_data_file_path);
+//				}
+//				$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully updated robot map data.'));
+//				self::success($response_data);
+//			}
+//
+//		}else{
+//			$response_message = self::yii_api_echo('Provide at least one data version(xml or blob).');
+//			self::terminate(-1, $response_message, APIConstant::MISSING_BOTH_DATA_VERSIONS);
+//		}
+//	}
 
 	/**
 	 *API to get robot maps
@@ -543,20 +543,20 @@ class RobotMapController extends APIController {
 	 *	</li>
 	 *</ul>
 	 */
-	public function actionGetMaps(){
-		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
-		$robot_model = self::verify_for_robot_serial_number_existence($robot_serial_no);
-		$robot_map_arr = array();
-		foreach ($robot_model->robotMaps as $robot_map){
-			$robot_map_details = array();
-			$robot_map_details['id'] = $robot_map->id;
-			$robot_map_details['xml_data_version'] = $robot_map->XMLDataLatestVersion;
-			$robot_map_details['blob_data_version'] = $robot_map->BlobDataLatestVersion;
-
-			$robot_map_arr[] = $robot_map_details;
-		}
-		self::success($robot_map_arr);
-	}
+//	public function actionGetMaps(){
+//		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+//		$robot_model = self::verify_for_robot_serial_number_existence($robot_serial_no);
+//		$robot_map_arr = array();
+//		foreach ($robot_model->robotMaps as $robot_map){
+//			$robot_map_details = array();
+//			$robot_map_details['id'] = $robot_map->id;
+//			$robot_map_details['xml_data_version'] = $robot_map->XMLDataLatestVersion;
+//			$robot_map_details['blob_data_version'] = $robot_map->BlobDataLatestVersion;
+//
+//			$robot_map_arr[] = $robot_map_details;
+//		}
+//		self::success($robot_map_arr);
+//	}
 
 	/**
 	 * API to get robot map data
@@ -597,14 +597,14 @@ class RobotMapController extends APIController {
 	 *	</li>
 	 *</ul>
 	 */
-	public function actionGetData(){
-		$robot_map_id = Yii::app()->request->getParam('robot_map_id', '');
-		$robot_map = self::verify_for_robot_map_id_existence($robot_map_id);
-
-		$response_data = array("xml_data_url" => $robot_map->XMLDataURL,
-				"blob_data_url" => $robot_map->BlobDataURL);
-		self::success($response_data);
-	}
+//	public function actionGetData(){
+//		$robot_map_id = Yii::app()->request->getParam('robot_map_id', '');
+//		$robot_map = self::verify_for_robot_map_id_existence($robot_map_id);
+//
+//		$response_data = array("xml_data_url" => $robot_map->XMLDataURL,
+//				"blob_data_url" => $robot_map->BlobDataURL);
+//		self::success($response_data);
+//	}
 
 	/**
 	 * API to delete robot map data
@@ -637,20 +637,20 @@ class RobotMapController extends APIController {
 	 *	</li>
 	 *</ul>
 	 */
-	public function actionDeleteMapData(){
-		$robot_map_id = Yii::app()->request->getParam('robot_map_id', '');
-		$robot_map = self::verify_for_robot_map_id_existence($robot_map_id);
-
-		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map->id;
-		if($robot_map->delete()){
-			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot);
-
-			$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully deleted robot map data.'));
-			self::success($response_data);
-		}
-
-	}
+//	public function actionDeleteMapData(){
+//		$robot_map_id = Yii::app()->request->getParam('robot_map_id', '');
+//		$robot_map = self::verify_for_robot_map_id_existence($robot_map_id);
+//
+//		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map->id;
+//		if($robot_map->delete()){
+//			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot);
+//
+//			$response_data = array("success"=>true, "message"=>self::yii_api_echo('You have successfully deleted robot map data.'));
+//			self::success($response_data);
+//		}
+//
+//	}
 
 	/**
 	 * Deletes a particular robot map.

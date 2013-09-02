@@ -37,9 +37,6 @@ $this->breadcrumbs=array(
                                         <th style="width: 12%;" title="Robot Type">Robot Type</th>
 					<th style="width: 37%;" title="Associated Users">Associated Users</th>
 					<th style="width: 9%;" title="Schedule" class='pretty-table-center-th'>Schedule</th>
-					<th style="width: 6%;" title="Atlas" class='pretty-table-center-th'>Atlas</th>
-					<th style="width: 6%;" title="Grid" class='pretty-table-center-th'>Grid</th>
-					<th style="width: 6%;" title="Map" class='pretty-table-center-th'>Map</th>
 					<th style="width: 5%;" class='pretty-table-center-td'></th>
 				</tr>
 			</thead>

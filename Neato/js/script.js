@@ -165,7 +165,7 @@ $(document).ready(function(){
         "iDisplayLength": 25,
         "aoColumnDefs": [{
             "bSortable":false, 
-            'aTargets': [0, 2, 3, 4, 5, 6, 7, 8]
+            'aTargets': [0, 2, 3, 4, 5]
         }],
         "aaSorting": [ [1,'asc']],
         "bProcessing": true,
@@ -487,41 +487,6 @@ $(document).ready(function(){
     });
 
 	
-		
-	
-    $('.delete-single-robot-map').live('click', function(){
-        if(confirm("Are you sure you want to delete robot map?")){
-            var urlToDeleteMap = $(this).attr("href");
-            $.ajax({
-                type: 'POST',
-                url: urlToDeleteMap,
-                dataType: 'jsonp',
-                success: function(r) {
-                    hideWaitDialog();
-                    if (r.status === 0) {
-                        generate_noty("success", "You have successfully deleted a robot map.");
-                        location.reload();
-                    } else { // Handle errors
-                        generate_noty("error", "Error while deleting robot map.");
-                    }
-                },
-                error: function(r) {
-                    hideWaitDialog();
-                    generate_noty("error", "Error while deleting robot map.");
-                },
-                beforeSend: function(){
-                    showWaitDialog();
-                },
-                complete: function(){
-                    hideWaitDialog();
-                }
-            });
-        }else{
-            return false;
-        }
-    });
-	
-	
     $('.delete-single-robot-schedule').live('click', function(){
         if(confirm("Are you sure you want to delete robot schedule?")){
             var this_row_handle = $(this);
@@ -557,77 +522,6 @@ $(document).ready(function(){
     });
 	
 	
-    $('.delete-robot-atlas').live('click', function(){
-        if(confirm("Are you sure you want to delete robot atlas?")){
-            var this_row_handle = $(this);
-            var urlToDeleteAtlas = $(this_row_handle).attr("href");
-            $.ajax({
-                type: 'POST',
-                url: urlToDeleteAtlas,
-                dataType: 'jsonp',
-                success: function(r) {
-                    hideWaitDialog();
-                    if (r.status === 0) {
-                        generate_noty("success", "You have successfully deleted a robot atlas.");
-                        //alert("here");
-                        var redirect_url = $('#cancel_upload').attr('href');
-                        window.location = location.protocol+'//'+window.location.hostname+redirect_url;
-                    } else { // Handle errors
-                        generate_noty("error", "Error while deleting robot atlas.");
-                    }
-                },
-                error: function(r) {
-                    hideWaitDialog();
-                    generate_noty("error", "Error while deleting robot atlas.");
-                },
-                beforeSend: function(){
-                    showWaitDialog();
-                },
-                complete: function(){
-                    hideWaitDialog();
-                }
-            });
-            return false;
-        }else{
-            return false;
-        }
-    });
-	
-    $('.delete-single-grid-image').live('click', function(){
-        if(confirm("Are you sure you want to delete grid image?")){
-            var this_row_handle = $(this);
-            var urlToDeleteMap = $(this_row_handle).attr("href");
-            $.ajax({
-                type: 'POST',
-                url: urlToDeleteMap,
-                dataType: 'jsonp',
-                success: function(r) {
-                    hideWaitDialog();
-                    if (r.status === 0) {
-                        generate_noty("success", "You have successfully deleted a grid image.");
-                        location.reload();
-                    } else { // Handle errors
-                        generate_noty("error", "Error while deleting grid image.");
-                    }
-                },
-                error: function(r) {
-                    hideWaitDialog();
-                    generate_noty("error", "Error while deleting grid image.");
-                },
-                beforeSend: function(){
-                    showWaitDialog();
-                },
-                complete: function(){
-                    hideWaitDialog();
-                }
-            });
-			
-        }else{
-            return false;
-        }
-    });
-
-
     $('.delete-single-app_version').live('click', function(){
         if(confirm("Are you sure you want to delete app version?")){
             var this_row_handle = $(this);
