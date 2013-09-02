@@ -464,7 +464,7 @@ $(window).load(function () {
 	});
  
  $(document).ready(function(){
-    currentRobotStatus(<?php echo $model->serial_number; ?>);
+    currentRobotStatus('<?php echo $model->serial_number; ?>');
  });
 
 

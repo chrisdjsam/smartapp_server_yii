@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'robot_ping_log':
  * @property string $id
- * @property string $robot_id
+ * @property string $serial_number
  * @property string $ping_timestamp
  * @property string $status
  */
@@ -37,11 +37,11 @@ class BaseRobotPingLog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('robot_id', 'length', 'max'=>20),
+			array('serial_number', 'length', 'max'=>100),
 			array('status', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, robot_id, ping_timestamp, status', 'safe', 'on'=>'search'),
+			array('id, serial_number, ping_timestamp, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,7 +53,7 @@ class BaseRobotPingLog extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-                    'robot' => array(self::BELONGS_TO, 'Robot', 'robot_id'),
+                    'robot' => array(self::BELONGS_TO, 'Robot', 'serial_number'),
 		);
 	}
 
@@ -64,8 +64,8 @@ class BaseRobotPingLog extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'robot_id' => 'Robot',
 			'ping_timestamp' => 'Ping Timestamp',
+                        'serial_number' => 'Serial Number',
 			'status' => 'Status',
 		);
 	}
@@ -82,8 +82,8 @@ class BaseRobotPingLog extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('robot_id',$this->robot_id,true);
 		$criteria->compare('ping_timestamp',$this->ping_timestamp,true);
+                $criteria->compare('serial_number',$this->serial_number,true);
 		$criteria->compare('status',$this->status,true);
 
 		return new CActiveDataProvider($this, array(

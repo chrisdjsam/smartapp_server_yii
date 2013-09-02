@@ -162,7 +162,7 @@ class RobotController extends APIController {
 		
 		if($robot !== null ){
 			
-                        $data = AppCore::getLatestPingTimestampFromRobot($robot->id);
+                        $data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
                         
                         $online_users_chat_ids = AppCore::getOnlineUsers();
                         if(in_array($robot->chat_id, $online_users_chat_ids)){
@@ -556,7 +556,7 @@ class RobotController extends APIController {
                         
                         if(!in_array($robot->chat_id, $online_users_chat_ids)){
                                 
-                                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
+                                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
 
                                 $sleep_lag_time = AppCore::getSleepLagTime($robot);
                                 $robot_ping_interval = $sleep_lag_time['sleep_time'];
@@ -668,8 +668,7 @@ class RobotController extends APIController {
                         
                         if(!in_array($robot->chat_id, $online_users_chat_ids)){
 
-                            $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->id);
-
+                            $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
                             $sleep_lag_time = AppCore::getSleepLagTime($robot);
                             $robot_ping_interval = $sleep_lag_time['sleep_time'];
 
@@ -1262,22 +1261,16 @@ class RobotController extends APIController {
         $serial_number = Yii::app()->request->getParam('serial_number', '');
         $status = Yii::app()->request->getParam('status', '');
         
-        $robot = self::verify_for_robot_serial_number_existence($serial_number);
-
-        if($robot !== null ){
-            
             $message = 'robot ping have been recorded';
  
             $robot_ping_log = new RobotPingLog();
-            $robot_ping_log->robot_id = $robot->id;
+            $robot_ping_log->serial_number = $serial_number;
             $robot_ping_log->ping_timestamp = new CDbExpression('NOW()');
             $robot_ping_log->status = $status;
             $robot_ping_log->save();
             
             $response_data = array("success"=>true, "message"=>$message);
             self::success($response_data);
-            
-        }
         
     }
     

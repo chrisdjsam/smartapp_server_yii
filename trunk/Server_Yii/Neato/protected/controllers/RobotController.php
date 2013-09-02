@@ -43,12 +43,12 @@ class RobotController extends Controller
                     $sleep_lag_time = AppCore::getSleepLagTime($model);
                     $robot_ping_interval = $sleep_lag_time['sleep_time'];
                     
-                    if(AppCore::getVirtuallyOnlinRobots($model->id, $robot_ping_interval)){
+                    if(AppCore::getVirtuallyOnlinRobots($model->serial_number, $robot_ping_interval)){
                         $isOnline = 3; // 3 for virtually online
                     }
                 }
                 
-                $last_ping = AppCore::getLatestPingTimestampFromRobot($model->id);
+                $last_ping = AppCore::getLatestPingTimestampFromRobot($model->serial_number);
                 
                 if(!empty($last_ping)){
                     $latest_ping_timestamp = strtotime($last_ping[0]->ping_timestamp);
