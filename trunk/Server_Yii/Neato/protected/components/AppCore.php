@@ -155,8 +155,8 @@ class AppCore {
 //                        send_xmpp_notification_via_mq('local|'.$xmpp_uid);
                         
                         
-                        $cmdParam = Yii::app()->params['env'] . "|" . $xmpp_uid;
-                        $cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_xmpp_path'];
+                        $cmdParam = Yii::app()->params['env'] . "|" . $xmpp_uid . "|NXN";
+                        $cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_path'];
                         shell_exec($cmdStr . " '" . $cmdParam . "'");
 			
 			return true;
@@ -789,27 +789,27 @@ class AppCore {
 	 * @param string $xml_data
 	 * @return boolean
 	 */
-	public static function validate_map_xml_data($xml_data){
-		return true;
-	}
+//	public static function validate_map_xml_data($xml_data){
+//		return true;
+//	}
 
 	/**
 	 * Check for atlas xml data.
 	 * @param string $xml_data
 	 * @return boolean
 	 */
-	public static function validate_atlas_xml_data($xml_data){
-		return true;
-	}
+//	public static function validate_atlas_xml_data($xml_data){
+//		return true;
+//	}
 
 	/**
 	 * Check for robot map blob data.
 	 * @param string $blob_data
 	 * @return boolean
 	 */
-	public static function validate_map_blob_data($blob_data){
-		return true;
-	}
+//	public static function validate_map_blob_data($blob_data){
+//		return true;
+//	}
 
 	/**
 	 * Check for robot schedule xml data.
@@ -833,13 +833,13 @@ class AppCore {
 	 * Delete all data for provided robot map ids
 	 * @param mixed $robot_map_id_arr
 	 */
-	public static function delete_robot_map_data($robot_map_id_arr){
-		foreach ($robot_map_id_arr as $robot_map_id){
-			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-			$uploads_dir_for_robot_map = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_id;
-			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_map);
-		}
-	}
+//	public static function delete_robot_map_data($robot_map_id_arr){
+//		foreach ($robot_map_id_arr as $robot_map_id){
+//			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//			$uploads_dir_for_robot_map = Yii::app()->getBasePath().$back . Yii::app()->params['robot-data-directory-name']. DIRECTORY_SEPARATOR . $robot_map_id;
+//			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_map);
+//		}
+//	}
 
 	/**
 	 * Delete all data for provided robot schedule ids
@@ -857,13 +857,13 @@ class AppCore {
 	 * Delete all atlas data for provided robot id.
 	 * @param unknown $id_robot
 	 */
-	public static function delete_robot_atlas_data($id_robot){
-
-		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
-		AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot);
-
-	}
+//	public static function delete_robot_atlas_data($id_robot){
+//
+//		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//		$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
+//		AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot);
+//
+//	}
 
     public static function dataTableOperation($aColumns, $sIndexColumn, $sTable, $sGet, $modelName, $sWhere = "", $join_flag = false) {
         
@@ -1288,7 +1288,7 @@ class AppCore {
 //        include Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'push_notification_standalone.php';
 //        send_push_notification('local|'.$notification_log_id);
         
-        $cmdParam = Yii::app()->params['env'] . "|" . $notification_log_id;
+        $cmdParam = Yii::app()->params['env'] . "|" . $notification_log_id . "|NPN";
         $cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_path'];
         shell_exec($cmdStr . " '" . $cmdParam . "'");
         

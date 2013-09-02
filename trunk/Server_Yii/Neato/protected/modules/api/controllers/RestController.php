@@ -389,17 +389,6 @@ class RestController extends APIController {
 				true,
 				false);
 
-                self::expose_function('message.send_notification_to_all_users_of_robot',
-				"message/SendNotificationToAllUsersOfRobot",
-				array(
-						'serial_number' => array ('type' => 'array', 'required' => true),
-						'message' => array ('type' => 'string', 'required' => true),
-				),
-				"send notification to associated users",
-				'POST',
-				true,
-				false);
-                
                 self::expose_function('message.send_notification_to_all_users_of_robot2',
 				"message/SendNotificationToAllUsersOfRobot2",
 				array(
@@ -470,26 +459,26 @@ class RestController extends APIController {
 				false);                
 				
 				
-		self::expose_function('robot.set_profile_details',
-				"robot/SetProfileDetails",
-				array('serial_number' => array ('type' => 'string','required' => true),
-				'profile' => array ('type' => 'array'),),
-				"Set profile details",
-				'POST',
-				false,
-				false);
+//		self::expose_function('robot.set_profile_details',
+//				"robot/SetProfileDetails",
+//				array('serial_number' => array ('type' => 'string','required' => true),
+//				'profile' => array ('type' => 'array'),),
+//				"Set profile details",
+//				'POST',
+//				false,
+//				false);
 
-		self::expose_function('robot.set_profile_details2',
-				"robot/SetProfileDetails2",
-				array('serial_number' => array ('type' => 'string','required' => true),
-                                'source_serial_number' => array ('type' => 'string','default' => ''),
-                                'source_smartapp_id' => array ('type' => 'string','default' => ''),
-                                'value_extra' => array ('type' => 'string','default' => ''),
-				'profile' => array ('type' => 'array'),),
-				"Set profile details 2",
-				'POST',
-				false,
-				false);               
+//		self::expose_function('robot.set_profile_details2',
+//				"robot/SetProfileDetails2",
+//				array('serial_number' => array ('type' => 'string','required' => true),
+//                                'source_serial_number' => array ('type' => 'string','default' => ''),
+//                                'source_smartapp_id' => array ('type' => 'string','default' => ''),
+//                                'value_extra' => array ('type' => 'string','default' => ''),
+//				'profile' => array ('type' => 'array'),),
+//				"Set profile details 2",
+//				'POST',
+//				false,
+//				false);               
 
 		self::expose_function('robot.set_profile_details3',
 				"robot/SetProfileDetails3",
@@ -527,16 +516,6 @@ class RestController extends APIController {
 				false,
 				false);                
                 
-		self::expose_function('robot.delete_robot_profile_key',
-				"robot/DeleteRobotProfileKey",
-				array(
-                                        'serial_number' => array ('type' => 'string','required' => true),
-                                        'key' => array ('type' => 'string','required' => true),
-                                     ),
-				"Delete robot profile key",
-				'POST',
-				false,
-				false);
                 
 		self::expose_function('robot.delete_robot_profile_key2',
 				"robot/DeleteRobotProfileKey2",
@@ -603,60 +582,7 @@ class RestController extends APIController {
 				"test login expose", "POST", true, false);
 	
 		
-		self::expose_function('robot.post_map_data',
-				"robotMap/PostData",
-				array('serial_number' => array ('type' => 'string', 'required' => true),
-						'xml_data' => array ('type' => 'string', 'required' => false),
-						'blob_data' => array ('type' => 'string', 'required' => false),
-						'encoded_blob_data' => array ('type' => 'string', 'required' => false)),
 
-				"Pass on a robot serial number, xml data, blob data",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.get_maps',
-				"robotMap/GetMaps",
-				array('serial_number' => array ('type' => 'string', 'required' => true),
-				),
-				"Pass on a robot serial number",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.get_map_data',
-				"robotMap/GetData",
-				array('robot_map_id' => array ('type' => 'string', 'required' => true),
-				),
-
-				"Pass on a robot map id ",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.update_map_data',
-				"robotMap/UpdateData",
-				array('map_id' => array ('type' => 'string', 'required' => true),
-						'xml_data_version' => array ('type' => 'string', 'required' => false),
-						'xml_data' => array ('type' => 'string', 'required' => false),
-						'blob_data_version' => array ('type' => 'string', 'required' => false),
-						'blob_data' => array ('type' => 'string', 'required' => false),
-						'encoded_blob_data' => array ('type' => 'string', 'required' => false)),
-
-				"Pass on a robot map id, xml data version, xml data, blob data version, blob data",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.delete_map',
-				"robotMap/DeleteMapData",
-				array('robot_map_id' => array ('type' => 'string', 'required' => true),
-				),
-
-				"Delete robot map data",
-				'POST',
-				true,
-				false);
 
 		self::expose_function('robotschedule.post_data',
 				"robotSchedule/PostData",
@@ -779,89 +705,12 @@ class RestController extends APIController {
 				true,
 				false);
 
-		self::expose_function('robot.add_atlas',
-				"robotAtlas/PostAtlas",
-				array('serial_number' => array ('type' => 'string', 'required' => true),
-						'xml_data' => array ('type' => 'string', 'required' => true),
+                
+                self::expose_function('user.creatuserthree',
+				"user/creatuserthree",
+				array('user_name' => array ('type' => 'string', 'required' => false), 'email' => array('type'=> 'string', 'required' => false)						
 				),
-
-				"Pass on a robot serial number, XML data",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.update_atlas',
-				"robotAtlas/UpdateAtlas",
-				array(  'atlas_id' => array ('type' => 'string', 'required' => true),
-						'xml_data_version' => array ('type' => 'string', 'required' => true),
-						'xml_data' => array ('type' => 'string', 'required' => true),
-				),
-
-				"Pass on a robot atlas id, XML data version, XML data",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.delete_atlas',
-				"robotAtlas/Delete",
-				array('atlas_id' => array ('type' => 'string', 'required' => true),
-				),
-		
-				"Pass on a robot atlas id",
-				'POST',
-				true,
-				false);
-		
-		
-		self::expose_function('robot.get_atlas_data',
-				"robotAtlas/GetData",
-				array('serial_number' => array ('type' => 'string', 'required' => true),
-				),
-				"Pass on a robot serial number",
-				'POST',
-				true,
-				false);
-		
-		
-		self::expose_function('robot.post_grid_image',
-				"gridImage/postGridImage",
-				array('id_atlas' => array ('type' => 'string', 'required' => true),
-						'id_grid' => array ('type' => 'string', 'required' => true),
-						'encoded_blob_data' => array ('type' => 'string', 'required' => true),
-				),
-				"Pass on a id_atlas, id_grid, Base 64 encoded_blob_data",
-				'POST',
-				true,
-				false);
-		
-		self::expose_function('robot.update_grid_image',
-				"gridImage/updateGridImage",
-				array('id_atlas' => array ('type' => 'string', 'required' => true),
-						'id_grid' => array ('type' => 'string', 'required' => true),
-						'blob_data_version' => array ('type' => 'string', 'required' => true),
-						'encoded_blob_data' => array ('type' => 'string', 'required' => true),
-				),
-				"Pass on a id_atlas, id_grid, blob data version, Base 64 encoded_blob_data",
-				'POST',
-				true,
-				false);
-
-		
-		self::expose_function('robot.delete_grid_image',
-				"gridImage/DeleteGridImage",
-				array('id_atlas' => array ('type' => 'string', 'required' => true),
-						'id_grid' => array ('type' => 'string', 'required' => true),
-				),
-				"Pass on a id_atlas, id_grid",
-				'POST',
-				true,
-				false);
-		
-		self::expose_function('robot.get_atlas_grid_metadata',
-				"robotAtlas/getAtlasGridMetadata",
-				array('id_atlas' => array ('type' => 'string', 'required' => true),						
-				),
-				"Pass on a id_atlas",
+				"User creation method",
 				'POST',
 				true,
 				false);

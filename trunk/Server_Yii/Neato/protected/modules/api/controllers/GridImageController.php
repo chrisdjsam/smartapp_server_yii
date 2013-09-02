@@ -43,87 +43,7 @@ class GridImageController extends APIController {
 	 *	</ul>
 	 */
 	
-	public function actionPostGridImage(){
-		
-		$id_atlas = Yii::app()->request->getParam('id_atlas', '');
-		$robotAtlas = self::verify_for_robot_atlas_id_existence($id_atlas);
-		
-		$id_grid = Yii::app()->request->getParam('id_grid', '');
-		$id_grid = self::verify_for_empty_grid_id($id_grid);
-		self::verify_for_atlas_id_grid_id_repetition($id_atlas,$id_grid);
-		
-		$grid_image = new AtlasGridImage();
-		$grid_image->id_atlas =$robotAtlas->id;
-		$grid_image->id_grid = $id_grid;
-		
-		if(!$grid_image->save()){
-			var_dump($grid_image->id_atlas);
-			var_dump($grid_image->id_grid);
-			var_dump($grid_image->version);
-			var_dump($grid_image->blob_data_file_name);
-			
-			echo '$grid_image->save() failed';die;
-		}
-		
-		$grid_image->version = 1;
-		
-				
-		//storing blob data
-		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
-		$blob_data_file_name = '';
-		$blob_data_file_version = 1;
-		$uploads_dir = '';
-		
-		if($encoded_blob_data !== ''){
-		
-			$decoded_blob_data = base64_decode($encoded_blob_data);
-			$f = finfo_open();
-			$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
-			finfo_close($f);
-			$blob_data_file_extension = 'jpg';
-				
-			if(strpos($mime_type, "image")!== false){
-				$blob_data_file_extension = str_replace("image/","",$mime_type);
-			}
-		
-			$blob_data_file_name = time(). "." .$blob_data_file_extension;
-		
-			$blob_data = $decoded_blob_data;
-			
-			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-			$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $robotAtlas->id_robot;
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir_for_robot)){
-				mkdir($uploads_dir_for_robot);
-			}
-			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-blob-data-directory-name'];
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir)){
-				mkdir($uploads_dir);
-			}
-			$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
-		
-			$blob_file_handle = fopen($full_file_path_blob_data, 'w');
-			fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
-			fclose($blob_file_handle);
-		
-			$grid_image->blob_data_file_name= $blob_data_file_name;
-		}
-		
-		if($grid_image->update()){
-			$response_message = self::yii_api_echo('Atlas Grid image stored successfully.');
-			$response_data = array("success"=>true, "id_grid_image"=> $grid_image->id, "id_atlas"=>$grid_image->id_atlas, "id_grid"=>$grid_image->id_grid, "version"=> $grid_image->version, "blob_data_file_name"=>$grid_image->blob_data_file_name);
-			self::success($response_data);
-		}else{
-			
-// 			var_dump($grid_image->id_atlas);
-// 			var_dump($grid_image->id_grid);
-// 			var_dump($grid_image->version);
-// 			var_dump($grid_image->blob_data_file_name);
-			
-// 			echo 'failed postGridImage()';
-		}
-	}
+
 
 	/**
 	 * This Method Updates/Add the existing blob data for provided id_grid.
@@ -158,83 +78,6 @@ class GridImageController extends APIController {
 	 *		
 	 *	</ul>
 	 */
-	public function actionUpdateGridImage(){
-	
-		$id_atlas = Yii::app()->request->getParam('id_atlas', '');
-		$robotAtlas = self::verify_for_robot_atlas_id_existence($id_atlas);
-	
-		$id_grid = Yii::app()->request->getParam('id_grid', '');
-		$grid_image = self::verify_for_atlas_id_grid_id_existence($id_atlas,$id_grid, true);
-		
-		if($grid_image === null) { self::actionPostGridImage();}
-		
-		$robot_blob_data_version = Yii::app()->request->getParam('blob_data_version', '');
-		$robot_blob_data_latest_version = $grid_image->BlobDataLatestVersion;
-		
-		if (isset($robot_blob_data_version)){
-			if(isset($robot_blob_data_version) && $robot_blob_data_version != $robot_blob_data_latest_version){
-				$response_message = self::yii_api_echo('Version mismatch for blob data.');
-				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
-			}
-		}
-		
-		//storing blob data
-		$encoded_blob_data = Yii::app()->request->getParam('encoded_blob_data', '');
-		$blob_data_file_name = '';
-		$blob_data_file_version = $grid_image->BlobDataLatestVersion;
-		$uploads_dir = '';
-	
-		if($encoded_blob_data !== ''){
-	
-			$decoded_blob_data = base64_decode($encoded_blob_data);
-			$f = finfo_open();
-			$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
-			finfo_close($f);
-			$blob_data_file_extension = 'jpg';
-	
-			if(strpos($mime_type, "image")!== false){
-				$blob_data_file_extension = str_replace("image/","",$mime_type);
-			}
-	
-			$blob_data_file_name = time(). "." .$blob_data_file_extension;
-	
-			$blob_data = $decoded_blob_data;
-	
-			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-			$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $robotAtlas->id_robot;
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir_for_robot)){
-				mkdir($uploads_dir_for_robot);
-			}
-			$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . Yii::app()->params['robot-atlas-blob-data-directory-name'];
-			// Add check to see if the folder already exists
-			if(!is_dir($uploads_dir)){
-				mkdir($uploads_dir);
-			}
-			$full_file_path_blob_data = $uploads_dir. DIRECTORY_SEPARATOR . $blob_data_file_name;
-	
-			$blob_file_handle = fopen($full_file_path_blob_data, 'w');
-			fwrite($blob_file_handle, $blob_data); //@todo need to handle file write exceptions
-			fclose($blob_file_handle);
-	
-			$grid_image->blob_data_file_name= $blob_data_file_name;
-			$grid_image->version = $blob_data_file_version + 1;
-		}
-			
-		if($grid_image->update()){
-			$response_message = self::yii_api_echo('Atlas Grid image stored successfully.');
-			$response_data = array("success"=>true, "id_grid_image"=> $grid_image->id, "id_atlas"=>$grid_image->id_atlas, "id_grid"=>$grid_image->id_grid, "version"=> $grid_image->version, "blob_data_file_name"=>$grid_image->blob_data_file_name);
-			self::success($response_data );
-		}else{
-				
-			var_dump($grid_image->id_atlas);
-			var_dump($grid_image->id_grid);
-			var_dump($grid_image->version);
-			var_dump($grid_image->blob_data_file_name);
-				
-			echo 'failed updateGridImage()';
-		}
-	}
 	
 	/**
 	 *This method is a delegate and intended to be called from Web-End.
@@ -361,17 +204,7 @@ class GridImageController extends APIController {
 	 *	delegates to actionDelete().
 	 */
 	
-	public function actionDeleteGridImage(){
-		$id_atlas = Yii::app()->request->getParam('id_atlas', '');
-		$robotAtlas = self::verify_for_robot_atlas_id_existence($id_atlas);
-		
-		$id_grid = Yii::app()->request->getParam('id_grid', '');
-		$grid_image = self::verify_for_atlas_id_grid_id_existence($id_atlas,$id_grid, false);
-		
-		$_POST['id_grid_image'] = AppHelper::two_way_string_encrypt($grid_image->id);
-		
-		self::actionDelete();
-	}	
+
 	
 	/**
 	 * This method delets record of grid blob data from database and removes corresponding file from server directory.

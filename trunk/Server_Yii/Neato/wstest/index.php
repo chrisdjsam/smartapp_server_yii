@@ -161,18 +161,14 @@ padding-right: 50px;
 											</li>
 											<li><a href="robot.php#Check if robot is online">Check If Robot Is Online</a>
 											</li>
-											<li><a href="robot.php#Set Robot Profile Details">Set Robot Profile Details</a>
-											</li>
-                                                                                        <li><a href="robot.php#Set Robot Profile Details 2">Set Robot Profile Details 2</a>
-											</li>
+
                                                                                         <li><a href="robot.php#Set Robot Profile Details 3" class="new-api">Set Robot Profile Details 3</a>
 											</li>                                                                                        
                                                                                         <li><a href="robot.php#Get Robot Profile Details">Get Robot Profile Details</a>
 											</li>
                                                                                         <li><a href="robot.php#Get Robot Profile Details 2" class="new-api">Get Robot Profile Details 2</a>
 											</li>
-                                                                                        <li><a href="robot.php#Delete Robot Profile Key">Delete Robot Profile Key</a>
-											</li>
+                                                                                        
                                                                                         <li><a href="robot.php#Delete Robot Profile Key 2" class="new-api">Delete Robot Profile Key 2</a>
 											</li>
 											<li><a href="robot.php#Get Robot Details">Get Robot Details</a>
@@ -240,7 +236,6 @@ padding-right: 50px;
                                                                                         <li><a href="messages.php#Send XMPP Message To All Associated Users 2" class="new-api">Send XMPP Message To All Associated Users 2</a></li>
                                                                                         <li><a href="messages.php#Send notification to given emails">Send notification to given emails</a></li>
                                                                                         <li><a href="messages.php#Send notification to given Registration IDs">Send notification to given Registration IDs</a></li>
-                                                                                        <li><a href="messages.php#Send notification to all the users of robot">Send notification to all the users of robot</a></li>
                                                                                         <li><a href="messages.php#Store Registration Id To Send Notification For Given User">Register For Notification</a></li>
                                                                                         <li><a href="messages.php#Remove Notification Registration Id">Unregister From Notification</a></li>
                                                                                         <li><a href="messages.php#Set User Push Notification Options">Set User Push Notification Options</a></li>
@@ -263,87 +258,14 @@ padding-right: 50px;
 
 		<tr>
 			<td class='entry-td'>
-				<table id='api_entry'>
-					<tr>
-						<td><a href="robot_map.php">Robot map test console</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table>
-								<tr>
-									<td>On this page, you can test all the web services APIs that
-										are used for Robot map. Available methods are:</td>
-								</tr>
-								<tr>
-									<td>
-										<ul>
-											<li><a href="robot_map.php#Post robot map data">Post Robot
-													Map Data</a>
-											</li>
-											<li><a href="robot_map.php#Get Robot Maps">Get Robot Maps</a>
-											</li>
-											<li><a href="robot_map.php#Get Robot Map Data">Get Robot Map
-													Data</a>
-											</li>
-											<li><a href="robot_map.php#Update robot map data">Update
-													Robot Map Data</a>
-											</li>
-											<li><a href="robot_map.php#Delete Robot Map">Delete Robot Map</a>
-											</li>
-										</ul>
-									</td>
-								</tr>
-							</table>
 
-						</td>
-					</tr>
-
-				</table>
 			</td>
 		</tr>
 
 
 		<tr>
 			<td class='entry-td'>
-			<table id='api_entry'>
-				<tr>
-					<td><a href="robot_atlas.php">Robot atlas test console</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>On this page, you can test all the web services APIs that are
-									used for Robot Atlas. Available methods are:</td>
-							</tr>
-							<tr>
-								<td>
-									<ul>
-										<li><a href="robot_atlas.php#Add robot atlas">Add Robot Atlas</a>
-										</li>
-										<li><a href="robot_atlas.php#Get Robot Atlas Data">Get Robot
-												Atlas Data</a>
-										</li>
-										<li><a href="robot_atlas.php#Get atlas grid metadata">Get
-												Atlas Grid Metadata</a>
-										</li>
-										<li><a href="robot_atlas.php#Update or add robot atlas data">Update
-												Or Add Robot Atlas Data</a>
-										</li>
-										<li><a href="robot_atlas.php#Delete Robot Atlas">Delete Robot
-												Atlas</a>
-										</li>
-									</ul>
-								</td>
-							</tr>
-						</table>
 
-					</td>
-				</tr>
-
-			</table>
 			</td>
 		</tr>
 
@@ -395,40 +317,7 @@ padding-right: 50px;
 		
 		<tr>
 			<td class='entry-td'>
-			<table id='api_entry'>
-				<tr>
-					<td><a href="atlas_grid_image.php">Atlas grid-image test console</a>
 
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td>On this page, you can test all the web services APIs that are
-									used for grid-image. Available methods are:</td>
-							</tr>
-							<tr>
-								<td>
-									<ul>
-										<li><a href="atlas_grid_image.php#Post grid image">Post Grid
-												Image</a>
-										</li>
-										<li><a href="atlas_grid_image.php#update grid image">Update
-												Grid Image</a>
-										</li>
-										<li><a href="atlas_grid_image.php#delete grid image">Delete
-												Grid Image</a>
-										</li>
-									</ul>
-								</td>
-							</tr>
-						</table>
-
-					</td>
-				</tr>
-
-			</table>
 			</td>
 		</tr>
 		<tr>
@@ -504,7 +393,6 @@ padding-right: 50px;
 			</table>
 		</td>
 		</tr>
-
 
 	</table>
 

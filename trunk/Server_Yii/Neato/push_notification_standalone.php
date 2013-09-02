@@ -239,7 +239,7 @@ function sendIOSPushNotification($deviceToken, $message_body, $registration_type
         
         $fp = $fp_dev;
         
-        if($registration_type_ios[$app_type_index] == 'Prod'){
+        if(empty($registration_type_ios) && $registration_type_ios[$app_type_index] == 'Prod'){
             $fp = $fp_prod;
         }
 

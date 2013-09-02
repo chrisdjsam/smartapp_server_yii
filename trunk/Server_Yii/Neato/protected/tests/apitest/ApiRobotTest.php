@@ -41,23 +41,23 @@ class ApiRobotTest extends ApiTestBase {
 		$this->assertEquals("Robot serial number does not exist", $contents->message);
 	}
 	
-	public function testSetProfileDetails() {
-		$api = 'robot.set_profile_details';
-		$post = array('serial_number' => self::$robot_serial_no, 'profile'=> self::$profile);
-		$contents = $this->sendApi($api, $post);
-		$this->assertEquals("1", $contents->result);
-		
-		$api = 'robot.get_details';
-		$post = array('serial_number' => self::$robot_serial_no);
-		$contents = $this->sendApi($api, $post);
-		$this->assertEquals(self::$robot_serial_no, $contents->result->serial_number);
-		$this->assertEquals(self::$profile['name'], $contents->result->name);
-
-		$api = 'robot.set_profile_details';
-		$post = array('serial_number' => self::$robot_serial_no, 'profile'=> array('name'=>self::$robot_name));
-		$contents = $this->sendApi($api, $post);
-		$this->assertEquals("1", $contents->result);		
-	}
+//	public function testSetProfileDetails() {
+//		$api = 'robot.set_profile_details';
+//		$post = array('serial_number' => self::$robot_serial_no, 'profile'=> self::$profile);
+//		$contents = $this->sendApi($api, $post);
+//		$this->assertEquals("1", $contents->result);
+//		
+//		$api = 'robot.get_details';
+//		$post = array('serial_number' => self::$robot_serial_no);
+//		$contents = $this->sendApi($api, $post);
+//		$this->assertEquals(self::$robot_serial_no, $contents->result->serial_number);
+//		$this->assertEquals(self::$profile['name'], $contents->result->name);
+//
+//		$api = 'robot.set_profile_details';
+//		$post = array('serial_number' => self::$robot_serial_no, 'profile'=> array('name'=>self::$robot_name));
+//		$contents = $this->sendApi($api, $post);
+//		$this->assertEquals("1", $contents->result);		
+//	}
 
 	public function testGetAssociatedUsers() {
 		$api = 'robot.get_associated_users';
