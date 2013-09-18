@@ -197,10 +197,21 @@ padding-right: 50px;
 											</li>
                                                                                         <li><a href="robot.php#Get Robot Configuration" class="new-api">Get Robot Configuration</a>
 											</li>
-                                                                                        <li><a href="robot.php#Get Token for Robot-User Association" class="new-api">Get Token for Robot-User Association</a>
+                                                                                        <li><a href="robot.php#Clear Robot Data" class="new-api">Clear Robot Data</a>
+                                                                                        </li>
+                                                                                        <li><a href="robot.php#Request Link Code" class="new-api">Request Link Code</a>
 											</li>
-                                                                                        <li><a href="robot.php#Robot-User Association by Token" class="new-api">Robot-User Association by Token</a>
+                                                                                        <li><a href="robot.php#Initiate Link To Robot" class="new-api">Initiate Link To Robot</a>
 											</li>
+                                                                                        <li><a href="robot.php#Confirm Linking" class="new-api">Confirm Linking</a>
+											</li>
+                                                                                        <li><a href="robot.php#Reject Linking" class="new-api">Reject Linking</a>
+											</li>
+                                                                                         <li><a href="robot.php#Cancel Linking" class="new-api">Cancel Linking</a>
+											</li>
+
+                                                                                         
+
 										</ul>
 									</td>
 								</tr>

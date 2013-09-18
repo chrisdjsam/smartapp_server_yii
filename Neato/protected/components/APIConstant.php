@@ -79,6 +79,12 @@ class APIConstant {
     const ERROR_CODE_NOT_EXIST = '-175';
     const JSON_WITH_INVALID_KEYS = '-176';
     const PASS_CONTAIN_ATLEAST_ONE_CHAR = '-177';
+    const TOKEN_ALREADY_EXIT = '-179';
+    const TOKEN_ALREADY_USED = '-180';
+    const LINKING_CODE_PROCESS = '-181';
+    const ROBOT_USER_ASSOCIATION_ALREADY_EXIST = '-182';
+    const INVALID_DELETE_TYPE = '-183';
+    const UNEXPECTED_ERROR = '-184';
     
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
@@ -134,8 +140,8 @@ class APIConstant {
         APIConstant::SOURCE_SMARTAPP_ID_IS_NOT_ASSOCIATED_WITH_ROBOT => 'Sorry, Provided source_smartapp_id(email) is not associated with given robot',
         APIConstant::KEY_NOT_VALID => 'Sorry, entered key does not match with serial number.',
         APIConstant::CONFIGURATION_FAILED => 'Set robot configuration failed due to database problem',
-        APIConstant::TOKEN_NOT_INVALID => 'Please enter valid token',
-        APIConstant::TOKEN_EXPIRED => 'Sorry, provided token is expired',
+        APIConstant::TOKEN_NOT_INVALID => 'Please enter valid linking code',
+        APIConstant::TOKEN_EXPIRED => 'Sorry, provided linking code is expired',
         APIConstant::SLEEP_OR_WAKEUP_TIME_NOT_VALID => 'Please enter valid sleep time or wakeup time',
         APIConstant::UNSUPPORTED_FILE_TYPE => 'Unsupported file type',
         APIConstant::USER_ATTRIBUTE_NOT_FOUND => 'No attribute found for this user',
@@ -158,7 +164,14 @@ class APIConstant {
         APIConstant::ERROR_CODE_NOT_EXIST => 'Provided error code does not exist.',
         APIConstant::JSON_WITH_INVALID_KEYS => 'Provided JSON does not contain considered keys. Please refer respective API document.',
         APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL => 'Invalid robot account detail',
-    );
+        APIConstant::TOKEN_ALREADY_EXIT => 'Robot user association already exists',
+        APIConstant::TOKEN_ALREADY_USED => 'linking code is already used for association.',
+        APIConstant::LINKING_CODE_PROCESS => 'The linking request for this robot is under process', 
+        APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST => 'Robot-User association is already exist', 
+        APIConstant::INVALID_DELETE_TYPE => 'Please enter 1 for delete robot data and 0 for clear the robot data.', 
+        APIConstant::UNEXPECTED_ERROR => 'Unexpected error occurred.', 
+        
+        );
 
     static function getMessageForErrorCode($errorCode) {
 

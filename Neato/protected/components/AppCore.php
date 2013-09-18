@@ -131,7 +131,7 @@ class AppCore {
 	 *
 	 */
 	public static function send_chat_message($from, $to, $message){
-            
+
 		if(Yii::app()->params['isjabbersetup']){
                         
                         $is_jabber_setup = Yii::app()->params['isjabbersetup'];
@@ -227,7 +227,7 @@ class AppCore {
 			$jabberRegisterString = 'sudo ejabberdctl register '.$chat_user.' '.$ejabberd_node.' '.$chat_pwd.' 2>&1';
 			exec($jabberRegisterString, $output, $status);
 
-            $success_string = strtolower("successfully registered");
+                        $success_string = strtolower("successfully registered");
 			$message_string = isset($output[0])? $output[0] : '';
 			$message_string = strtolower($message_string);
                         
@@ -2121,6 +2121,139 @@ class AppCore {
         return $content;
      }
      
+     public static function remainingTimeStamp($robot){
+         
+          $robot_user_association_tokens = RobotUserAssociationTokens::model()->findAll('robot_id = :robot_id', array(':robot_id' => $robot->id));
+
+        if(!empty($robot_user_association_tokens)){
+//            $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
+            
+            foreach ($robot_user_association_tokens as $token){
+               $user_token = $token->token;
+               $token_timestamp = $token->created_on;
+            }
+
+              $token_timestamp = strtotime($token_timestamp);
+              
+              $expiry_time = (strtotime('+5 minutes', $token_timestamp));
+              
+              $current_system_timestamp = time();
+              $reamaining_timestamp = $current_system_timestamp - $expiry_time;
+              
+              return $reamaining_timestamp;
+        }
+     }
+     
+      public static function createdTimeStamp($robot){
+         
+          $robot_user_association_tokens = RobotUserAssociationTokens::model()->findAll('robot_id = :robot_id', array(':robot_id' => $robot->id));
+
+        if(!empty($robot_user_association_tokens)){
+//            $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
+            
+            foreach ($robot_user_association_tokens as $token){
+               $user_token = $token->token;
+               $token_timestamp = $token->created_on;
+            }
+
+              $token_timestamp = strtotime($token_timestamp);
+              $expiry_time = (strtotime('+5 minutes', $token_timestamp));
+              
+              return $expiry_time;
+        }
+     }
+     
+    public static function removeExpiredLinkingCode($robot){
+        
+        $robot_user_association_tokens = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
+        
+        if( !empty($robot_user_association_tokens) ){
+            
+            $validity_of_linking_code = self::getExpiredTimeOfLinkingCode($robot_user_association_tokens);
+
+            if ($validity_of_linking_code < 0) {
+
+                $robot_linking_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $robot->serial_number));
+                
+                if(!empty($robot_linking_data)){
+                    $robot_linking_data->delete();
+                }
+                
+                $robot_user_association_tokens->delete();
+                
+            }
+            
+        }
+        
+    } 
+    
+
+    public static function removeLinkingCode($robot){
+        
+        $robot_user_association_tokens = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
+        
+        if( !empty($robot_user_association_tokens) ){
+            
+                $robot_linking_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $robot->serial_number));
+                
+                if(!empty($robot_linking_data)){
+                    $robot_linking_data->delete();
+                }
+                
+                $robot_user_association_tokens->delete();
+            
+        }
+        
+    } 
+    
+    public static function getExpiredTimeOfLinkingCode($robot_user_association_tokens){
+        
+        $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
+        
+        $token_timestamp = strtotime($robot_user_association_tokens->created_on);
+                        
+        if(empty($robot_user_association_tokens->created_on)){
+            $token_timestamp = time();
+        }
+        
+        $current_system_timestamp = time();
+        $validity_of_linking_code = ($current_system_timestamp - $token_timestamp);
+        
+        $validity_of_linking_code = $token_lifetime - $validity_of_linking_code;
+
+        return $validity_of_linking_code;
+        
+    }
+    
+    
+    public static function isLinkingCodeValid($linking_code_created_on){
+        
+        $validity_of_linking_code = self::getValidityOfLinkingCode($linking_code_created_on);
+        
+        if( $validity_of_linking_code < 0 ) {
+            return false;
+        }
+
+        return true;
+        
+    }
+    
+    public static function getValidityOfLinkingCode($linking_code_created_on){
+        
+        $linking_code_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
+        
+        $linking_code_created_on = strtotime($linking_code_created_on);
+                        
+        $current_system_timestamp = time();
+        
+        $validity_of_linking_code = $current_system_timestamp - $linking_code_created_on;
+        
+        $validity_of_linking_code = $linking_code_lifetime - $validity_of_linking_code;
+        
+        return $validity_of_linking_code;
+        
+    }
+    
 }
 
 ?>

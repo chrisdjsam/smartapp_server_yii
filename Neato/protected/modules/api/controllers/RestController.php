@@ -320,26 +320,90 @@ class RestController extends APIController {
 				true,
 				false);                                                                
 
-		self::expose_function('robot.get_token_for_robot_user_association',
-				"robot/getTokenForRobotUserAssociation",
+//		self::expose_function('robot.get_token_for_robot_user_association',
+//				"robot/getTokenForRobotUserAssociation",
+//				array(
+//                                    'serial_number' => array ('type' => 'string', 'required' => true),
+//				),
+//				"Get Token for Robot-User Association",
+//				'POST',
+//				true,
+//				false);                                                                
+                
+                self::expose_function('robot.clear_robot_association',
+				"robot/ClearRobotAssociation",
 				array(
                                     'serial_number' => array ('type' => 'string', 'required' => true),
+                                    'is_delete' => array('type' => 'string', 'required'=> true),
 				),
-				"Get Token for Robot-User Association",
+				"Clear Robot Association",
 				'POST',
 				true,
 				false);                                                                
                 
-		self::expose_function('robot.robot_user_association_by_token',
-				"robot/robotUserAssociationByToken",
+//		self::expose_function('robot.robot_user_association_by_token',
+//				"robot/robotUserAssociationByToken",
+//				array(
+//                                    'email' => array ('type' => 'string', 'required' => true),
+//                                    'linking_code' => array ('type' => 'string', 'required' => true),
+//				),
+//				"Initiate Link To Robot",
+//				'POST',
+//				true,
+//				false); 
+                self::expose_function('robot.request_link_code',
+				"robot/RequestLinkCode",
 				array(
-                                    'email' => array ('type' => 'string', 'required' => true),
-                                    'token' => array ('type' => 'string', 'required' => true),
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
 				),
-				"Robot-User Association by Token",
+				"request_link_code",
 				'POST',
 				true,
-				false);                                                                                
+				false);
+                
+                self::expose_function('robot.initiate_link_to_robot',
+				"robot/InitiateLinkToRobot",
+				array(
+                                    'email' => array ('type' => 'string', 'required' => true),
+                                    'linking_code' => array ('type' => 'string', 'required' => true),
+				),
+				"Initiate Link To Robot",
+				'POST',
+				true,
+				false);  
+                
+                self::expose_function('robot.confirm_linking',
+				"robot/ConfirmLinking",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+                                    'linking_code' => array ('type' => 'string', 'required' => true),
+				),
+				"Confirm Linking",
+				'POST',
+				true,
+				false);
+                
+                self::expose_function('robot.reject_linking',
+				"robot/RejectLinking",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+                                    'linking_code' => array ('type' => 'string', 'required' => true),
+				),
+				"Reject Linking",
+				'POST',
+				true,
+				false);
+                
+                self::expose_function('robot.cancel_linking',
+				"robot/CancelLinking",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+//                                    'token' => array ('type' => 'string', 'required' => true),
+				),
+				"Cancel Linking",
+				'POST',
+				true,
+				false);
                 
 		self::expose_function('message.send_xmpp_message_to_robot',
 				"message/SendXmppMessageToRobot",
@@ -945,7 +1009,7 @@ class RestController extends APIController {
 	protected  function expose_function($method, $function, array $parameters = NULL, $description = "",
 	$call_method = "GET", $require_api_auth = false, $require_user_auth = false) {
 
-
+            
 		if (($method == "") || ($function == "")) {
 			$msg = self::yii_api_echo('InvalidParameterException:APIMethodOrFunctionNotSet');
 			self::terminate(-1, $msg, '');
@@ -1003,7 +1067,7 @@ class RestController extends APIController {
 		$this->API_METHODS[$method]["require_api_auth"] = $require_api_auth;
 
 		$this->API_METHODS[$method]["require_user_auth"] = $require_user_auth;
-
+                
 		return true;
 	}
 
