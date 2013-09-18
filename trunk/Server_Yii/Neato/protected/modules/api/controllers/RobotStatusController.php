@@ -61,18 +61,10 @@ class RobotStatusController extends APIController {
         
         if(!empty($robot_data)){
             
-            if($dbname == 'dev_neato'){
-                mysql_query("INSERT INTO `robot_ping_log`(`serial_number`, `ping_timestamp`, `status`) VALUES ('" . $robot_data['serial_number'] . "', " . new CDbExpression('NOW()') . ", '$message')");
-                mysql_close($dbhandle);
-                return true;
-            }
-
-            if($dbname == 'staging_neato'){
-                mysql_query("INSERT INTO `robot_ping_log`(`robot_id`, `ping_timestamp`, `status`) VALUES (" . $robot_data['id'] . ", " . new CDbExpression('NOW()') . ", '$message')");
-                mysql_close($dbhandle);
-                return true;
-            }
-            
+            mysql_query("INSERT INTO `robot_ping_log`(`serial_number`, `ping_timestamp`, `status`) VALUES ('" . $robot_data['serial_number'] . "', " . new CDbExpression('NOW()') . ", '$message')");
+            mysql_close($dbhandle);
+            return true;
+  
         }
         
         mysql_close($dbhandle);
