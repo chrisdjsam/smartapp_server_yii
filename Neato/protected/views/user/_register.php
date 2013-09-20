@@ -17,7 +17,7 @@ $this->breadcrumbs=array(
 			'enableAjaxValidation'=>true,
 			//'enableClientValidation'=>true,
 			'clientOptions' => array('validateOnSubmit'=>true),
-			'focus'=>array($model,'email'),
+//			'focus'=>array($model,'email'),
 )); ?>
 
 	<div class="section register_section">

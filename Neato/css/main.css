@@ -1167,9 +1167,22 @@ div.space_for_notification_response{
     font-size: 14px;
 }
 
+.device-entry-center-div{
+    margin: 0 auto;
+    text-align: center;
+}
+
 .device-entry{
     padding-bottom:10px;
     font-size: 12px;
+}
+
+.center-align-style{
+text-align: center;
+ margin: 6px auto;
+ width: 206px;
+ position: relative;
+ left: 19px;
 }
 
 div.href_download_file {

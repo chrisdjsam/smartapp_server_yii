@@ -11,7 +11,7 @@ class UserController extends APIController {
 	public function actionFBLogin() {
 		$r = Yii::app()->request->getParam('r');
 		$is_user_exist = true;
-
+                
 		if (!isset($r) || !is_array($r) || $r['status'] != 'connected') {
 			$message = AppCore::yii_echo("login fail -1");
 			$content = array('status' => -1, 'message' => $message);
@@ -39,7 +39,7 @@ class UserController extends APIController {
 
 		$user_model = User::model()->find('email=:email', array(':email' => $me['email']));
 
-		if(is_null($user_model)){
+                if(is_null($user_model)){
 			//user not exists
 			$is_user_exist = false;
 			$user_model = new User;
@@ -74,9 +74,15 @@ class UserController extends APIController {
 			$login_link = $this->createUrl("/user/login");
 			AppEmail::emailWelcomeNewUser($user_model->email, $user_model->name, $new_password, $login_link);
 		}else{
-			//user exists , do not do anything
+                    //user exists
+                    if($user_model->is_validated != 1){
+                        
+                        $user_model->is_validated = 1;
+                        if(!$user_model->update()){
+                            // to do
+                        }
+                    }
 		}
-
 		// Delete previus UsersSocialservice data and entry new UsersSocialservice data.
 		UsersSocialservice::model()->deleteAll('user_social_id=:fbid and id_socialservicetype=:sstid', array(':fbid' => $fbid, ':sstid'=>$social_service_type_id));
 
@@ -1619,7 +1625,7 @@ class UserController extends APIController {
                     }
 
                     $response_data['success'] = true;
-                    $response_data['message'] = "We have resent validation email successfully.  ";
+                    $response_data['message'] = "We have resent validation email.";
                     self::success($response_data);
                 } else {
                     $message = self::yii_api_echo("Sorry, You have crossed resend validation email limit.");

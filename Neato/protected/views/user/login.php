@@ -78,15 +78,15 @@ $this->breadcrumbs=array(
 <!-- form -->
 
 <div id="resend_validation_email_popup" title="Resend validation email" class="resend_validation_email_popup_class hide-me">
-    <div>
+    <div class="device-entry-center-div">
 
             <div class="device-entry">
-                <label for="Email" class="email_resend_label_style">Email <span class="errorMessage">*</span></label>
+                <label for="Email" class="email_resend_label_style">Email <span class="required">*</span></label>
                 <input type="text" value="" id="enter_user_email" name="email_to_send_validation_email" class="email_resend_input_style" tabindex="2" cols="128" size="30">
                 <div id="User_email_em_" class="prepend-2 errorMessage hide-me"></div>
             </div>
 
-            <div class="device-entry">
+            <div class="device-entry center-align-style">
                 <input type="button" value="Send" name="send_email_validation" title="Send" class="neato-button" id="send_resend_email_validation">
                 <input type="button" value="Cancel" name="cancel_resend_email_validation" title="Cancel" class="neato-button" id="cancel_resend_email_validation">
             </div>
