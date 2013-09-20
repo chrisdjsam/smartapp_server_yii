@@ -1487,6 +1487,7 @@ class RobotController extends APIController {
         }
         
         $robot_id = $robot_user_association_token->robot_id;
+        $linking_code_created_on = $robot_user_association_token->created_on;
 
         $robot_model_data = Robot::model()->find('id = :id', array(':id' => $robot_id));
         
@@ -1554,6 +1555,7 @@ class RobotController extends APIController {
         $robot_linking_code->serial_number = $associated_robot_serial_number;
         $robot_linking_code->current_linking_state = $default_state;
         $robot_linking_code->linking_code = $token;
+        $robot_linking_code->linking_code_created_on = $linking_code_created_on;
         $robot_linking_code->timestamp = new CDbExpression('NOW()');
         
         $robot_linking_code->save();

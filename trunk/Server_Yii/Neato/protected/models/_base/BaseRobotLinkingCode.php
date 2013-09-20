@@ -9,6 +9,7 @@
  * @property string $serial_number
  * @property string $current_linking_state
  * @property string $linking_code
+ * @property string $linking_code_created_on
  * @property string $timestamp
  */
 class BaseRobotLinkingCode extends CActiveRecord
@@ -43,10 +44,10 @@ class BaseRobotLinkingCode extends CActiveRecord
 			array('email', 'length', 'max'=>128),
 			array('serial_number', 'length', 'max'=>100),
 			array('current_linking_state', 'length', 'max'=>20),
-			array('linking_code', 'safe'),
+			array('linking_code, linking_code_created_on', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, email, serial_number, current_linking_state, linking_code, timestamp', 'safe', 'on'=>'search'),
+			array('id, email, serial_number, current_linking_state, linking_code, linking_code_created_on, timestamp', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +73,7 @@ class BaseRobotLinkingCode extends CActiveRecord
 			'serial_number' => 'Serial Number',
 			'current_linking_state' => 'Current Linking State',
 			'linking_code' => 'Linking Code',
+                        'linking_code_created_on' => 'Linking Code Created On',
 			'timestamp' => 'Timestamp',
 		);
 	}
@@ -92,6 +94,7 @@ class BaseRobotLinkingCode extends CActiveRecord
 		$criteria->compare('serial_number',$this->serial_number,true);
 		$criteria->compare('current_linking_state',$this->current_linking_state,true);
 		$criteria->compare('linking_code',$this->linking_code,true);
+                $criteria->compare('linking_code_created_on',$this->linking_code_created_on,true);
 		$criteria->compare('timestamp',$this->timestamp,true);
 
 		return new CActiveDataProvider($this, array(

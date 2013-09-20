@@ -2254,6 +2254,34 @@ class AppCore {
         
     }
     
+    public static function removeExpiredLinkingCodeUsingCronJob(){
+        
+        $robot_linking_data = RobotLinkingCode::model()->findAll();
+                
+        foreach ($robot_linking_data as $value) {
+            
+            if(!self::isLinkingCodeValid($value->linking_code_created_on)){
+                
+                RobotUserAssociationTokens::model()->deleteAll('token = :token', array(':token' => $value->linking_code));
+                $value->delete();
+                
+            }
+            
+        }
+        
+    }
+    
+    public static function removeLinkingCodeByLinkingData($robot_linking_data){
+        
+        foreach ($robot_linking_data as $value) {
+                
+            RobotUserAssociationTokens::model()->deleteAll('token = :token', array(':token' => $value->linking_code));
+            $value->delete();
+            
+        }
+       
+    }
+    
 }
 
 ?>
