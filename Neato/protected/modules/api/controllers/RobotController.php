@@ -1219,10 +1219,28 @@ class RobotController extends APIController {
     }
 
     public function actionClearRobotAssociation() {
-
+        
         $serial_number = Yii::app()->request->getParam('serial_number', '');
-        $robot = self::verify_for_robot_serial_number_existence($serial_number);
         $is_delete = Yii::app()->request->getParam('is_delete', '');
+        $email = Yii::app()->request->getParam('email', '');
+        
+        $robot = self::verify_for_robot_serial_number_existence($serial_number);
+        
+        if (!AppHelper::is_valid_email($email)) {
+            $message = self::yii_api_echo("The email address you have provided does not seem to be a valid email address.");
+            self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
+        }
+        
+        $user = User::model()->findByAttributes(array('email' => $email));
+        if (empty($user)) {
+            $response_message = self::yii_api_echo('Email does not exist in system');
+            self::terminate(-1, $response_message, APIConstant::EMAIL_DOES_NOT_EXIST);
+        }
+
+        $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user->id, "id_robot" => $robot->id));
+        if (is_null($user_robot_model)) {
+            self::terminate(-1, "Robot is not associated with given user.", APIConstant::USER_AND_ROBOT_ASSOCIATION_DOES_NOT_EXIST);
+        }
         
         if ($is_delete == '0') {
             
@@ -1295,102 +1313,6 @@ class RobotController extends APIController {
             self::terminate(-1, $message, APIConstant::INVALID_DELETE_TYPE);
         }
     }
-
-//    public function actionRequestLinkCode() {
-//
-//        $serial_number = Yii::app()->request->getParam('serial_number', '');
-//        
-//        $robot = self::verify_for_robot_serial_number_existence($serial_number);
-//        
-//        $token = UniqueToken::hash(($robot->id + (hexdec(uniqid())) / 100000), 4);
-//        $token = preg_replace('/0*/', '', $token, 1);
-//
-//
-//        $robot_user_association_token = RobotUserAssociationTokens::model()->findAll('robot_id = :robot_id', array(':robot_id' => $robot->id));
-//
-//        if (!empty($robot_user_association_token)) {
-//            
-//            
-//            foreach ($robot_user_association_token as $robot_user_association_token_fetch) {
-//                    
-//                    RobotUserAssociationTokens::model()->deleteAll('token = :token', array(':token' => $robot_user_association_token_fetch->token));
-//                    
-//            }
-//            
-//            
-//            $expiry_time = AppCore::createdTimeStamp($robot);
-//            $current_system_timestamp = time();
-//            $reamaining_timestamp = $current_system_timestamp - $expiry_time;
-//
-//            $robot_linking_data = RobotLinkingCode::model()->findAll('serial_number = :serial_number', array(':serial_number' => $serial_number));
-//
-//            if (!empty($robot_linking_data)) {
-//
-//                foreach ($robot_linking_data as $linking_code) {
-//                    $user_code = $linking_code->linking_code;
-//                }
-//                
-////                if(!empty($user_code)){
-////                    $message = "The request for this robot is under process";
-////                    self::terminate(-1, $message, APIConstant::LINKING_CODE_PROCESS);
-////                }
-//                
-//                
-//                if ($reamaining_timestamp == 0 || $reamaining_timestamp >= 0) {
-//                    
-//                    RobotLinkingCode::model()->deleteAll('linking_code = :linking_code', array(':linking_code' => $user_code));
-//                }
-//            }
-//            
-//            foreach ($robot_user_association_token as $associated_token) {
-//                $robot_associated_tokens = $associated_token->token;
-//                $robot_associated_robot_id = $associated_token->robot_id;
-//            }
-//            
-//            if ($reamaining_timestamp == 0 || $reamaining_timestamp >= 0) {
-//                $message = "Invalid Token";
-////                RobotUserAssociationTokens::model()->deleteAll('token = :token', array(':token' => $robot_associated_tokens));
-////                self::terminate(-1, $message, APIConstant::TOKEN_NOT_INVALID);
-//            }
-//            
-//           
-//        }
-//        
-//
-////        $updated_token = $token;
-//        
-//        if(empty($robot_user_association_token)){
-//            
-//            $robot_user_association_token = new RobotUserAssociationTokens();
-//
-//            $robot_user_association_token->robot_id = $robot->id;
-//            $robot_user_association_token->token = $token;
-//            $robot_user_association_token->save();
-//            
-//        }
-//        else{
-//            $robot_user_association_token = new RobotUserAssociationTokens();
-//            
-//            $robot_user_association_token->token = $token;
-//            $robot_user_association_token->save();
-//        }
-//        $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
-//
-//        $token_timestamp = AppCore::createdTimeStamp($robot);
-//
-//        $current_system_timestamp = time();
-//
-//        $time_diff = ($current_system_timestamp - $token_timestamp);
-//        
-////        if ($time_diff > $token_lifetime) {
-////            $robot_user_association_token->delete();
-////            self::terminate(-1, "Sorry, provided token is expired", APIConstant::TOKEN_EXPIRED);
-////        }
-//        $reamaining_timestamp = AppCore::remainingTimeStamp($robot);
-//        $response_data = array('success' => true, 'token' => $robot_user_association_token->token, 'linking_code expiry time(sec.)' => $reamaining_timestamp);
-//        self::success($response_data);
-//    }
-    
     
     public function actionRequestLinkCode() {
 

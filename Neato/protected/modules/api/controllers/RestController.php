@@ -334,6 +334,7 @@ class RestController extends APIController {
 				"robot/ClearRobotAssociation",
 				array(
                                     'serial_number' => array ('type' => 'string', 'required' => true),
+                                    'email' => array ('type' => 'string', 'required' => true),
                                     'is_delete' => array('type' => 'string', 'required'=> true),
 				),
 				"Clear Robot Association",

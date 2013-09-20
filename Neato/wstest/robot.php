@@ -2274,7 +2274,8 @@
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
 							<li><b>serial_number</b> :Serial Number of the robot</li>
-                                                        <li><b>Is Delete</b> :1 for delete the robot and 0 for clear the robot data</li>
+                                                        <li><b>email</b> :Valid email address</li>
+                                                        <li><b>is_delete</b> :1 for delete the robot and 0 for clear the robot data</li>
 						</ul>
 						Success Response:
 						<ul>
@@ -2317,6 +2318,20 @@
                                                                         </li>
 								</ul>
 							</li>
+                                                        <li>If email is missing
+								<ul>
+									<li>
+                                                                             {"status":-1,"message":"Missing parameter email in method robot.clear_robot_association","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If email does not exist in system
+								<ul>
+									<li>
+                                                                             {"status":-1,"message":"Email does not exist in system","error":{"code":"-112","message":"Email does not exist."}}
+                                                                        </li>
+								</ul>
+							</li>
                                                         <li>If Is Delete field is missing
 								<ul>
 									<li>
@@ -2350,8 +2365,14 @@
 				</td>
 			</tr>
                         
+                        <tr>
+				<td>email</td>
+				<td><input type="text" name='email'>
+				</td>
+			</tr>
+                        
 			<tr>
-				<td>Is Delete</td>
+				<td>is_delete</td>
 				<td><input type="text" name='is_delete'>
 				<span style="color: blue;">'0' is used for clear the robot data and '1' is used to delete Robot data</span>
                                 </td>
