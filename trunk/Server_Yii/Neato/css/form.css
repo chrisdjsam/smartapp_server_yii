@@ -82,6 +82,10 @@ div.form span.required
 	color: red;
 }
 
+span.required{
+    color: red !important; 
+}
+
 div.form div.error label:first-child,
 div.form label.error,
 div.form span.error

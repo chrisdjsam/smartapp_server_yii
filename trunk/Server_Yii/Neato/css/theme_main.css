@@ -1174,10 +1174,22 @@ div.space_for_notification_response{
     max-height:550px;
     font-size: 14px;
 }
+.device-entry-center-div{
+    margin: 0 auto;
+    text-align: center;
+}
 
 .device-entry{
     padding-bottom:10px;
     font-size: 12px;
+}
+
+.center-align-style{
+ text-align: center;
+ margin: 6px auto;
+ width: 206px;
+ position: relative;
+ left: 19px;
 }
 
 div.href_download_file {
@@ -1376,6 +1388,14 @@ div.form div.error input, div.form div.error textarea, div.form div.error select
 div.form span.required{
     color: #009A3D !important; 
 }
+
+span.required{
+    color: #009A3D !important; 
+}
+
 thead tr{
     height: 40px;
+}
+.ui-dialog-titlebar{
+    background-color: #009A3D !important;
 }

@@ -20,7 +20,7 @@ switch ($host_name) {
 		break;
 
 	case "vorwerkdev.rajatogo.com":
-		$baseURL = "http://neatodev.rajatogo.com/api/rest/json?method=";//for neato-yii dev yii;
+		$baseURL = "http://vorwerkdev.rajatogo.com/api/rest/json?method=";//for neato-yii dev yii;
 		break;
             
 	case "localhost":
