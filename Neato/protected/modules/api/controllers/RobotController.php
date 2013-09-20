@@ -1433,7 +1433,6 @@ class RobotController extends APIController {
 
         if ((!is_null($user_robot_model))) {
             
-            AppCore::removeLinkingCode($robot_model_data);
             self::terminate(-1, "Robot-User association is already exist", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
             
         }
