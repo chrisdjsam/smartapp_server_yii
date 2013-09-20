@@ -566,13 +566,13 @@ class AppCore {
 				/**
 				 *  Forgot password email
 	 */
-				'forgotpassword_subject' => "Neato-Robotics forgot password",
+				'forgotpassword_subject' => Yii::app()->name . " forgot password",
 				'forgotpassword_message' => "<html><body>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>
 
 				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to Neato-Robotics</b></div>
+				<b>Welcome to " . Yii::app()->name . "</b></div>
 
 				<br>Hi %s,<br><br>
 
@@ -586,7 +586,7 @@ class AppCore {
 
 				<br><br>
 
-				<b>Team Neato-Robotics</b>
+				<b>Team " . Yii::app()->name . "</b>
 
 				</div>
 
@@ -596,14 +596,14 @@ class AppCore {
 				/**
 				 *  Reset/Change password email
 	 			*/
-				'change_password_subject' => "Neato-Robotics change password",
-				'resetpassword_subject' => "Neato-Robotics reset password",
+				'change_password_subject' => Yii::app()->name . " change password",
+				'resetpassword_subject' => Yii::app()->name . " reset password",
 				'changepassword_message' => "<html><body>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>
 
 				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to Neato-Robotics</b></div>
+				<b>Welcome to " . Yii::app()->name . "</b></div>
 
 				<br>Hi %s,<br><br>
 
@@ -617,7 +617,7 @@ class AppCore {
 
 				<br><br>
 
-				<b>Team Neato-Robotics</b>
+				<b>Team " . Yii::app()->name . "</b>
 
 				</div>
 
@@ -628,13 +628,13 @@ class AppCore {
                                 /**
 				 *  email validation template
 	 			*/
-				'validate_email_subject' => "Neato-Robotics validate email",
+				'validate_email_subject' => Yii::app()->name . " validate email",
 				'validate_email_message' => "<html><body>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>
 
 				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to Neato-Robotics</b></div>
+				<b>Welcome to " . Yii::app()->name . "</b></div>
 
 				<br>Hi %s,<br><br>
 
@@ -648,7 +648,7 @@ class AppCore {
 
 				<br><br>
 
-				<b>Team Neato-Robotics</b>
+				<b>Team " . Yii::app()->name . "</b>
 
 				</div>
 
@@ -659,16 +659,16 @@ class AppCore {
 				/**
 				 *  New user email
                                  */
-				'welocome_subject' => "Welcome to Neato-Robotics",
+				'welocome_subject' => "Welcome to " . Yii::app()->name,
 				'welcome_message' => "<html><body>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>
 
 				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to Neato-Robotics</b></div>
+				<b>Welcome to " . Yii::app()->name . "</b></div>
 
 				<br>Hi %s,<br><br>
-				Thanks for registering with Neato-Robotics.<br><br>
+				Thanks for registering with " . Yii::app()->name . ".<br><br>
 
 				Your email id is : %s<br><br>
 				Your password is : %s<br><br>
@@ -680,7 +680,7 @@ class AppCore {
 
 				<br><br>
 
-				<b>Team Neato-Robotics</b>
+				<b>Team " . Yii::app()->name . "</b>
 
 				</div>
 

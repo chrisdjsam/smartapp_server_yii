@@ -28,6 +28,21 @@ function send_xmpp_notification_via_mq($environmentWithId) {
         $password = "gtrsl123";
         $hostname = "localhost";
         $dbname = "dev_neato";
+    }else if ($env === "prod_vorwerk") {
+        $username = "root";
+        $password = "gtrsl123";
+        $hostname = "localhost";
+        $dbname = "staging_vorwerk";
+    } else if ($env === "staging_vorwerk") {
+        $username = "root";
+        $password = "gtrsl123";
+        $hostname = "localhost";
+        $dbname = "staging_vorwerk";
+    } else if ($env === "dev_vorwerk") {
+        $username = "root";
+        $password = "gtrsl123";
+        $hostname = "localhost";
+        $dbname = "dev_vorwerk";
     } else if ($env === "local") {
         $username = "root";
         $password = "root";

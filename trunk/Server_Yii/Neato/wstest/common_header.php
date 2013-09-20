@@ -19,6 +19,10 @@ switch ($host_name) {
 		$baseURL = "http://neatodev.rajatogo.com/api/rest/json?method=";//for neato-yii dev yii;
 		break;
 
+	case "vorwerkdev.rajatogo.com":
+		$baseURL = "http://neatodev.rajatogo.com/api/rest/json?method=";//for neato-yii dev yii;
+		break;
+            
 	case "localhost":
 		$baseURL = "http://localhost/Neato_Server/Server_Yii/Neato/api/rest/json?method=";//for neato-yii localhost
 		break;
