@@ -54,9 +54,32 @@ class UserController extends Controller
                     
                     $name = isset($_POST['User']['name']) ? $_POST['User']['name'] : '' ;
                     $alternate_email = isset($_POST['User']['alternate_email']) ? $_POST['User']['alternate_email'] : '';
+                    $country_code = $_POST['CountryCodeList']['iso2'];
+                    
+                    if($_POST['opt_in'] == 'on')
+                    {
+                        $opt_in = 1;
+                    }else {
+                        $opt_in = 0;
+                    }
+                    
+                    if($opt_in == 1){
+                        $country_allow = 'true';
+                    }else{
+                        $country_allow = 'false';
+                    }
                     
                     $update_user->alternate_email = $alternate_email;
                     $update_user->name = $name;
+                    $update_user->country_code = $country_code;
+                    $update_user->opt_in = $opt_in;
+                    
+                    $extra_param = array();
+                    $extra_param['country_code'] = $country_code;
+                    $extra_param['opt_in'] = $country_allow;
+                    
+                    
+                    $update_user->extram_param = json_encode($extra_param);
                     
                     if(Yii::app()->user->isAdmin){
                         $is_validated = $_POST['is_validated'];
@@ -70,8 +93,15 @@ class UserController extends Controller
                     }                        
                     
                 }
-                
+
                 $model = $this->loadModel($id);
+                
+                $country_code_data = CountryCodeList::model()->find('iso2 = :iso2', array(':iso2' => $update_user->country_code));
+                
+                // next two line temp changes model data as we use widget in page to show data
+                $model->country_code = $country_code_data->short_name;
+                $model->opt_in = $update_user->opt_in ? 'Yes' : 'No';
+                
                 
 		$this->render('userprofile',array(
 				'model'=>$model,
@@ -258,7 +288,7 @@ class UserController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($registration_model, 'register-form');
-
+                
 		if(isset($_POST['RegisterForm']))
 		{
                     
@@ -266,6 +296,9 @@ class UserController extends Controller
 			$email = $_POST['RegisterForm']['email'];
 			$new_password = $_POST['RegisterForm']['password'];
 			$registration_model->attributes=$_POST['RegisterForm'];
+                        $user_extram_param  = array();
+                        $user_extram_param['country_code'] = $_POST['CountryCodeList']['iso2'];
+                        $user_extram_param['opt_in'] = $_POST['User']['opt_in'] ? 'true' : 'false';
 			if ($registration_model->validate()) {
 				$user_model = new User();
 					
@@ -274,6 +307,10 @@ class UserController extends Controller
 
 				$user_model->name = $registration_model->name;
 				$user_model->email = $registration_model->email;
+                                $user_model->country_code = $_POST['CountryCodeList']['iso2'];
+                                $user_model->opt_in = $_POST['User']['opt_in'];
+                                $user_model->extram_param = json_encode($user_extram_param);
+                                
 //                                $user_model->alternate_email = $registration_model->alternate_email;
 					
 				$user_model->password = $encrypted_pass_word;

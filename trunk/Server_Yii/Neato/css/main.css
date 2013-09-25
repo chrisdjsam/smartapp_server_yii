@@ -1202,13 +1202,13 @@ div.validated_email_page {
 
 div.update_user_form {
     margin: 25px auto !important;
-    width: 50%;
+    width: 55%;
 }
 
 .update_user_lable {
     float: left;
     margin-top: 8px;
-    width: 130px
+    width: 145px
 }
 
 .update_user_input { 
@@ -1277,4 +1277,17 @@ table.detail-view td {
 
 .paginate_button_disabled {
     display: none;
+}
+
+.dropdownlist select{
+    width: 66%;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.checkbox-style{
+    position: relative;
+    top: 6px;
 }

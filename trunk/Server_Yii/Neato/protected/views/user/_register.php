@@ -19,6 +19,9 @@ $this->breadcrumbs=array(
 			'clientOptions' => array('validateOnSubmit'=>true),
 //			'focus'=>array($model,'email'),
 )); ?>
+    <?php
+    $modelcountrycodelist = new CountryCodeList();
+    ?>
 
 	<div class="section register_section">
 		<div class="section_left">
@@ -54,6 +57,18 @@ $this->breadcrumbs=array(
 		</div>
 
 		<div class="section_right">
+                       <div class="row">
+		        	<?php echo $form->labelEx($modelcountrycodelist,'country'); ?>
+			        <?php echo $form->dropDownList($modelcountrycodelist,'iso2', CHtml::listData(CountryCodeList::model()->findAll(array('order'=>'iso2')), 'iso2', 'short_name'),array('options'=>array('US'=>array('selected'=>'selected')), 'class'=>'full-width')); ?>
+			        <?php echo $form->error($modelcountrycodelist,'iso2'); ?>
+	        	</div>
+                    
+                       <div class="row">
+                           <input type="hidden" value="0" name="User[opt_in]"><b> Do you want to receive promotional newsletter?</b> &nbsp;&nbsp;
+                           <input id="UserAddForm_is_admin" type="checkbox" value="1" name="User[opt_in]" yes="1">
+		        </div>
+                    
+                    
 			<div class="row">
 				<?php echo $form->labelEx($model,'password'); ?>
 				<?php echo $form->passwordField($model,'password',array('size'=>30,'maxlength'=>100,'tabindex'=>3)); ?>

@@ -12,6 +12,9 @@ $this->breadcrumbs = array(
     'Users' => array('index'),
     $model->name,
 );
+
+$modelcountrycode = new CountryCodeList();
+
 ?>
 
 <fieldset class='data-container static-data-container'>
@@ -81,7 +84,7 @@ $this->breadcrumbs = array(
     <?php
     
     $chat_attribute = array(
-                'label' => 'Asssociated Robots',
+                'label' => 'Associated Robots',
                 'type' => 'raw',
                 'value' => $html_string,
             );
@@ -90,6 +93,8 @@ $this->breadcrumbs = array(
             'email',
             'alternate_email',
             $chat_attribute,
+            'country_code',
+            'opt_in',
         );
     
     if(Yii::app()->user->isAdmin){
@@ -100,6 +105,8 @@ $this->breadcrumbs = array(
             'chat_id',
             'chat_pwd',
             'created_on',
+            'country_code',
+            'opt_in',
         );
     }
     
@@ -135,6 +142,34 @@ $this->breadcrumbs = array(
             <?php echo $form->textField($update_user, 'alternate_email', array('size' => 30, 'cols' => 128, 'tabindex' => 1, 'class' => 'update_user_input')); ?>
             <?php echo $form->error($update_user, 'alternate_email', array('class' => 'prepend-4 errorMessage')); ?>
         </div>
+        <div class="row dropdownlist">
+            <?php echo $form->labelEx($update_user, 'country', array('class' => 'update_user_lable')); ?>
+            <?php echo $form->dropDownList($modelcountrycode,'iso2', CHtml::listData(CountryCodeList::model()->findAll(array('order'=>'iso2')), 'iso2', 'short_name'), array('options'=>array($update_user->country_code => array('selected'=>'selected')))); ?>
+            <?php echo $form->error($update_user, 'country', array('class' => 'prepend-4 errorMessage')); ?>
+        </div>
+        
+        <div class="row">
+            
+            <?php 
+                    echo $form->label($model,'opt_in', array('class' => 'update_user_lable')); 
+                    if($update_user->opt_in){ 
+                ?>
+                <input id="opt-in" class="checkbox-style" type="checkbox" checked="checked" name="opt_in">
+                <?php 
+                    
+                    } else {   
+                ?>
+                <input id="opt-in" class="checkbox-style" type="checkbox" name="opt_in">
+                <?php 
+                    }
+                ?>
+            
+            <?php echo $form->error($model,'opt_in'); ?>
+
+            
+	</div>
+        
+        
         
         <?php if(Yii::app()->user->isAdmin) { ?>
             

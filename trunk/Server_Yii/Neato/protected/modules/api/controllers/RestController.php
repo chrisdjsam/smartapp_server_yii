@@ -119,7 +119,22 @@ class RestController extends APIController {
 				"Register user",
 				'POST',
 				true,
-				false);                
+				false);
+                self::expose_function('user.create3',
+				"user/create3",
+				array('name' => array ('type' => 'string'),
+						'email' => array ('type' => 'string', 'default' => ''),
+                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
+						'password' => array ('type' => 'string', 'required' => false, 'default'=>time()),
+						'account_type' => array ('type' => 'string'),
+						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
+						'social_additional_attributes' => array('type'=>'array', 'default'=>array()),
+                                                'extra_param' => array ('type' => 'string', 'default' => ''),
+				),
+				"Register user",
+				'POST',
+				true,
+				false);
 
 		self::expose_function('user.IsUserValidated',
 				"user/isUserValidated",

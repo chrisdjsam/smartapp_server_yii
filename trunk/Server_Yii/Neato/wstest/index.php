@@ -116,16 +116,19 @@ padding-right: 50px;
 													User from Robot or Robots</a>
 											</li>
                                                                                         <li>
-                                                                                            <a href="user.php#Create User 2"class="new-api">Create User 2</a>
+                                                                                            <a href="user.php#Create User 2">Create User 2</a>
                                                                                         </li>
                                                                                         <li>
-                                                                                            <a href="user.php#Is User Validated"class="new-api">Is User Validated?</a>
+                                                                                            <a href="user.php#Is User Validated">Is User Validated?</a>
                                                                                         </li>
                                                                                         <li>
-                                                                                            <a href="user.php#Resend Validation Email"class="new-api">Resend Validation Email</a>
+                                                                                            <a href="user.php#Resend Validation Email">Resend Validation Email</a>
                                                                                         </li>
                                                                                          <li>
-                                                                                            <a href="user.php#Get Error Code"class="new-api">Get Error Detail By Error Code</a>
+                                                                                            <a href="user.php#Get Error Code">Get Error Detail By Error Code</a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a href="user.php#Create User 3"class="new-api">Create User 3</a>
                                                                                         </li>
 										</ul>
 									</td>
