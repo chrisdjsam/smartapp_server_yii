@@ -945,14 +945,14 @@
 							<li>If everything goes fine and social information does not exist
 								<ul>
 									<li>
-										{"status":0,"result":{"id":367,"name":"pradip37","email":"pradip_patro378@gmail.com","chat_id":"1350922773_user@rajatogo","chat_pwd":"1350922773_user","social_networks":[],"validation_status":0,"alternate_email":"xyz@abc.com"}}
+										{"status":0,"result":{"id":367,"name":"pradip37","email":"pradip_patro378@gmail.com","chat_id":"1350922773_user@rajatogo","chat_pwd":"1350922773_user","social_networks":[],"validation_status":0,"alternate_email":"xyz@abc.com","extra_param":{"country":"india","allow_contact":1}}}
 									</li>
 								</ul>
 							</li>
 							<li>If everything goes fine and social information exists
 								<ul>
 									<li>
-										{"status":0,"result":{"id":357,"name":"pradip3","email":"pradip_patro3@gmail.com","chat_id":"1350911036_user@rajatogo","chat_pwd":"1350911036_user","social_networks":[{"provider":"Facebook"},{"external_social_id":"123456789"}],"validation_status":0,"alternate_email":"xyz@abc.com"}}
+										{"status":0,"result":{"id":357,"name":"pradip3","email":"pradip_patro3@gmail.com","chat_id":"1350911036_user@rajatogo","chat_pwd":"1350911036_user","social_networks":[{"provider":"Facebook"},{"external_social_id":"123456789"}],"validation_status":0,"alternate_email":"xyz@abc.com","extra_param":{"country":"india","allow_contact":1}}}
 									</li>
 								</ul>
 							</li>
@@ -961,14 +961,14 @@
 									<li>
 										{"status":0,"result":{"id":542,"name":"pradip","email":"pradip@gmail.com","chat_id":"1351499916_user@rajatogo","chat_pwd":"1351499916_user","social_networks":[],"robots":[{"id":"68","name":"room
 										cleaner1","serial_number":"robo5","chat_id":"1350987452_robot@rajatogo"},{"id":"69","name":"desk
-										cleaner60","serial_number":"robo6","chat_id":"1350991375_robot@rajatogo"}],"validation_status":0,"alternate_email":"xyz@abc.com"}}
+										cleaner60","serial_number":"robo6","chat_id":"1350991375_robot@rajatogo"}],"validation_status":0,"alternate_email":"xyz@abc.com","extra_param":{"country":"india","allow_contact":1}}}
 									</li>
 								</ul>
 							</li>
 							<li>If everything goes fine and both social information and robot association do not exist
 								<ul>
 									<li>
-										{"status":0,"result":{"id":543,"name":"pradip","email":"pradip1@gmail.com","chat_id":"1351500158_user@rajatogo","chat_pwd":"1351500158_user","social_networks":[],"robots":[],"validation_status":0,"alternate_email":"xyz@abc.com"}}
+										{"status":0,"result":{"id":543,"name":"pradip","email":"pradip1@gmail.com","chat_id":"1351500158_user@rajatogo","chat_pwd":"1351500158_user","social_networks":[],"robots":[],"validation_status":0,"alternate_email":"xyz@abc.com","extra_param":{"country":"india","allow_contact":1}}}
 									</li>
 								</ul>
 							</li>
@@ -1594,10 +1594,6 @@
 		</table>
 	</form>
 
-
-
-
-
 	<form action="<?php echo($baseURL)?>user.IsUserValidated" method='POST'
 		id='IsUserValidated' class='ajaxified_forms'>
 
@@ -1885,6 +1881,197 @@
 	</form>
 
 
+        <form action="<?php echo($baseURL)?>user.create3" method='POST'
+		id='usercreate3' class='ajaxified_forms'>
 
+		<table class='custom_table'>
+			<tr>
+				<td id = "Create User 3" colspan="2"><label>Create User 3</label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to create the users with or without social networking
+						information. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.create3<br /> Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>name</b> :Name of the user</li>
+							<li><b>email</b> :Email of the user</li>
+                                                        <li><b>alternate_email</b> :Alternate Email of the user</li>
+							<li><b>password</b> :Password of the user. It does not need to be
+								unique.</li>
+							<li><b>account_type</b> :Native OR Facebook (OR Google etc)</li>
+							<li><b>external_social_id</b> :External Social ID (e.g. Facebook
+								ID (numeric value) that is returned by the Facebook). This is
+								required ONLY when the account type is NOT Native.</li>
+                                                        <li><b>extra_param</b> :Extra Information of User should be in Json format(e.g. {"country": "india", "allow_contact" :1})</li>
+						</ul>
+                                                
+                                                Consideration for validation_status which you will get in response.
+                                                <ul>
+							<li>validation_status: 0 -> Validated - this means that the account has been validated.</li>
+                                                        <li>validation_status: -1 -> NotValidatedButInGracePeriod - the user has not been validated, but user is still within the grace period.</li>
+                                                        <li>validation_status: -2 -> NotValidated - this email address has not been validated.</li>
+                                                </ul>                                                
+                                                
+						Success Responses:
+						<ul>
+							<li>If everything goes fine
+								<ul>
+									<li>
+										{"status":0,"result":{"success":true,"guid":1074,"user_handle":"d8828e4ef9596dd0be3b8c4cf0de9502","validation_status":-1}}
+									</li>
+								</ul>
+							</li>
+							<li>If email exist but the social information does not exist
+								<ul>
+									<li>{"status":0,"result":{"success":true,"guid":55,"message":"Merged
+										user","user_handle":"ce475c5c9b84938f368efe99100b2a11","validation_status":0}}</li>
+								</ul>
+							</li>
+
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If unsupported account type is passed
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Account Type is NOT supported.", "error":{"code":-103, "message":"Account Type is NOT supported."}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If a parameter(name) is missing
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter name in method user.create","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If Email does not valid
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The email address you provided does not appear to be a valid email address.", "error":{"code":-105, "message":"The email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If Alternate Email does not valid
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The alternate email address you provided does not appear to be a valid email address.", "error":{"code":"-115","message":"The alternate email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If email already exists and account type is native
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"This email address has already been registered.", "error":{"code":-106, "message":"This email address has already been registered."}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If Social information exists and the account type is Facebook
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"This social information already exists.", "error":{"code":"-107","message":"This social information already exists."}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If Jabber service does not able to create chat user
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"User could not be created because jabber service in not responding.", "error":{"code":-108, "message":"User could not be created because jabber service in not responding."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If Social information is missing and the account type is Facebook:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter external_social_id in method user.create","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If extra_param is not in json format:
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The JSON Object you have provided does not appear to be a valid.","error":{"code":"-126","message":"The JSON Object you have provided does not appear to be a valid."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			<tr>
+				<td>name</td>
+				<td><input type="text" name='name'></td>
+			</tr>
+
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'></td>
+			</tr>
+                        <tr>
+				<td>alternate_email</td>
+				<td><input type="text" name='alternate_email'></td>
+			</tr>
+                        
+			<tr>
+				<td>password</td>
+				<td><input type="text" name='password'></td>
+			</tr>
+			<tr>
+				<td>account_type</td>
+				<td><select name='account_type' class='account_type_select'>
+						<option value="Native" selected="selected">Native</option>
+						<option value="Facebook">Facebook</option>
+				</select></td>
+
+			</tr>
+			<tr class='external_social_id_class'>
+				<td>external_social_id</td>
+				<td><input type="text" name='external_social_id'></td>
+			</tr>
+			<tr class='external_social_id_class'>
+				<td>social_additional_attributes['auth_token']</td>
+				<td><input type="text"
+					name="social_additional_attributes[auth_token]"></td>
+			</tr>
+                        <tr class='extra_parameter'>
+				<td>extra_param</td>
+				<td><input type="text" name="extra_param"></td>
+			</tr>
+			<tr>
+				<td><input type="button" name='submit' dummy='usercreate3'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
 
 <?php include_once 'common_footer.php';?>

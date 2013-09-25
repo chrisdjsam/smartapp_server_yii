@@ -16,6 +16,9 @@
  * @property string $chat_pwd
  * @property integer $is_active
  * @property integer $push_notification_preference
+ * @property string $extram_param
+ * @property string $country_code
+ * @property integer $opt_in
  *
  * The followings are the available model relations:
  * @property UsersApiSessions[] $usersApiSessions
@@ -58,7 +61,7 @@ class BaseUser extends GxActiveRecord
 //                        array('alternate_email, validation_key', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, password, reset_password, email, is_emailVerified, is_admin, created_on, chat_id, chat_pwd, is_active, validation_key, is_validated, validation_counter, alternate_email, push_notification_preference', 'safe', 'on'=>'search'),
+			array('id, name, password, reset_password, email, is_emailVerified, is_admin, created_on, chat_id, chat_pwd, is_active, validation_key, is_validated, validation_counter, alternate_email, push_notification_preference, extram_param, country_code, opt_in', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +103,9 @@ class BaseUser extends GxActiveRecord
                         'is_validated' => 'Is email validated?',
                         'validation_counter' => 'Validation Counter',
                         'push_notification_preference' => 'Push Notification Preference',
+                        'extram_param' =>'Extram Param',
+                        'country_code' => 'Country',
+                        'opt_in' =>'Promotional Newsletter?',
                     
 		);
 	}
@@ -131,6 +137,9 @@ class BaseUser extends GxActiveRecord
                 $criteria->compare('is_validated',$this->is_validated);
                 $criteria->compare('validation_counter',$this->validation_counter);
                 $criteria->compare('push_notification_preference',$this->push_notification_preference);
+                $criteria->compare('extram_param',$this->extram_param);
+                $criteria->compare('country_code',$this->country_code);
+                $criteria->compare('opt_in',$this->opt_in);
                 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
