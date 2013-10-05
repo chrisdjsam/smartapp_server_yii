@@ -55,13 +55,7 @@ class UserController extends Controller
                     $name = isset($_POST['User']['name']) ? $_POST['User']['name'] : '' ;
                     $alternate_email = isset($_POST['User']['alternate_email']) ? $_POST['User']['alternate_email'] : '';
                     $country_code = $_POST['CountryCodeList']['iso2'];
-                    
-                    if($_POST['opt_in'] == 'on')
-                    {
-                        $opt_in = 1;
-                    }else {
-                        $opt_in = 0;
-                    }
+                    $opt_in = $_POST['User']['opt_in'];
                     
                     if($opt_in == 1){
                         $country_allow = 'true';

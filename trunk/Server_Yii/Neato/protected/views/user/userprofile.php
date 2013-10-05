@@ -147,27 +147,12 @@ $modelcountrycode = new CountryCodeList();
             <?php echo $form->dropDownList($modelcountrycode,'iso2', CHtml::listData(CountryCodeList::model()->findAll(array('order'=>'iso2')), 'iso2', 'short_name'), array('options'=>array($update_user->country_code => array('selected'=>'selected')))); ?>
             <?php echo $form->error($update_user, 'country', array('class' => 'prepend-4 errorMessage')); ?>
         </div>
-        
-        <div class="row">
-            
-            <?php 
-                    echo $form->label($model,'opt_in', array('class' => 'update_user_lable')); 
-                    if($update_user->opt_in){ 
-                ?>
-                <input id="opt-in" class="checkbox-style" type="checkbox" checked="checked" name="opt_in">
-                <?php 
-                    
-                    } else {   
-                ?>
-                <input id="opt-in" class="checkbox-style" type="checkbox" name="opt_in">
-                <?php 
-                    }
-                ?>
-            
-            <?php echo $form->error($model,'opt_in'); ?>
 
-            
-	</div>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'Promotional Newsletter?', array('class' => 'update_user_lable')); ?>
+            <?php echo $form->checkbox($update_user, 'opt_in', array('class' => 'checkbox-style')); ?>
+        </div>            
+        
         
         
         
