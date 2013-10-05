@@ -101,6 +101,133 @@
     </table>
 </form>
 
+<form action="<?php echo($baseURL) ?>robot.create2" method='POST'
+      id='robotcreate2' class='ajaxified_forms'>
+
+    <table class='custom_table'>
+        <tr>
+            <td id="Create Robot 2" colspan="2"><label>Create Robot 2</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class='api_description'>
+                <div class='toggle_details'>More</div>
+
+                <div class='details_div'>
+                    POST method to create the robots. <br /> <br /> URL:
+                    <?php echo($baseURL) ?>
+                    robot.create2<br /> Parameters:
+                    <ul>
+                        <li><b>api_key</b> :Your API Key</li>
+                        <li><b>serial_number</b> :Serial Number of the robot</li>
+                        <li><b>name</b> :(Optional)Name of the robot</li>
+                        <li><b>robot_type</b> :100 OR 101
+                             <span>(100 for Basic and 101 for Advanced)</span>
+                        </li>
+                    </ul>
+                    Success Response:
+                    <ul>
+                        <li>If everything goes fine
+                            <ul>
+                                <li>{"status":0,"result":{"success":true,"message":"Robot
+                                    created successfully."}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    Failure Responses: <br />
+                    <ul>
+
+                        <li>If API Key is missing:
+
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                </li>
+                            </ul>
+                        </li>
+                        <li>If a parameter(name) is missing
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Missing parameter name in method robot.create","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                </li>
+                            </ul>
+                        </li>
+                        <li>If Robot serial number is duplicate
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"This robot serial number already exists.", "error":{"code":"-118","message":"This robot serial number already exists."}}
+                                </li>
+                            </ul>
+                        </li>
+                        
+<!--                        <li>If a parameter(robot_type) is missing
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Missing parameter robot_type in method robot.create2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                </li>
+                            </ul>
+                        </li>-->
+                        
+                        <li>If robot_type is invalid
+                            <ul>
+                                <li>
+                                     {"status":-1,"message":"'Robot Type is not valid'","error":{"code":"-142","message":"Robot Type is not valid"}}
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>If Jabber service is not able to create chat user
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Robot could not be created because jabber service in not responding.", "error":{"code":-108, "message":"Robot could not be created because jabber service in not responding."}}
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td class='label_field'>api_key</td>
+            <td class='value_field'><input type="text" name='api_key'
+                                           class='api_keys' value='<?php echo($api_key); ?>' />
+            </td>
+        </tr>
+
+        <tr>
+            <td>serial_number</td>
+            <td><input type="text" name='serial_number'>
+            </td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td><input type="text" name='name'>
+            </td>
+        </tr>
+        <tr>
+            <td>robot_type</td>
+            <td><input type="text" name='robot_type'>
+            </td>
+        </tr>
+        
+        <tr>
+            <td><input type="button" name='submit' dummy='robotcreate2'
+                       value='Submit' class='submit_form'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class='request_div'>View Request</div> <br />
+                <div class='response_div'>View Response</div>
+            </td>
+        </tr>
+
+    </table>
+</form>
+
 
 <form action="<?php echo($baseURL) ?>robot.is_online" method='POST'
       id='isrobotonline' class='ajaxified_forms'>
@@ -2163,6 +2290,172 @@
 
     </table>
 </form>
+
+<form action="<?php echo($baseURL) ?>robot.set_robot_configuration2" method='POST'
+      id='set_robot_configuration2' class='ajaxified_forms'>
+
+    <table class='custom_table'>
+        <tr>
+            <td id="Set Robot Configuration 2" colspan="2"><label>Set Robot Configuration 2</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class='api_description'>
+                <div class='toggle_details'>More</div>
+
+                <div class='details_div'>
+                    POST method to set robot configuration 2. <br /> <br /> URL:
+                    <?php echo($baseURL) ?>
+                    robot.set_robot_configuration2<br /> 
+                    Parameters:
+                    <ul>
+                        <li><b>api_key</b> :Your API Key</li>
+                        <li><b>serial_number</b> :Serial Number of the robot</li>
+                        <li><b>sleep_time</b> :Sleep Time of the robot in seconds</li>
+                        <li><b>wakeup_time</b> :Wakeup time of the robot in seconds</li>
+                        <li><b>robot_type</b> :100 OR 101
+                             <span>(100 for Basic and 101 for Advanced)</span>
+                        </li>
+                        <li><b>config_key_value</b> :Robot Configuration Key Value (Optional)</li>
+                    </ul>
+                    Success Response:
+                    <ul>
+                        <li>If everything goes fine
+                            <ul>
+                                <li>{"status":0,"result":{"success":true,"timestamp":1370422277}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    Failure Responses: <br />
+                    <ul>
+                        <li>If API Key is missing:
+
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                </li>
+                            </ul>
+                        </li>
+                        <li>If a serial_number is missing
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Missing parameter serial_number in method robot.set_robot_configuration2", "error":{"code":"-102","message":"Missing parameter in method call"}}
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>If sleep_time is missing
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Missing parameter sleep_time in method robot.set_robot_configuration2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>If wakeup_time is missing
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Missing parameter wakeup_time in method robot.set_robot_configuration2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>If serial number does not exist
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Missing parameter sleep_time in method robot.set_robot_configuration2", "error":{"code":"-114","message":"Serial number does not exist."}}
+                                </li>
+                            </ul>
+                        </li>
+                        <li>If provided sleep time or wakeup time is invalid
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Please enter valid sleep time or wakeup time","error":{"code":"-156","message":"Please enter valid sleep time or wakeup time"}}
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>If provided robot_type is invalid
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"'Robot Type is not valid'","error":{"code":"-142","message":"Robot Type is not valid"}}
+                                </li>
+                            </ul>
+                        </li>
+                        
+<!--                         <li>If robot_type is missing
+                            <ul>
+                                <li>
+                                    {"status":-1,"message":"Missing parameter robot_type in method robot.create2","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                </li>
+                            </ul>
+                        </li>-->
+
+                    </ul>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td class='label_field'>api_key</td>
+            <td class='value_field'><input type="text" name='api_key'
+                                           class='api_keys' value='<?php echo($api_key); ?>' />
+            </td>
+        </tr>
+
+        <tr>
+            <td>serial_number</td>
+            <td><input type="text" name='serial_number'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>sleep_time</td>
+            <td><input type="text" name='sleep_time'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>wakeup_time</td>
+            <td><input type="text" name='wakeup_time'>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>robot_type</td>
+            <td><input type="text" name='robot_type'>
+            </td>
+        </tr>
+
+        <tr>
+            <td id='labelPlaceholderRow6' colspan="2"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name='labelName' value='' id='labelName6'
+                       class='removeFromRequest'>
+            </td>
+            <td>
+                <div id='addLabelLink6'>Add Robot Config Key</div>
+            </td>
+        </tr>
+       
+
+        <tr>
+            <td><input type="button" name='submit' dummy='set_robot_configuration2'
+                       value='Submit' class='submit_form'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class='request_div'>View Request</div> <br />
+                <div class='response_div'>View Response</div>
+            </td>
+        </tr>
+
+    </table>
+</form>
+
 
 <form action="<?php echo($baseURL) ?>robot.get_robot_configuration" method='POST'
       id='get_robot_configuration' class='ajaxified_forms'>

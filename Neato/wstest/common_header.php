@@ -98,7 +98,7 @@ tr.Facebook {
 	display: none;
 }
 
-#addLabelLink, #addLabelLink1, #addLabelLink2, #addLabelLinkUpdate, #loadRegistrationIds, #loadEmails, #addLabelLink3, #addLabelLink4, #addLabelLink5 {
+#addLabelLink, #addLabelLink1, #addLabelLink2, #addLabelLinkUpdate, #loadRegistrationIds, #loadEmails, #addLabelLink3, #addLabelLink4, #addLabelLink5, #addLabelLink6 {
 	cursor: pointer;
 	color: blue;
 	width: 310px;

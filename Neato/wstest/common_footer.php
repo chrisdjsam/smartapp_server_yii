@@ -27,7 +27,8 @@ $(document).ready(function(){
         setProfileDetails2();
         setProfileDetails3();
         setRobotConfiguration();
-	
+        setRobotConfiguration2();
+        
 var options = {
  		beforeSubmit:  showRequest,  // pre-submit callback
         success:       showResponse,  // post-submit callback
@@ -210,6 +211,33 @@ function setRobotConfiguration(){
 		}
 	});
 }
+
+function setRobotConfiguration2(){
+
+	existingLabelNameArray = new Array();
+	$('#addLabelLink6').click(function(){
+		labelNameVal = $('#labelName6').val();
+		if($.trim(labelNameVal)!=''){
+			labelExists = false;
+			for(i=0; i<existingLabelNameArray.length; i++){
+				existingLabel = existingLabelNameArray[i];
+				if(existingLabel == labelNameVal){
+					labelExists = true;
+				}
+			}
+			if(labelExists){
+				alert('Key already added');
+			}else{
+				existingLabelNameArray.push(labelNameVal);
+				$('#labelPlaceholderRow6').append("<table style='width:100%'><tr><td class = \"label_field\">" + labelNameVal+"</td><td class = \" value_field\"><input type='text' name='config_key_value[" + labelNameVal + "]'></tr></td><table>");
+
+			}
+		}else{
+			alert('Key can NOT be empty');
+		}
+	});
+        
+    }
 
 function labelLinkClick1(){
 	
