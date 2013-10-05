@@ -2486,7 +2486,7 @@
 		</table>
 	</form>
 
-	<form action="<?php echo($baseURL)?>robot.initiate_link_to_robot" method='POST'
+<form action="<?php echo($baseURL)?>robot.initiate_link_to_robot" method='POST'
 		id='initiate_link_to_robot' class='ajaxified_forms'>
 
 		<table class='custom_table'>
@@ -2616,7 +2616,7 @@
 
 		</table>
 	</form>
-        
+
         <form action="<?php echo($baseURL)?>robot.confirm_linking" method='POST'
 		id='confirm_linking' class='ajaxified_forms'>
 
@@ -2933,6 +2933,137 @@
                         
 			<tr>
 				<td><input type="button" name='submit' dummy='cancel_linking'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+<form action="<?php echo($baseURL)?>robot.link_to_robot" method='POST'
+		id='link_to_robot' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Link To Robot" colspan="2"><label>Link To Robot</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to set Link To Robot. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.link_to_robot<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							<li><b>email</b> :User email address</li>
+                                                        <li><b>linking_code</b> :linking_code which is get in 'Link To Robot' API</li>
+						</ul>
+						Success Response:
+						<ul>
+                                                        <li>If everything goes fine
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"Request For Robot-User association is done successfully"}}</li>
+								</ul>
+							</li>
+                                                        
+                                                        <li>If request is already sent,
+								<ul>
+									<li>{"status":0,"result":{"success":true,"message":"Requested linking code is already used."}}</li>
+								</ul>
+							</li>
+                                                        
+						</ul>
+                                                
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If a email is missing
+								<ul>
+									<li>
+                                                                             {"status":-1,"message":"Missing parameter email in method robot.link_to_robot","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+							<li>If email does not exist
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"The email address you have provided does not appear to be a valid email address.","error":{"code":"-105","message":"The email address you provided does not appear to be a valid email address."}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If a linking_code is missing
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Missing parameter linking_code in method robot.link_to_robot","error":{"code":"-102","message":"Missing parameter in method call"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If provide linking_code is invalid
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"Please enter valid linking_code","error":{"code":"-154","message":"Please enter valid linking_code"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If provide linking_code is expired
+								<ul>
+									<li>
+                                                                            {"status":-1,"message": "Sorry, provided linking_code is expired","error":{"code":"-155","message":"Sorry, provided linking_code is expired"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If requested linking_code is in process
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Requested linking code is already used","error":{"code":"-180","message":"linking code is already used for association."}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>email</td>
+				<td><input type="text" name='email'>
+				</td>
+			</tr>
+                        
+			<tr>
+				<td>linking_code</td>
+				<td><input type="text" name='linking_code'>
+				</td>
+			</tr>                        
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='link_to_robot'
 					value='Submit' class='submit_form'>
 				</td>
 			</tr>

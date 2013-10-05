@@ -130,6 +130,12 @@ padding-right: 50px;
                                                                                         <li>
                                                                                             <a href="user.php#Create User 3"class="new-api">Create User 3</a>
                                                                                         </li>
+<!--                                                                                        <li>
+                                                                                            <a href="user.php#Create User WP"class="new-api">Create User WP</a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a href="user.php#Get WPUser Auth Token"class="new-api">Get WPUser Auth Token</a>
+                                                                                        </li>-->
 										</ul>
 									</td>
 								</tr>
@@ -192,25 +198,27 @@ padding-right: 50px;
 											</li>
                                                                                         <li><a href="robot.php#Is Robot Online Virtual">Is Robot Online Virtual</a>
 											</li>											
-                                                                                        <li><a href="robot.php#Get Robot Type Metadata Using Robot Type" class="new-api">Get Robot Type Metadata Using Robot Type</a>
+                                                                                        <li><a href="robot.php#Get Robot Type Metadata Using Robot Type">Get Robot Type Metadata Using Robot Type</a>
 											</li>											                                                                                        
-                                                                                        <li><a href="robot.php#Get Robot Type Metadata Using Robot Id" class="new-api">Get Robot Type Metadata Using Robot Id</a>
+                                                                                        <li><a href="robot.php#Get Robot Type Metadata Using Robot Id">Get Robot Type Metadata Using Robot Id</a>
 											</li>
-                                                                                        <li><a href="robot.php#Set Robot Configuration" class="new-api">Set Robot Configuration</a>
+                                                                                        <li><a href="robot.php#Set Robot Configuration">Set Robot Configuration</a>
 											</li>
-                                                                                        <li><a href="robot.php#Get Robot Configuration" class="new-api">Get Robot Configuration</a>
+                                                                                        <li><a href="robot.php#Get Robot Configuration">Get Robot Configuration</a>
 											</li>
-                                                                                        <li><a href="robot.php#Clear Robot Data" class="new-api">Clear Robot Data</a>
+                                                                                        <li><a href="robot.php#Clear Robot Data">Clear Robot Data</a>
                                                                                         </li>
-                                                                                        <li><a href="robot.php#Request Link Code" class="new-api">Request Link Code</a>
+                                                                                        <li><a href="robot.php#Request Link Code">Request Link Code</a>
 											</li>
-                                                                                        <li><a href="robot.php#Initiate Link To Robot" class="new-api">Initiate Link To Robot</a>
+                                                                                        <li><a href="robot.php#Initiate Link To Robot">Initiate Link To Robot</a>
 											</li>
-                                                                                        <li><a href="robot.php#Confirm Linking" class="new-api">Confirm Linking</a>
+                                                                                        <li><a href="robot.php#Confirm Linking">Confirm Linking</a>
 											</li>
-                                                                                        <li><a href="robot.php#Reject Linking" class="new-api">Reject Linking</a>
+                                                                                        <li><a href="robot.php#Reject Linking">Reject Linking</a>
 											</li>
-                                                                                         <li><a href="robot.php#Cancel Linking" class="new-api">Cancel Linking</a>
+                                                                                         <li><a href="robot.php#Cancel Linking">Cancel Linking</a>
+											</li>
+                                                                                        <li><a href="robot.php#Link To Robot"  class="new-api">Link To Robot</a>
 											</li>
 
                                                                                          
