@@ -85,6 +85,7 @@ class APIConstant {
     const ROBOT_USER_ASSOCIATION_ALREADY_EXIST = '-182';
     const INVALID_DELETE_TYPE = '-183';
     const UNEXPECTED_ERROR = '-184';
+    const OFFLINE_ROBOT = '-185';
     
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
@@ -170,6 +171,7 @@ class APIConstant {
         APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST => 'Robot-User association is already exist', 
         APIConstant::INVALID_DELETE_TYPE => 'Please enter 1 for delete robot data and 0 for clear the robot data.', 
         APIConstant::UNEXPECTED_ERROR => 'Unexpected error occurred.', 
+        APIConstant::OFFLINE_ROBOT => 'Robot is offline.', 
         
         );
 

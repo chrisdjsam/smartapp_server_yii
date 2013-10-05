@@ -27,7 +27,7 @@ class RestController extends APIController {
 		$_REQUEST['response_type'] = 'XML';
 		self::api_init();
 	}
-
+        
 	/**
 	 * It will expose all the functions for API calls
 	 * Then invoke the authenticate_method and excute_method
@@ -43,7 +43,18 @@ class RestController extends APIController {
 				true,
 				false);
 
-		self::expose_function('auth.get_user_auth_token',
+//		self::expose_function('auth.get_wpuser_auth_token',
+//				"user/GetWPAuthToken",
+//				array( 'account_type' => array ('type' => 'string', 'required' => true),
+//						'email' => array ('type' => 'string', 'required' => ''),
+//						'password' => array ('type' => 'string', 'required' => ''),
+//						'external_social_id' => array ('type' => 'string', 'required' => false),
+//				),
+//				"Get user profile labels",
+//				'POST',
+//				true,
+//				false);
+                 self::expose_function('auth.get_user_auth_token',
 				"user/GetAuthToken",
 				array( 'account_type' => array ('type' => 'string', 'required' => true),
 						'email' => array ('type' => 'string', 'required' => true),
@@ -54,7 +65,7 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-		
+                
 		
 		self::expose_function('user.change_password',
 				"user/ChangePassword",
@@ -135,6 +146,21 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+//                self::expose_function('user.create_wp',
+//				"user/createwp",
+//				array('name' => array ('type' => 'string'),
+//						'email' => array ('type' => 'string', 'default' => ''),
+//                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
+//						'password' => array ('type' => 'string', 'required' => false, 'default'=>time()),
+//						'account_type' => array ('type' => 'string'),
+//						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
+//						'social_additional_attributes' => array('type'=>'array', 'default'=>array()),
+//                                                'extra_param' => array ('type' => 'string', 'default' => ''),
+//				),
+//				"Register user",
+//				'POST',
+//				true,
+//				false);
 
 		self::expose_function('user.IsUserValidated',
 				"user/isUserValidated",
@@ -384,6 +410,17 @@ class RestController extends APIController {
                                     'linking_code' => array ('type' => 'string', 'required' => true),
 				),
 				"Initiate Link To Robot",
+				'POST',
+				true,
+				false);  
+                
+                self::expose_function('robot.link_to_robot',
+				"robot/LinkToRobot",
+				array(
+                                    'email' => array ('type' => 'string', 'required' => true),
+                                    'linking_code' => array ('type' => 'string', 'required' => true),
+				),
+				"Link To Robot",
 				'POST',
 				true,
 				false);  
@@ -1100,5 +1137,5 @@ class RestController extends APIController {
 			unset($this->API_METHODS[$method]);
 		}
 	}
-
+ 
 }

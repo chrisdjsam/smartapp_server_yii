@@ -316,9 +316,9 @@ class RobotController extends APIController {
         if ($robot !== null) {
             $robot_map_id_arr = array();
             $robot_schedule_id_arr = array();
-            foreach ($robot->robotMaps as $robot_map) {
-                $robot_map_id_arr[] = $robot_map->id;
-            }
+//            foreach ($robot->robotMaps as $robot_map) {
+//                $robot_map_id_arr[] = $robot_map->id;
+//            }
             foreach ($robot->robotSchedules as $robot_schedule) {
                 $robot_schedule_id_arr[] = $robot_schedule->id;
             }
@@ -1322,7 +1322,13 @@ class RobotController extends APIController {
         
         $token = UniqueToken::hash(($robot->id + (hexdec(uniqid())) / 100000), 4);
         $token = preg_replace('/0*/', '', $token, 1);
-        
+        $token = trim($token);
+
+        while (strlen($token) != 4) {
+            $token = UniqueToken::hash(($robot->id + (hexdec(uniqid())) / 100000), 4);
+            $token = trim($token);
+        }
+
         AppCore::removeExpiredLinkingCode($robot);
         
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
@@ -1403,8 +1409,13 @@ class RobotController extends APIController {
         }
         
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $token));
+        $db_token = isset($robot_user_association_token) ? $robot_user_association_token->token : '';
 
         if (empty($robot_user_association_token)) {
+            self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
+        }
+        
+        if(strcmp($token, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
         
@@ -1412,7 +1423,7 @@ class RobotController extends APIController {
         $linking_code_created_on = $robot_user_association_token->created_on;
 
         $robot_model_data = Robot::model()->find('id = :id', array(':id' => $robot_id));
-        
+
         if(isset($robot_user_association_token->created_on)){
             if(!AppCore::isLinkingCodeValid($robot_user_association_token->created_on)){
                 AppCore::removeExpiredLinkingCode($robot_model_data);
@@ -1443,7 +1454,7 @@ class RobotController extends APIController {
 
 //        $robot_linking_data = RobotLinkingCode::model()->findByAttributes(array("email" => $email));
         $robot_linking_data = RobotLinkingCode::model()->findAll('email = :email', array(':email' => $email));
-
+        
         if (!empty($robot_linking_data)) {
             
             foreach ($robot_linking_data as $robot_linking) {
@@ -1497,145 +1508,118 @@ class RobotController extends APIController {
 
         self::success($response_data);
     }
+    
+    public function actionLinkToRobot() {
 
-    public function actionConfirmLinking_old() {
-
-        $serial_number = Yii::app()->request->getParam('serial_number', '');
-
-        $robot = self::verify_for_robot_serial_number_existence($serial_number);
-        
+        $email = Yii::app()->request->getParam('email', '');
         $token = Yii::app()->request->getParam('linking_code', '');
 
         $utc_str = gmdate("M d Y H:i:s", time());
-
         $utc = strtotime($utc_str);
-
-        $from = $robot->chat_id;
-
-        $robot_user_association_tokens = RobotUserAssociationTokens::model()->findAll('token = :token', array(':token' => $token));
-
-        if (empty($robot_user_association_tokens)) {
-            self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
-        }
-
-        foreach ($robot_user_association_tokens as $robot_data) {
-
-            $associated_robot_ids = $robot_data->robot_id;
         
+        if (!AppHelper::is_valid_email($email)) {
+
+            $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
+            self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
         }
-
-        $robot_model_data = Robot::model()->findAll('id = :id', array(':id' => $associated_robot_ids));
-
-        foreach ($robot_model_data as $robot_serial_no) {
-
-            $associated_robot_serial_number = $robot_serial_no->serial_number;
-        }
-
-        $robot_linking_code_data = RobotLinkingCode::model()->findAll('linking_code = :linking_code', array(':linking_code' => $token));
-
-        if (empty($robot_linking_code_data)) {
-            self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
-        }
-
-        if ($associated_robot_serial_number == $serial_number) {
-
-            $data = RobotLinkingCode::model()->find('linking_code = :linking_code', array(':linking_code' => $token));
-
-            $data->current_linking_state = '0';
-
-            $data->update();
-        } else {
-
-            self::terminate(-1, "serial number does not exist", APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
-        }
-
-        foreach ($robot_linking_code_data as $usersRobot) {
-
-            $to = $usersRobot->email;
-        }
-
-        $user_model = User::model()->findByAttributes(array("email" => $to));
         
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $token));
-
-
-        $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
-
-        if (empty($robot_user_association_token->created_on)) {
-            self::terminate(-1, "Robot user association already exists.", APIConstant::TOKEN_ALREADY_EXIT);
-        } else {
-
-            $token_timestamp = strtotime($robot_user_association_token->created_on);
+        $db_token = isset($robot_user_association_token) ? $robot_user_association_token->token : '';
+        
+        if (empty($robot_user_association_token)) {
+            self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-
-        $current_system_timestamp = time();
-        $time_diff = ($current_system_timestamp - $token_timestamp);
-
-        if ($time_diff > $token_lifetime) {
-            $robot_user_association_token->delete();
-            self::terminate(-1, "Sorry, provided linking code is expired", APIConstant::TOKEN_EXPIRED);
+        
+        if(strcmp($token, $db_token) != 0){
+            self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-
-        $user_id = $user_model->id;
+        
         $robot_id = $robot_user_association_token->robot_id;
 
+        $robot_model_data = Robot::model()->find('id = :id', array(':id' => $robot_id));
+
+        if(isset($robot_user_association_token->created_on)){
+            if(!AppCore::isLinkingCodeValid($robot_user_association_token->created_on)){
+                AppCore::removeExpiredLinkingCode($robot_model_data);
+                self::terminate(-1, "Sorry, provided linking code is expired", APIConstant::TOKEN_EXPIRED);
+            }
+        }else {
+            self::terminate(-1, "Creation time of linking code does not exist in database", APIConstant::UNEXPECTED_ERROR);
+        }
+
+        $user_model = User::model()->findByAttributes(array("email" => $email));
+
+        if (empty($user_model)) {
+            self::terminate(-1, "Sorry, provided email does not exist", APIConstant::EMAIL_DOES_NOT_EXIST);
+        }        
+        
+        $user_id = $user_model->id;
         $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
 
+        if ((!is_null($user_robot_model))) {
+            
+            self::terminate(-1, "Robot-User association is already exist", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
+            
+        }
+        
+        AppCore::removeExpiredLinkingCode($robot_model_data);
+        
+        $online_users_chat_ids = AppCore::getOnlineUsers();
+        if (!in_array($robot_model_data->chat_id, $online_users_chat_ids)) {
+            self::terminate(-1, "Robot is offline", APIConstant::OFFLINE_ROBOT);
+        }
+        
+        $requested_user_email = $email;
+            
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
-
-        $xmpp_message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10004</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId>><emailId>' . $to . '</emailId></params></request></payload></packet>';
+        $xmpp_message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10004</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot_model_data->serial_number . '</robotId>><emailId>' . $requested_user_email . '</emailId></params></request></payload></packet>';
         $xmpp_message_model->send_from = $robot_id;
         $xmpp_message_model->send_at = $utc;
         $xmpp_message_model->xmpp_message = $xmpp_message;
         $xmpp_message_model->save();
 
-        if ((!is_null($user_robot_model))) {
-            //$response_data = array('success' => true, 'message' => 'User robot association already exists.');
-            AppCore::removeLinkingCode($robot);
-            self::terminate(-1, "Robot-User association is already exist", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
-            
-        } else if ($associated_robot_serial_number == $serial_number) {
+        if (!empty($robot_model_data->usersRobots)) {
 
-            if (!empty($robot->usersRobots)) {
+            foreach ($robot_model_data->usersRobots as $user_robots) {
 
-                foreach ($robot->usersRobots as $user_robots) {
-                    
-                    $user_chat_id = $user_robots->idUser->chat_id;
-                    AppCore::send_chat_message($from, $user_chat_id, $xmpp_message);
-                    
-                }
+                $user_chat_id = $user_robots->idUser->chat_id;
+                AppCore::send_chat_message($robot_model_data->chat_id, $user_chat_id, $xmpp_message);
+
             }
-
-            $user_robot_obj = new UsersRobot();
-
-            $user_robot_obj->id_user = $user_id;
-            $user_robot_obj->id_robot = $robot_id;
-
-            $user_robot_obj->save();
-
-            $response_data = array('success' => true, 'message' => 'Robot-User association is done successfully');
-        } else {
-
-            self::terminate(-1, "Sorry, provided serial number is not match", APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
         }
+        $user_robot_obj = new UsersRobot();
+        $user_robot_obj->id_user = $user_id;
+        $user_robot_obj->id_robot = $robot_id;
+        $user_robot_obj->save();
+
+        $response_data = array('success' => true, 'serial_number' => $robot_model_data->serial_number, 'message' => 'Robot-User association is done successfully');
+        
+        $xmpp_message_model = new XmppMessageLogs();
+        $xmpp_message_model->save();
+        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><emailId>' . $email . '</emailId><linkCode>' . $token . '</linkCode></params></request></payload></packet>';
+        $xmpp_message_model->send_from = $user_model->id;
+        $xmpp_message_model->send_at = $utc;
+        $xmpp_message_model->xmpp_message = $message;
+        $xmpp_message_model->save();
+        
+        AppCore::send_chat_message($user_model->chat_id, $robot_model_data->chat_id, $message);
+
 
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
-
-        $message = $xmpp_message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10004</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot_id . '</robotId>><emailId>' . $to . '</emailId></params></request></payload></packet>';
+        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10002</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot_model_data->serial_number . '</robotId><linkCode>' . $token . '</linkCode></params></request></payload></packet>';
         $xmpp_message_model->send_from = $robot_id;
         $xmpp_message_model->send_at = $utc;
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
 
-        AppCore::send_chat_message($from, $user_model->chat_id, $message);
+        AppCore::send_chat_message($robot_model_data->chat_id, $user_model->chat_id, $message);
         
-        AppCore::removeLinkingCode($robot);
+        AppCore::removeLinkingCode($robot_model_data);
         
         self::success($response_data);
     }
-    
     
     public function actionConfirmLinking() {
 
@@ -1650,8 +1634,13 @@ class RobotController extends APIController {
         $from = $robot->chat_id;
 
         $robot_user_association_tokens = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $linking_code));
+        $db_token = isset($robot_user_association_tokens) ? $robot_user_association_tokens->token : '';
 
         if (empty($robot_user_association_tokens)) {
+            self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
+        }
+        
+        if(strcmp($linking_code, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
         
@@ -1692,31 +1681,6 @@ class RobotController extends APIController {
         $user_model = User::model()->findByAttributes(array("email" => $requested_user_email));
         
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $linking_code));
-        
-//        foreach ($robot->usersRobots as $userRobot) {
-//            
-//            if($userRobot->id_user == $user_model->id){
-//                self::terminate(-1, "Robot user association already exists.", APIConstant::TOKEN_ALREADY_EXIT);
-//            }
-//            
-//        }
-
-//        $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
-//
-//        if (empty($robot_user_association_token->created_on)) {
-//            self::terminate(-1, "Robot user association already exists.", APIConstant::TOKEN_ALREADY_EXIT);
-//        } else {
-//
-//            $token_timestamp = strtotime($robot_user_association_token->created_on);
-//        }
-//
-//        $current_system_timestamp = time();
-//        $time_diff = ($current_system_timestamp - $token_timestamp);
-//
-//        if ($time_diff > $token_lifetime) {
-//            $robot_user_association_token->delete();
-//            self::terminate(-1, "Sorry, provided linking code is expired", APIConstant::TOKEN_EXPIRED);
-//        }
         
         $user_id = $user_model->id;
         $robot_id = $robot_user_association_token->robot_id;
