@@ -64,7 +64,7 @@ $this->breadcrumbs=array(
 	        	</div>
                     
                        <div class="row">
-                           <input type="hidden" value="0" name="User[opt_in]"><b> Do you want to receive promotional newsletter?</b> &nbsp;&nbsp;
+                           <input type="hidden" value="0" name="User[opt_in]"><label>Do you want to receive promotional newsletter?</label>
                            <input id="UserAddForm_is_admin" type="checkbox" value="1" name="User[opt_in]" yes="1">
 		        </div>
                     

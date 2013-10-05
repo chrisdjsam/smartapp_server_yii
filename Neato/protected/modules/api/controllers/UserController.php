@@ -1102,6 +1102,7 @@ class UserController extends APIController {
 
 		if($user_account_type == 'Native' || $user_account_type == 'Facebook'){
 			$user = User::model()->findByAttributes(array('email' => $user_email));
+                        AppHelper::dump($user_social_additional_attributes['auth_token']);
 			if($user === null){
 				$user_model = new User;
 
@@ -1404,11 +1405,23 @@ class UserController extends APIController {
         
         //  Added extra info of user in actionCreate3 in json format with field name exram_param
         public function actionCreate3(){
-            
+
 		$user_name = Yii::app()->request->getParam('name', '');
 		$user_email = Yii::app()->request->getParam('email', '');
                 $alternate_user_email = Yii::app()->request->getParam('alternate_email', '');
                 $extram_param = Yii::app()->request->getParam('extra_param','');
+                
+                $decode_extra_param = json_decode($extram_param);
+                if(isset($decode_extra_param->country_code)){
+                    $country_code = $decode_extra_param->country_code;
+                }else{
+                    $country_code = 'US';
+                }
+                if(isset($decode_extra_param->opt_in) && $decode_extra_param->opt_in == 'true'){
+                    $opt_in = 1;
+                }else{
+                    $opt_in = 0;
+                }
                 
                 if(!empty($extram_param) && json_decode($extram_param) === null) {
                     self::terminate(-1, "The JSON Object you have provided does not appear to be a valid.", APIConstant::JSON_OBJECT_NOT_VALID);
@@ -1453,6 +1466,8 @@ class UserController extends APIController {
                                 $user_model->alternate_email = $alternate_user_email;
                                 
                                 $user_model->extram_param = $extram_param;
+                                $user_model->country_code = $country_code;
+                                $user_model->opt_in = $opt_in;
                                 
 				$user_model->password = $user_encrypted_password;
 				$user_model->reset_password = $user_encrypted_password;
