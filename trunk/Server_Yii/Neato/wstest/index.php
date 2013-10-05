@@ -168,6 +168,8 @@ padding-right: 50px;
 										<ul>
 											<li><a href="robot.php#Create Robot">Create Robot</a>
 											</li>
+                                                                                        <li><a href="robot.php#Create Robot 2" class="new-api">Create Robot 2</a>
+											</li>
 											<li><a href="robot.php#Check if robot is online">Check If Robot Is Online</a>
 											</li>
 
@@ -203,6 +205,8 @@ padding-right: 50px;
                                                                                         <li><a href="robot.php#Get Robot Type Metadata Using Robot Id">Get Robot Type Metadata Using Robot Id</a>
 											</li>
                                                                                         <li><a href="robot.php#Set Robot Configuration">Set Robot Configuration</a>
+											</li>
+                                                                                        <li><a href="robot.php#Set Robot Configuration 2" class="new-api">Set Robot Configuration 2</a>
 											</li>
                                                                                         <li><a href="robot.php#Get Robot Configuration">Get Robot Configuration</a>
 											</li>

@@ -279,6 +279,17 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
+                
+                self::expose_function('robot.create2',
+				"robot/create2",
+				array('serial_number' => array ('type' => 'string', 'required' => true),
+						'name' => array ('type' => 'string',  'required' => false),
+                                                'robot_type' => array ('type' => 'string', 'required' => false),
+				),
+				"Create Robot 2",
+				'POST',
+				true,
+				false);
 		
 		self::expose_function('robot.is_online',
 				"robot/isOnline",
@@ -349,7 +360,21 @@ class RestController extends APIController {
 				"Set Robot Configuration",
 				'POST',
 				true,
-				false);                                                
+				false); 
+                
+                self::expose_function('robot.set_robot_configuration2',
+				"robot/setRobotConfiguration2",
+				array(
+                                    'serial_number' => array ('type' => 'string', 'required' => true),
+                                    'sleep_time' => array ('type' => 'string', 'required' => true),
+                                    'wakeup_time' => array ('type' => 'string', 'required' => true),
+                                    'robot_type' => array ('type' => 'string', 'required' => false),
+                                    'config_key_value' => array ('type' => 'array', 'default' => array()),
+				),
+				"Set Robot Configuration 2",
+				'POST',
+				true,
+				false); 
 
 		self::expose_function('robot.get_robot_configuration',
 				"robot/getRobotConfiguration",

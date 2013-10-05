@@ -81,6 +81,62 @@ class RobotController extends APIController {
         }
     }
 
+    
+    public function actionCreate2() {
+        
+        $robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+        $robot_name = Yii::app()->request->getParam('name', '');
+        $robot_type = Yii::app()->request->getParam('robot_type', '');
+        
+        if(empty($robot_type)){
+            $robot_type = Yii::app()->params['default_robot_type'];
+        }
+        
+        $robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
+        
+        if ($robot !== null) {
+            if ($robot->serial_number === $robot_serial_no) {
+                $response_message = self::yii_api_echo('This robot serial number already exists.');
+                self::terminate(-1, $response_message, APIConstant::ROBOT_SERIAL_NUMBER_EXISTS);
+            }
+        }
+        $trimmed_serial_number = trim($robot_serial_no);
+        $model = new Robot();
+        $model->name = $robot_name;
+        $model->serial_number = $trimmed_serial_number;
+        
+        $chat_details = AppCore::create_chat_user_for_robot();
+       
+        if (!$chat_details['jabber_status']) {
+            $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
+            self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
+        }
+        
+        $model->chat_id = $chat_details['chat_id'];
+        $model->chat_pwd = $chat_details['chat_pwd'];
+        
+        $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
+        
+        if(empty($robot_type_data)){
+            $message = "'Robot Type is not valid'";
+            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
+        }
+
+        if ($model->save()) {
+            
+            $robot_robot_type = new RobotRobotTypes();
+            $robot_robot_type->robot_id = $model->id;
+            $robot_robot_type->robot_type_id = $robot_type_data->id;
+            $robot_robot_type->save();
+            
+            $response_data = array("success" => true, "message" => self::yii_api_echo('Robot created successfully.'));
+            self::success($response_data);
+        } else {
+            $response_message = self::yii_api_echo('Robot could not be created because jabber service is not responding');
+            self::terminate(-1, $response_message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
+        }
+    }
+    
     /**
      * Method to check if robot is online for given robot serial number.
      * 
@@ -1164,6 +1220,80 @@ class RobotController extends APIController {
 
         self::success($response_data);
     }
+    
+    public function actionSetRobotConfiguration2() {
+
+        $serial_number = Yii::app()->request->getParam('serial_number', '');
+        $sleep_time = Yii::app()->request->getParam('sleep_time', '');
+        $wakeup_time = Yii::app()->request->getParam('wakeup_time', '');
+        $config_key_value = Yii::app()->request->getParam('config_key_value', '');
+        $robot_type = Yii::app()->request->getParam('robot_type', '');
+        
+//        if(empty($robot_type)){
+//            $message = "Missing parameter Robot_type";
+//            self::terminate(-1, $message, APIConstant::PARAMETER_MISSING); 
+//        }
+        
+        if (!ctype_digit($sleep_time) || !ctype_digit($wakeup_time)) {
+            self::terminate(-1, "Please enter valid sleep time or wakeup time", APIConstant::SLEEP_OR_WAKEUP_TIME_NOT_VALID);
+        }
+        $serial_number = trim($serial_number);
+        $robot = self::verify_for_robot_serial_number_existence($serial_number);
+        
+        $robot_id = $robot->id;
+        
+        $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
+        if(!empty($robot_type) && empty($robot_type_data)){
+            $message = "Robot Type is not valid";
+            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
+        }
+        
+        $robot->sleep_time = $sleep_time;
+        $robot->lag_time = $wakeup_time;
+        
+        if (!$robot->save()) {
+            self::terminate(-1, "Set robot configuration failed due to database problem", APIConstant::CONFIGURATION_FAILED);
+        }
+
+        $utc = $robot->updated_on;
+        
+        if(!empty($robot_type)){
+            $robot_robot_type_data = RobotRobotTypes::model()->find('robot_id = :robot_id', array(':robot_id' => $robot_id));
+            if (!empty($robot_robot_type_data)) {
+                $robot_robot_type_data->robot_type_id = $robot_type_data->id;
+                $robot_robot_type_data->update();
+            }
+        }
+        
+        
+        if (!empty($config_key_value)) {
+
+            foreach ($config_key_value as $key => $value) {
+                $key = trim($key);
+                $data = RobotConfigKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
+                if (!empty($data)) {
+                    $data->value = $value;
+                    $data->update();
+                } else {
+                    $robot_config_key_value = new RobotConfigKeyValues();
+                    $robot_config_key_value->robot_id = $robot->id;
+                    $robot_config_key_value->_key = $key;
+                    $robot_config_key_value->value = $value;
+                    $robot_config_key_value->save();
+                }
+            }
+        }
+
+        AppCore::sendXmppMessageToAssociatesUsers($robot, $utc);
+
+        $response_data = array(
+            "success" => true,
+            "timestamp" => $utc
+        );
+
+        self::success($response_data);
+    }
+    
 
     public function actionGetRobotConfiguration() {
 
