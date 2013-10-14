@@ -41,20 +41,20 @@ class RobotController extends APIController {
      * </ul>
      */
     public function actionCreate() {
-        $robot_serial_no = Yii::app()->request->getParam('serial_number', '');
+        $robot_serial_no = trim(Yii::app()->request->getParam('serial_number', ''));
         $robot_name = Yii::app()->request->getParam('name', '');
-
+        
         $robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
         if ($robot !== null) {
-            if ($robot->serial_number === $robot_serial_no) {
+            //if ($robot->serial_number === $robot_serial_no) {
                 $response_message = self::yii_api_echo('This robot serial number already exists.');
                 self::terminate(-1, $response_message, APIConstant::ROBOT_SERIAL_NUMBER_EXISTS);
-            }
+//            }
         }
         $model = new Robot();
         $model->name = $robot_name;
         $model->serial_number = $robot_serial_no;
-
+        
         $chat_details = AppCore::create_chat_user_for_robot();
         if (!$chat_details['jabber_status']) {
             $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
@@ -68,11 +68,12 @@ class RobotController extends APIController {
             $robot_robot_type = new RobotRobotTypes();
             $robot_robot_type->robot_id = $model->id;
             $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => Yii::app()->params['default_robot_type']));
+
             if (!empty($robot_type_data)) {
                 $robot_robot_type->robot_type_id = $robot_type_data->id;
                 $robot_robot_type->save();
             }
-
+            
             $response_data = array("success" => true, "message" => self::yii_api_echo('Robot created successfully.'));
             self::success($response_data);
         } else {
@@ -83,30 +84,36 @@ class RobotController extends APIController {
 
     
     public function actionCreate2() {
+        $robot_serial_no = trim(Yii::app()->request->getParam('serial_number', ''));
+        $robot_name = trim(Yii::app()->request->getParam('name', ''));
+        $robot_type = trim(Yii::app()->request->getParam('robot_type', ''));
         
-        $robot_serial_no = Yii::app()->request->getParam('serial_number', '');
-        $robot_name = Yii::app()->request->getParam('name', '');
-        $robot_type = Yii::app()->request->getParam('robot_type', '');
-        
-        if(empty($robot_type)){
+        if(empty($robot_type) && ($robot_type != '0')){
             $robot_type = Yii::app()->params['default_robot_type'];
         }
         
-        $robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
+        $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
         
-        if ($robot !== null) {
-            if ($robot->serial_number === $robot_serial_no) {
-                $response_message = self::yii_api_echo('This robot serial number already exists.');
-                self::terminate(-1, $response_message, APIConstant::ROBOT_SERIAL_NUMBER_EXISTS);
-            }
+                
+        if(empty($robot_type_data)){
+            $message = "'Robot Type is not valid'";
+            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
         }
-        $trimmed_serial_number = trim($robot_serial_no);
+         
+        $robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
+        if ($robot !== null) {
+//            if ($robot->serial_number === $robot_serial_no) {
+                    $response_message = self::yii_api_echo('This robot serial number already exists.');
+                    self::terminate(-1, $response_message, APIConstant::ROBOT_SERIAL_NUMBER_EXISTS);
+//            }
+        }
+
         $model = new Robot();
         $model->name = $robot_name;
-        $model->serial_number = $trimmed_serial_number;
-        
+        $model->serial_number = $robot_serial_no;
+
         $chat_details = AppCore::create_chat_user_for_robot();
-       
+        
         if (!$chat_details['jabber_status']) {
             $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
             self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
@@ -115,13 +122,6 @@ class RobotController extends APIController {
         $model->chat_id = $chat_details['chat_id'];
         $model->chat_pwd = $chat_details['chat_pwd'];
         
-        $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
-        
-        if(empty($robot_type_data)){
-            $message = "'Robot Type is not valid'";
-            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
-        }
-
         if ($model->save()) {
             
             $robot_robot_type = new RobotRobotTypes();
@@ -1227,12 +1227,7 @@ class RobotController extends APIController {
         $sleep_time = Yii::app()->request->getParam('sleep_time', '');
         $wakeup_time = Yii::app()->request->getParam('wakeup_time', '');
         $config_key_value = Yii::app()->request->getParam('config_key_value', '');
-        $robot_type = Yii::app()->request->getParam('robot_type', '');
-        
-//        if(empty($robot_type)){
-//            $message = "Missing parameter Robot_type";
-//            self::terminate(-1, $message, APIConstant::PARAMETER_MISSING); 
-//        }
+        $robot_type = trim(Yii::app()->request->getParam('robot_type', ''));
         
         if (!ctype_digit($sleep_time) || !ctype_digit($wakeup_time)) {
             self::terminate(-1, "Please enter valid sleep time or wakeup time", APIConstant::SLEEP_OR_WAKEUP_TIME_NOT_VALID);
@@ -1243,7 +1238,13 @@ class RobotController extends APIController {
         $robot_id = $robot->id;
         
         $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
-        if(!empty($robot_type) && empty($robot_type_data)){
+         
+//        if(($robot_type != '0')){
+//            $message = "Robot Type is not valid";
+//            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
+//        }
+        
+        if((!empty($robot_type) && empty($robot_type_data)) || ($robot_type == '0')){
             $message = "Robot Type is not valid";
             self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
         }
