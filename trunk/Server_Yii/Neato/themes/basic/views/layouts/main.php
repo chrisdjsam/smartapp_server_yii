@@ -143,7 +143,8 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						<?php if(!$isLoggedIn){?>
 						<div class="button-div button-register neato-button:hover">
 							<a class="neato-button neato-button-register"
-								href="<?php echo $this->createUrl('/user/register')?>"
+                                                               <?php $register_url = Yii::app()->params['wordpress_api_url'].'wp-login.php?action=register';?>
+								href="<?php print $register_url?>"
 								title="Register">Register</a>
 						</div>
 						<div class="button-div button-login neato-button:hover">

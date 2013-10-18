@@ -43,19 +43,20 @@ class RestController extends APIController {
 				true,
 				false);
 
-//		self::expose_function('auth.get_wpuser_auth_token',
-//				"user/GetWPAuthToken",
-//				array( 'account_type' => array ('type' => 'string', 'required' => true),
-//						'email' => array ('type' => 'string', 'required' => ''),
-//						'password' => array ('type' => 'string', 'required' => ''),
-//						'external_social_id' => array ('type' => 'string', 'required' => false),
-//				),
-//				"Get user profile labels",
-//				'POST',
-//				true,
-//				false);
+		self::expose_function('auth.get_user_auth_token2',
+				"user/GetAuthToken2",
+				array( 'account_type' => array ('type' => 'string', 'required' => true),
+						'email' => array ('type' => 'string', 'required' => ''),
+						'password' => array ('type' => 'string', 'required' => ''),
+						'external_social_id' => array ('type' => 'string', 'required' => false),
+				),
+				"Get user profile labels",
+				'POST',
+				true,
+				false);
+                
                  self::expose_function('auth.get_user_auth_token',
-				"user/GetAuthToken",
+				"user/GetAuthToken2",
 				array( 'account_type' => array ('type' => 'string', 'required' => true),
 						'email' => array ('type' => 'string', 'required' => true),
 						'password' => array ('type' => 'string', 'required' => true),
@@ -146,21 +147,22 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-//                self::expose_function('user.create_wp',
-//				"user/createwp",
-//				array('name' => array ('type' => 'string'),
-//						'email' => array ('type' => 'string', 'default' => ''),
-//                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
-//						'password' => array ('type' => 'string', 'required' => false, 'default'=>time()),
-//						'account_type' => array ('type' => 'string'),
-//						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
-//						'social_additional_attributes' => array('type'=>'array', 'default'=>array()),
-//                                                'extra_param' => array ('type' => 'string', 'default' => ''),
-//				),
-//				"Register user",
-//				'POST',
-//				true,
-//				false);
+                
+                self::expose_function('user.create4',
+				"user/create4",
+				array('name' => array ('type' => 'string'),
+						'email' => array ('type' => 'string', 'default' => ''),
+                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
+						'password' => array ('type' => 'string', 'required' => true),
+						'account_type' => array ('type' => 'string'),
+						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
+						'social_additional_attributes' => array('type'=>'array', 'default'=>array()),
+                                                'extra_param' => array ('type' => 'string', 'default' => ''),
+				),
+				"Register user",
+				'POST',
+				true,
+				false);
 
 		self::expose_function('user.IsUserValidated',
 				"user/isUserValidated",
@@ -1086,7 +1088,6 @@ class RestController extends APIController {
 	 */
 	protected  function expose_function($method, $function, array $parameters = NULL, $description = "",
 	$call_method = "GET", $require_api_auth = false, $require_user_auth = false) {
-
             
 		if (($method == "") || ($function == "")) {
 			$msg = self::yii_api_echo('InvalidParameterException:APIMethodOrFunctionNotSet');
@@ -1145,7 +1146,6 @@ class RestController extends APIController {
 		$this->API_METHODS[$method]["require_api_auth"] = $require_api_auth;
 
 		$this->API_METHODS[$method]["require_user_auth"] = $require_user_auth;
-                
 		return true;
 	}
 

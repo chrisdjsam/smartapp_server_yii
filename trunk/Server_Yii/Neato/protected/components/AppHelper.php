@@ -57,6 +57,20 @@ class AppHelper {
 		$message->from = Yii::app()->params['adminEmail'];
 		Yii::app()->mail->send($message);
 	}
+	
+/**
+         * This function is used to check for valid password
+         * @param string $password
+         * @return bool
+         */
+
+	 public static function is_valid_password($pass){
+		if(strlen($pass)< 6){
+                    return false;
+                }else{
+                    return true;
+                }
+	}
 
 	/**
 	 * This function is used to check for valid email
@@ -64,10 +78,24 @@ class AppHelper {
 	 * @return bool
 	 */
 	public static function is_valid_email($email){
+            if(Yii::app()->params['authenticate_via_email'] == false){
+                return true;
+            }else
+                {
 		if(preg_match("/^[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/",$email)){
 			return true;
 		}
 		return false;
+            }
+	}
+
+        public static function is_valid_email_for_all($email){
+                
+		if(preg_match("/^[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/",$email)){
+			return true;
+		}
+		return false;
+            
 	}
 
 	/**

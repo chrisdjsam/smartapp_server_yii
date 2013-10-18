@@ -86,6 +86,7 @@ class APIConstant {
     const INVALID_DELETE_TYPE = '-183';
     const UNEXPECTED_ERROR = '-184';
     const OFFLINE_ROBOT = '-185';
+    const TOO_SHORT = '-186';
     
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
@@ -172,6 +173,7 @@ class APIConstant {
         APIConstant::INVALID_DELETE_TYPE => 'Please enter 1 for delete robot data and 0 for clear the robot data.', 
         APIConstant::UNEXPECTED_ERROR => 'Unexpected error occurred.', 
         APIConstant::OFFLINE_ROBOT => 'Robot is offline.', 
+        APIConstant::TOO_SHORT => 'Password length should be 6 character.', 
         
         );
 

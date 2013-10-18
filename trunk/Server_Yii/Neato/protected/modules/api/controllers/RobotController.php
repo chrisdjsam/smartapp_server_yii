@@ -49,39 +49,89 @@ class RobotController extends APIController {
             //if ($robot->serial_number === $robot_serial_no) {
                 $response_message = self::yii_api_echo('This robot serial number already exists.');
                 self::terminate(-1, $response_message, APIConstant::ROBOT_SERIAL_NUMBER_EXISTS);
-//            }
+          //  }
         }
         $model = new Robot();
         $model->name = $robot_name;
         $model->serial_number = $robot_serial_no;
         
-        $chat_details = AppCore::create_chat_user_for_robot();
+	$chat_details = AppCore::create_chat_user_for_robot();
         if (!$chat_details['jabber_status']) {
             $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
             self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
-        }
-        $model->chat_id = $chat_details['chat_id'];
+        }     
+	 $model->chat_id = $chat_details['chat_id'];
         $model->chat_pwd = $chat_details['chat_pwd'];
 
         if ($model->save()) {
-
             $robot_robot_type = new RobotRobotTypes();
             $robot_robot_type->robot_id = $model->id;
             $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => Yii::app()->params['default_robot_type']));
-
             if (!empty($robot_type_data)) {
-                $robot_robot_type->robot_type_id = $robot_type_data->id;
+	        $robot_robot_type->robot_type_id = $robot_type_data->id;
                 $robot_robot_type->save();
             }
-            
             $response_data = array("success" => true, "message" => self::yii_api_echo('Robot created successfully.'));
             self::success($response_data);
         } else {
             $response_message = self::yii_api_echo('Robot could not be created because jabber service is not responding');
             self::terminate(-1, $response_message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
         }
-    }
+    } 
 
+// public function actionCreate2OLd() {
+//        $robot_serial_no = trim(Yii::app()->request->getParam('serial_number', ''));
+//        $robot_name = trim(Yii::app()->request->getParam('name', ''));
+//        $robot_type = trim(Yii::app()->request->getParam('robot_type', ''));
+//
+//        if(empty($robot_type) && ($robot_type != '0')){
+//            $robot_type = Yii::app()->params['default_robot_type'];
+//        }
+//
+//        $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
+//
+//
+//        if(empty($robot_type_data)){
+//            $message = "'Robot Type is not valid'";
+//            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID);
+//        }
+//
+//        $robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
+//        if ($robot !== null) {
+////            if ($robot->serial_number === $robot_serial_no) {
+//                    $response_message = self::yii_api_echo('This robot serial number already exists.');
+//                    self::terminate(-1, $response_message, APIConstant::ROBOT_SERIAL_NUMBER_EXISTS);
+////            }
+//        }
+//
+//        $model = new Robot();
+//        $model->name = $robot_name;
+//        $model->serial_number = $robot_serial_no;
+//        
+//        $chat_details = AppCore::create_chat_user_for_robot();
+//
+//        if (!$chat_details['jabber_status']) {
+//            $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
+//            self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
+//        }
+//
+//        $model->chat_id = $chat_details['chat_id'];
+//        $model->chat_pwd = $chat_details['chat_pwd'];
+//
+//        if ($model->save()) {
+//
+//            $robot_robot_type = new RobotRobotTypes();
+//            $robot_robot_type->robot_id = $model->id;
+//            $robot_robot_type->robot_type_id = $robot_type_data->id;
+//            $robot_robot_type->save();
+//            
+//            $response_data = array("success" => true, "message" => self::yii_api_echo('Robot created successfully.'));
+//            self::success($response_data);
+//        } else {
+//            $response_message = self::yii_api_echo('Robot could not be created because jabber service is not responding');
+//            self::terminate(-1, $response_message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
+//        }
+//    }
     
     public function actionCreate2() {
         $robot_serial_no = trim(Yii::app()->request->getParam('serial_number', ''));
@@ -1545,11 +1595,11 @@ class RobotController extends APIController {
         if (empty($robot_user_association_token)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-        
-        if(strcmp($token, $db_token) != 0){
+        	
+	if(strcmp($token, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-        
+
         $robot_id = $robot_user_association_token->robot_id;
         $linking_code_created_on = $robot_user_association_token->created_on;
 
@@ -1660,10 +1710,10 @@ class RobotController extends APIController {
         if (empty($robot_user_association_token)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-        
-        if(strcmp($token, $db_token) != 0){
+	
+	if(strcmp($token, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
-        }
+        }	
         
         $robot_id = $robot_user_association_token->robot_id;
 
@@ -1882,11 +1932,16 @@ class RobotController extends APIController {
         $from = $robot->chat_id;
 
         $robot_linking_code_data = RobotLinkingCode::model()->find('linking_code = :linking_code', array(':linking_code' => $token));
+        $db_token = isset($robot_linking_code_data) ? $robot_linking_code_data->linking_code : '';
 
         if (empty($robot_linking_code_data)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-        
+       
+	if(strcmp($token, $db_token) != 0){
+            self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
+        }
+
         $user_email = $robot_linking_code_data->email;
         $associated_robot_serial_number = $robot_linking_code_data->serial_number;
         

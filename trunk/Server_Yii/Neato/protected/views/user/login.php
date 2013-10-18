@@ -12,13 +12,21 @@ $this->breadcrumbs=array(
 		'login',
 );
 ?>
+<?php $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
+$register_url =  $this->createUrl('/user/register');                         
+$forgot_pass = $this->createUrl('/user/forgotpassword');
+if($is_wp_enabled){
+    $register_url = Yii::app()->params['wordpress_api_url'].'wp-login.php?action=register';
+    $forgot_pass = Yii::app()->params['wordpress_api_url'].'wp-login.php?action=lostpassword';
 
+}
+?>
 <label class='login-heading'>My Account</label>
 
 <div class="form login-form">
 	<?php $form=$this->beginWidget('CActiveForm', array(
 			'id'=>'login-form',
-			'enableAjaxValidation'=>true,
+//			'enableAjaxValidation'=>true,
 			//'enableClientValidation'=>true,
 			'clientOptions'=>array('validateOnSubmit'=>true,),
 //			'focus'=>array($model,'email'),
@@ -49,17 +57,23 @@ $this->breadcrumbs=array(
 			<div class="row-buttons login_submit_btn">
 				<?php echo CHtml::submitButton('Login', array('class'=>"neato-button",  "title" => "Login")); ?>
 				<span> 
-                                    <a class="forgot_link look-like-a-link" href="<?php echo $this->createUrl('/user/forgotpassword')?>" title="Forgot password">Forgot password?</a><br/>
+                                    <a class="forgot_link look-like-a-link" href="<?php echo $forgot_pass; ?>" title="Forgot password">Forgot password?</a><br/>
+                                    <?php //if(!$is_wp_enabled){ 
+?>
                                     <span id="resend_validation_email" class="forgot_link look-like-a-link" title="Resend validation email?">Resend validation email?</span>
+                                    <?php 
+//}
+?>
 				</span>
 			</div>
-
+                        <?php if(!$is_wp_enabled){ ?>
 			<div class="social_login_connect_with">
 				<b>Or connect with </b>
 			</div>
 			<img alt="Facebook Login"
 				src="<?php echo Yii::app()->request->baseUrl."/images/facebook.png"?>"
 				class='btn-facebook look-like-a-link' title="Facebook">
+                        <?php }?>
 		</div>
 
 		<div class="section_right">
@@ -69,7 +83,7 @@ $this->breadcrumbs=array(
 				FREE filter.
 			</p>
 			<a class="neato-button"
-				href="<?php echo $this->createUrl('/user/register')?>"
+				href="<?php print $register_url?>"
 				title="Register">Register</a>
 		</div>
 	</div>

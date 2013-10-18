@@ -54,6 +54,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 		foreach(Yii::app()->user->getFlashes() as $key => $message) {
         echo '<div class="flash-' . $key . '">' . $message . "</div>\n";
     }
+     $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
     ?>
 	</div>
 	<?php 
@@ -120,10 +121,10 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						</li>
                                             
 						<?php }?>
-						
+						<?php if(!$is_wp_enabled){ ?>
 						<li><a
 							href="<?php echo $this->createUrl('/user/changepassword')?>"
-							title="Change your password">Change Password</a></li>
+							title="Change your password">Change Password</a></li><?php }?>
                                                 <?php if(!$isAdmin){?>
 						<li><a href="<?php echo $this->createUrl('/user/logout')?>"
 							title="Log Out">Log out</a>
@@ -139,10 +140,17 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
                                                 </div>
 					</h1>
 					<div class="top-buttons-container">
+                                                <?php
+                                                    $register_url =  $this->createUrl('/user/register');                         
+                                                        if($is_wp_enabled){
+                                                            $register_url = Yii::app()->params['wordpress_api_url'].'wp-login.php?action=register';
+                                                        }
+                                                ?>
 						<?php if(!$isLoggedIn){?>
+                                            
 						<div class="button-div button-register neato-button:hover">
 							<a class="neato-button neato-button-register"
-								href="<?php echo $this->createUrl('/user/register')?>"
+								href="<?php print $register_url?>"
 								title="Register">Register</a>
 						</div>
 						<div class="button-div button-login neato-button:hover">

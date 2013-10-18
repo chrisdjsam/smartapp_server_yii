@@ -56,7 +56,7 @@ class BaseUser extends GxActiveRecord
 			array('name, password,reset_password, email, chat_id, chat_pwd', 'required'),
 			array('is_emailVerified, is_admin, is_active, is_validated, validation_counter', 'numerical', 'integerOnly'=>true),
 			array('name, password, reset_password, email, chat_id, chat_pwd', 'length', 'max'=>128),
-                        array('alternate_email', 'compare', 'compareAttribute'=>'email', 'operator'=>'!=', 'allowEmpty'=>true , 'message'=>'Alternate email must be differ from primary email.'),
+//                        array('alternate_email', 'compare', 'compareAttribute'=>'email', 'operator'=>'!=', 'allowEmpty'=>true , 'message'=>'Alternate email must be differ from primary email.'),
                         array('alternate_email', 'email', 'allowName'=>true),
 //                        array('alternate_email, validation_key', 'safe'),
 			// The following rule is used by search().
@@ -91,8 +91,10 @@ class BaseUser extends GxActiveRecord
 			'user' => 'User',
 			'password' => 'Password',
 			'reset_password' => 'Reset Password',
-			'email' => 'Email',
-                        'alternate_email' => 'Alternate Email',
+//			'email' => 'Email',
+                        'email' => 'Username', //for wp setting did the changes in appearance of email
+//                        'alternate_email' => 'Alternate Email',
+                    'alternate_email' => 'Email',
 			'is_emailVerified' => 'Is Email Verified',
 			'is_admin' => 'Is Admin',
 			'created_on' => 'Created on',
