@@ -24,6 +24,7 @@ $modelcountrycode = new CountryCodeList();
     if (Yii::app()->user->id !== $model->id) {
         $legend_message = "Profile details for $model->name";
     }
+    $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
     ?>
     <legend>
         <?php echo $legend_message; ?>
@@ -31,9 +32,11 @@ $modelcountrycode = new CountryCodeList();
     <?php if (Yii::app()->user->id == $model->id) { ?>
         <p class="list_details">
             Please review your profile information.<br />
+           <?php if(!$is_wp_enabled){ ?>
             Click on edit to update profile.<br />
+            <?php } ?>
             <?php 
-            if(Yii::app()->user->isAdmin){
+            if(Yii::app()->user->isAdmin && !$is_wp_enabled){
                 ?>
                 Now we require that you validate your registered email within 1 hour of registration. <br/>
                 For some reason if you could not validate your email, as an admin, you can validate it by selecting "yes" against the "Is email validated?".<br />
@@ -59,27 +62,30 @@ $modelcountrycode = new CountryCodeList();
     }
     ?>
 
-    <?php if (Yii::app()->user->isAdmin && Yii::app()->user->id !== $model->id) { ?>
+       
+    <?php  if(!$is_wp_enabled){
+                if (Yii::app()->user->isAdmin && Yii::app()->user->id !== $model->id) { ?>
 
-        <p class="list_details">
-            You can delete this user by clicking on delete user button.<br /> You
-            can reset password for this user by clicking on reset password button.<br />
-            Please note that deleting a user would also delete the user-robot
-            associations for this specific user.<br /> Please note that resetting
-            password for this user would reset the user's old password and send an
-            email mentioning user's new password.<br />And user would not able to
-            login using old password.<br />
-            Click on edit to update user profile.<br />
-            Now we require that user validates his registered email within 1 hour of registration. <br/>
-            For some reason if user could not validate his email, as an admin, you can validate his email by selecting "yes" against the "Is email validated?".<br />
-        </p>
-        <div class="action_delete_reset">
-            <div class="action-button-container">
-                <a href="<?php echo $this->createUrl('user/Delete', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-delete" title="Delete User">Delete User</a> 
-                <a href="<?php echo $this->createUrl('user/Resetpassword', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-reset-password" title="Reset Password">Reset Password</a>
-            </div>
-        </div>
-    <?php } ?>
+                    <p class="list_details">
+                        You can delete this user by clicking on delete user button.<br /> You
+                        can reset password for this user by clicking on reset password button.<br />
+                        Please note that deleting a user would also delete the user-robot
+                        associations for this specific user.<br /> Please note that resetting
+                        password for this user would reset the user's old password and send an
+                        email mentioning user's new password.<br />And user would not able to
+                        login using old password.<br />
+                        Click on edit to update user profile.<br />
+                        Now we require that user validates his registered email within 1 hour of registration. <br/>
+                        For some reason if user could not validate his email, as an admin, you can validate his email by selecting "yes" against the "Is email validated?".<br />
+                    </p>
+                    <div class="action_delete_reset">
+                        <div class="action-button-container">
+                            <a href="<?php echo $this->createUrl('user/Delete', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-delete" title="Delete User">Delete User</a> 
+                            <a href="<?php echo $this->createUrl('user/Resetpassword', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-reset-password" title="Reset Password">Reset Password</a>
+                        </div>
+                    </div>
+    <?php } 
+            }?>
 
     <?php
     
@@ -116,9 +122,9 @@ $modelcountrycode = new CountryCodeList();
         'id' => 'user_profile_detail'
     ));
     ?>
-
-    <div id="edit_user_profile_btn" class='neato-button_alt right' title="Edit">Edit</div>
-
+    <?php if(!$is_wp_enabled){ ?>
+        <div id="edit_user_profile_btn" class='neato-button_alt right' title="Edit">Edit</div>
+    <?php }?>
     <div class="form update_user_form hide">
 
         <?php
@@ -154,7 +160,7 @@ $modelcountrycode = new CountryCodeList();
         </div>            
         
         
-        
+            
         
         <?php if(Yii::app()->user->isAdmin) { ?>
             

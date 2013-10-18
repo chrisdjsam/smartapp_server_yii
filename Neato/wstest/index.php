@@ -130,12 +130,6 @@ padding-right: 50px;
                                                                                         <li>
                                                                                             <a href="user.php#Create User 3"class="new-api">Create User 3</a>
                                                                                         </li>
-<!--                                                                                        <li>
-                                                                                            <a href="user.php#Create User WP"class="new-api">Create User WP</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="user.php#Get WPUser Auth Token"class="new-api">Get WPUser Auth Token</a>
-                                                                                        </li>-->
 										</ul>
 									</td>
 								</tr>
@@ -168,7 +162,7 @@ padding-right: 50px;
 										<ul>
 											<li><a href="robot.php#Create Robot">Create Robot</a>
 											</li>
-                                                                                        <li><a href="robot.php#Create Robot 2" class="new-api">Create Robot 2</a>
+											<li><a href="robot.php#Create Robot 2" class="new-api">Create Robot 2</a>
 											</li>
 											<li><a href="robot.php#Check if robot is online">Check If Robot Is Online</a>
 											</li>

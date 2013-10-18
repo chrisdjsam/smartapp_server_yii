@@ -18,6 +18,11 @@ switch ($host_name) {
 	case "neatodev.rajatogo.com":
 		$baseURL = "http://neatodev.rajatogo.com/api/rest/json?method=";//for neato-yii dev yii;
 		break;
+	
+	 case "neatowp.rajatogo.com":
+                $baseURL = "http://neatowp.rajatogo.com/api/rest/json?method=";//for neatowp;
+                break;
+
 
 	case "vorwerkdev.rajatogo.com":
 		$baseURL = "http://vorwerkdev.rajatogo.com/api/rest/json?method=";//for neato-yii dev yii;

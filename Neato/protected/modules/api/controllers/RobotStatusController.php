@@ -6,22 +6,23 @@
 class RobotStatusController extends APIController {
 
     public function actionOnline(){
-        
+	        
         $chat_user = Yii::app()->request->getParam('user', '');
         $server = Yii::app()->request->getParam('server', '');
         $message = "Came online";
 
         $chat_id = $chat_user . '@' . $server;
-        
         $result = false;
         
         include_once Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database_config.php';
         
         $env = array();
         
+	$env[] = $wp;
         $env[] = $dev;
         $env[] = $staging;
-        
+	//$env[] = $wp;
+
         foreach ($env as $db_config) {
             self::add_delete_chat_id($db_config, $chat_id, 1);
             $result = self::ping_from_robot($db_config, $chat_id, $message);
@@ -111,10 +112,11 @@ class RobotStatusController extends APIController {
         $hostname = $env['hostname'];
         $dbname = $env['dbname'];
 
-        //connection to the database
+//	AppHelper::dump($username. "-" . $password. "-" .$hostname. "-" . $dbname);
+	//connection to the database
         $dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
         
-        if ($dbhandle === false) {
+	if ($dbhandle === false) {
             echo("Stale DB Connection");
             $dbhandle = mysql_connect($hostname, $username, $password, true) or die("Unable to connect to MySQL");
         }
@@ -123,8 +125,9 @@ class RobotStatusController extends APIController {
             return;
         }
         
+//	AppHelper::dump(mysql_select_db($dbname, $dbhandle));
         mysql_select_db($dbname, $dbhandle);
-
+//AppHelper::dump($operation);	
         if($operation == 1){
             mysql_query("INSERT INTO `online_chat_ids`(`chat_id`) VALUES ('" . $chat_id . "')");
             mysql_close($dbhandle);
