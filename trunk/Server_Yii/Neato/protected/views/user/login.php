@@ -15,10 +15,11 @@ $this->breadcrumbs=array(
 <?php $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 $register_url =  $this->createUrl('/user/register');                         
 $forgot_pass = $this->createUrl('/user/forgotpassword');
+$email = 'Email';
 if($is_wp_enabled){
     $register_url = Yii::app()->params['wordpress_api_url'].'wp-login.php?action=register';
     $forgot_pass = Yii::app()->params['wordpress_api_url'].'wp-login.php?action=lostpassword';
-
+    $email = 'Username';
 }
 ?>
 <label class='login-heading'>My Account</label>
@@ -95,7 +96,7 @@ if($is_wp_enabled){
     <div class="device-entry-center-div">
 
             <div class="device-entry">
-                <label for="Email" class="email_resend_label_style">Email <span class="required">*</span></label>
+                <label for="Email" class="email_resend_label_style"><?php print $email ?><span class="required">*</span></label>
                 <input type="text" value="" id="enter_user_email" name="email_to_send_validation_email" class="email_resend_input_style" tabindex="2" cols="128" size="30">
                 <div id="User_email_em_" class="prepend-2 errorMessage hide-me"></div>
             </div>
@@ -111,7 +112,7 @@ if($is_wp_enabled){
 <script>
     
     $(document).ready(function(){
-        
+        var is_wp_enabled = '<?php print Yii::app()->params['is_wp_enabled']?>';        
         $('#resend_validation_email').click(function() {
         
                 $( "#resend_validation_email_popup" ).dialog({
@@ -128,11 +129,12 @@ if($is_wp_enabled){
         $('#send_resend_email_validation').click(function(){
             
                 var email = $('#enter_user_email').val();
-        
-                if(!validateEmail(email)){
-                    $('#User_email_em_').show();
-                    $('#User_email_em_').html("Please enter valid email address.");
-                    return;
+                if(!is_wp_enabled){
+                    if(!validateEmail(email)){
+                        $('#User_email_em_').show();
+                        $('#User_email_em_').html("Please enter valid email address.");
+                        return;
+                    }
                 }
 
                 $.ajax({

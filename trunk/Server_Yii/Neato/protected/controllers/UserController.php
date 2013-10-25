@@ -277,7 +277,7 @@ class UserController extends Controller
                 $url = Yii::app()->params['wordpress_api_url'].'?json=login';
                 $headers = array();
                 $data_string = array();
-                $data_string['log'] = Yii::app()->params['is_wpuser'] ? $wp_user['name'] : $wp_user['email'];
+                $data_string['log'] = $wp_user['email'];
                 $data_string['pwd'] = urlencode($wp_user['password']);
                 $data_string['rememberme'] = $wp_user['rememberMe'];
                 
@@ -303,6 +303,7 @@ class UserController extends Controller
                                 $save_user_from_wp->country_code = $user_extram_param['country_code'];
                                 $save_user_from_wp->opt_in = '1';
                                 $save_user_from_wp->extram_param = json_encode($user_extram_param);
+                                $save_user_from_wp->wp_id = isset($result->posts->data)? $result->posts->data->ID : '';
                                 $chat_details = AppCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
@@ -448,7 +449,6 @@ class UserController extends Controller
 			$user_name = $_POST['RegisterForm']['name'];
 			$email = $_POST['RegisterForm']['email'];
 			$new_password = $_POST['RegisterForm']['password'];
-                        
 			$registration_model->attributes=$_POST['RegisterForm'];
                         
                         $user_extram_param  = array();

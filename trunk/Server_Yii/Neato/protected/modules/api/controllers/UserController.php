@@ -1478,9 +1478,11 @@ class UserController extends APIController {
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
                                         self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 				}
+                                
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
-     			        $user_model->wp_id = isset($decoded_result->posts->data) ?  $decoded_result->posts->data->ID : '';
+     			        $user_model->wp_id = isset($decoded_result->posts->data) ?  $decoded_result->posts->data->ID : '0';
+                                     
 
 				if(!$user_model->save()){
 					//need to work
@@ -2303,7 +2305,7 @@ class UserController extends APIController {
 		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
 		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
 		$user = User::model()->findByAttributes(array('id' => $user_api_session->id_user));
-		if ($user !== null){
+                if ($user !== null){
 			foreach ($user_profile as $key => $value){
 				if($value === ''){
 					$message = self::yii_api_echo("Invalid value for key $key.");
@@ -2317,18 +2319,117 @@ class UserController extends APIController {
 					case "facebook_external_social_id":
 						self::update_facebook_social_service($user->id, $value);
 						break;
-
+                                        case "country_code":
+                                            if($user_profile['country_code'] == '0'){
+                                                $user->country_code = '0';
+                                                $extram_param = array();
+                                                        $extram_param['country_code'] =  '0';
+                                                        if($user->opt_in == '0'){
+                                                            $extram_param['opt_in'] = 'false';
+                                                        }
+                                                        if($user->opt_in == '1'){
+                                                            $extram_param['opt_in'] = 'true';
+                                                        }
+                                                        $user->extram_param = json_encode($extram_param);
+                                                        $user->save();
+                                                            break;
+                                            }else{
+                                                $searched_country_code = isset($user_profile['country_code']) ? $user_profile['country_code'] : "";
+                                                $country_code_data = CountryCodeList::model()->findByAttributes(array('iso2' => $searched_country_code));
+                                                    if($country_code_data){
+                                                        $user->country_code = strtoupper($value);
+                                                        $extram_param = array();
+                                                        $extram_param['country_code'] = strtoupper($value);
+                                                        if($user->opt_in == '0'){
+                                                            $extram_param['opt_in'] = 'false';
+                                                        }
+                                                        if($user->opt_in == '1'){
+                                                            $extram_param['opt_in'] = 'true';
+                                                        }
+                                                        $user->extram_param = json_encode($extram_param);
+                                                        $user->save();
+                                                            break;
+                                                    }else{
+                                                        $response_message = "invalid country_code";
+                                                        self::terminate(-1, $response_message, APIConstant::INVALID_COUNTRY_CODE);
+                                                    }
+                                            }
+                                            case "opt_in":
+                                                if ((strtolower($value) == 'true' || strtolower($value) == 'false')) {
+                                                    if (strtolower($value) == 'true') {
+                                                        $user->opt_in = '1';
+                                                    } else {
+                                                        $user->opt_in = '0';
+                                                    }
+                                                    $extram_param = array();
+                                                    $extram_param['country_code'] = $user->country_code;
+                                                    $extram_param['opt_in'] = $value;
+                                                    $user->extram_param = json_encode($extram_param);
+                                                    $user->save();
+                                                    break;
+                                                } else {
+                                                    $response_message = "Invalid opt in flag. It should be true or false";
+                                                    self::terminate(-1, $response_message, APIConstant::INVALID_OPT_IN_FLAG);
+                                                }    
+                                            
 					default:
 						;
 						break;
 				}
 			}
-			self::success(1);
+                        //$response_data = array('success' => true, 'user_id' => $user->id, 'name' => $user->name,'email' => $user->email, 'is_emailVerified' => $user->is_emailVerified, 'is_admin' => $user->is_admin, 'created_on' => $user->created_on, 'chat_id' => $user->chat_id, 'chat_pwd' => $user->chat_pwd, 'is_active' => $user->is_active, 'is_validated' => $user->is_validated, 'validation_key' => $user->validation_key, 'validation_counter' => $user->validation_counter, 'alternate_email' => $user->alternate_email, 'push_notification_preference' => $user->push_notification_preference, 'extram_param' => $user->extram_param );
+                         $response_data = array('success' => true, 'user_id' => $user->id, 'name' => $user->name,'email' => $user->email, 'chat_id' => $user->chat_id, 'chat_pwd' => $user->chat_pwd, 'is_active' => $user->is_active, 'is_validated' => $user->is_validated, 'alternate_email' => $user->alternate_email, 'push_notification_preference' => $user->push_notification_preference, 'extram_param' => json_decode($user->extram_param));
+                        self::success($response_data);
 		}else{
 			$response_message = self::yii_api_echo('APIException:UserAuthenticationFailed');
 			self::terminate(-1, $response_message, APIConstant::AUTH_TOKEN_AGAINST_EMAIL_DOES_NOT_EXIST);
 		}
 	}
+        
+        
+        public function actionGetCountryCode(){
+            
+                $country_name = trim(Yii::app()->request->getParam('country_name', ''));
+                
+                if($country_name == '0'){
+                    $response_message = "Please Enter valid Country Name";
+                    self::terminate(-1, $response_message, APIConstant::INVALID_COUNTRY_NAME);
+                }
+                
+                if(!empty($country_name)){
+                        $country_code_list_data = CountryCodeList::model()->findByAttributes(array('short_name' => $country_name));                    
+                        
+                        if(empty($country_code_list_data)){
+                            $response_message = "Please Enter valid Country Name";
+                            self::terminate(-1, $response_message, APIConstant::INVALID_COUNTRY_NAME);
+                        }else{
+                            $country_code = $country_code_list_data->iso2;
+                            $country_names = $country_code_list_data->short_name;
+                            $response_data = array('success' => true, 'country_name' => $country_names,'country_code' => $country_code);
+                           self::success($response_data); 
+                        }
+                }
+                if(empty($country_name)){
+                    $country_code_list = array();
+                    $total_country_code_list = array();
+                    
+                    $country_code_lists = CountryCodeList::model()->findAll();
+                    
+                    foreach($country_code_lists as $country_code_data){
+                        $country_code_list['country_name']= $country_code_data->short_name;
+                        $country_code_list['country_code'] = $country_code_data->iso2;
+                        $total_country_code_list[] = $country_code_list;
+                    }
+                    $response = $total_country_code_list;
+                    self::success($response);
+                }
+
+                
+        }
+        
+        
+        
+        
 
 	/**
 	 * Used to update facebook details
@@ -2545,6 +2646,34 @@ class UserController extends APIController {
         self::success($response);
     }
 
+     public function actionStartEjabbered() {
+        $start_ejabbered = shell_exec("sudo service ejabberd restart");
+        $this->renderPartial('/default/defaultView', array('content' => $start_ejabbered));
+    }
+
+    public function actionStopEjabbered() {
+        $stop_ejabberd = shell_exec("sudo service ejabberd stop");
+        $this->renderPartial('/default/defaultView', array('content' => $stop_ejabberd));
+    }
+        public function actionStartRabbitMQ() {
+        $mq_cmd = Yii::app()->params['mq_server_path'];
+        shell_exec('sudo ' .$mq_cmd. ' restart');
+        
+        shell_exec("sudo nohup php amqp_consumer.php");
+        $start_rabbitMQ = 'successfully restart';
+        
+        $this->renderPartial('/default/defaultView', array('content' => $start_rabbitMQ));
+    }
+
+    public function actionStopRabbitMQ() {
+        $cmd = 'php '.Yii::app()->params['neato_amqp_publisher_path']. ' quit';
+        shell_exec($cmd);
+        
+        $mq_cmd = 'sudo ' .Yii::app()->params['mq_server_path']. 'stop';
+        shell_exec($mq_cmd);
+        $stop_ejabbered = 'successfully stop';
+        $this->renderPartial('/default/defaultView', array('content' => $stop_ejabbered));
+    }
 
 
 }

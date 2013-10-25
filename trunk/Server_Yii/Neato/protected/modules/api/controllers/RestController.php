@@ -194,6 +194,16 @@ class RestController extends APIController {
 				true);
 		
 		
+                self::expose_function('user.get_country_code',
+				"user/getCountryCode",
+				array('country_name' => array ('type' => 'string', 'required' => false),
+				),
+				"Get Country Code Details",
+				'POST',
+				true,
+				false);
+                
+                
 		self::expose_function('user.set_attributes',
 				"user/SetAttributes",
 				array('auth_token' => array ('type' => 'string', 'required' => true),
