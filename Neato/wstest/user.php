@@ -465,7 +465,9 @@
 								handle call)</li>
 							<li><b>profile</b> :Map of key=>value pairs, e.g.
 								profile{'name'=>'james bond',
-								'facebook_external_social_id'='12312111'}</li>
+								'facebook_external_social_id'=>'12312111',
+                                                                'country_code'=>'US',
+                                                                'opt_in' => 'true'}</li>
 						</ul>
 						Success Response:
 						<ul>
@@ -493,6 +495,20 @@
                                                                 <ul>
                                                                         <li>
                                                                             {"status":-1,"message":"Invalid value for key www.","error":{"code":"-109","message":"Invalid value for key"}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        <li>If add detail key is set and  country_code is invalid:
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"invalid country_code","error":{"code":"-187","message":"Country code is invalid."}}
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+                                                        <li>If add detail key is set and  opt_in is invalid:
+                                                                <ul>
+                                                                        <li>
+                                                                            {"status":-1,"message":"Invalid opt in flag. It should be true or false.","error":{"code":"-188","message":"opt_in flag is invalid. It should be true or false"}}
                                                                         </li>
                                                                 </ul>
                                                         </li>
@@ -524,7 +540,7 @@
 				</td>
 				<td>
 					<div id='addLabelLink'>Add Account Detail Key (considered keys are
-						name, facebook_external_social_id)</div>
+						name, facebook_external_social_id, country_code, opt_in(true or false))</div>
 				</td>
 			</tr>
 
@@ -543,6 +559,88 @@
 	</form>
 
 	
+<form action="<?php echo($baseURL)?>user.get_country_code" method='POST'
+		id='get_country_code' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id = "Get Country Code Details" colspan="2"><label>Get Country Code Details </label></td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to Get Country Code Details <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						user.get_country_code<br /> Parameters:
+						<ul>
+
+                                                        <li><b>api_key</b> :Your API Key</li>
+							<li><b>country_name</b> :Enter Country Name</li>
+
+						</ul>
+						Success Responses:
+						<ul>
+							<li>If country name exist
+								<ul>
+									<li>
+										{"status":0,"result":{"success":true,"country_name":"United States","country_code":"US"}}
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+
+						Failure Responses: <br />
+						<ul>
+
+							<li>If API Key is missing or not correct:
+								<ul>
+                                                                        <li>
+                                                                              {"status":-1,"message":"Method call failed the API Authentication","error":{"code":"-174","message":"Method call failed the API Authentication"}}
+                                                                        </li>
+								</ul>
+							</li>
+                                                        <li>If Country name does not exist:
+								<ul>
+									<li>
+                                                                              {"status":-1,"message":"Please Enter valid Country Name","error":{"code":"-187","message":"Provided country name is not valid."}}
+                                                                        </li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' /></td>
+			</tr>
+			
+			<tr>
+				<td>country_name</td>
+				<td><input type="text" name='country_name'></td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='get_country_code'
+					value='Submit' class='submit_form'></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
+
+
 	<form action="<?php echo($baseURL)?>user.set_attributes"
 		method='POST' id='usersetattributes' class='ajaxified_forms'>
 		<table class='custom_table'>
@@ -1847,7 +1945,7 @@
 						<ul>
 
                                                         <li><b>api_key</b> :Your API Key</li>
-							<li><b>email</b> :Email of the user</li>
+							<li><b>error_code</b> :Enter Error Code</li>
 
 						</ul>
 						Success Responses:

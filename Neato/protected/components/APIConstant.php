@@ -87,6 +87,9 @@ class APIConstant {
     const UNEXPECTED_ERROR = '-184';
     const OFFLINE_ROBOT = '-185';
     const TOO_SHORT = '-186';
+    const INVALID_COUNTRY_NAME = '-187';
+    const INVALID_COUNTRY_CODE = '-188'; 
+    const INVALID_OPT_IN_FLAG = '-189';
     
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
@@ -174,7 +177,9 @@ class APIConstant {
         APIConstant::UNEXPECTED_ERROR => 'Unexpected error occurred.', 
         APIConstant::OFFLINE_ROBOT => 'Robot is offline.', 
         APIConstant::TOO_SHORT => 'Password length should be 6 character.', 
-        
+        APIConstant::INVALID_COUNTRY_NAME => 'Provided country name is not valid.',
+        APIConstant::INVALID_COUNTRY_CODE => 'Country code is invalid.', 
+        APIConstant::INVALID_OPT_IN_FLAG => 'opt_in flag is invalid. It should be true or false',
         );
 
     static function getMessageForErrorCode($errorCode) {

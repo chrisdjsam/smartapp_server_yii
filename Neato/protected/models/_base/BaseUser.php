@@ -91,10 +91,10 @@ class BaseUser extends GxActiveRecord
 			'user' => 'User',
 			'password' => 'Password',
 			'reset_password' => 'Reset Password',
-//			'email' => 'Email',
-                        'email' => 'Username', //for wp setting did the changes in appearance of email
-//                        'alternate_email' => 'Alternate Email',
-                    'alternate_email' => 'Email',
+			'email' => 'Email',
+//                        'email' => 'Username', //for wp setting did the changes in appearance of email
+                        'alternate_email' => 'Alternate Email',
+//                    'alternate_email' => 'Email',
 			'is_emailVerified' => 'Is Email Verified',
 			'is_admin' => 'Is Admin',
 			'created_on' => 'Created on',

@@ -90,11 +90,13 @@ padding-right: 50px;
 											<li><a href="user.php#Forget Password">Forget Password</a>
 											</li>
 											
-											<li><a href="user.php#Set User Account Details">Set User
-													Account Details</a>
+											<li><a href="user.php#Set User Account Details">Set User Account Details</a>
 											</li>
-											<li><a href="user.php#Get User Account Details">Get User
-													Account Details</a>
+                                                                                        
+                                                                                        <li><a href="user.php#Get Country Code Details" class="new-api">Get Country Code Details</a>
+											</li>
+                                                                                        
+											<li><a href="user.php#Get User Account Details">Get User Account Details</a>
 											</li>
 											
 											<li><a href="user.php#Set Attributes">Set Attributes</a>

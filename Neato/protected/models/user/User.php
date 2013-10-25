@@ -36,4 +36,14 @@ class User extends BaseUser
 		}
 		return false;
 	}
+        
+        public function attributeLabels() {
+           $attributes = parent::attributeLabels();
+
+           if(Yii::app()->params['is_wp_enabled']){
+               $attributes['email'] = 'Username';
+               $attributes['alternate_email'] = 'Email';
+           }
+           return $attributes;
+       }
 }

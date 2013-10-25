@@ -37,11 +37,20 @@ class LoginForm extends CFormModel
 	 */
 	public function attributeLabels()
 	{
-		return array(
-				'email'=>'Username',
-				'password'=>'Password',
-				'rememberMe'=>'Remember me next time',
-		);
+	
+          if(!Yii::app()->params['is_wp_enabled']){
+               return array(
+                               'email'=>'Email',
+                               'password'=>'Password',
+                               'rememberMe'=>'Remember me next time',
+               );
+           }else{  
+                return array(
+                                    'email'=>'Username',
+                                    'password'=>'Password',
+                                    'rememberMe'=>'Remember me next time',
+                    );
+             }
 	}
 
 	/**
