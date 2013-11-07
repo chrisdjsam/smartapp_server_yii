@@ -24,7 +24,7 @@ div.last-ran-at{
 	color:black; font-size:12px; font-style:italic;
 }
 </style>
- <script type="text/javascript"
+<script type="text/javascript"
 		src="/Neato_Server/Server_Yii/Neato/js/libs/jquery-1.7.2.min.js"></script>
 <script type="text/javascript"
 		src="/Neato_Server/Server_Yii/Neato/js/libs/jquery-ui-1.8.16.min.js"></script>
@@ -47,7 +47,7 @@ function restartRabbitMQ(){
     var startMQ = 'StartRabbitMQ';
     sendMQAjax(startMQ);
     
-    $('.mq_status').html(start_message);
+//    $('.mq_status').html(start_message);
 }
 
 function stopRabbitMQ(){
@@ -65,7 +65,7 @@ function sendMQAjax(action){
             success: function(r) {
                 if(action == 'StopRabbitMQ'){
                 $('.mq_status').html(stop_message);    
-                }
+}
                 if(action == 'StartRabbitMQ'){
                 $('.mq_status').html(start_message);    
                 }
@@ -73,6 +73,6 @@ function sendMQAjax(action){
             error: function(r) {
             }
         });
-
+   
 }
 </script>

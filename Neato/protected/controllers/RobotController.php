@@ -36,11 +36,13 @@ class RobotController extends Controller
 		$model =$this->loadModel($id);
                 
 		$isOnline = 2; // 2 for offline  
-                if(in_array($model->chat_id, AppCore::getOnlineUsers())){
+//                if(in_array($model->chat_id, AppCore::getOnlineUsers())){
+                if(in_array($model->chat_id, RobotCore::getOnlineUsers())){
                     $isOnline = 1; // 1 for online
                 } else {
                     
-                    $sleep_lag_time = AppCore::getSleepLagTime($model);
+//                    $sleep_lag_time = AppCore::getSleepLagTime($model);
+                    $sleep_lag_time = RobotCore::getSleepLagTime($model);
                     $robot_ping_interval = $sleep_lag_time['sleep_time'];
                     
                     if(AppCore::getVirtuallyOnlinRobots($model->serial_number, $robot_ping_interval)){
@@ -48,7 +50,8 @@ class RobotController extends Controller
                     }
                 }
                 
-                $last_ping = AppCore::getLatestPingTimestampFromRobot($model->serial_number);
+//                $last_ping = AppCore::getLatestPingTimestampFromRobot($model->serial_number);
+                $last_ping = RobotCore::getLatestPingTimestampFromRobot($model->serial_number);
                 
                 if(!empty($last_ping)){
                     $latest_ping_timestamp = strtotime($last_ping[0]->ping_timestamp);
@@ -58,7 +61,8 @@ class RobotController extends Controller
                     $last_ping = 'Unavailable';
                 }
                 
-                $sleep_lag_time = AppCore::getSleepLagTime($model);
+//                $sleep_lag_time = AppCore::getSleepLagTime($model);
+                $sleep_lag_time = RobotCore::getSleepLagTime($model);
                                 
 		$this->render('view',array(
 				'model'=>$model,
@@ -109,7 +113,8 @@ class RobotController extends Controller
 		if(isset($_POST['Robot'], $_POST['RobotTypes']))
 		{
 			$model->attributes=$_POST['Robot'];
-			$chat_details = AppCore::create_chat_user_for_robot();
+//			$chat_details = AppCore::create_chat_user_for_robot();
+                        $chat_details = RobotCore::create_chat_user_for_robot();
 
 			if(!$chat_details['jabber_status']){
 				$message = "Robot could not be created because jabber service in not responding.";
@@ -134,15 +139,19 @@ class RobotController extends Controller
                                     $robot_name = $model-> name;
                                     $key = Yii::app()->params['robot_name_key'];
                                     
-                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
+//                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
+                                    RobotCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
                                     
                                     $user_id = Yii::app()->user->id;
                                     $user_data = User::model()->findByPk($user_id);
                                     $cause_agent_id = Yii::app()->session['cause_agent_id'];
-                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-                                    $online_users_chat_ids = AppCore::getOnlineUsers();
+//                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                                    $message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//                                    $online_users_chat_ids = AppCore::getOnlineUsers();
+                                    $online_users_chat_ids = RobotCore::getOnlineUsers();
 
-                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+//                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                                    RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
                                     
                                 }
 
@@ -393,15 +402,19 @@ class RobotController extends Controller
 
                                 if($robot_name_before_update != $model-> name){
                                     
-                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
+//                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
+                                    RobotCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
                                     
                                     $user_id = Yii::app()->user->id;
                                     $user_data = User::model()->findByPk($user_id);
                                     $cause_agent_id = Yii::app()->session['cause_agent_id'];
-                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-                                    $online_users_chat_ids = AppCore::getOnlineUsers();
+//                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                                    $message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//                                    $online_users_chat_ids = AppCore::getOnlineUsers();
+                                    $online_users_chat_ids = RobotCore::getOnlineUsers();
 
-                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+//                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                                    RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
                                     
                                 }
                                 

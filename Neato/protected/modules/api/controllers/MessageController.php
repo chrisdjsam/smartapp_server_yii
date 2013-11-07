@@ -74,7 +74,8 @@ class MessageController extends APIController {
 		
 		$message = Yii::app()->request->getParam('message', '');
 		
-		$status = AppCore::send_chat_message($user->chat_id, $robot->chat_id, $message);
+//		$status = AppCore::send_chat_message($user->chat_id, $robot->chat_id, $message);
+                $status = RobotCore::send_chat_message($user->chat_id, $robot->chat_id, $message);
 		if($status){
 			$response_message = "Message is sent to robot $serial_number.";
 			$response_data = array("success"=>true, "message"=>$response_message);
@@ -172,7 +173,8 @@ class MessageController extends APIController {
 		$message = Yii::app()->request->getParam('message', '');
 		$count= 0;
 		foreach ($robot->usersRobots as $userRobot){
-			$count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//			$count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                        $count += RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 		}
                 
 		$response_message = "Message is sent to $count user(s).";
@@ -195,12 +197,15 @@ class MessageController extends APIController {
 		$count= 0;
 		foreach ($robot->usersRobots as $userRobot){
                     if($only_online == '1'){
-                        $online_users_chat_ids = AppCore::getOnlineUsers();
+//                        $online_users_chat_ids = AppCore::getOnlineUsers();
+                        $online_users_chat_ids = RobotCore::getOnlineUsers();
 			if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-				$count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//				$count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                                $count += RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 			}
                     }else {
-                        $count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//                        $count += AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                        $count += RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
                     }
 			
 		}
@@ -652,7 +657,8 @@ class MessageController extends APIController {
                             foreach ($json_object->notifications as $value) {
                                 if(isset($value->value) && isset($value->key) ) {
                                     $userPushNotificationPreferencesObj = new UserPushNotificationPreferences();
-                                    AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
+//                                    AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
+                                    UserCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
                                 }else {
                                     self::terminate(-1, "Provided JSON does not contain considered keys like 'value', 'key' etc.", APIConstant::JSON_WITH_INVALID_KEYS);
                                 }
@@ -664,7 +670,8 @@ class MessageController extends APIController {
                         
                             foreach ($json_object->notifications as $key => $value) {
                                 if(isset($value->value) && isset($value->key) ) {
-                                    AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+//                                    AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+                                    UserCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
                                 }else {
                                     self::terminate(-1, "Provided JSON does not contain considered keys like 'value', 'key' etc.", APIConstant::JSON_WITH_INVALID_KEYS);
                                 }

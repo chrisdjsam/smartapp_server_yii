@@ -54,7 +54,8 @@ class UserController extends APIController {
 			$user_model->reset_password = $encrypted_new_password;
 			$user_model->is_emailVerified = 1;
 
-			$chat_details = AppCore::create_chat_user_for_user();
+//			$chat_details = AppCore::create_chat_user_for_user();
+                        $chat_details = UserCore::create_chat_user_for_user();
 			if(!$chat_details['jabber_status']){
 				//$message = "User could not be created because jabber service is not responding.";
 				//self::terminate(-1, $message);
@@ -69,7 +70,8 @@ class UserController extends APIController {
 				Yii::app()->end();
 			}
                         
-                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+//                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+                        UserCore::setDefaultUserPushNotificationOptions($user_model->id);
 			//send welocom messsage
 			$login_link = $this->createUrl("/user/login");
 			AppEmail::emailWelcomeNewUser($user_model->email, $user_model->name, $new_password, $login_link);
@@ -180,13 +182,15 @@ class UserController extends APIController {
 					
 					
 					if ($user !== null){
-						$user_auth_token = AppCore::create_user_auth_token($user->id);
+//						$user_auth_token = AppCore::create_user_auth_token($user->id);
+                                                $user_auth_token = UserCore::create_user_auth_token($user->id);
 						if ($user_auth_token){
                                                     
                                                     $is_validated = ($user->is_validated == 0) ? -1 : 0 ;
                                                     $message = '';
                                                     
-                                                    $grace_period = AppCore::getGracePeriod();
+//                                                    $grace_period = AppCore::getGracePeriod();
+                                                    $grace_period = UserCore::getGracePeriod();
 
                                                     if(!(boolean)$user->is_validated){
                                                                                    
@@ -233,13 +237,15 @@ class UserController extends APIController {
 			if($user_social_id !== ''){
 				$user_social_services = UsersSocialservice::model()->findByAttributes(array('user_social_id' => $user_social_id));
 				if($user_social_services !== null){
-					$user_auth_token = AppCore::create_user_auth_token($user_social_services->idUser->id);
+//					$user_auth_token = AppCore::create_user_auth_token($user_social_services->idUser->id);
+                                        $user_auth_token = UserCore::create_user_auth_token($user_social_services->idUser->id);
 					if ($user_auth_token){
                                             
                                                 $is_validated = ($user_social_services->idUser->is_validated == 0) ? -1 : 0 ;
                                                 $message = '';
 
-                                                $grace_period = AppCore::getGracePeriod();
+//                                                $grace_period = AppCore::getGracePeriod();
+                                                $grace_period = UserCore::getGracePeriod();
 
                                                 if(!(boolean)$user_social_services->idUser->is_validated){
 
@@ -342,7 +348,8 @@ class UserController extends APIController {
                                 $user_model->password = $encrypted_pass_word;
                                 $user_model->reset_password = $encrypted_pass_word;
 
-                                $chat_details = AppCore::create_chat_user_for_user();
+//                                $chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
                                 if(!$chat_details['jabber_status']){
                                         $message = self::yii_api_echo("User could not be created because jabber service is not responding.");
                                         self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
@@ -387,15 +394,17 @@ class UserController extends APIController {
                                     }
                                 }
                             }
-					
+                            
                         if ($user !== null) {
-                               $user_auth_token = AppCore::create_user_auth_token($user->id);
+//                               $user_auth_token = AppCore::create_user_auth_token($user->id);
+                               $user_auth_token = UserCore::create_user_auth_token($user->id);
                                 if ($user_auth_token) {
 
                                     $is_validated = ($user->is_validated == 0) ? -1 : 0;
                                     $message = '';
 
-                                    $grace_period = AppCore::getGracePeriod();
+//                                    $grace_period = AppCore::getGracePeriod();
+                                    $grace_period = UserCore::getGracePeriod();
 
                                     if (!(boolean) $user->is_validated) {
 
@@ -438,13 +447,15 @@ class UserController extends APIController {
             if ($user_social_id !== '') {
                 $user_social_services = UsersSocialservice::model()->findByAttributes(array('user_social_id' => $user_social_id));
                 if ($user_social_services !== null) {
-                    $user_auth_token = AppCore::create_user_auth_token($user_social_services->idUser->id);
+//                    $user_auth_token = AppCore::create_user_auth_token($user_social_services->idUser->id);
+                    $user_auth_token = UserCore::create_user_auth_token($user_social_services->idUser->id);
                     if ($user_auth_token) {
 
                         $is_validated = ($user_social_services->idUser->is_validated == 0) ? -1 : 0;
                         $message = '';
 
-                        $grace_period = AppCore::getGracePeriod();
+//                        $grace_period = AppCore::getGracePeriod();
+                        $grace_period = UserCore::getGracePeriod();
 
                         if (!(boolean) $user_social_services->idUser->is_validated) {
 
@@ -561,7 +572,7 @@ class UserController extends APIController {
 			self::terminate(-1, $response_message, $error_key);
                     }
                     }else{
-                
+                        
 		$user_model = User::model()->findByAttributes(array("email" => $email));
 		if($user_model != null){
 			$new_password = AppHelper::generateRandomString();
@@ -868,7 +879,8 @@ class UserController extends APIController {
 				$users_arr[] = $user_details;
 			}
                         
-                        $is_validated = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+//                        $is_validated = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+                        $is_validated = UserCore::getIsValidateStatus($user->is_validated, $user->id);
                         
 			$response_data = array("id"=>$user->id,"name"=>$user->name,"email"=>$user->email,"chat_id"=>$user->chat_id,"chat_pwd"=>$user->chat_pwd,
 					"social_networks"=>$user_social_services_arr,"robots"=>$users_arr, "validation_status" => $is_validated, "alternate_email"=>$user->alternate_email, "extra_param"=> json_decode($user->extram_param));
@@ -1473,7 +1485,8 @@ class UserController extends APIController {
 				$user_model->password = $user_encrypted_password;
 				$user_model->reset_password = $user_encrypted_password;
                                 
-				$chat_details = AppCore::create_chat_user_for_user();
+//				$chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
                                         self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
@@ -1481,8 +1494,7 @@ class UserController extends APIController {
                                 
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
-     			        $user_model->wp_id = isset($decoded_result->posts->data) ?  $decoded_result->posts->data->ID : '0';
-                                     
+     			        $user_model->wp_id = isset($decoded_result->posts->data) ?  $decoded_result->posts->data->ID : '';
 
 				if(!$user_model->save()){
 					//need to work
@@ -1545,9 +1557,11 @@ class UserController extends APIController {
 					}
 				}
                                 
-                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+//                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+                                UserCore::setDefaultUserPushNotificationOptions($user_model->id);
                                 
-				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+//				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+                                $user_auth_token = UserCore::create_user_auth_token($user_model->id);
 				$response_data = array();
 				$response_data['success'] = true;
 				$response_data['guid'] = $user_model->id;
@@ -1578,7 +1592,8 @@ class UserController extends APIController {
                                         
 					$response_data = array();
 					$response_data['message'] = self::yii_api_echo("Merged");
-					$user_auth_token = AppCore::create_user_auth_token($user->id);
+//					$user_auth_token = AppCore::create_user_auth_token($user->id);
+                                        $user_auth_token = UserCore::create_user_auth_token($user->id);
 					$response_data['success'] = true;
 					$response_data['guid'] = $user->id;
 					$response_data['user_handle'] = $user_auth_token;
@@ -1689,7 +1704,8 @@ class UserController extends APIController {
 				$user_model->password = $user_encrypted_password;
 				$user_model->reset_password = $user_encrypted_password;
                                 
-				$chat_details = AppCore::create_chat_user_for_user();
+//				$chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
 					self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
@@ -1753,15 +1769,18 @@ class UserController extends APIController {
 					}
 				}
                                 
-                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+//                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+                                UserCore::setDefaultUserPushNotificationOptions($user_model->id);
 
-				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+//				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+                                $user_auth_token = UserCore::create_user_auth_token($user_model->id);
 				$response_data = array();
 				$response_data['success'] = true;
 				$response_data['guid'] = $user_model->id;
 				$response_data['user_handle'] = $user_auth_token;
                                 
-                                $response_data['validation_status'] = AppCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
+//                                $response_data['validation_status'] = AppCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
+                                $response_data['validation_status'] = UserCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
 
 				self::success($response_data);
 			}elseif($user_account_type == 'Facebook'){
@@ -1784,16 +1803,18 @@ class UserController extends APIController {
 					$user_social_service_model->raw_data = array();
 
 					if (!$user_social_service_model->save()) {
-						//AppHelper::dump($user_social_service_model->getErrors());
+						// need to work
 					}
 
 					$response_data = array();
 					$response_data['message'] = self::yii_api_echo("Merged");
-					$user_auth_token = AppCore::create_user_auth_token($user->id);
+//					$user_auth_token = AppCore::create_user_auth_token($user->id);
+                                        $user_auth_token = UserCore::create_user_auth_token($user->id);
 					$response_data['success'] = true;
 					$response_data['guid'] = $user->id;
 					$response_data['user_handle'] = $user_auth_token;
-                                        $response_data['validation_status'] = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+//                                        $response_data['validation_status'] = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+                                        $response_data['validation_status'] = UserCore::getIsValidateStatus($user->is_validated, $user->id);
 
 					self::success($response_data);
 				}else{
@@ -1813,7 +1834,7 @@ class UserController extends APIController {
         //  Added extra info of user in actionCreate3 in json format with field name exram_param
         public function actionCreate3(){
 
-		$user_name = Yii::app()->request->getParam('name', '');
+            $user_name = Yii::app()->request->getParam('name', '');
 		$user_email = Yii::app()->request->getParam('email', '');
                 $alternate_user_email = Yii::app()->request->getParam('alternate_email', '');
                 $extram_param = Yii::app()->request->getParam('extra_param','');
@@ -1919,7 +1940,8 @@ class UserController extends APIController {
 				$user_model->password = $user_encrypted_password;
 				$user_model->reset_password = $user_encrypted_password;
                                 
-				$chat_details = AppCore::create_chat_user_for_user();
+//				$chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
 					self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
@@ -1983,15 +2005,18 @@ class UserController extends APIController {
 					}
 				}
                                 
-                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+//                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+                                UserCore::setDefaultUserPushNotificationOptions($user_model->id);
 
-				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+//				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+                                $user_auth_token = UserCore::create_user_auth_token($user_model->id);
 				$response_data = array();
 				$response_data['success'] = true;
 				$response_data['guid'] = $user_model->id;
 				$response_data['user_handle'] = $user_auth_token;
                                 
-                                $response_data['validation_status'] = AppCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
+//                                $response_data['validation_status'] = AppCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
+                                $response_data['validation_status'] = UserCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
 
 				self::success($response_data);
 			}elseif($user_account_type == 'Facebook'){
@@ -2014,16 +2039,18 @@ class UserController extends APIController {
 					$user_social_service_model->raw_data = array();
 
 					if (!$user_social_service_model->save()) {
-						//AppHelper::dump($user_social_service_model->getErrors());
+						//need to work
 					}
 
 					$response_data = array();
 					$response_data['message'] = self::yii_api_echo("Merged");
-					$user_auth_token = AppCore::create_user_auth_token($user->id);
+//					$user_auth_token = AppCore::create_user_auth_token($user->id);
+                                        $user_auth_token = UserCore::create_user_auth_token($user->id);
 					$response_data['success'] = true;
 					$response_data['guid'] = $user->id;
 					$response_data['user_handle'] = $user_auth_token;
-                                        $response_data['validation_status'] = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+//                                        $response_data['validation_status'] = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+                                        $response_data['validation_status'] = UserCore::getIsValidateStatus($user->is_validated, $user->id);
 
 					self::success($response_data);
 				}else{
@@ -2152,7 +2179,8 @@ class UserController extends APIController {
 				$user_model->password = $user_encrypted_password;
 				$user_model->reset_password = $user_encrypted_password;
                                 
-				$chat_details = AppCore::create_chat_user_for_user();
+//				$chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = self::yii_api_echo("User could not be created because jabber service is not responding.");
 					self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
@@ -2216,15 +2244,18 @@ class UserController extends APIController {
 					}
 				}
                                 
-                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+//                                AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+                                UserCore::setDefaultUserPushNotificationOptions($user_model->id);
 
-				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+//				$user_auth_token = AppCore::create_user_auth_token($user_model->id);
+                                $user_auth_token = UserCore::create_user_auth_token($user_model->id);
 				$response_data = array();
 				$response_data['success'] = true;
 				$response_data['guid'] = $user_model->id;
 				$response_data['user_handle'] = $user_auth_token;
                                 
-                                $response_data['validation_status'] = AppCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
+//                                $response_data['validation_status'] = AppCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
+                                $response_data['validation_status'] = UserCore::getIsValidateStatus($user_model->is_validated, $user_model->id);
 
 				self::success($response_data);
 			}elseif($user_account_type == 'Facebook'){
@@ -2247,16 +2278,18 @@ class UserController extends APIController {
 					$user_social_service_model->raw_data = array();
 
 					if (!$user_social_service_model->save()) {
-						//AppHelper::dump($user_social_service_model->getErrors());
+						//need to work
 					}
 
 					$response_data = array();
 					$response_data['message'] = self::yii_api_echo("Merged");
-					$user_auth_token = AppCore::create_user_auth_token($user->id);
+//					$user_auth_token = AppCore::create_user_auth_token($user->id);
+                                        $user_auth_token = UserCore::create_user_auth_token($user->id);
 					$response_data['success'] = true;
 					$response_data['guid'] = $user->id;
 					$response_data['user_handle'] = $user_auth_token;
-                                        $response_data['validation_status'] = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+//                                        $response_data['validation_status'] = AppCore::getIsValidateStatus($user->is_validated, $user->id);
+                                        $response_data['validation_status'] = UserCore::getIsValidateStatus($user->is_validated, $user->id);
 
 					self::success($response_data);
 				}else{
@@ -2305,7 +2338,7 @@ class UserController extends APIController {
 		$user_auth_token = Yii::app()->request->getParam('auth_token', '');
 		$user_api_session = UsersApiSession::model()->findByAttributes(array('token' =>$user_auth_token));
 		$user = User::model()->findByAttributes(array('id' => $user_api_session->id_user));
-                if ($user !== null){
+		if ($user !== null){
 			foreach ($user_profile as $key => $value){
 				if($value === ''){
 					$message = self::yii_api_echo("Invalid value for key $key.");
@@ -2533,7 +2566,8 @@ class UserController extends APIController {
 
                 $message = "The email address you have provided does not appear to be a validated. Please validate it.";
                 
-                $grace_period = AppCore::getGracePeriod();
+//                $grace_period = AppCore::getGracePeriod();
+                $grace_period = UserCore::getGracePeriod();
                 $user_created_on_timestamp = strtotime($data->created_on);
                 $current_system_timestamp = time();
                 $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
@@ -2559,23 +2593,28 @@ class UserController extends APIController {
     public function actionResendValidationEmail() {
         
         $user_email = Yii::app()->request->getParam('email', '');
-        
+        $is_wp_enabled = Yii::app()->params['is_wp_enabled'];        
+        $email_label = 'Email address';
+        if($is_wp_enabled){
+            $email_label = 'Username';    
+        }
         //get input is_validated if it from create user 2 web service API
         
         if (!AppHelper::is_valid_email($user_email)) {
-            $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
+            $message = 'The '.$email_label.' you have provided does not appear to be a valid email address.';
             self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
         }
         
         
 
 	$data = User::model()->find('email = :email', array(':email' => $user_email));
-//        AppHelper::dump($data->alternate_email);
+
         if(!empty($data)) {
             
             if (!$data->is_validated) {
                 
-                $validation_attempt = AppCore::getValidationAttempt();
+//                $validation_attempt = AppCore::getValidationAttempt();
+                $validation_attempt = UserCore::getValidationAttempt();
                 
                 if ($data->validation_counter < $validation_attempt) {
 
@@ -2608,12 +2647,12 @@ class UserController extends APIController {
                 
             } else {
                 
-                $message = self::yii_api_echo("The email address you have provided is already activated.");
+                $message = "The ".$email_label." you have provided is already activated.";
                 self::terminate(-1, $message, APIConstant::EMAIL_ALREADY_ACTIVATED);
                 
             }
         } else {
-            $message = self::yii_api_echo("The email address you have provided does not exist in our system.");
+            $message = "The ".$email_label." you have provided does not exist in our system.";
             self::terminate(-1, $message, APIConstant::EMAIL_DOES_NOT_EXIST);
         }
         

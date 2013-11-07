@@ -71,7 +71,8 @@ class Controller extends CController
 	public function beforeAction($action){
             
                 if (!Yii::app()->user->getIsGuest()) {
-                    $is_validated = AppCore::getIsValidateStatus(Yii::app()->user->isValidated, Yii::app()->user->id);
+//                    $is_validated = AppCore::getIsValidateStatus(Yii::app()->user->isValidated, Yii::app()->user->id);
+                    $is_validated = UserCore::getIsValidateStatus(Yii::app()->user->isValidated, Yii::app()->user->id);
                     if($is_validated == -2) {
                         Yii::app()->user->logout();
                         Yii::app()->session->open();
