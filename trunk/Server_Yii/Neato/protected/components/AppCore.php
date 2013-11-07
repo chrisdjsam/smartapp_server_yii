@@ -23,35 +23,36 @@ class AppCore {
 		return $response;
 	}
 
-	/**
-	 * Create Auth Token for User
-	 * @param int $user_id
-	 * @return boolean
-	 */
-	public static function create_user_auth_token($user_id){
-		$user_auth_token = sha1(microtime() . getmypid() . ApiUser::model()->count());
-		$ts = time();
-		$user_auth_tken_valid_till = Yii::app()->params['user-auth-token-valid-till'];
-		$duration = $ts + 3600*24*$user_auth_tken_valid_till;
-
-		$api_key = $_REQUEST['api_key'];
-		$site_id = self::get_site_id();
-		$api_user_model = ApiUser::model()->findByAttributes(array('api_key'=>$api_key));
-		if(!is_null($api_user_model)){
-			$site_id = $api_user_model->id_site;
-		}
-
-		$user_api_sessions = new UsersApiSession();
-		$user_api_sessions->id_user = $user_id;
-		$user_api_sessions->id_site = $site_id;
-		$user_api_sessions->token = $user_auth_token;
-		$user_api_sessions->expires = $duration;
-		if ($user_api_sessions->save()){
-			return $user_auth_token;
-		}
-
-		return false;
-	}
+//	/**
+//	 * Create Auth Token for User
+//	 * @param int $user_id
+//	 * @return boolean
+//	 */
+//	public static function create_user_auth_token($user_id){
+//		$user_auth_token = sha1(microtime() . getmypid() . ApiUser::model()->count());
+//		$ts = time();
+//		$user_auth_tken_valid_till = Yii::app()->params['user-auth-token-valid-till'];
+//		$duration = $ts + 3600*24*$user_auth_tken_valid_till;
+//
+//		$api_key = $_REQUEST['api_key'];
+////		$site_id = self::get_site_id();
+//                $site_id = UserCore::get_site_id();
+//		$api_user_model = ApiUser::model()->findByAttributes(array('api_key'=>$api_key));
+//		if(!is_null($api_user_model)){
+//			$site_id = $api_user_model->id_site;
+//		}
+//
+//		$user_api_sessions = new UsersApiSession();
+//		$user_api_sessions->id_user = $user_id;
+//		$user_api_sessions->id_site = $site_id;
+//		$user_api_sessions->token = $user_auth_token;
+//		$user_api_sessions->expires = $duration;
+//		if ($user_api_sessions->save()){
+//			return $user_auth_token;
+//		}
+//
+//		return false;
+//	}
 
 	/**
 	 * Authenticate user tokens
@@ -100,163 +101,163 @@ class AppCore {
 		return false;
 	}
 
-	/**
-	 *
-	 * return connected users
-	 * @return array of chat IDs of all online users and robots.
-	 */
-	public static function getOnlineUsers(){
-            
-		$online_users_array = array();
-	
-                    $online_users = OnlineChatId::model()->findAll();
-                    
-                    foreach ($online_users as $online_chat_ids){
-                        $online_users_array[] = $online_chat_ids->chat_id;
-                    }
-
-                    return $online_users_array;
-	}
+//	/**
+//	 *
+//	 * return connected users
+//	 * @return array of chat IDs of all online users and robots.
+//	 */
+//	public static function getOnlineUsers(){
+//            
+//		$online_users_array = array();
+//	
+//                    $online_users = OnlineChatId::model()->findAll();
+//                    
+//                    foreach ($online_users as $online_chat_ids){
+//                        $online_users_array[] = $online_chat_ids->chat_id;
+//                    }
+//
+//                    return $online_users_array;
+//	}
         
-         public static function microtime_float()
-            {
-                list($usec, $sec) = explode(" ", microtime());
-                return ((float)$usec + (float)$sec);
-            }
+//         public static function microtime_float()
+//            {
+//                list($usec, $sec) = explode(" ", microtime());
+//                return ((float)$usec + (float)$sec);
+//            }
 
+//
+//	/**
+//	 *
+//	 * send message to jabber.
+//	 *
+//	 */
+//	public static function send_chat_message($from, $to, $message){
+//
+//		if(Yii::app()->params['isjabbersetup']){
+//                        
+//                        $is_jabber_setup = Yii::app()->params['isjabbersetup'];
+//                        
+//                        $utc_str = self::microtime_float();
+//                        $xmpp_uid = 'xmpp_' . $utc_str * 10000;
+//                        
+//                        $message = escapeshellarg($message);
+//                        
+//                        $XmppNotificationViaMQ = new XmppNotificationViaMQ();
+//
+//                        $XmppNotificationViaMQ->xmpp_uid = $xmpp_uid;
+//                        $XmppNotificationViaMQ->from = $from;
+//                        $XmppNotificationViaMQ->to = $to;
+//                        $XmppNotificationViaMQ->message = $message;
+//                        $XmppNotificationViaMQ->is_jabber_setup = $is_jabber_setup;
+//                        $XmppNotificationViaMQ->save();
+//                        
+//                        
+////                        include Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'xmpp_notification_via_mq_standalone.php';
+////                        send_xmpp_notification_via_mq('local|'.$xmpp_uid);
+//                        
+//                        
+//                        $cmdParam = Yii::app()->params['env'] . "|" . $xmpp_uid . "|NXN";
+//                        $cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_path'];
+//                        shell_exec($cmdStr . " '" . $cmdParam . "'");
+//			
+//			return true;
+//		}else{
+//			return false;
+//		}
+//
+//	}
+//
 
-	/**
-	 *
-	 * send message to jabber.
-	 *
-	 */
-	public static function send_chat_message($from, $to, $message){
+//	/**
+//	 *
+//	 * Create chat id and chat password for robot
+//	 * @return array
+//	 */
+//	public static function create_chat_user_for_robot(){
+//		$chat_details = array();
+//		$ts=time();
+//
+//		$ejabberd_node = Yii::app()->params['ejabberdhost'];
+//		$chat_user = $ts."_robot";
+//
+//		$chat_id = $chat_user . '@' . $ejabberd_node;
+//		$chat_pwd = $ts."_robot";
+//
+//		$chat_details['jabber_status'] = true;
+//		$chat_details['chat_id'] = $chat_id;
+//		$chat_details['chat_pwd'] = $chat_pwd;
+//
+//		if(Yii::app()->params['isjabbersetup']){
+//			$jabberRegisterString = 'sudo ejabberdctl register '.$chat_user.' '.$ejabberd_node.' '.$chat_pwd.' 2>&1';
+//			exec($jabberRegisterString, $output, $status);
+//
+//			$success_string = strtolower("successfully registered");
+//			$message_string = isset($output[0])? $output[0] : '';
+//			$message_string = strtolower($message_string);
+//                        
+//			preg_match("/$success_string/i", $message_string, $matches);
+//                        
+//                        if($status != 0 || empty($matches)){
+//                            $chat_details['jabber_status'] = false;
+//                        }
+//		}
+//		return $chat_details;
+//	}
 
-		if(Yii::app()->params['isjabbersetup']){
-                        
-                        $is_jabber_setup = Yii::app()->params['isjabbersetup'];
-                        
-                        $utc_str = self::microtime_float();
-                        $xmpp_uid = 'xmpp_' . $utc_str * 10000;
-                        
-                        $message = escapeshellarg($message);
-                        
-                        $XmppNotificationViaMQ = new XmppNotificationViaMQ();
+//	/**
+//	 *
+//	 * Create chat id and chat password for user
+//	 * @return array
+//	 */
+//	public static function create_chat_user_for_user(){
+//           
+//		$chat_details = array();
+//		$ts=time();
+//
+//		$ejabberd_node = Yii::app()->params['ejabberdhost'];
+//		$chat_user = $ts."_user";
+//
+//		$chat_id = $chat_user . '@' . $ejabberd_node;
+//		$chat_pwd = $ts."_user";
+//
+//		$chat_details['jabber_status'] = true;
+//		$chat_details['chat_id'] = $chat_id;
+//		$chat_details['chat_pwd'] = $chat_pwd;
+//
+//		if(Yii::app()->params['isjabbersetup']){
+//			$jabberRegisterString = 'sudo ejabberdctl register '.$chat_user.' '.$ejabberd_node.' '.$chat_pwd.' 2>&1';
+//			exec($jabberRegisterString, $output, $status);
+//
+//                        $success_string = strtolower("successfully registered");
+//			$message_string = isset($output[0])? $output[0] : '';
+//			$message_string = strtolower($message_string);
+//                        
+//                        preg_match("/$success_string/i", $message_string, $matches);
+//                        
+//                        if($status != 0 || empty($matches)){
+//                            $chat_details['jabber_status'] = false;
+//                        }
+//		}
+//                return $chat_details;
+//	}
 
-                        $XmppNotificationViaMQ->xmpp_uid = $xmpp_uid;
-                        $XmppNotificationViaMQ->from = $from;
-                        $XmppNotificationViaMQ->to = $to;
-                        $XmppNotificationViaMQ->message = $message;
-                        $XmppNotificationViaMQ->is_jabber_setup = $is_jabber_setup;
-                        $XmppNotificationViaMQ->save();
-                        
-                        
-//                        include Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'xmpp_notification_via_mq_standalone.php';
-//                        send_xmpp_notification_via_mq('local|'.$xmpp_uid);
-                        
-                        
-                        $cmdParam = Yii::app()->params['env'] . "|" . $xmpp_uid . "|NXN";
-                        $cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_path'];
-                        shell_exec($cmdStr . " '" . $cmdParam . "'");
-			
-			return true;
-		}else{
-			return false;
-		}
-
-	}
-
-
-	/**
-	 *
-	 * Create chat id and chat password for robot
-	 * @return array
-	 */
-	public static function create_chat_user_for_robot(){
-		$chat_details = array();
-		$ts=time();
-
-		$ejabberd_node = Yii::app()->params['ejabberdhost'];
-		$chat_user = $ts."_robot";
-
-		$chat_id = $chat_user . '@' . $ejabberd_node;
-		$chat_pwd = $ts."_robot";
-
-		$chat_details['jabber_status'] = true;
-		$chat_details['chat_id'] = $chat_id;
-		$chat_details['chat_pwd'] = $chat_pwd;
-
-		if(Yii::app()->params['isjabbersetup']){
-			$jabberRegisterString = 'sudo ejabberdctl register '.$chat_user.' '.$ejabberd_node.' '.$chat_pwd.' 2>&1';
-			exec($jabberRegisterString, $output, $status);
-
-			$success_string = strtolower("successfully registered");
-			$message_string = isset($output[0])? $output[0] : '';
-			$message_string = strtolower($message_string);
-                        
-			preg_match("/$success_string/i", $message_string, $matches);
-                        
-                        if($status != 0 || empty($matches)){
-                            $chat_details['jabber_status'] = false;
-                        }
-		}
-		return $chat_details;
-	}
-
-	/**
-	 *
-	 * Create chat id and chat password for user
-	 * @return array
-	 */
-	public static function create_chat_user_for_user(){
-           
-		$chat_details = array();
-		$ts=time();
-
-		$ejabberd_node = Yii::app()->params['ejabberdhost'];
-		$chat_user = $ts."_user";
-
-		$chat_id = $chat_user . '@' . $ejabberd_node;
-		$chat_pwd = $ts."_user";
-
-		$chat_details['jabber_status'] = true;
-		$chat_details['chat_id'] = $chat_id;
-		$chat_details['chat_pwd'] = $chat_pwd;
-
-		if(Yii::app()->params['isjabbersetup']){
-			$jabberRegisterString = 'sudo ejabberdctl register '.$chat_user.' '.$ejabberd_node.' '.$chat_pwd.' 2>&1';
-			exec($jabberRegisterString, $output, $status);
-
-                        $success_string = strtolower("successfully registered");
-			$message_string = isset($output[0])? $output[0] : '';
-			$message_string = strtolower($message_string);
-                        
-                        preg_match("/$success_string/i", $message_string, $matches);
-                        
-                        if($status != 0 || empty($matches)){
-                            $chat_details['jabber_status'] = false;
-                        }
-		}
-                return $chat_details;
-	}
-
-	/**
-	 *
-	 * Delete chat user
-	 * @return array
-	 */
-	public static function delete_chat_user($chat_user){
-		$chat_details = array();
-		$ejabberd_node = Yii::app()->params['ejabberdhost'];
-		$chat_user = str_replace('@' . $ejabberd_node,"",$chat_user);
-
-		$chat_details['jabber_status'] = true;
-		if(Yii::app()->params['isjabbersetup']){
-			$jabberRegisterString = 'sudo ejabberdctl unregister '.$chat_user.' '.$ejabberd_node. ' 2>&1';
-			exec($jabberRegisterString, $output, $status);
-		}
-		return $chat_details;
-	}
+//	/**
+//	 *
+//	 * Delete chat user
+//	 * @return array
+//	 */
+//	public static function delete_chat_user($chat_user){
+//		$chat_details = array();
+//		$ejabberd_node = Yii::app()->params['ejabberdhost'];
+//		$chat_user = str_replace('@' . $ejabberd_node,"",$chat_user);
+//
+//		$chat_details['jabber_status'] = true;
+//		if(Yii::app()->params['isjabbersetup']){
+//			$jabberRegisterString = 'sudo ejabberdctl unregister '.$chat_user.' '.$ejabberd_node. ' 2>&1';
+//			exec($jabberRegisterString, $output, $status);
+//		}
+//		return $chat_details;
+//	}
 
 	/**
 	 * Given a message key, returns an appropriately translated full-text string
@@ -744,7 +745,8 @@ class AppCore {
 				}
 				//end of code to store all $_server info
 
-				$site_id = self::get_site_id();
+//				$site_id = self::get_site_id();
+                                $site_id = UserCore::get_site_id();
 				$api_user_model = ApiUser::model()->findByAttributes(array('api_key'=>$api_key));
 				if(!is_null($api_user_model)){
 					$site_id = $api_user_model->id_site;
@@ -775,14 +777,14 @@ class AppCore {
 			//do nothing
 		}
 	}
-
-	/**
-	 * Get site id (It is used by API calls)
-	 * @return int
-	 */
-	public static function get_site_id(){
-		return 1;
-	}
+//
+//	/**
+//	 * Get site id (It is used by API calls)
+//	 * @return int
+//	 */
+//	public static function get_site_id(){
+//		return 1;
+//	}
 
 	/**
 	 * Check for map xml data.
@@ -841,17 +843,17 @@ class AppCore {
 //		}
 //	}
 
-	/**
-	 * Delete all data for provided robot schedule ids
-	 * @param unknown $robot_schedule_id_arr
-	 */
-	public static function delete_robot_schedule_data($robot_schedule_id_arr){
-		foreach ($robot_schedule_id_arr as $robot_schedule_id){
-			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-			$uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $robot_schedule_id;
-			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_schedule);
-		}
-	}
+//	/**
+//	 * Delete all data for provided robot schedule ids
+//	 * @param unknown $robot_schedule_id_arr
+//	 */
+//	public static function delete_robot_schedule_data($robot_schedule_id_arr){
+//		foreach ($robot_schedule_id_arr as $robot_schedule_id){
+//			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+//			$uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $robot_schedule_id;
+//			AppHelper::deleteDirectoryRecursively($uploads_dir_for_robot_schedule);
+//		}
+//	}
 
 	/**
 	 * Delete all atlas data for provided robot id.
@@ -1083,7 +1085,7 @@ class AppCore {
     }
 
     public static function send_notification_to_all_users_of_robot2($user_ids_to_send_notification, $message_description, $send_from) {
-
+        
         $user_ids_not_found_error = array();
         $user_registration_ids_not_found = array();
         $result = array();
@@ -1100,7 +1102,7 @@ class AppCore {
                         }
                     }
                 }
-
+                
                 if(empty($user_ids_to_send_notification_by_preference)){
                     $user_ids_not_found_error[$id] = array('code' => 1, 'output' => "Sorry, Server didn't find a single user who has set push notification preference as true.");
                     continue;
@@ -1759,86 +1761,86 @@ class AppCore {
 
     }
 
-    public static function getGracePeriod(){
+//    public static function getGracePeriod(){
+//
+//        $grace_period = '';
+//        $grace_period = AppConfiguration::model()->findByAttributes(array('_key' => 'GRACE_PERIOD'));
+//        $grace_period = isset($grace_period->value) ? $grace_period->value : 60 ;
+//
+//        return $grace_period;
+//
+//    }
 
-        $grace_period = '';
-        $grace_period = AppConfiguration::model()->findByAttributes(array('_key' => 'GRACE_PERIOD'));
-        $grace_period = isset($grace_period->value) ? $grace_period->value : 60 ;
+//    public static function getIsValidateStatus($is_validated, $user_id) {
+//
+//        $user_data = User::model()->findByPk($user_id);
+//        $created_on = $user_data->created_on;
+//
+//        $is_validated = ($is_validated == 0) ? -1 : 0 ;
+//
+//        if( $is_validated == -1 ) {
+//            $grace_period = self::getGracePeriod();
+//            $user_created_on_timestamp = strtotime($created_on);
+//            $current_system_timestamp = time();
+//
+//            $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+//
+//            if($time_diff > $grace_period){
+//                $is_validated = -2 ;
+//            }
+//        }
+//
+//        return $is_validated;
+//
+//    }
 
-        return $grace_period;
+//    public static function getValidationAttempt() {
+//
+//        $validation_attempt_data = AppConfiguration::model()->findByAttributes(array('_key' => 'VALIDATION_ATTEMPT'));
+//        $validation_attempt = isset($validation_attempt_data->value) ? $validation_attempt_data->value : 5;
+//
+//        return $validation_attempt;
+//    }
 
-    }
-
-    public static function getIsValidateStatus($is_validated, $user_id) {
-
-        $user_data = User::model()->findByPk($user_id);
-        $created_on = $user_data->created_on;
-
-        $is_validated = ($is_validated == 0) ? -1 : 0 ;
-
-        if( $is_validated == -1 ) {
-            $grace_period = self::getGracePeriod();
-            $user_created_on_timestamp = strtotime($created_on);
-            $current_system_timestamp = time();
-
-            $time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
-
-            if($time_diff > $grace_period){
-                $is_validated = -2 ;
-            }
-        }
-
-        return $is_validated;
-
-    }
-
-    public static function getValidationAttempt() {
-
-        $validation_attempt_data = AppConfiguration::model()->findByAttributes(array('_key' => 'VALIDATION_ATTEMPT'));
-        $validation_attempt = isset($validation_attempt_data->value) ? $validation_attempt_data->value : 5;
-
-        return $validation_attempt;
-    }
-
-    public static function setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $push_notification_types_id, $preference) {
-
-        $userPushNotificationPreferencesObj->user_id = $user_id;
-        $userPushNotificationPreferencesObj->push_notification_types_id = $push_notification_types_id;
-        $userPushNotificationPreferencesObj->preference = (int)filter_var($preference, FILTER_VALIDATE_BOOLEAN);
-
-        if(!$userPushNotificationPreferencesObj->save()){
-            //do nothing
-//            AppHelper::dump($userPushNotificationPreferencesObj->errors);
-        }
-
-    }
+//    public static function setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $push_notification_types_id, $preference) {
+//
+//        $userPushNotificationPreferencesObj->user_id = $user_id;
+//        $userPushNotificationPreferencesObj->push_notification_types_id = $push_notification_types_id;
+//        $userPushNotificationPreferencesObj->preference = (int)filter_var($preference, FILTER_VALIDATE_BOOLEAN);
+//
+//        if(!$userPushNotificationPreferencesObj->save()){
+//            //do nothing
+////            AppHelper::dump($userPushNotificationPreferencesObj->errors);
+//        }
+//
+//    }
     
-    public static function setDefaultUserPushNotificationOptions($user_id) {
-        
-            $json_object = json_decode(Yii::app()->params['default_json_for_notification_preference']);
-                    
-            $userPushNotificationPreferencesObj = UserPushNotificationPreferences::model()->findAll('user_id = :user_id', array(':user_id' => $user_id));
-
-            if(empty($userPushNotificationPreferencesObj)){
-
-                    foreach ($json_object->notifications as $value) {
-
-                            $userPushNotificationPreferencesObj = new UserPushNotificationPreferences();
-                            self::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
-
-                    }
-
-            } else {
-
-                    foreach ($json_object->notifications as $key => $value) {
-
-                            self::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
-
-                    }
-
-            }
-        
-    }
+//    public static function setDefaultUserPushNotificationOptions($user_id) {
+//        
+//            $json_object = json_decode(Yii::app()->params['default_json_for_notification_preference']);
+//                    
+//            $userPushNotificationPreferencesObj = UserPushNotificationPreferences::model()->findAll('user_id = :user_id', array(':user_id' => $user_id));
+//
+//            if(empty($userPushNotificationPreferencesObj)){
+//
+//                    foreach ($json_object->notifications as $value) {
+//
+//                            $userPushNotificationPreferencesObj = new UserPushNotificationPreferences();
+//                            self::setUserPushNotificationOptions($userPushNotificationPreferencesObj, $user_id, $value->key, $value->value);
+//
+//                    }
+//
+//            } else {
+//
+//                    foreach ($json_object->notifications as $key => $value) {
+//
+//                            self::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+//
+//                    }
+//
+//            }
+//        
+//    }
 
     public static function sendIOSPushNotification($deviceToken, $message_body){
 
@@ -1909,21 +1911,21 @@ class AppCore {
 
     }
 
-       public static function getLatestPingTimestampFromRobot($serial_number) {
-            $criteria = new CDbCriteria;
-            $criteria->select = array('id','serial_number','ping_timestamp');
-            $criteria->condition = "serial_number = :serial_number";
-            $criteria->params = array(':serial_number' => $serial_number);
-            $criteria->order = 'ping_timestamp DESC';
-            $data = RobotPingLog::model()->findAll($criteria);
-
-            return $data;
-
-    }
+//       public static function getLatestPingTimestampFromRobot($serial_number) {
+//            $criteria = new CDbCriteria;
+//            $criteria->select = array('id','serial_number','ping_timestamp');
+//            $criteria->condition = "serial_number = :serial_number";
+//            $criteria->params = array(':serial_number' => $serial_number);
+//            $criteria->order = 'ping_timestamp DESC';
+//            $data = RobotPingLog::model()->findAll($criteria);
+//
+//            return $data;
+//
+//    }
     
       public static function getVirtuallyOnlinRobots($serial_number, $robot_ping_interval) {
         
-        $data = self::getLatestPingTimestampFromRobot($serial_number);
+        $data = RobotCore::getLatestPingTimestampFromRobot($serial_number);
 
         if (!empty($data)) {
             $latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
@@ -1938,44 +1940,45 @@ class AppCore {
         return false;
     }
     
-    public static function deleteRobotType($chosen_robot){
-        
-        foreach ($chosen_robot as $type_id) {
-            
-            RobotTypeMetadata::model()->deleteAll('robot_type_id = :robot_type_id', array(':robot_type_id' => $type_id));
-            
-            $robot_type_data = RobotTypes::model()->find('type = :type', array(':type'=>Yii::app()->params['default_robot_type']));
-            RobotRobotTypes::model()->updateAll(array('robot_type_id'=>$robot_type_data->id), 'robot_type_id = :robot_type_id', array(':robot_type_id'=>$type_id));
-            
-            RobotTypes::model()->deleteAll('id = :id', array(':id' => $type_id));
-            
-        }
-        return array('status'=> 0, 'message'=> 'Robot type have been deleted succussfully');
-    }
+//    public static function deleteRobotType($chosen_robot){
+//        
+//        foreach ($chosen_robot as $type_id) {
+//            
+//            RobotTypeMetadata::model()->deleteAll('robot_type_id = :robot_type_id', array(':robot_type_id' => $type_id));
+//            
+//            $robot_type_data = RobotTypes::model()->find('type = :type', array(':type'=>Yii::app()->params['default_robot_type']));
+//            RobotRobotTypes::model()->updateAll(array('robot_type_id'=>$robot_type_data->id), 'robot_type_id = :robot_type_id', array(':robot_type_id'=>$type_id));
+//            
+//            RobotTypes::model()->deleteAll('id = :id', array(':id' => $type_id));
+//            
+//        }
+//        return array('status'=> 0, 'message'=> 'Robot type have been deleted succussfully');
+//    }
     
-    public static function getSleepLagTime($robot) {
-        
-        $sleep_time = Yii::app()->params['default_sleep_time']; // in seconds
-        $lag_time = Yii::app()->params['default_lag_time']; // in seconds
-        
-        if(isset($robot->sleep_time) && isset($robot->lag_time)){
-            $sleep_time = $robot->sleep_time;
-            $lag_time = $robot->lag_time;
-        } else {
-            if(isset($robot->robotRobotTypes->robotType->robotTypeMetadatas)){
-                foreach ($robot->robotRobotTypes->robotType->robotTypeMetadatas as $metadata) {
-                    if($metadata->_key == 'sleep_time'){
-                        $sleep_time = $metadata->value;
-                    } elseif($metadata->_key == 'lag_time'){
-                        $lag_time = $metadata->value;
-                    }
-                }
-            }
-        }
-        
-        return array('sleep_time'=>$sleep_time, 'lag_time'=>$lag_time);
-    }
+//    public static function getSleepLagTime($robot) {
+//        
+//        $sleep_time = Yii::app()->params['default_sleep_time']; // in seconds
+//        $lag_time = Yii::app()->params['default_lag_time']; // in seconds
+//        
+//        if(isset($robot->sleep_time) && isset($robot->lag_time)){
+//            $sleep_time = $robot->sleep_time;
+//            $lag_time = $robot->lag_time;
+//        } else {
+//            if(isset($robot->robotRobotTypes->robotType->robotTypeMetadatas)){
+//                foreach ($robot->robotRobotTypes->robotType->robotTypeMetadatas as $metadata) {
+//                    if($metadata->_key == 'sleep_time'){
+//                        $sleep_time = $metadata->value;
+//                    } elseif($metadata->_key == 'lag_time'){
+//                        $lag_time = $metadata->value;
+//                    }
+//                }
+//            }
+//        }
+//        
+//        return array('sleep_time'=>$sleep_time, 'lag_time'=>$lag_time);
+//    }
     
+    /*
     public static function sendXmppMessageToAssociatesUsers($robot, $utc){
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
@@ -1987,15 +1990,19 @@ class AppCore {
         
         $xmpp_message_model->save();
 
-        $online_users_chat_ids = self::getOnlineUsers();
+//        $online_users_chat_ids = self::getOnlineUsers();
+        $online_users_chat_ids = RobotCore::getOnlineUsers();
         
-        AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+//        AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+        RobotCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
         foreach ($robot->usersRobots as $userRobot){
             if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                    AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//                    AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                    RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
             }
         }
     }
+*/
     
     public static function setRobotKeyValue($key_value){
         $command_key = ($key_value['key']);
@@ -2035,45 +2042,49 @@ class AppCore {
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
                         
-        $online_users_chat_ids = AppCore::getOnlineUsers();
-        AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+//        $online_users_chat_ids = AppCore::getOnlineUsers();
+        $online_users_chat_ids = RobotCore::getOnlineUsers();
+//        AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+        RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
         foreach ($robot->usersRobots as $userRobot){
             if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+//                AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+                RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
             }                                   
         }
 
     }
     
-    public static function setRobotKeyValueDetail($robot, $key, $value, $utc){
-        switch ($key) {
-            case "name":
-                    if(empty($value)){
-                        return array('code'=>1, 'error'=>APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
-                    }
-                    $robot->name = $value;
-                    $robot->save();
-                    break;
-
-            default:
-                $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
-                if(!empty($data)){
-                    $data->value = $value;
-                    $data->timestamp = $utc;
-                    $data->update();
-                } else {
-                    $robot_key_value = new RobotKeyValues();
-                    $robot_key_value->robot_id = $robot->id;
-                    $robot_key_value->_key = $key ;
-                    $robot_key_value->value = $value ;
-                    $robot_key_value->timestamp = $utc;
-                    $robot_key_value->save();                                                    
-                }
-                break;
-        }
-        return array('code'=>0);
-    }
+//    public static function setRobotKeyValueDetail($robot, $key, $value, $utc){
+//        switch ($key) {
+//            case "name":
+//                    if(empty($value)){
+//                        return array('code'=>1, 'error'=>APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL);
+//                    }
+//                    $robot->name = $value;
+//                    $robot->save();
+//                    break;
+//
+//            default:
+//                $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
+//                if(!empty($data)){
+//                    $data->value = $value;
+//                    $data->timestamp = $utc;
+//                    $data->update();
+//                } else {
+//                    $robot_key_value = new RobotKeyValues();
+//                    $robot_key_value->robot_id = $robot->id;
+//                    $robot_key_value->_key = $key ;
+//                    $robot_key_value->value = $value ;
+//                    $robot_key_value->timestamp = $utc;
+//                    $robot_key_value->save();                                                    
+//                }
+//                break;
+//        }
+//        return array('code'=>0);
+//    }
     
+    /*
     public static function xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc){
         
         $xmpp_message_model = new XmppMessageLogs();
@@ -2088,38 +2099,42 @@ class AppCore {
         
         return $message;
     }
+    */
+//    public static function sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message){
+////        AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+//        RobotCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+//        foreach ($robot->usersRobots as $userRobot){
+//            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+////                self::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//                RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//            }
+//        }
+//    }
     
-    public static function sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message){
-        AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
-        foreach ($robot->usersRobots as $userRobot){
-            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                self::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-            }
-        }
-    }
-    
-    public static function sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids){
-        AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
-        foreach ($robot->usersRobots as $userRobot){
-            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-                AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
-            }                                   
-        }
-    }
+//    public static function sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids){
+////        AppCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+//        RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+//        foreach ($robot->usersRobots as $userRobot){
+//            if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
+////                AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+//                RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+//            }                                   
+//        }
+//    }
 
     
-     public static function checkRobotStatus($robot){
-         
-        $content = array('code' => 10001);
-         
-        $data = RobotKeyValues::model()->find('robot_id = :robot_id and _key =:_key', array(':robot_id' => $robot->id, ':_key' => 'robotCurrentState'));
-                
-        if(!empty($data)){
-            $content = array('code' => $data->value);
-        }
-          
-        return $content;
-     }
+//     public static function checkRobotStatus($robot){
+//         
+//        $content = array('code' => 10001);
+//         
+//        $data = RobotKeyValues::model()->find('robot_id = :robot_id and _key =:_key', array(':robot_id' => $robot->id, ':_key' => 'robotCurrentState'));
+//                
+//        if(!empty($data)){
+//            $content = array('code' => $data->value);
+//        }
+//          
+//        return $content;
+//     }
      
      public static function remainingTimeStamp($robot){
          
@@ -2163,96 +2178,97 @@ class AppCore {
         }
      }
      
-    public static function removeExpiredLinkingCode($robot){
-        
-        $robot_user_association_tokens = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
-        
-        if( !empty($robot_user_association_tokens) ){
-            
-            $validity_of_linking_code = self::getExpiredTimeOfLinkingCode($robot_user_association_tokens);
-
-            if ($validity_of_linking_code < 0) {
-
-                $robot_linking_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $robot->serial_number));
-                
-                if(!empty($robot_linking_data)){
-                    $robot_linking_data->delete();
-                }
-                
-                $robot_user_association_tokens->delete();
-                
-            }
-            
-        }
-        
-    } 
+//    public static function removeExpiredLinkingCode($robot){
+//        
+//        $robot_user_association_tokens = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
+//        
+//        if( !empty($robot_user_association_tokens) ){
+//            
+//            $validity_of_linking_code = self::getExpiredTimeOfLinkingCode($robot_user_association_tokens);
+//
+//            if ($validity_of_linking_code < 0) {
+//
+//                $robot_linking_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $robot->serial_number));
+//                
+//                if(!empty($robot_linking_data)){
+//                    $robot_linking_data->delete();
+//                }
+//                
+//                $robot_user_association_tokens->delete();
+//                
+//            }
+//            
+//        }
+//        
+//    } 
     
 
-    public static function removeLinkingCode($robot){
-        
-        $robot_user_association_tokens = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
-        
-        if( !empty($robot_user_association_tokens) ){
-            
-                $robot_linking_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $robot->serial_number));
-                
-                if(!empty($robot_linking_data)){
-                    $robot_linking_data->delete();
-                }
-                
-                $robot_user_association_tokens->delete();
-            
-        }
-        
-    } 
+//    public static function removeLinkingCode($robot){
+//        
+//        $robot_user_association_tokens = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
+//        
+//        if( !empty($robot_user_association_tokens) ){
+//            
+//                $robot_linking_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $robot->serial_number));
+//                
+//                if(!empty($robot_linking_data)){
+//                    $robot_linking_data->delete();
+//                }
+//                
+//                $robot_user_association_tokens->delete();
+//            
+//        }
+//        
+//    } 
     
-    public static function getExpiredTimeOfLinkingCode($robot_user_association_tokens){
-        
-        $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
-        
-        $token_timestamp = strtotime($robot_user_association_tokens->created_on);
-                        
-        if(empty($robot_user_association_tokens->created_on)){
-            $token_timestamp = time();
-        }
-        
-        $current_system_timestamp = time();
-        $validity_of_linking_code = ($current_system_timestamp - $token_timestamp);
-        
-        $validity_of_linking_code = $token_lifetime - $validity_of_linking_code;
-
-        return $validity_of_linking_code;
-        
-    }
+//    public static function getExpiredTimeOfLinkingCode($robot_user_association_tokens){
+//        
+//        $token_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
+//        
+//        $token_timestamp = strtotime($robot_user_association_tokens->created_on);
+//                        
+//        if(empty($robot_user_association_tokens->created_on)){
+//            $token_timestamp = time();
+//        }
+//        
+//        $current_system_timestamp = time();
+//        $validity_of_linking_code = ($current_system_timestamp - $token_timestamp);
+//        
+//        $validity_of_linking_code = $token_lifetime - $validity_of_linking_code;
+//
+//        return $validity_of_linking_code;
+//        
+//    }
     
+//    
+//    public static function isLinkingCodeValid($linking_code_created_on){
+//        
+////        $validity_of_linking_code = self::getValidityOfLinkingCode($linking_code_created_on);
+//        $validity_of_linking_code = RobotCore::getValidityOfLinkingCode($linking_code_created_on);
+//        
+//        if( $validity_of_linking_code < 0 ) {
+//            return false;
+//        }
+//
+//        return true;
+//        
+//    }
     
-    public static function isLinkingCodeValid($linking_code_created_on){
-        
-        $validity_of_linking_code = self::getValidityOfLinkingCode($linking_code_created_on);
-        
-        if( $validity_of_linking_code < 0 ) {
-            return false;
-        }
-
-        return true;
-        
-    }
-    
-    public static function getValidityOfLinkingCode($linking_code_created_on){
-        
-        $linking_code_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
-        
-        $linking_code_created_on = strtotime($linking_code_created_on);
-                        
-        $current_system_timestamp = time();
-        
-        $validity_of_linking_code = $current_system_timestamp - $linking_code_created_on;
-        
-        $validity_of_linking_code = $linking_code_lifetime - $validity_of_linking_code;
-        
-        return $validity_of_linking_code;
-        
-    }
+//    public static function getValidityOfLinkingCode($linking_code_created_on){
+//        
+//        $linking_code_lifetime = Yii::app()->params['robot_user_association_token_lifetime'];
+//        
+//        $linking_code_created_on = strtotime($linking_code_created_on);
+//                        
+//        $current_system_timestamp = time();
+//        
+//        $validity_of_linking_code = $current_system_timestamp - $linking_code_created_on;
+//        
+//        $validity_of_linking_code = $linking_code_lifetime - $validity_of_linking_code;
+//        
+//        return $validity_of_linking_code;
+//        
+//    }
     
     public static function removeExpiredLinkingCodeUsingCronJob(){
         
@@ -2260,7 +2276,8 @@ class AppCore {
                 
         foreach ($robot_linking_data as $value) {
             
-            if(!self::isLinkingCodeValid($value->linking_code_created_on)){
+//            if(!self::isLinkingCodeValid($value->linking_code_created_on)){
+            if(!RobotCore::isLinkingCodeValid($value->linking_code_created_on)){
                 
                 RobotUserAssociationTokens::model()->deleteAll('token = :token', array(':token' => $value->linking_code));
                 $value->delete();

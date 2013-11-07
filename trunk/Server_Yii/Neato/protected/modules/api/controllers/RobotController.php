@@ -55,7 +55,8 @@ class RobotController extends APIController {
         $model->name = $robot_name;
         $model->serial_number = $robot_serial_no;
         
-	$chat_details = AppCore::create_chat_user_for_robot();
+//	$chat_details = AppCore::create_chat_user_for_robot();
+        $chat_details = RobotCore::create_chat_user_for_robot();
         if (!$chat_details['jabber_status']) {
             $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
             self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
@@ -162,7 +163,8 @@ class RobotController extends APIController {
         $model->name = $robot_name;
         $model->serial_number = $robot_serial_no;
 
-        $chat_details = AppCore::create_chat_user_for_robot();
+//        $chat_details = AppCore::create_chat_user_for_robot();
+        $chat_details = RobotCore::create_chat_user_for_robot();
         
         if (!$chat_details['jabber_status']) {
             $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
@@ -226,7 +228,8 @@ class RobotController extends APIController {
         $robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 
         if ($robot !== null) {
-            $online_users_chat_ids = AppCore::getOnlineUsers();
+//            $online_users_chat_ids = AppCore::getOnlineUsers();
+            $online_users_chat_ids = RobotCore::getOnlineUsers();
             if (in_array($robot->chat_id, $online_users_chat_ids)) {
                 $response_message = "Robot " . $robot_serial_no . " is online.";
                 $response_data = array("online" => true, "message" => $response_message);
@@ -244,7 +247,8 @@ class RobotController extends APIController {
         $robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 
         if ($robot !== null) {
-            $online_users_chat_ids = AppCore::getOnlineUsers();
+//            $online_users_chat_ids = AppCore::getOnlineUsers();
+            $online_users_chat_ids = RobotCore::getOnlineUsers();
             if (in_array($robot->chat_id, $online_users_chat_ids)) {
                 $response_message = "Robot " . $robot_serial_no . " is online.";
                 $response_data = array("online" => true, "message" => $response_message);
@@ -264,16 +268,19 @@ class RobotController extends APIController {
 
         if ($robot !== null) {
 
-            $data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
+//            $data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
+            $data = RobotCore::getLatestPingTimestampFromRobot($robot->serial_number);
 
-            $online_users_chat_ids = AppCore::getOnlineUsers();
+//            $online_users_chat_ids = AppCore::getOnlineUsers();
+            $online_users_chat_ids = RobotCore::getOnlineUsers();
             if (in_array($robot->chat_id, $online_users_chat_ids)) {
                 $response_message = "Robot " . $robot_serial_no . " is online.";
                 $response_data = array("online" => true, "message" => $response_message, "expected_time" => $expected_time);
             } else if (!empty($data)) {
                 $latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
 
-                $sleep_lag_time = AppCore::getSleepLagTime($robot);
+//                $sleep_lag_time = AppCore::getSleepLagTime($robot);
+                $sleep_lag_time = RobotCore::getSleepLagTime($robot);
                 $robot_ping_interval = $sleep_lag_time['sleep_time'];
 
                 $current_system_timestamp = time();
@@ -431,9 +438,11 @@ class RobotController extends APIController {
 
             $chat_id = $robot->chat_id;
             if ($robot->delete()) {
-                AppCore::delete_chat_user($chat_id);
+//                AppCore::delete_chat_user($chat_id);
+                RobotCore::delete_chat_user($chat_id);
 //                AppCore::delete_robot_map_data($robot_map_id_arr);
-                AppCore::delete_robot_schedule_data($robot_schedule_id_arr);
+//                AppCore::delete_robot_schedule_data($robot_schedule_id_arr);
+                RobotCore::delete_robot_schedule_data($robot_schedule_id_arr);
 //                AppCore::delete_robot_atlas_data($robot->id);
 
                 $response_message = "You have deleted robot $robot_serial_no successfully";
@@ -600,21 +609,26 @@ class RobotController extends APIController {
 
             foreach ($robot_profile as $key => $value) {
                 $key = trim($key);
-                $key_value_result = AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+//                $key_value_result = AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+                $key_value_result = RobotCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
 
                 if ($key_value_result['code'] == 1) {
                     self::terminate(-1, 'Robot name can not be empty', $key_value_result['error']);
                 }
             }
 
-            $message = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//            $message = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+            $message = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
 
-            $online_users_chat_ids = AppCore::getOnlineUsers();
+//            $online_users_chat_ids = AppCore::getOnlineUsers();
+            $online_users_chat_ids = RobotCore::getOnlineUsers();
 
             if (!in_array($robot->chat_id, $online_users_chat_ids)) {
 
-                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
-                $sleep_lag_time = AppCore::getSleepLagTime($robot);
+//                $robot_ping_data = AppCore::getLatestPingTimestampFromRobot($robot->serial_number);
+                $robot_ping_data = RobotCore::getLatestPingTimestampFromRobot($robot->serial_number);
+//                $sleep_lag_time = AppCore::getSleepLagTime($robot);
+                $sleep_lag_time = RobotCore::getSleepLagTime($robot);
                 $robot_ping_interval = $sleep_lag_time['sleep_time'];
 
                 $expected_time = $robot_ping_interval;
@@ -630,12 +644,14 @@ class RobotController extends APIController {
 
             if (!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag) {
 
-                AppCore::sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message);
+//                AppCore::sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message);
+                RobotCore::sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message);
             } else if (!empty($source_smartapp_id)) {
 
                 if ($notification_flag) {
 
-                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids);
+//                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids);
+                    RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids);
                 }
             }
 
@@ -759,31 +775,38 @@ class RobotController extends APIController {
                 $xmpp_message_model->xmpp_message = $message;
                 $xmpp_message_model->save();
 
-                $online_users_chat_ids = AppCore::getOnlineUsers();
+//                $online_users_chat_ids = AppCore::getOnlineUsers();
+                $online_users_chat_ids = RobotCore::getOnlineUsers();
 
                 if (!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag) {
 
                     foreach ($robot->usersRobots as $userRobot) {
                         if (in_array($userRobot->idUser->chat_id, $online_users_chat_ids)) {
-                            AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//                            AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                            RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
                         }
                     }
-                    AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+//                    AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+                    RobotCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
                 } else if (!empty($source_smartapp_id) && $notification_flag) {
 
-                    AppCore::send_chat_message($user_data->chat_id, $robot->chat_id, $message);
+//                    AppCore::send_chat_message($user_data->chat_id, $robot->chat_id, $message);
+                    RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id, $message);
                     foreach ($robot->usersRobots as $userRobot) {
                         if (in_array($userRobot->idUser->chat_id, $online_users_chat_ids)) {
-                            AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+//                            AppCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+                            RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
                         }
                     }
                 } else if ($notification_flag) {
                     foreach ($robot->usersRobots as $userRobot) {
                         if (in_array($userRobot->idUser->chat_id, $online_users_chat_ids)) {
-                            AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+//                            AppCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+                            RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
                         }
                     }
-                    AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+//                    AppCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
+                    RobotCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
                 }
 
                 $response_data = array("success" => true);
@@ -1002,15 +1025,19 @@ class RobotController extends APIController {
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
 
-        AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+//        AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+        RobotCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
 
         $user_id = Yii::app()->user->id;
         $user_data = User::model()->findByPk($user_id);
         $cause_agent_id = Yii::app()->session['cause_agent_id'];
-        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-        $online_users_chat_ids = AppCore::getOnlineUsers();
+//        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+        $message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//        $online_users_chat_ids = AppCore::getOnlineUsers();
+        $online_users_chat_ids = RobotCore::getOnlineUsers();
 
-        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+//        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+        RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
 
         $content = array('status' => 0);
 
@@ -1034,15 +1061,19 @@ class RobotController extends APIController {
         $key = Yii::app()->params['cleaning_command'];
         $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>102</command><requestId>aa8edd62-7eee-4cc0-9f5d-c34d0e0d6759</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
 
-        AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+//        AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+        RobotCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
 
         $user_id = Yii::app()->user->id;
         $user_data = User::model()->findByPk($user_id);
         $cause_agent_id = Yii::app()->session['cause_agent_id'];
-        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-        $online_users_chat_ids = AppCore::getOnlineUsers();
+//        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+        $message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//        $online_users_chat_ids = AppCore::getOnlineUsers();
+        $online_users_chat_ids = RobotCore::getOnlineUsers();
 
-        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+//        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+        RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
 
         $content = array('status' => 0);
 
@@ -1065,15 +1096,19 @@ class RobotController extends APIController {
         $key = Yii::app()->params['cleaning_command'];
         $message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>104</command><requestId>7990013f-e2a1-4942-ab0f-edd0afeffb1a</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode><replyTo>" . Yii::app()->user->id . "</replyTo><params /></request></payload></packet>";
 
-        AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+//        AppCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
+        RobotCore::setRobotKeyValueDetail($robot, $key, $message, $utc);
 
         $user_id = Yii::app()->user->id;
         $user_data = User::model()->findByPk($user_id);
         $cause_agent_id = Yii::app()->session['cause_agent_id'];
-        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-        $online_users_chat_ids = AppCore::getOnlineUsers();
+//        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+        $message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//        $online_users_chat_ids = AppCore::getOnlineUsers();
+        $online_users_chat_ids = RobotCore::getOnlineUsers();
 
-        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+//        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+        RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
 
         $content = array('status' => 0);
 
@@ -1215,7 +1250,8 @@ class RobotController extends APIController {
 
         $chosen_type = Yii::app()->request->getParam('chosen_type', array());
 
-        $result = AppCore::deleteRobotType($chosen_type);
+//        $result = AppCore::deleteRobotType($chosen_type);
+        $result = RobotCore::deleteRobotType($chosen_type);
 
         $this->renderPartial('/default/defaultView', array('content' => $result));
         Yii::app()->end();
@@ -1261,7 +1297,8 @@ class RobotController extends APIController {
             }
         }
 
-        AppCore::sendXmppMessageToAssociatesUsers($robot, $utc);
+//        AppCore::sendXmppMessageToAssociatesUsers($robot, $utc);
+        RobotCore::sendXmppMessageToAssociatesUsers($robot, $utc);
 
         $response_data = array(
             "success" => true,
@@ -1335,7 +1372,8 @@ class RobotController extends APIController {
             }
         }
 
-        AppCore::sendXmppMessageToAssociatesUsers($robot, $utc);
+//        AppCore::sendXmppMessageToAssociatesUsers($robot, $utc);
+        RobotCore::sendXmppMessageToAssociatesUsers($robot, $utc);
 
         $response_data = array(
             "success" => true,
@@ -1352,7 +1390,8 @@ class RobotController extends APIController {
 
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
 
-        $result = AppCore::getSleepLagTime($robot);
+//        $result = AppCore::getSleepLagTime($robot);
+        $result = RobotCore::getSleepLagTime($robot);
 
         $sleep_time = $result['sleep_time'];
         $lag_time = $result['lag_time'];
@@ -1510,7 +1549,8 @@ class RobotController extends APIController {
             $token = trim($token);
         }
 
-        AppCore::removeExpiredLinkingCode($robot);
+//        AppCore::removeExpiredLinkingCode($robot);
+        RobotCore::removeExpiredLinkingCode($robot);
         
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
         
@@ -1551,11 +1591,13 @@ class RobotController extends APIController {
                 $user_model = User::model()->findByAttributes(array("email" => $user_email));
                 
                 $user_chat_id = $user_model->chat_id;
-                AppCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
+//                AppCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
+                RobotCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
 
                 foreach ($robot->usersRobots as $usersRobot) {
                     $user_chat_id = $usersRobot->idUser->chat_id;
-                    AppCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
+//                    AppCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
+                    RobotCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
                 }
                 
             }
@@ -1566,7 +1608,8 @@ class RobotController extends APIController {
             
         }
         
-        $validity_of_linking_code = AppCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
+//        $validity_of_linking_code = AppCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
+        $validity_of_linking_code = RobotCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
 
         $response_data = array('success' => true, 'linking_code' => $robot_user_association_token->token, 'expiry_time' => $validity_of_linking_code);
         self::success($response_data);
@@ -1606,8 +1649,10 @@ class RobotController extends APIController {
         $robot_model_data = Robot::model()->find('id = :id', array(':id' => $robot_id));
 
         if(isset($robot_user_association_token->created_on)){
-            if(!AppCore::isLinkingCodeValid($robot_user_association_token->created_on)){
-                AppCore::removeExpiredLinkingCode($robot_model_data);
+//            if(!AppCore::isLinkingCodeValid($robot_user_association_token->created_on)){
+            if(!RobotCore::isLinkingCodeValid($robot_user_association_token->created_on)){
+//                AppCore::removeExpiredLinkingCode($robot_model_data);
+                RobotCore::removeExpiredLinkingCode($robot_model_data);
                 self::terminate(-1, "Sorry, provided linking code is expired", APIConstant::TOKEN_EXPIRED);
             }
         }else {
@@ -1629,7 +1674,8 @@ class RobotController extends APIController {
             
         }
         
-        AppCore::removeExpiredLinkingCode($robot_model_data);
+//        AppCore::removeExpiredLinkingCode($robot_model_data);
+        RobotCore::removeExpiredLinkingCode($robot_model_data);
         
         $default_state = Yii::app()->params['default_linking_process'];
 
@@ -1681,11 +1727,13 @@ class RobotController extends APIController {
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
 
-        $validity_of_linking_code = AppCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
+//        $validity_of_linking_code = AppCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
+        $validity_of_linking_code = RobotCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
 
         $response_data = array('success' => true, 'serial_number' => $robot_model_data->serial_number,'expiry_time' => $validity_of_linking_code, 'message' => 'Request For Robot-User association is done successfully');
 
-        AppCore::send_chat_message($from, $to, $message);
+//        AppCore::send_chat_message($from, $to, $message);
+        RobotCore::send_chat_message($from, $to, $message);
 
         self::success($response_data);
     }
@@ -1720,8 +1768,10 @@ class RobotController extends APIController {
         $robot_model_data = Robot::model()->find('id = :id', array(':id' => $robot_id));
 
         if(isset($robot_user_association_token->created_on)){
-            if(!AppCore::isLinkingCodeValid($robot_user_association_token->created_on)){
-                AppCore::removeExpiredLinkingCode($robot_model_data);
+//            if(!AppCore::isLinkingCodeValid($robot_user_association_token->created_on)){
+            if(!RobotCore::isLinkingCodeValid($robot_user_association_token->created_on)){
+//                AppCore::removeExpiredLinkingCode($robot_model_data);
+                RobotCore::removeExpiredLinkingCode($robot_model_data);
                 self::terminate(-1, "Sorry, provided linking code is expired", APIConstant::TOKEN_EXPIRED);
             }
         }else {
@@ -1743,9 +1793,11 @@ class RobotController extends APIController {
             
         }
         
-        AppCore::removeExpiredLinkingCode($robot_model_data);
+//        AppCore::removeExpiredLinkingCode($robot_model_data);
+        RobotCore::removeExpiredLinkingCode($robot_model_data);
         
-        $online_users_chat_ids = AppCore::getOnlineUsers();
+//        $online_users_chat_ids = AppCore::getOnlineUsers();
+        $online_users_chat_ids = RobotCore::getOnlineUsers();
         if (!in_array($robot_model_data->chat_id, $online_users_chat_ids)) {
             self::terminate(-1, "Robot is offline", APIConstant::OFFLINE_ROBOT);
         }
@@ -1765,7 +1817,8 @@ class RobotController extends APIController {
             foreach ($robot_model_data->usersRobots as $user_robots) {
 
                 $user_chat_id = $user_robots->idUser->chat_id;
-                AppCore::send_chat_message($robot_model_data->chat_id, $user_chat_id, $xmpp_message);
+//                AppCore::send_chat_message($robot_model_data->chat_id, $user_chat_id, $xmpp_message);
+                RobotCore::send_chat_message($robot_model_data->chat_id, $user_chat_id, $xmpp_message);
 
             }
         }
@@ -1784,7 +1837,8 @@ class RobotController extends APIController {
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
         
-        AppCore::send_chat_message($user_model->chat_id, $robot_model_data->chat_id, $message);
+//        AppCore::send_chat_message($user_model->chat_id, $robot_model_data->chat_id, $message);
+        RobotCore::send_chat_message($user_model->chat_id, $robot_model_data->chat_id, $message);
 
 
         $xmpp_message_model = new XmppMessageLogs();
@@ -1795,9 +1849,11 @@ class RobotController extends APIController {
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
 
-        AppCore::send_chat_message($robot_model_data->chat_id, $user_model->chat_id, $message);
+//        AppCore::send_chat_message($robot_model_data->chat_id, $user_model->chat_id, $message);
+        RobotCore::send_chat_message($robot_model_data->chat_id, $user_model->chat_id, $message);
         
-        AppCore::removeLinkingCode($robot_model_data);
+//        AppCore::removeLinkingCode($robot_model_data);
+        RobotCore::removeLinkingCode($robot_model_data);
         
         self::success($response_data);
     }
@@ -1832,8 +1888,10 @@ class RobotController extends APIController {
         $associated_robot_serial_number = $robot_model_data->serial_number;
         
         if(isset($robot_user_association_tokens->created_on)){
-            if(!AppCore::isLinkingCodeValid($robot_user_association_tokens->created_on)){
-                AppCore::removeExpiredLinkingCode($robot_model_data);
+//            if(!AppCore::isLinkingCodeValid($robot_user_association_tokens->created_on)){
+            if(!RobotCore::isLinkingCodeValid($robot_user_association_tokens->created_on)){
+//                AppCore::removeExpiredLinkingCode($robot_model_data);
+                RobotCore::removeExpiredLinkingCode($robot_model_data);
                 self::terminate(-1, "Sorry, provided linking code is expired", APIConstant::TOKEN_EXPIRED);
             }
         }else {
@@ -1870,7 +1928,8 @@ class RobotController extends APIController {
 
         if ((!is_null($user_robot_model))) {
             
-            AppCore::removeLinkingCode($robot);
+//            AppCore::removeLinkingCode($robot);
+            RobotCore::removeLinkingCode($robot);
             self::terminate(-1, "Robot-User association is already exist", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
             
         } else if ($associated_robot_serial_number == $serial_number) {
@@ -1888,7 +1947,8 @@ class RobotController extends APIController {
                 foreach ($robot->usersRobots as $user_robots) {
 
                     $user_chat_id = $user_robots->idUser->chat_id;
-                    AppCore::send_chat_message($from, $user_chat_id, $xmpp_message);
+//                    AppCore::send_chat_message($from, $user_chat_id, $xmpp_message);
+                    RobotCore::send_chat_message($from, $user_chat_id, $xmpp_message);
 
                 }
             }
@@ -1912,9 +1972,11 @@ class RobotController extends APIController {
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
 
-        AppCore::send_chat_message($from, $user_model->chat_id, $message);
+//        AppCore::send_chat_message($from, $user_model->chat_id, $message);
+        RobotCore::send_chat_message($from, $user_model->chat_id, $message);
         
-        AppCore::removeLinkingCode($robot);
+//        AppCore::removeLinkingCode($robot);
+        RobotCore::removeLinkingCode($robot);
         
         self::success($response_data);
     }
@@ -1962,11 +2024,13 @@ class RobotController extends APIController {
             $user_model = User::model()->findByAttributes(array("email" => $user_email));
 
             $user_chat_id = $user_model->chat_id;
-            AppCore::send_chat_message($from, $user_chat_id, $message);
+//            AppCore::send_chat_message($from, $user_chat_id, $message);
+            RobotCore::send_chat_message($from, $user_chat_id, $message);
             
             foreach ($robot->usersRobots as $usersRobot) {
                 $user_chat_id = $usersRobot->idUser->chat_id;
-                AppCore::send_chat_message($from, $user_chat_id, $message);
+//                AppCore::send_chat_message($from, $user_chat_id, $message);
+                RobotCore::send_chat_message($from, $user_chat_id, $message);
             }
 
             self::success($response_data);
@@ -1999,7 +2063,8 @@ class RobotController extends APIController {
         
         $robot_linking_code_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $serial_number));
         
-        AppCore::removeLinkingCode($robot);
+//        AppCore::removeLinkingCode($robot);
+        RobotCore::removeLinkingCode($robot);
         
         if(!empty($robot_linking_code_data)) {
 
@@ -2014,11 +2079,13 @@ class RobotController extends APIController {
             $user_model = User::model()->findByAttributes(array("email" => $robot_linking_code_data->email));
 
             $user_chat_id = $user_model->chat_id;
-            AppCore::send_chat_message($from, $user_chat_id, $message);
+//            AppCore::send_chat_message($from, $user_chat_id, $message);
+            RobotCore::send_chat_message($from, $user_chat_id, $message);
 
             foreach ($robot->usersRobots as $usersRobot) {
                 $user_chat_id = $usersRobot->idUser->chat_id;
-                AppCore::send_chat_message($from, $user_chat_id, $message);
+//                AppCore::send_chat_message($from, $user_chat_id, $message);
+                RobotCore::send_chat_message($from, $user_chat_id, $message);
             }
             
         }
@@ -2035,7 +2102,8 @@ class RobotController extends APIController {
 
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
 
-        $robot_status = AppCore::checkRobotStatus($robot);
+//        $robot_status = AppCore::checkRobotStatus($robot);
+        $robot_status = RobotCore::checkRobotStatus($robot);
 
         $this->renderPartial('/default/defaultView', array('content' => $robot_status));
     }

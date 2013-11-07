@@ -22,7 +22,8 @@ class OnlineController extends Controller
 		}
 		self::check_for_admin_privileges();
 		
-		$online_users_chat_ids = AppCore::getOnlineUsers();
+//		$online_users_chat_ids = AppCore::getOnlineUsers();
+                $online_users_chat_ids = RobotCore::getOnlineUsers();
 		
 		$robot_data = Robot::model()->findAll();
 		$online_robots= array();
@@ -35,7 +36,8 @@ class OnlineController extends Controller
                                 $virtually_online_robots[] = $robot;
 			} else {
                             
-                            $sleep_lag_time = AppCore::getSleepLagTime($robot);
+//                            $sleep_lag_time = AppCore::getSleepLagTime($robot);
+                            $sleep_lag_time = RobotCore::getSleepLagTime($robot);
                             $robot_ping_interval = $sleep_lag_time['sleep_time'];
                             
                          if(AppCore::getVirtuallyOnlinRobots($robot->serial_number, $robot_ping_interval)){
@@ -47,8 +49,8 @@ class OnlineController extends Controller
                         
                         
 		}
-                
-		$users_data = User::model()->findAll();
+
+                $users_data = User::model()->findAll();
 		$online_users = array();
 		foreach ($users_data as $user){
 			if(in_array($user->chat_id, $online_users_chat_ids )) {
@@ -56,7 +58,7 @@ class OnlineController extends Controller
 			}
 		}
 
-		$this->render('list',array(
+                $this->render('list',array(
 				'users_data'=>$online_users,
 				'robot_data'=>$online_robots,
                                 'virtually_online_robots'=>$virtually_online_robots,

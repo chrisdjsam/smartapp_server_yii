@@ -157,7 +157,8 @@ class UserController extends Controller
 				$user_model->password = $encrypted_pass_word;
 				$user_model->reset_password = $encrypted_pass_word;
 					
-				$chat_details = AppCore::create_chat_user_for_user();
+//				$chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
 
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
@@ -171,7 +172,8 @@ class UserController extends Controller
 				if($user_model->save()){
 					$msg = AppCore::yii_echo("adduser:ok",$user_name);
 					Yii::app()->user->setFlash('success', $msg);
-                                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+//                                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+                                        UserCore::setDefaultUserPushNotificationOptions($user_model->id);
 				}
 				$this->redirect(array('list'));
 			}else {
@@ -195,7 +197,7 @@ class UserController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 
 //		$this->performAjaxValidation($login_model, 'login-form');
-
+        
                 // collect user input data
 		if(isset($_POST['LoginForm']))
 		{
@@ -225,7 +227,8 @@ class UserController extends Controller
                                 $is_validated = (boolean)Yii::app()->user->isValidated;
                                 $message = 'You have been logged in Successfully.';
 
-                                $grace_period = AppCore::getGracePeriod();
+//                                $grace_period = AppCore::getGracePeriod();
+                                $grace_period = UserCore::getGracePeriod();
 
                                 if(!$is_validated){
 
@@ -289,7 +292,7 @@ class UserController extends Controller
                 $user_extram_param = array();
                 $user_extram_param['country_code'] = 'US';
                 $user_extram_param['opt_in'] = 'true';
-                            
+                
                             if(isset($result->posts->data) && !isset($is_user_registered)){
                             
                                 $user_pass = $result->posts->data->user_pass;
@@ -304,7 +307,8 @@ class UserController extends Controller
                                 $save_user_from_wp->opt_in = '1';
                                 $save_user_from_wp->extram_param = json_encode($user_extram_param);
                                 $save_user_from_wp->wp_id = isset($result->posts->data)? $result->posts->data->ID : '';
-                                $chat_details = AppCore::create_chat_user_for_user();
+//                                $chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
 					Yii::app()->user->setFlash('warning', $message);
@@ -371,7 +375,8 @@ class UserController extends Controller
                                 $is_validated = (boolean)Yii::app()->user->isValidated;
                                 $message = 'You have been logged in Successfully.';
 
-                                $grace_period = AppCore::getGracePeriod();
+//                                $grace_period = AppCore::getGracePeriod();
+                                $grace_period = UserCore::getGracePeriod();
 
                                 if(!$is_validated){
 
@@ -449,6 +454,7 @@ class UserController extends Controller
 			$user_name = $_POST['RegisterForm']['name'];
 			$email = $_POST['RegisterForm']['email'];
 			$new_password = $_POST['RegisterForm']['password'];
+                        
 			$registration_model->attributes=$_POST['RegisterForm'];
                         
                         $user_extram_param  = array();
@@ -472,8 +478,8 @@ class UserController extends Controller
 				$user_model->password = $encrypted_pass_word;
 				$user_model->reset_password = $encrypted_pass_word;
 					
-				$chat_details = AppCore::create_chat_user_for_user();
-
+//				$chat_details = AppCore::create_chat_user_for_user();
+                                $chat_details = UserCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
 					Yii::app()->user->setFlash('warning', $message);
@@ -543,7 +549,8 @@ class UserController extends Controller
 			if($user_model !== null ){
 				$chat_id = $user_model->chat_id;
 				if($user_model->delete()){
-					AppCore::delete_chat_user($chat_id);
+//					AppCore::delete_chat_user($chat_id);
+                                        RobotCore::delete_chat_user($chat_id);
 					$message = AppCore::yii_echo("You have deleted a user successfully");
 					Yii::app()->user->setFlash('success', $message);
 				}
@@ -556,7 +563,8 @@ class UserController extends Controller
 					if($user_model !== null ){
 						$chat_id = $user_model->chat_id;
 						if($user_model->delete()){
-							AppCore::delete_chat_user($chat_id);
+//							AppCore::delete_chat_user($chat_id);
+                                                        RobotCore::delete_chat_user($chat_id);
 						}
 					}
 				}

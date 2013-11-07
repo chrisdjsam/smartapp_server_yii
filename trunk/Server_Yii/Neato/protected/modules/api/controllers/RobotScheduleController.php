@@ -717,15 +717,19 @@ class RobotScheduleController extends APIController {
                         $utc_str = gmdate("M d Y H:i:s", time());
                         $utc = strtotime($utc_str);
 
-                        AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+//                        AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+                        RobotCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
 
                         $user_id = Yii::app()->user->id;
                         $user_data = User::model()->findByPk($user_id);
                         $cause_agent_id = Yii::app()->session['cause_agent_id'];
-                        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-                        $online_users_chat_ids = AppCore::getOnlineUsers();
+//                        $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                        $message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//                        $online_users_chat_ids = AppCore::getOnlineUsers();
+                        $online_users_chat_ids = RobotCore::getOnlineUsers();
 
-                        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+//                        AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                        RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
                     
 			$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 			$uploads_dir_for_robot_schedule = Yii::app()->getBasePath().$back . Yii::app()->params['robot-schedule_data-directory-name']. DIRECTORY_SEPARATOR . $id;
@@ -854,9 +858,9 @@ class RobotScheduleController extends APIController {
                         $robot_schedule_details['schedule_type'] = $robot_schedule->type;
 
                         $robot_schedule_details['schedule_version'] = $robot_schedule->XMLDataLatestVersion;
-                                                
+                        
                         if(AppHelper::remote_file_exists($robot_schedule->XMLDataURL)){
-                            
+
                             $fileContents = file_get_contents($robot_schedule->XMLDataURL);
                             $robot_schedule_details['schedule_data'] = str_replace(array("\n", "\r", "\t"), '', $fileContents);
                             
@@ -892,15 +896,19 @@ class RobotScheduleController extends APIController {
                 $utc_str = gmdate("M d Y H:i:s", time());
                 $utc = strtotime($utc_str);
 
-                AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+//                AppCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
+                RobotCore::setRobotKeyValueDetail($robot, $key, $value, $utc);
 
                 $user_id = Yii::app()->user->id;
                 $user_data = User::model()->findByPk($user_id);
                 $cause_agent_id = Yii::app()->session['cause_agent_id'];
-                $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-                $online_users_chat_ids = AppCore::getOnlineUsers();
+//                $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+                $message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+//                $online_users_chat_ids = RobotCore::getOnlineUsers();
+                $online_users_chat_ids = RobotCore::getOnlineUsers();
 
-                AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+//                AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+                RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
                 
                 $content = array('code'=> 0);
                 
