@@ -1473,6 +1473,9 @@ class AppCore {
             $loc_key[101] = 'MSG_STUCK_NOTIFICATION_ID';
             $loc_key[102] = 'MSG_DIRT_BAG_FULL_NOTIFICATION_ID';
             $loc_key[103] = 'MSG_CLEANING_DONE_NOTIFICATION_ID';
+            $loc_key[212] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
+            $loc_key[22000] = 'MSG_UI_ERR_CANCEL_NOTIFICATION_ID';
+            $loc_key[20219] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
 
             $loc_key_value = isset($message_to_send['notificationId'])? $loc_key[$message_to_send['notificationId']] : 'MSG_GENERIC_NOTIFICATION_ID';
 
@@ -1868,6 +1871,9 @@ class AppCore {
         $loc_key[101] = 'MSG_STUCK_NOTIFICATION_ID';
         $loc_key[102] = 'MSG_DIRT_BAG_FULL_NOTIFICATION_ID';
         $loc_key[103] = 'MSG_CLEANING_DONE_NOTIFICATION_ID';
+        $loc_key[212] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
+        $loc_key[22000] = 'MSG_UI_ERR_CANCEL_NOTIFICATION_ID';
+        $loc_key[20219] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
 
         $loc_key_value = isset($message_body['notificationId'])? $loc_key[$message_body['notificationId']] : 'MSG_GENERIC_NOTIFICATION_ID';
 
