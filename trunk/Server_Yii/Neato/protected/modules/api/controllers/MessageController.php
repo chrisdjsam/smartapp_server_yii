@@ -671,11 +671,15 @@ class MessageController extends APIController {
                             foreach ($json_object->notifications as $key => $value) {
                                 if(isset($value->value) && isset($value->key) ) {
 //                                    AppCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
+                                	if (!isset($userPushNotificationPreferencesObj[$key])){
+                                		$userPushNotificationPreferencesObj[$key] = new UserPushNotificationPreferences();
+                                	}
                                     UserCore::setUserPushNotificationOptions($userPushNotificationPreferencesObj[$key], $user_id, $value->key, $value->value);
                                 }else {
                                     self::terminate(-1, "Provided JSON does not contain considered keys like 'value', 'key' etc.", APIConstant::JSON_WITH_INVALID_KEYS);
                                 }
                             }
+                            
                             
                     }
                     
