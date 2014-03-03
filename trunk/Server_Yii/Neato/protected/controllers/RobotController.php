@@ -18,6 +18,9 @@ class RobotController extends Controller
 	 */
 	public function actionView()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		if (Yii::app()->user->getIsGuest()) {
 			$url = $this->createUrl('robot/view',array('h'=>Yii::app()->request->getParam('h', '')));
 			Yii::app()->user->setReturnUrl($url);
@@ -356,6 +359,9 @@ class RobotController extends Controller
 	 */
 	public function actionUpdate()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		if (Yii::app()->user->getIsGuest()) {
 			$url = $this->createUrl('robot/update',array('h'=>Yii::app()->request->getParam('h', '')));
 			Yii::app()->user->setReturnUrl($url);
@@ -438,6 +444,9 @@ class RobotController extends Controller
 	 */
 	public function actionList()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robot/list');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');

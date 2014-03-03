@@ -15,6 +15,9 @@ class OnlineController extends Controller
 	*/
 	public function actionList()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robot/list');

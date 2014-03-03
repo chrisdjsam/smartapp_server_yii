@@ -1116,10 +1116,18 @@ class RobotController extends APIController {
     }
 
     public function actionRobotDataTable() {
+    	$user_role_id = Yii::app()->user->UserRoleId;
         $userColumns = array('id', 'serial_number');
         $userIndexColumn = "id";
         $userTable = "robots";
         $userDataModelName = 'Robot';
+
+        if($user_role_id == '2'){
+        	if(($_GET['sSearch'] == "")){
+        		$_GET['sSearch'] = " ";
+        	}
+        }
+        
         $result = AppCore::dataTableOperation($userColumns, $userIndexColumn, $userTable, $_GET, $userDataModelName);
 
         /*
@@ -1162,12 +1170,19 @@ class RobotController extends APIController {
 
             $edit = '<a href="' . $this->createUrl('/robot/update', array('h' => AppHelper::two_way_string_encrypt($robot->id))) . '" title="Edit robot ' . $robot->serial_number . '">edit</a>';
 
-            $row[] = $select_checkbox;
-            $row[] = $serial_number;
-            $row[] = $robot_type;
-            $row[] = $associated_users;
-            $row[] = $schedule;
-            $row[] = $edit;
+            if($user_role_id != '2'){
+
+            	$row[] = $select_checkbox;
+            	$row[] = $serial_number;
+            	$row[] = $robot_type;
+            	$row[] = $associated_users;
+            	$row[] = $schedule;
+            	$row[] = $edit;
+            }else{
+            	$row[] = $serial_number;
+            	$row[] = $associated_users;
+            }
+            
 
             $output['aaData'][] = $row;
         }
@@ -2106,6 +2121,73 @@ class RobotController extends APIController {
         $robot_status = RobotCore::checkRobotStatus($robot);
 
         $this->renderPartial('/default/defaultView', array('content' => $robot_status));
+    }
+    
+    public function actionIsRobotAlive(){
+    	if (Yii::app()->user->getIsGuest()) {
+    		$this->redirect(Yii::app()->request->baseUrl.'/user/login');
+    	}
+    	$serial_number = Yii::app()->request->getParam('robotSerailNo', '');
+    	
+    	$robot = self::verify_for_robot_serial_number_existence($serial_number);
+    	$utc = gmdate("M d Y H:i:s", time());
+    	$xmpp_message_model = new XmppMessageLogs();
+    	$xmpp_message_model->save();
+    	
+    	$message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>105</command><requestId>" . $xmpp_message_model->id . "</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode></request></payload></packet>";
+    	
+    	$xmpp_message_model->send_from = $robot->id;
+    	$xmpp_message_model->send_at = $utc;
+    	
+    	$xmpp_message_model->xmpp_message = $message;
+    	$xmpp_message_model->save();
+    	
+    	$user_id = Yii::app()->user->id;
+    	$user_data = User::model()->findByPk($user_id);
+    	RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id, $message);
+
+    	$response = array('code' => 0, 'message' => 'Send XMPP message successfully');
+    	$this->renderPartial('/default/defaultView', array('content' => $response));
+    }
+    
+    public function actionCheckRobotAvailability(){
+    	
+    	if (Yii::app()->user->getIsGuest()) {
+    		$this->redirect(Yii::app()->request->baseUrl.'/user/login');
+    	}
+    	$serial_number = Yii::app()->request->getParam('robotSerailNo', '');
+    	
+    	$alive_robot = AliveRobot::model()->findByAttributes(array('serial_number' => $serial_number));
+    	
+    	$response = array('code' => 0, 'message' => 'Robot is alive');
+    	if(empty($alive_robot)) {
+    		$response = array('code' => -1, 'message' => 'Robot is dead');
+    	}else {
+    		$alive_robot->delete();
+    	}
+    	$this->renderPartial('/default/defaultView', array('content' => $response));
+    }
+    
+    public function actionAliveRobot(){
+
+    	if (Yii::app()->user->getIsGuest()) {
+    		$this->redirect(Yii::app()->request->baseUrl.'/user/login');
+    	}
+    	$serial_number = Yii::app()->request->getParam('serial_number', '');
+    	$robot = self::verify_for_robot_serial_number_existence($serial_number);
+    	
+    	$model = new AliveRobot();
+    	$model->serial_number = $serial_number;
+    	 
+    	if($model->save()) {
+    		$response_message = self::yii_api_echo('Robot is alive');
+    		$response_data = array("success" => true, "message"=> $response_message);
+    		self::success($response_data);
+    	}else {
+    		$response_message = self::yii_api_echo('Robot is dead');
+    		$response_data = array("success" => true, "message"=> $response_message);
+    		self::success($response_data);
+    	}
     }
 
 }

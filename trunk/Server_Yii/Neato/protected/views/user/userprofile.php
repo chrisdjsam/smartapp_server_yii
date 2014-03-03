@@ -14,22 +14,27 @@ $this->breadcrumbs = array(
 );
 
 $modelcountrycode = new CountryCodeList();
-
+$userRole = Yii::app()->user->UserRoleId;
 ?>
 
 <fieldset class='data-container static-data-container'>
 
     <?php
     $legend_message = "My Profile";
-    if (Yii::app()->user->id !== $model->id) {
-        $legend_message = "Profile details for $model->name";
-    }
+    if($userRole !== '2'){
+	    if (Yii::app()->user->id !== $model->id) {
+	        $legend_message = "Profile details for $model->name";
+	    }
+    }else{
+		$legend_message = "Profile details";
+	}
     $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
     ?>
     <legend>
         <?php echo $legend_message; ?>
     </legend>
     <?php if (Yii::app()->user->id == $model->id) { ?>
+    <div class="view-user-profile">
         <p class="list_details">
             Please review your profile information.<br />
            <?php if(!$is_wp_enabled){ ?>
@@ -37,14 +42,25 @@ $modelcountrycode = new CountryCodeList();
             <?php } ?>
             <?php 
             if(Yii::app()->user->isAdmin && !$is_wp_enabled){
-                ?>
+
+				if($userRole != '2'){
+                	?>
                 Now we require that you validate your registered email within 1 hour of registration. <br/>
-                For some reason if you could not validate your email, as an admin, you can validate it by selecting "yes" against the "Is email validated?".<br />
+                For some reason if user could not validate your email, as an admin, you can validate it by selecting "yes" against the "Is email validated?".<br />
                     <?php
+            	}	
             }
             ?>
-            
         </p>
+	</div>
+	<div class="update-user-profile">
+        <p class="list_details">
+           <?php if(!$is_wp_enabled){ ?>
+            Click on save to update profile.<br />
+            <?php } ?>
+        </p>
+	</div> 
+	       
     <?php } ?>
 
     <?php
@@ -76,7 +92,7 @@ $modelcountrycode = new CountryCodeList();
                         login using old password.<br />
                         Click on edit to update user profile.<br />
                         Now we require that user validates his registered email within 1 hour of registration. <br/>
-                        For some reason if user could not validate his email, as an admin, you can validate his email by selecting "yes" against the "Is email validated?".<br />
+                        For some reason if user could not validate his email, as <?php if($userRole != '2'){?>an admin<?php }else{?>a support<?php }?>, you can validate his email by selecting "yes" against the "Is email validated?".<br />
                     </p>
                     <div class="action_delete_reset">
                         <div class="action-button-container">
@@ -102,7 +118,7 @@ $modelcountrycode = new CountryCodeList();
             'country_code',
             'opt_in',
         );
-    
+
     if(Yii::app()->user->isAdmin){
         $cDetailAttribute = array(
             'email',
@@ -115,6 +131,18 @@ $modelcountrycode = new CountryCodeList();
             'opt_in',
         );
     }
+    if($userRole == '2'){
+    	$cDetailAttribute = array(
+    			'email',
+    			'alternate_email',
+    			$chat_attribute,
+    			'created_on',
+    			'country_code',
+    			'opt_in',
+    	);
+    }
+    
+    
     
     $this->widget('zii.widgets.CDetailView', array(
         'data' => $model,
@@ -136,12 +164,20 @@ $modelcountrycode = new CountryCodeList();
             'clientOptions' => array('validateOnSubmit' => true),
                 ));
         ?>
-
+		
+		<?php if($userRole == '2'){
+			$disabled = 'disabled';
+			}else{
+			$disabled = '';
+			}
+ 
+		?>	    
         <div class="row">
             <?php echo $form->labelEx($update_user, 'name', array('class' => 'update_user_lable')); ?>
-            <?php echo $form->textField($update_user, 'name', array('size' => 30, 'cols' => 128, 'tabindex' => 2, 'class' => 'update_user_input')); ?>
+            <?php echo $form->textField($update_user, 'name', array('size' => 30, 'cols' => 128, 'tabindex' => 2, 'class' => 'update_user_input', 'disabled' => $disabled)); ?>
             <?php echo $form->error($update_user, 'name', array('class' => 'prepend-4 errorMessage')); ?>
         </div>
+        
         
         <div class="row">
             <?php echo $form->labelEx($update_user, 'alternate_email', array('class' => 'update_user_lable')); ?>
@@ -211,7 +247,7 @@ $modelcountrycode = new CountryCodeList();
     });
 
     $(document).ready(function(){
-        
+    	$('.update-user-profile').hide();
         $('#update_user_data').click(function(){
             
             $('#update_user_data_flag').val('Y');
@@ -233,7 +269,8 @@ $modelcountrycode = new CountryCodeList();
             $('.update_user_form').hide();
             $('#user_profile_detail').show();
             $('#edit_user_profile_btn').show();
-            
+            $('.view-user-profile').show();
+            $('.update-user-profile').hide();        
         });
         
     });
@@ -243,6 +280,8 @@ function hideUserProfile () {
     $('.update_user_form').show();
     $('#user_profile_detail').hide();
     $('#edit_user_profile_btn').hide();
+    $('.view-user-profile').hide();
+    $('.update-user-profile').show();
     
 }
 

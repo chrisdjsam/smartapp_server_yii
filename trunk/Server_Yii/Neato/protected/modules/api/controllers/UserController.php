@@ -2497,10 +2497,18 @@ class UserController extends APIController {
 	}
 
         public function actionUserDataTable() {
+        		$user_role_id = Yii::app()->user->UserRoleId;
                 $userColumns = array('id', 'email', 'name', 'is_admin');
                 $userIndexColumn = "id";
                 $userTable = "users";
                 $userDataModelName = 'User';
+                
+                if($user_role_id == '2'){
+                	if($_GET['sSearch'] == ""){
+                		$_GET['sSearch'] = " ";
+                	}	
+                }
+                
                 $result = AppCore::dataTableOperation($userColumns, $userIndexColumn, $userTable, $_GET, $userDataModelName);
 
                 /*
@@ -2514,13 +2522,19 @@ class UserController extends APIController {
                 );
 
                 foreach ($result['rResult'] as $user) {
-
+					$user_role_data = UserRole::model()->findByAttributes(array('user_id' => $user->id ));
+					$current_user_id = $user_role_data->user_role_id;
                     $row = array();
 
                     if($user->is_admin == '0'){
                         $select_checkbox = '<input type="checkbox" name="chooseoption[]" value="'.$user->id.'" class="choose-option">';
                     } else {
-                        $select_checkbox = "Admin" ;
+                    	if($current_user_id == '2'){
+                    		$select_checkbox = "Support" ;
+                    	}else{
+                    		$select_checkbox = "Admin" ;
+                    	}
+                        
                     }
 
                     $user_email = '<a rel="'.$this->createUrl('/user/userprofilepopup', array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" href="'.$this->createUrl('/user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" class="qtiplink" title="View details of ('.$user->email.')">'.$user->email.'</a>';
@@ -2536,12 +2550,19 @@ class UserController extends APIController {
                             $associated_robots .= "<a class='single-item qtiplink robot-qtip' title='View details of (" . $value->idRobot->serial_number . ")' rel='" . $this->createUrl('/robot/popupview', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "' href='" . $this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "'>" . $value->idRobot->serial_number . "</a>";
                         }
                     }
-
-                    $row[] = $select_checkbox;
-                            $row[] = $user_email;
-                            $row[] = $user->name;
-                            $row[] = $associated_robots;
-                            $output['aaData'][] = $row;
+                    
+                    
+                    if($user_role_id != '2'){
+                    	$row [] = $select_checkbox;
+                    	$row [] = $user_email;
+                    	$row [] = $user->name;
+                    	$row [] = $associated_robots;
+                    	$output ['aaData'] [] = $row;
+                    }else{
+                    	$row [] = $user_email;
+                    	$row [] = $associated_robots;
+                    	$output ['aaData'] [] = $row;
+                    }
                 }
                 $this->renderPartial('/default/defaultView', array('content' => $output));
     }

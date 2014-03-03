@@ -27,7 +27,7 @@ class WebUser extends CWebUser {
 		}
 		return $this->_model;
 	}
-
+	
 	/**
 	 * Returns the user name.
 	 * access it by Yii::app()->user->name
@@ -56,6 +56,18 @@ class WebUser extends CWebUser {
 	function getIsAdmin() {
 		$user = $this->loadUser(Yii::app()->user->id);
 		return $user->is_admin;
+	}
+	
+	function getUserRoleId() {
+		
+		$user = $this->loadUser(Yii::app()->user->id);
+		
+		if ($this->_model === null) {
+			return $this->_model;
+		}else{
+			$user_role = UserRole::model()->find('user_id=:user_id',array(':user_id' => $user->id));
+			return $user_role->user_role_id;
+		}
 	}
         
         /**

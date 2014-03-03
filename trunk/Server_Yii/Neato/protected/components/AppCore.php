@@ -493,6 +493,8 @@ class AppCore {
 
 				'RegistrationException:EmptyPassword' => 'The password fields cannot be empty',
 				'RegistrationException:PasswordMismatch' => 'Passwords must match',
+				'Robot is dead' => 'Robot is dead',
+				'Robot is alive' => 'Robot is alive',
 				'LoginException:BannedUser' => 'You have been banned from this site and cannot log in',
 				'LoginException:UsernameFailure' => 'We could not log you in. Please check your email and password.',
 				'LoginException:PasswordFailure' => 'We could not log you in. Please check your email and password.',
@@ -920,8 +922,14 @@ class AppCore {
             }
             
             for ($i = 0; $i < count($aColumns); $i++) {
+            	
                 if (isset($sGet['bSearchable_' . $i]) && $sGet['bSearchable_' . $i] == "true") {
-                    $sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($sGet['sSearch']) . "%' OR ";
+                	
+                	if(Yii::app()->user->UserRoleId == '2'){
+                		$sWhere .= $aColumns[$i] . " = '" . mysql_real_escape_string($sGet['sSearch']) . "' OR ";
+                	}else {
+                		$sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($sGet['sSearch']) . "%' OR ";
+                	}
                 }
             }
             $sWhere = substr_replace($sWhere, "", -3);
@@ -1473,7 +1481,7 @@ class AppCore {
             $loc_key[101] = 'MSG_STUCK_NOTIFICATION_ID';
             $loc_key[102] = 'MSG_DIRT_BAG_FULL_NOTIFICATION_ID';
             $loc_key[103] = 'MSG_CLEANING_DONE_NOTIFICATION_ID';
-            $loc_key[212] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
+            $loc_key[212] = 'MSG_UI_ALERT_PLUG_CABLE_NOTIFICATION_ID';
             $loc_key[22000] = 'MSG_UI_ERR_CANCEL_NOTIFICATION_ID';
             $loc_key[20219] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
 
@@ -1871,7 +1879,7 @@ class AppCore {
         $loc_key[101] = 'MSG_STUCK_NOTIFICATION_ID';
         $loc_key[102] = 'MSG_DIRT_BAG_FULL_NOTIFICATION_ID';
         $loc_key[103] = 'MSG_CLEANING_DONE_NOTIFICATION_ID';
-        $loc_key[212] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
+        $loc_key[212] = 'MSG_UI_ALERT_PLUG_CABLE_NOTIFICATION_ID';
         $loc_key[22000] = 'MSG_UI_ERR_CANCEL_NOTIFICATION_ID';
         $loc_key[20219] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
 

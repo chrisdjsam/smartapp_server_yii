@@ -26,18 +26,16 @@
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jqtip.min.css?<?php echo Yii::app()->params['app-version-no']?>" />
 
 <link rel="stylesheet" type="text/css"
-	href="<?php echo Yii::app()->request->baseUrl; ?>/css/theme_main.css?<?php echo Yii::app()->params['app-version-no']?>" />
+	href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css?<?php echo Yii::app()->params['app-version-no']?>" />
 
 
 <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-    <link rel="SHORTCUT ICON"
-	href="<?php echo Yii::app()->request->baseUrl; ?>/images/vorwerk_favicon.ico" />
+<link rel="SHORTCUT ICON"
+	href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico" />
 <?php
 $cs = Yii::app()->getClientScript();
 $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request->baseUrl . '";', CClientScript::POS_HEAD);
-$is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 ?>
-
 
 <!-- <script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-1.6.4.min.js"></script>-->
 	<!-- page -->
@@ -48,7 +46,7 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 	<div class="WaitingDialogClass" style="display: none;">
 		<div id="WaitingDialog" title="Please Wait">
 			<div id="displayWait">
-				<?php echo CHtml::image(Yii::app()->request->baseUrl."/images/vorwerk-ajax-loader.gif","Please Wait", array('class'=> 'wait-dialog-image')); ?>
+				<?php echo CHtml::image(Yii::app()->request->baseUrl."/images/ajax-loader.gif","Please Wait", array('class'=> 'wait-dialog-image')); ?>
 			</div>
 		</div>
 	</div>
@@ -79,8 +77,8 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
                             <ul class="adminMenuUser" >				
 				<li>
                                     Logged in as 
-                                    <a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?></a> 
-                                    <?php echo "(Administrator)";?>
+                                    <b><?php echo Yii::app()->user->name;?></b> 
+                                    <?php echo "(Support)";?>
 				</li> 
 				<li><a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out">
                                         Log out
@@ -104,15 +102,17 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 						<?php } ?>							
 						<?php if($isAdmin){ ?>
 						<li><a href="<?php echo $this->createUrl('user/list')?>"
-							title="List of all Users">Users</a>
+							title="<?php echo ($userRole == '2')?"User":"List of all Users"; ?>"><?php echo ($userRole == '2')?"Search User":"Search a user"; ?></a>
 						</li>
 						<li><a href="<?php echo $this->createUrl('/robot/list')?>"
-							title="List of all Robots">Robots</a>
+							title="<?php echo ($userRole == '2')?"Robot":"List of all Robots"; ?>"><?php echo ($userRole == '2')?"Search Robot":"Search a robot"; ?></a>
 						</li>
-						<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"
-							title="List of all User-Robot Associations">User-Robot
-								Associations</a>
-						</li>
+						<?php if($userRole != 2){ ?>
+							<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"
+								title="List of all User-Robot Associations">User-Robot
+									Associations</a>
+							</li>
+						<?php }?>
 						<li><a href="<?php echo $this->createUrl('/online/list')?>"
 							title="List of all online User-Robot">Who is online?</a>
 						</li>
@@ -143,40 +143,22 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 					<?php }	?>
 					<h1>
                                                 <div id="logo">
-                                                    <a href="<?php echo $this->createUrl("/")?>" title="Vorwerk">
-                                                        <?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo_vorwerk.jpg","Vorwerk", array('class'=> 'app-logo')); ?>
+                                                    <a href="<?php echo $this->createUrl("/user/supportlogin")?>" title="Neato Robotics">
+                                                        <?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo.png","Neato Robotics", array('class'=> 'app-logo')); ?>
                                                     </a>
                                                 </div>
 					</h1>
 					<div class="top-buttons-container">
-												<?php	
-                                                    $register_url =  $this->createUrl('/user/register');                         
-                                                        if($is_wp_enabled){
-                                                            $register_url = Yii::app()->params['wordpress_api_url'].'wp-login.php?action=register';
-                                                        }
-                                                ?>
 						<?php if(!$isLoggedIn){?>
-						
-						<div class="button-div button-register neato-button:hover">
-							<a class="neato-button neato-button-register"
-								href="<?php print $register_url?>"
-								title="Register">Register</a>
-						</div>
-								<div class="button-div button-login neato-button:hover">
-									<a class="neato-button neato-button-login"
-										href="<?php echo $this->createUrl('/user/login')?>"
-										title="Login">Login</a>
-								</div>
+							
 						<?php }?>
 					</div>
-			
 			</div>
 		</div>
 		<!-- header -->
 		<div class="page-body " id="theme-color" >
                 <!--<div class="page-body ">-->
 			<!-- mainmenu -->
-
 			<?php //if(isset($this->breadcrumbs)):?>
 			<?php
 			//		$this->widget('zii.widgets.CBreadcrumbs', array(
@@ -194,14 +176,14 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 			<div class="">
 				<ul class="menu menu-footer menu-hz menu-footer-default">
 					<li class=" menu menu-item-privacy"><a
-						href="<?php echo $this->createUrl('/site/privacy')?>"
+						href="<?php echo $this->createUrl('/site/SupportPrivacy')?>"
 						title="Privacy Policy">Privacy Policy</a>
 					</li>
 					<li class=" menu menu-item-terms"><a
-						href="<?php echo $this->createUrl('/site/terms')?>" title="Terms">Terms</a>
+						href="<?php echo $this->createUrl('/site/SupportTerms')?>" title="Terms">Terms</a>
 					</li>
 					<li class="menu menu-item-about"><a
-						href="<?php echo $this->createUrl('/site/about_us')?>"
+						href="<?php echo $this->createUrl('/site/SupportAbout_us')?>"
 						title="About Us">About Us</a>
 					</li>
 				</ul>

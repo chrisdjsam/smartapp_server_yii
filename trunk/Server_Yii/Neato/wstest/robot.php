@@ -3369,5 +3369,72 @@
 
 		</table>
 	</form>
+	
+<!-- 	Check Robot serial_number is present in alive robot db-->
+	<form action="<?php echo($baseURL)?>robot.health_check" method='POST'
+		id='alive_robot' class='ajaxified_forms'>
+
+		<table class='custom_table'>
+			<tr>
+				<td id="Robot Health Check responder" colspan="2"><label>Robot Health Check responder</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class='api_description'>
+					<div class='toggle_details'>More</div>
+
+					<div class='details_div'>
+						POST method to alive robot. <br /> <br /> URL:
+						<?php echo($baseURL)?>
+						robot.health_check<br /> 
+						Parameters:
+						<ul>
+							<li><b>api_key</b> :Your API Key</li>
+							
+						</ul>
+                                                
+
+						Failure Responses: <br />
+						<ul>
+							<li>If API Key is missing:
+
+								<ul>
+									<li>
+                                                                            {"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication failed"}}
+                                                                        </li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td class='label_field'>api_key</td>
+				<td class='value_field'><input type="text" name='api_key'
+					class='api_keys' value='<?php echo($api_key);?>' />
+				</td>
+			</tr>
+
+			<tr>
+				<td>serial_number</td>
+				<td><input type="text" name='serial_number'>
+				</td>
+			</tr>
+                        
+			<tr>
+				<td><input type="button" name='submit' dummy='alive_robot'
+					value='Submit' class='submit_form'>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class='request_div'>View Request</div> <br />
+					<div class='response_div'>View Response</div>
+				</td>
+			</tr>
+
+		</table>
+	</form>
 
 <?php include_once 'common_footer.php'; ?>

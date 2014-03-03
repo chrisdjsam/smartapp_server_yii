@@ -7,6 +7,7 @@ $this->breadcrumbs = array(
     'List',
 );
 $isAdmin = Yii::app()->user->isAdmin;
+$userRole = Yii::app()->user->UserRoleId;
 ?>
 <fieldset class='data-container static-data-container'>
     <legend>App Versions</legend>

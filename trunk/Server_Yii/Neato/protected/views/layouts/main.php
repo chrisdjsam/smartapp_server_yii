@@ -108,7 +108,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 								Associations</a>
 						</li>
 						<li><a href="<?php echo $this->createUrl('/online/list')?>"
-							title="List of all online User-Robot">Who's online</a>
+							title="List of all online User-Robot">Who is online?</a>
 						</li>
                                                 <li><a href="<?php echo $this->createUrl('/notification/list')?>"
 							title="Send Notifications">Notifications</a>
@@ -195,8 +195,8 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						title="About Us">About Us</a>
 					</li>
 				</ul>
-				<div class="clearfloat float-alt copyright-notice">Copyright
-					&#169;2012 Neato Robotics</div>
+				<div class="clearfloat float-alt copyright-notice">Copyright &#169; <?php echo date('Y'); ?> <?php echo Yii::app()->name?></div>
+					
 			</div>
 		</div>
 		<!-- footer -->

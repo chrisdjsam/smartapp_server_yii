@@ -35,6 +35,9 @@ class UsersRobotController extends Controller
 	 */
 	public function actionAdd()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/UsersRobot/add');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
@@ -158,6 +161,9 @@ class UsersRobotController extends Controller
 	 */
 	public function actionList()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/UsersRobot/list');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');

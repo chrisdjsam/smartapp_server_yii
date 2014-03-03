@@ -220,7 +220,9 @@ padding-right: 50px;
 											</li>
                                                                                         <li><a href="robot.php#Link To Robot"  class="new-api">Link To Robot</a>
 											</li>
-
+																						<li><a href="robot.php#Robot Health Check responder"  class="new-api">Respond to Robot's Health Check</a>
+											</li>
+											
                                                                                          
 
 										</ul>

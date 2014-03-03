@@ -29,7 +29,9 @@ class UserController extends Controller
 	 */
 	public function actionUserprofile()
 	{
-            
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		$h_id = Yii::app()->request->getParam('h', AppHelper::two_way_string_encrypt(Yii::app()->user->id));
 		$id = AppHelper::two_way_string_decrypt($h_id);
                 
@@ -38,7 +40,6 @@ class UserController extends Controller
                 if ($h){
                     $url = $this->createUrl('user/userprofile',array('h'=>Yii::app()->request->getParam('h', '')));
                 }
-                
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl($url);
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
@@ -152,13 +153,32 @@ class UserController extends Controller
 
 				$user_model->name = $user_add_model->name;
 				$user_model->email = $user_add_model->email;
-				$user_model->is_admin = $_POST['UserAddForm']['is_admin'];
-
+				
+// 				$user_model->is_admin = $_POST['UserAddForm']['is_admin'];     
+				$user_role = Yii::app ()->request->getParam ( 'user_role', '' );
+				
+				if($user_role == '-1'){
+					Yii::app()->user->setFlash('error', "Please select user role");
+					$this->render('add',array(
+							'model'=>$user_add_model,
+					));
+					return;
+				}
+				
+				$is_admin = '0';
+				if($user_role == '1' || $user_role == '2'){
+					$is_admin = '1';
+				}
+				
+				$user_model->is_admin = $is_admin; 
+				
+				
+				
 				$user_model->password = $encrypted_pass_word;
 				$user_model->reset_password = $encrypted_pass_word;
 					
 //				$chat_details = AppCore::create_chat_user_for_user();
-                                $chat_details = UserCore::create_chat_user_for_user();
+                $chat_details = UserCore::create_chat_user_for_user();
 
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
@@ -168,12 +188,24 @@ class UserController extends Controller
 
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
-					
+
 				if($user_model->save()){
+					
+					$user_role_obj = new UserRole();
+					$user_role_obj->user_id = $user_model->id;
+					$user_role_obj->user_role_id = $user_role;
+					if(!$user_role_obj->save()){
+						Yii::app()->user->setFlash('success', 'user role not saved');
+						$this->render('add',array(
+								'model'=>$user_add_model,
+						));
+					}
+					
 					$msg = AppCore::yii_echo("adduser:ok",$user_name);
 					Yii::app()->user->setFlash('success', $msg);
-//                                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
-                                        UserCore::setDefaultUserPushNotificationOptions($user_model->id);
+					
+//                  AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+					UserCore::setDefaultUserPushNotificationOptions($user_model->id);
 				}
 				$this->redirect(array('list'));
 			}else {
@@ -187,9 +219,97 @@ class UserController extends Controller
 		));
 	}
         
+	
+	public function actionSupportLogin(){
+	
+		$this->layout = 'support';
+// 		$layout='//layouts/support';
+		if (!Yii::app()->user->getIsGuest()) {
+			$this->redirect(Yii::app()->user->returnUrl);
+		}
+		$login_model=new LoginForm;
+	
+		// Uncomment the following line if AJAX validation is needed
+	
+		//		$this->performAjaxValidation($login_model, 'login-form');
+	
+		// collect user input data
+		if(isset($_POST['LoginForm']))
+		{
+			$password = $_POST['LoginForm']['password'];
+			$encrypted_password = AppHelper::one_way_encrypt($password);
+			$user_model_for_find_admin = User::model()->findByAttributes(array("email"=>$_POST['LoginForm']['email'],"password" => $encrypted_password, 'is_admin' => 1));
+	
+			if (Yii::app()->params['is_wp_enabled'] == true && empty($user_model_for_find_admin)) {
+				$is_wpuser = self::is_wpuser();
+				if (isset($is_wpuser->posts->data)) {
+					$_POST['LoginForm']['email'] = $is_wpuser->posts->data->user_login;
+				}
+	
+				if(isset($is_wpuser->posts->errors)){
+					$_POST['errors']  = $is_wpuser->posts->errors;
+					$error_result=$login_model->wpAuthenticateError();
+				}
+			}
+			$login_model->attributes=$_POST['LoginForm'];
+			if(!isset($is_wpuser->posts->errors)){
+				// validate user input and redirect to the userprofile page if valid
+				if($login_model->validate() && $login_model->login())
+				{
+	
+					Yii::app()->session['cause_agent_id'] = UniqueToken::hash(time(), 8);
+	
+					$is_validated = (boolean)Yii::app()->user->isValidated;
+					$message = 'You have been logged in Successfully.';
+	
+					//                                $grace_period = AppCore::getGracePeriod();
+					$grace_period = UserCore::getGracePeriod();
+	
+					if(!$is_validated){
+	
+						$user_created_on_timestamp = strtotime(Yii::app()->user->createdOn);
+	
+						$current_system_timestamp = time();
+	
+						$time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
+	
+						if($time_diff < $grace_period){
+	
+							$message = "You have been logged in Successfully. Please validate your email.";
+	
+						} else {
+							Yii::app()->user->logout();
+							$message = "Sorry, Please validate your email first and then login again.";
+							Yii::app()->user->setFlash('error', $message);
+							$this->render('login',array('model'=>$login_model));
+							exit();
+	
+						}
+	
+					}
+					Yii::app()->user->setFlash('success', $message);
+					if(Yii::app()->user->isAdmin){
+						//$this->redirect(Yii::app()->user->returnUrl);
+						$this->redirect(array('list'));
+					}else{
+						$this->redirect(array('userprofile'));
+					}
+					echo $this->redirect(Yii::app()->user->returnUrl);
+					$this->redirect(Yii::app()->user->returnUrl);
+	
+				}else{
+	
+					Yii::app()->user->setFlash('error', AppCore::yii_echo("We could not log you in. Please check your email and password."));
+				}
+			}
+		}
+		// display the login form
+		$this->render('supportlogin',array('model'=>$login_model));
+	}
+	
         public function actionLogin(){
                     
-                    if (!Yii::app()->user->getIsGuest()) {
+		if (!Yii::app()->user->getIsGuest()) {
 			$this->redirect(Yii::app()->user->returnUrl);
 		}
 		$login_model=new LoginForm;
@@ -429,7 +549,12 @@ class UserController extends Controller
 		Yii::app()->user->logout();
 		$msg = AppCore::yii_echo("You have been logged out");
 		Yii::app()->user->setFlash('success', $msg);
-		$this->redirect(Yii::app()->homeUrl);
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->redirect('SupportLogin');
+		}else{
+			$this->redirect(Yii::app()->homeUrl);
+		}
+		
 	}
 
 	/**
@@ -587,6 +712,9 @@ class UserController extends Controller
 	 */
         public function actionList()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/user/list');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
@@ -672,6 +800,58 @@ class UserController extends Controller
 				'model'=>$forgotPassword_model
 		));
 	}
+	
+	/**
+	 * Redirects to forgot_paasword.
+	 */
+	public function actionSupportForgotpassword()
+	{
+		$this->layout = 'support';
+		if (!Yii::app()->user->getIsGuest()) {
+			$this->redirect(Yii::app()->user->returnUrl);
+		}
+		$forgotPassword_model = new ForgotPasswordForm();
+	
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($forgotPassword_model, 'forgotpassword-form');
+	
+		if(isset($_POST['ForgotPasswordForm']))
+		{
+			$forgotPassword_model->attributes=$_POST['ForgotPasswordForm'];
+	
+			if ($forgotPassword_model->validate()) {
+				$email = trim($_POST['ForgotPasswordForm']['email']);
+				$user_model = User::model()->findByAttributes(array("email" => $email));
+				if($user_model != null){
+					$new_password = AppHelper::generateRandomString();
+					$encrypted_new_password  = AppHelper::one_way_encrypt($new_password);
+	
+					$user_model->reset_password = $encrypted_new_password;
+					$user_name = $user_model->name;
+					$login_link = $this->createUrl("/user/login");
+					if($user_model->save()){
+	
+						$alternate_user_email = $user_model->alternate_email;
+						if (!empty($alternate_user_email)) {
+							AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link, $alternate_user_email);
+						} else {
+							AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
+						}
+	
+						Yii::app()->user->setFlash('success', AppCore::yii_echo("New password is sent to your email."));
+						$this->redirect("login");
+					}
+				}else{
+					Yii::app()->user->setFlash('error', AppCore::yii_echo("Email does not exist."));
+					$forgotPassword_model->addError("email", "Please enter valid email.");
+				}
+			}
+		}
+		$this->render('supportforgotpassword',array(
+				'model'=>$forgotPassword_model
+		));
+	}
+	
 
 	/**
 	 * Resets users password.
@@ -711,6 +891,9 @@ class UserController extends Controller
 	 */
 	public function actionChangePassword()
 	{
+		if(Yii::app()->user->UserRoleId == '2'){
+			$this->layout = 'support';
+		}
 		if (Yii::app()->user->getIsGuest()) {
 			$this->redirect(Yii::app()->user->returnUrl);
 		}
