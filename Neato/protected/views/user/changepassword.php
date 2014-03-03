@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
 	<legend>Change Password</legend>
 
 	<p class="list_details">
-		Please enter your old and new passwords.<br /> If old password matches
+		Please enter your current and new passwords.<br /> If current password matches
 		your existing password, your password would be updated with the new
 		password.
 	</p>

@@ -1800,12 +1800,15 @@ class RobotController extends APIController {
         }
 
         $user_id = $user_model->id;
+        
         $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
-
         if ((!is_null($user_robot_model))) {
-
             self::terminate(-1, "Association for Robot-user pair already exists", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
-
+        }
+        
+        $user_robot_model = UsersRobot::model()->findByAttributes(array("id_robot" => $robot_id));
+        if ((!is_null($user_robot_model))) {
+        	self::terminate(-1, "Robot already has a user associated with it.", APIConstant::ROBOT_ALREADY_HAS_A_USER_ASSOCIATED);
         }
 
 //        AppCore::removeExpiredLinkingCode($robot_model_data);
@@ -1940,13 +1943,11 @@ class RobotController extends APIController {
         $robot_id = $robot_user_association_token->robot_id;
 
         $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
-
         if ((!is_null($user_robot_model))) {
-
-//            AppCore::removeLinkingCode($robot);
+        	
             RobotCore::removeLinkingCode($robot);
             self::terminate(-1, "Association for Robot-user pair already exists", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
-
+            
         } else if ($associated_robot_serial_number == $serial_number) {
 
             $xmpp_message_model = new XmppMessageLogs();

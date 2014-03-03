@@ -92,7 +92,7 @@ class APIConstant {
     const INVALID_OPT_IN_FLAG = '-189';
     const ROBOT_IS_DEAD = '-190';
     const ROBOT_IS_ALIVE = '-191';
-
+	const ROBOT_ALREADY_HAS_A_USER_ASSOCIATED = '-192';
 
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
@@ -185,6 +185,8 @@ class APIConstant {
         APIConstant::INVALID_OPT_IN_FLAG => 'opt_in flag is invalid. It should be true or false',
     	APIConstant::ROBOT_IS_DEAD => 'Robot is dead',
     	APIConstant::ROBOT_IS_ALIVE => 'Robot is alive',
+    	APIConstant::ROBOT_ALREADY_HAS_A_USER_ASSOCIATED => 'Robot already has a user associated with it.',
+
 
         );
 

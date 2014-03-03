@@ -51,13 +51,13 @@ $this->breadcrumbs=array(
 	<form action="<?php echo $this->createUrl('api/robot/deleteRobot') ?>"
 		method="POST" id="robotsList">
 			<?php if($userRole != '2'){?>
-				<div class="action-button-container">
-					<a href="<?php echo $this->createUrl('robot/add')?>"
-						title="Add robot" class="neato-button">Add</a>
-				</div>
 				<div class="action-button-container">	 
 					<input type='button' value='Delete' id='deleteSelected'
 					class='deleteSelected neato-button' title="Delete robot" />
+				</div>
+				<div class="action-button-container">
+					<a href="<?php echo $this->createUrl('robot/add')?>"
+						title="Add robot" class="neato-button">Add</a>
 				</div>
 			<?php }?>
 		<table class="pretty-table robot-table">

@@ -101,11 +101,11 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 							title="My Profile" class="neato_tab_my_profile">My Profile</a></li>
 						<?php } ?>							
 						<?php if($isAdmin){ ?>
-						<li><a href="<?php echo $this->createUrl('user/list')?>"
-							title="<?php echo ($userRole == '2')?"User":"List of all Users"; ?>"><?php echo ($userRole == '2')?"Search User":"Search a user"; ?></a>
-						</li>
 						<li><a href="<?php echo $this->createUrl('/robot/list')?>"
 							title="<?php echo ($userRole == '2')?"Robot":"List of all Robots"; ?>"><?php echo ($userRole == '2')?"Search Robot":"Search a robot"; ?></a>
+						</li>
+						<li><a href="<?php echo $this->createUrl('user/list')?>"
+							title="<?php echo ($userRole == '2')?"User":"List of all Users"; ?>"><?php echo ($userRole == '2')?"Search User":"Search a user"; ?></a>
 						</li>
 						<?php if($userRole != 2){ ?>
 							<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"

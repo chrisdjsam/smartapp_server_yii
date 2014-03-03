@@ -1150,7 +1150,7 @@ div.send_notification_btn {
 }
 
 .neato-button_alt {
-	margin: 8px;
+	margin: 4px;
 	width: 70px;
 	border-radius: 5px;
 }
@@ -1477,7 +1477,7 @@ thead tr {
 }
 
 .user-add-select {
-	width: 37.6%;
+	width: 37.8%;
 	height: 35px;
 	padding: 6px;
 }
@@ -1529,4 +1529,8 @@ thead tr {
 
 div.form label{
 	text-transform: capitalize;	
+}
+
+.user-add-form-input{
+	width: 36.6%;
 }

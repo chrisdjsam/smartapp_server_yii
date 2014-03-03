@@ -56,7 +56,7 @@ $userRole = Yii::app()->user->UserRoleId;
 	<div class="update-user-profile">
         <p class="list_details">
            <?php if(!$is_wp_enabled){ ?>
-            Click on save to update profile.<br />
+            Click on save button to update profile.<br />
             <?php } ?>
         </p>
 	</div> 
@@ -85,7 +85,7 @@ $userRole = Yii::app()->user->UserRoleId;
 	                        can reset password for this user by clicking on reset password button.<br />
 	                        Please note that deleting a user would also delete the user-robot
 	                        associations for this specific user.<br /> Please note that resetting
-	                        password for this user would reset the user's old password and send an
+	                        password for this user would reset the user's current password and send an
 	                        email mentioning user's new password.<br />
 	                        Click on edit to update user profile.<br />
 	                        Now we require that user validates his registered email within 1 hour of registration. <br/>

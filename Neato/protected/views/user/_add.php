@@ -7,9 +7,8 @@
 <fieldset class='data-container static-data-container'>
 	<legend>Add User</legend>
 	<p class="list_details">
-		Please enter all the required fields to create a user.<br /> If you
-		check Is Admin check box, this new user would be created with
-		Administrative privileges.
+		Please enter all the required fields to create a user.<br /> 
+		If you select 'Admin' as a user role, this new user would be created with Administrative privileges.
 	</p>
 
 	<div class="form">
@@ -25,25 +24,25 @@
 
 		<div class="row">
 			<?php echo $form->labelEx($model,'email'); ?>
-			<?php echo $form->textField($model,'email',array('size'=>30, 'cols'=>128)); ?>
+			<?php echo $form->textField($model,'email',array('size'=>30, 'cols'=>128, 'class' => 'user-add-form-input')); ?>
 			<?php echo $form->error($model,'email'); ?>
 		</div>
 
 		<div class="row">
 			<?php echo $form->labelEx($model,'name'); ?>
-			<?php echo $form->textField($model,'name',array('size'=>30, 'cols'=>128)); ?>
+			<?php echo $form->textField($model,'name',array('size'=>30, 'cols'=>128, 'class' => 'user-add-form-input')); ?>
 			<?php echo $form->error($model,'name'); ?>
 		</div>
 
 		<div class="row">
 			<?php echo $form->labelEx($model,'password'); ?>
-			<?php echo $form->passwordField($model,'password',array('size'=>30,'maxlength'=>100)); ?>
+			<?php echo $form->passwordField($model,'password',array('size'=>30,'maxlength'=>100, 'class' => 'user-add-form-input')); ?>
 			<?php echo $form->error($model,'password'); ?>
 		</div>
 
 		<div class="row">
 			<?php echo $form->labelEx($model,'confirm_password'); ?>
-			<?php echo $form->passwordField($model,'confirm_password',array('size'=>30,'maxlength'=>100)); ?>
+			<?php echo $form->passwordField($model,'confirm_password',array('size'=>30,'maxlength'=>100, 'class' => 'user-add-form-input')); ?>
 			<?php echo $form->error($model,'confirm_password'); ?>
 		</div>
 

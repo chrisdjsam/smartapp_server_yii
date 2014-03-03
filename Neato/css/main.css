@@ -1133,7 +1133,7 @@ div.send_notification_btn {
 }
 
 .neato-button_alt {
-    margin: 8px;
+    margin: 4px;
     width: 70px;
     border-radius: 15px;
 }
@@ -1352,4 +1352,8 @@ table.detail-view td {
 
 div.form label{
 	text-transform: capitalize;	
+}
+
+.user-add-form-input{
+	width: 36.6%;
 }
