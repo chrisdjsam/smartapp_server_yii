@@ -617,8 +617,18 @@ class UserController extends Controller
 
 				$user_model->chat_id = $chat_details['chat_id'];
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
+				
+				$user_role = '3'; //set deafult role as normal user
 //				$login_link = $this->createUrl("/user/login");
 				if($user_model->save()){
+					
+					$user_role_obj = new UserRole();
+					$user_role_obj->user_id = $user_model->id;
+					$user_role_obj->user_role_id = $user_role;
+					if(!$user_role_obj->save()){
+						Yii::app()->user->setFlash('success', 'user role not saved');
+					}
+					
 //					AppEmail::emailWelcomeNewUser($email, $user_name, $new_password, $login_link);
                                 
                                         // update extra attribute of user
