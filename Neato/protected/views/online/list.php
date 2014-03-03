@@ -17,7 +17,7 @@ $this->breadcrumbs=array(
 	<?php if(!empty($users_data)){?>
 		All the online users are listed below.<br />
 	<?php }else{?>
-		No any user found online.
+		No Users are online.
 	<?php }?>	 
 	</p>
 	<?php if(!empty($users_data)){?>	
@@ -72,7 +72,7 @@ $this->breadcrumbs=array(
 	<?php if(!empty($robot_data)){?>
 		All the online robots are listed below.<br /> 
 		<?php }else{?>
-		No any robot found online.<br />
+		No Robots are online.<br />
 		<?php }?>
 	</p>
 	<?php if(!empty($robot_data)){?>
@@ -132,7 +132,7 @@ $this->breadcrumbs=array(
 	<?php if(!empty($virtually_online_robots)){?>
 		All the virtually online robots are listed below.<br /> 
 		<?php }else{?>
-		No any robot found virtually online.<br />
+		No robots are virtually online.<br />
 		<?php }?>
 	</p>
 	<?php if(!empty($virtually_online_robots)){?>

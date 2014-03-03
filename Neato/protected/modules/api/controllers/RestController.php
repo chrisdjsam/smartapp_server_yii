@@ -495,6 +495,16 @@ class RestController extends APIController {
 				true,
 				false);
                 
+                self::expose_function('robot.health_check',
+                "robot/AliveRobot",
+                array(
+                				'serial_number' => array ('type' => 'string', 'required' => true),
+                ),
+                "Alive Robot",
+                'POST',
+                true,
+                false);
+                
 		self::expose_function('message.send_xmpp_message_to_robot',
 				"message/SendXmppMessageToRobot",
 				array(

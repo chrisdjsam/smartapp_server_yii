@@ -101,6 +101,16 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Displays the privacy policy page.
+	 */
+	public function actionSupportPrivacy()
+	{
+		$this->layout = 'support';
+		$this->render('privacy', array());
+	}
+	
+	
+	/**
 	 * Displays the terms page.
 	 */
 	public function actionTerms()
@@ -109,12 +119,31 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Displays the terms page.
+	 */
+	public function actionSupportTerms()
+	{
+		$this->layout = 'support';
+		$this->render('terms', array());
+	}
+	
+	/**
 	 * Displays the about_us page.
 	 */
 	public function actionAbout_us()
 	{
 		$this->render('about_us', array());
 	}
+	
+	/**
+	 * Displays the about_us page.
+	 */
+	public function actionSupportAbout_us()
+	{
+		$this->layout = 'support';
+		$this->render('about_us', array());
+	}
+	
 
 	/**
 	 * Lists all API logging.

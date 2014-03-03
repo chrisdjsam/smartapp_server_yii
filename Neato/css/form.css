@@ -63,6 +63,7 @@ div.form label
 div.form .row
 {
 	margin: 5px 0;
+	clear: both;
 }
 
 div.form .hint

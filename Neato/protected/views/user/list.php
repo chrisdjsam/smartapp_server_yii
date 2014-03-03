@@ -8,22 +8,50 @@ $this->breadcrumbs=array(
 );
 ?>
 <?php $is_wp_enabled = Yii::app()->params['is_wp_enabled'];?>
+<?php $userRole = Yii::app()->user->UserRoleId;?>
+
 <fieldset class='data-container static-data-container'>
-	<legend>Users</legend>
+	<legend>
+		<?php if($userRole != '2'){?>
+		Users
+	<?php
+	}else{ 
+	?>
+	Search User
+	<?php
+	} 
+	?>
+	</legend>
 
 	<p class="list_details">
-		All the users are listed below.<br /> You can view user profile by
+	<?php if($userRole != '2'){?>
+		All the users are listed below.
+		<br /><?php }?>
+		<?php if($userRole == '2'){?>
+		You can search a specific user by typing in his exact email address and then clicking on Search button.
+		<?php }?>		 
+		<br />
+		You can view user profile by
 		clicking on the email of a specific user.<br /> You can view robot
-		information by clicking on the associated robots serial number.<br />
-                <?php if(!$is_wp_enabled){ ?>
-		You can also select a user and click on delete button to delete a
-		user.<br /> Please note that deleting a user would also delete the
-		user-robot associations for that specific user.<br />
+		information by clicking on the associated robot's serial number.<br />
+                <?php if($userRole != '2'){?>
+                	<?php if(!$is_wp_enabled){ ?>
+						You can also select a user and click on delete button to delete a
+						user.<br /> Please note that deleting a user would also delete the
+						user-robot associations for that specific user.<br />
+                	<?php }?>
                 <?php }?>
 	</p>
-
+	
+	<?php if($userRole == '2'){?>
+		<div class="search-box">
+			<input class="search-text-input" type="text" aria-controls="" / ><span><button class="search-button for-user">Search</button></span>
+		</div>
+	<?php }?>
+	
 	<form action="<?php echo $this->createUrl('user/delete') ?>"
 		method="POST" id="userList">
+			<?php if($userRole != '2'){?>
                 <?php if(!$is_wp_enabled){ ?>
                     <div class="action-button-container">
 			<a href="<?php echo $this->createUrl('user/add')?>" title="Add user"
@@ -32,12 +60,17 @@ $this->breadcrumbs=array(
 				title="Delete user" />
                     </div>
                 <?php }?>
+            <?php }?>
 		<table class="pretty-table user-table">
 			<thead>
 				<tr>
-					<th style="width: 38px;" title="Select" class='pretty-table-center-th'>Select</th>
+					<?php if($userRole !== '2'){?>
+						<th style="width: 38px;" title="Select" class='pretty-table-center-th'>Select</th>
+					<?php }?>
 					<th title="Email">Email</th>
-					<th title="Name">Name</th>
+					<?php if($userRole !== '2'){?>
+						<th title="Name">Name</th>
+					<?php }?>
 					<th title="Associated Robots">Associated Robots</th>
 				</tr>
 			</thead>
@@ -47,6 +80,7 @@ $this->breadcrumbs=array(
 	</form>
 </fieldset>
 <script>
+var user_role_id = '<?php print Yii::app()->user->UserRoleId;?>'
 $('#deleteSelected').click(function(){
        var is_any_check_box_checked = false;
        $('.choose-option').each(function(index) {

@@ -48,10 +48,20 @@
 		</div>
 
 		<div class="row">
-			<input type="hidden" value="0" name="UserAddForm[is_admin]"> Is
-			Admin? <input id="UserAddForm_is_admin" type="checkbox" value="1"
-				name="UserAddForm[is_admin]" yes="1">
+			<label>User Role *</label>
+			<select name="user_role" class="user-add-select">
+				<option value="-1">Select</option>
+				<option value="1">Admin</option>
+				<option value="2">Customer Support</option>
+				<option value="3">User</option>
+			</select>
 		</div>
+		
+<!-- 		<div class="row"> -->
+<!-- 			<input type="hidden" value="0" name="UserAddForm[is_admin]"> Is -->
+<!-- 			Admin? <input id="UserAddForm_is_admin" type="checkbox" value="1" -->
+<!-- 				name="UserAddForm[is_admin]" yes="1"> -->
+<!-- 		</div> -->
 
 		<div class="row-buttons">
 			<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>"neato-button_alt associate_user_btn",  "title" => "Add")); ?>

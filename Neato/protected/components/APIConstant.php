@@ -90,6 +90,9 @@ class APIConstant {
     const INVALID_COUNTRY_NAME = '-187';
     const INVALID_COUNTRY_CODE = '-188'; 
     const INVALID_OPT_IN_FLAG = '-189';
+    const ROBOT_IS_DEAD = '-190';
+    const ROBOT_IS_ALIVE = '-191';
+    
     
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
@@ -180,6 +183,9 @@ class APIConstant {
         APIConstant::INVALID_COUNTRY_NAME => 'Provided country name is not valid.',
         APIConstant::INVALID_COUNTRY_CODE => 'Country code is invalid.', 
         APIConstant::INVALID_OPT_IN_FLAG => 'opt_in flag is invalid. It should be true or false',
+    	APIConstant::ROBOT_IS_DEAD => 'Robot is dead',
+    	APIConstant::ROBOT_IS_ALIVE => 'Robot is alive',
+    		
         );
 
     static function getMessageForErrorCode($errorCode) {

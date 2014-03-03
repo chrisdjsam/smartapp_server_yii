@@ -61,6 +61,8 @@ $this->breadcrumbs=array(
 	</form>
 </fieldset>
 <script>
+var user_role_id = '<?php print Yii::app()->user->UserRoleId;?>'
+
 $('#deleteSelected').click(function(){
        var is_any_check_box_checked = false;
        $('.choose-option').each(function(index) {

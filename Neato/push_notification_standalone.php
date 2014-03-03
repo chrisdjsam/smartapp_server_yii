@@ -222,7 +222,7 @@ function sendIOSPushNotification($deviceToken, $message_body, $registration_type
     $loc_key[101] = 'MSG_STUCK_NOTIFICATION_ID';
     $loc_key[102] = 'MSG_DIRT_BAG_FULL_NOTIFICATION_ID';
     $loc_key[103] = 'MSG_CLEANING_DONE_NOTIFICATION_ID';
-    $loc_key[212] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
+    $loc_key[212] = 'MSG_UI_ALERT_PLUG_CABLE_NOTIFICATION_ID';
     $loc_key[22000] = 'MSG_UI_ERR_CANCEL_NOTIFICATION_ID';
     $loc_key[20219] = 'MSG_UI_ERR_DUST_BIN_MISSING_NOTIFICATION_ID';
 

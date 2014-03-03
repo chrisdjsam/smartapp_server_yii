@@ -2,6 +2,7 @@
 /* @var $this RobotController */
 /* @var $model Robot */
 /* @var $form CActiveForm */
+$user_role_id = Yii::app()->user->UserRoleId;
 ?>
 
 <div class="form">
@@ -13,18 +14,28 @@
 		//'enableClientValidation'=>true,
 		'clientOptions' => array('validateOnSubmit'=>true),
 	)); ?>
-
+	
+	<?php if($user_role_id !== '2'){?>
         <div class="row">
                 <?php echo $form->labelEx($robot_type_model,'type'); ?>
                 <?php echo $form->dropDownList($robot_type_model,'type', CHtml::listData(RobotTypes::model()->findAll(array('order'=>'type')), 'id', 'concatened'), $selected); ?>
                 <?php echo $form->error($robot_type_model,'type'); ?>
         </div>
-    
-	<div class="row">
-                <?php echo $form->labelEx($model,'serial_number'); ?>
-                <?php echo $form->textField($model,'serial_number',array('size'=>30,'maxlength'=>100)); ?>
-                <?php echo $form->error($model,'serial_number'); ?>
-	</div>
+	<?php }?>
+	<?php if($user_role_id == '2'){
+			$disabled = 'disabled';
+			}else{
+			$disabled = '';
+			}
+ 
+		?>	    
+		
+		<div class="row">
+	                <?php echo $form->labelEx($model,'serial_number'); ?>
+	                <?php echo $form->textField($model,'serial_number',array('size'=>30,'maxlength'=>100, 'disabled'=>$disabled)); ?>
+	                <?php echo $form->error($model,'serial_number'); ?>
+		</div>
+	
     
     	<div class="row">
                 <?php echo $form->labelEx($model,'name'); ?>
