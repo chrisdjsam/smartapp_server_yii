@@ -66,8 +66,12 @@ class UsersRobotController extends Controller
 				$user_id = trim($_POST['UsersRobot']['id_user']);
 				$robot_id = trim($_POST['UsersRobot']['id_robot']);
 				$user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
+				$user_robot_model_by_robot = UsersRobot::model()->findByAttributes(array("id_robot" => $robot_id));
 				if(! is_null($user_robot_model)){
 					$msg = AppCore::yii_echo("User robot association already exists.");
+					Yii::app()->user->setFlash('error', $msg);
+				}else if(! is_null($user_robot_model_by_robot)){
+					$msg = AppCore::yii_echo("Robot already has a user associated with it.");
 					Yii::app()->user->setFlash('error', $msg);
 				}else{
 					if($model->save()){

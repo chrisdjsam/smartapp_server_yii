@@ -293,7 +293,7 @@ class UserController extends Controller
 					Yii::app()->user->setFlash('success', $message);
 					if(Yii::app()->user->isAdmin){
 						//$this->redirect(Yii::app()->user->returnUrl);
-						$this->redirect(array('list'));
+						$this->redirect(array('/robot/list'));
 					}else{
 						$this->redirect(array('userprofile'));
 					}
@@ -378,7 +378,8 @@ class UserController extends Controller
 				Yii::app()->user->setFlash('success', $message);
 				if(Yii::app()->user->isAdmin){
 					//$this->redirect(Yii::app()->user->returnUrl);
-					$this->redirect(array('list'));
+// 					$this->redirect(array('list'));
+					$this->redirect(array('/robot/list'));
 				}else{
 					$this->redirect(array('userprofile'));
 				}

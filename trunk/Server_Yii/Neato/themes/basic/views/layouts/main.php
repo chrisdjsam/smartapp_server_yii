@@ -98,16 +98,12 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 						</li>
 						<?php }?>
 						
-						<?php if($userRole != 2){ ?>
-						<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
-							title="My Profile" class="neato_tab_my_profile">My Profile</a></li>
-						<?php } ?>							
 						<?php if($isAdmin){ ?>
-						<li><a href="<?php echo $this->createUrl('user/list')?>"
-							title="List of all Users">Users</a>
-						</li>
 						<li><a href="<?php echo $this->createUrl('/robot/list')?>"
 							title="List of all Robots">Robots</a>
+						</li>
+						<li><a href="<?php echo $this->createUrl('user/list')?>"
+							title="List of all Users">Users</a>
 						</li>
 						<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"
 							title="List of all User-Robot Associations">User-Robot
@@ -130,6 +126,11 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 						<?php } ?>
                                             
 						<?php }?>
+						
+						<?php if($userRole != 2){ ?>
+						<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
+							title="My Profile" class="neato_tab_my_profile">My Profile</a></li>
+						<?php } ?>							
 						
 						<li><a
 							href="<?php echo $this->createUrl('/user/changepassword')?>"

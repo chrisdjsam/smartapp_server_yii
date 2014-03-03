@@ -94,14 +94,12 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						</li>
 						<?php }?>
 
-						<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
-							title="My Profile" class="neato_tab_my_profile">My Profile</a></li>
 						<?php if($isAdmin){ ?>
-						<li><a href="<?php echo $this->createUrl('user/list')?>"
-							title="List of all Users">Users</a>
-						</li>
 						<li><a href="<?php echo $this->createUrl('/robot/list')?>"
 							title="List of all Robots">Robots</a>
+						</li>
+						<li><a href="<?php echo $this->createUrl('user/list')?>"
+							title="List of all Users">Users</a>
 						</li>
 						<li><a href="<?php echo $this->createUrl('/usersRobot/list')?>"
 							title="List of all User-Robot Associations">User-Robot
@@ -121,6 +119,10 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						</li>
                                             
 						<?php }?>
+						
+						<li><a href="<?php echo $this->createUrl('/user/userprofile')?>"
+							title="My Profile" class="neato_tab_my_profile">My Profile</a></li>
+							
 						<?php if(!$is_wp_enabled){ ?>
 						<li><a
 							href="<?php echo $this->createUrl('/user/changepassword')?>"

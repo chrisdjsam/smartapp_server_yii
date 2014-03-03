@@ -177,7 +177,7 @@ $(document).ready(function() {
 		aTargets = [ 0, 1 ];
 
 	} else {
-		aTargets = [ 0 ];
+		aTargets = [ 0, 2, 3, 4, 5];
 	}
 	robotTable = $('.robot-table').dataTable({
 		"bStateSave" : true,
@@ -218,8 +218,7 @@ $(document).ready(function() {
 			});
 		},
 		"fnRowCallback" : function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-			$('td:eq(0), td:eq(1),td:eq(2),td:eq(3),td:eq(4),td:eq(5)', nRow).addClass("pretty-table-center-td");
-			$('td:eq(2)', nRow).addClass("multiple-item");
+			$('td:eq(0),td:eq(1),td:eq(2),td:eq(3),td:eq(4)', nRow).addClass("pretty-table-center-td");
 			$('td:eq(2)', nRow).addClass("multiple-item");
 
 		}
