@@ -232,9 +232,6 @@ h1,h2,h3,h4,h5,h6 {
 
 .neato-button, .neato-button_alt, .neato_href {
 	background: #3F2C1D;
-	background: -moz-linear-gradient(center top, #A1958D 0%, #3F2C1D 100%) repeat scroll 0 0 transparent;
-	background: -webkit-linear-gradient(#A1958D, #3F2C1D);
-	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a1958d, endColorstr=#3f2c1d)";
 	border: none;
 	color: white !important;
 	cursor: pointer;
@@ -250,10 +247,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .neato-button:hover, .neato-button_alt:hover {
-	background-color: transparent;
-	background-image: -moz-linear-gradient(center top, #DC4405 0%, #B63805 100%);
-	background-image: -webkit-linear-gradient(#DC4405, #B63805);
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#DC4405, endColorstr=#B63805)";
+	background:  #B63805;
 }
 
 .rounded-corners{
@@ -767,6 +761,7 @@ input,textarea {
 	overflow: hidden;
 	border: 1px solid #cccccc;
 	min-height: 465px;
+	width: 99.2%;
 }
 
 .data-container legend {
@@ -775,6 +770,7 @@ input,textarea {
 	color: #33408E;
 	padding-left: 5px;
 	padding-right: 5px;
+	text-transform: capitalize;
 }
 
 .register_section {
@@ -1352,4 +1348,8 @@ table.detail-view td {
 	padding-left: 55px;
 	padding-right: 55px; 
 	
+}
+
+div.form label{
+	text-transform: capitalize;	
 }

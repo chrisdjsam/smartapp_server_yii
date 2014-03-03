@@ -245,12 +245,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .neato-button,.neato-button_alt,.neato_href {
-	/*	background: #3F2C1D;*/
-	background: -moz-linear-gradient(center top, #249B30 0%, #04732B 100%)
-		repeat scroll 0 0 transparent !important;
-	background: -webkit-linear-gradient(#249B30, #04732B) !important;
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a1958d, endColorstr=#3f2c1d)";
+	background:#113C2B;;
 	border: none;
 	color: white !important;
 	cursor: pointer;
@@ -264,13 +259,8 @@ h1,h2,h3,h4,h5,h6 {
 	box-shadow: 0 0 0;
 }
 
-.neato-button:hover,.neato-button_alt:hover {
-	background-color: transparent;
-	background-image: -moz-linear-gradient(center top, #009A3D 0%, #009A3D 100%)
-		!important;
-	background-image: -webkit-linear-gradient(#009A3D, #009A3D) !important;
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#DC4405, endColorstr=#B63805)";
+.neato-button:hover,.neato-button_alt:hover, .search-button:hover {
+	background: #009A3D;
 }
 
 .rounded-corners {
@@ -793,6 +783,7 @@ input,textarea {
 	color: #009A3D;
 	padding-left: 5px;
 	padding-right: 5px;
+	text-transform: capitalize;
 }
 
 .register_section {
@@ -1231,11 +1222,12 @@ div.update_user_form {
 .update_user_lable {
 	float: left;
 	margin-top: 8px;
-	width: 130px
+	width: 150px;
 }
 
 .update_user_input {
 	margin: 0px;
+	width: 345px;
 }
 
 .update_user_radio {
@@ -1460,11 +1452,7 @@ thead tr {
 }
 
 .search-button {
-	background: -moz-linear-gradient(center top, #249B30 0%, #04732B 100%)
-		repeat scroll 0 0 transparent !important;
-	background: -webkit-linear-gradient(#249B30, #04732B) !important;
-	-ms-filter:
-		"progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a1958d, endColorstr=#3f2c1d)";
+	background: #113C2B;
 	border: medium none;
 	border-radius: 6px;
 	box-shadow: 0 0 0;
@@ -1483,7 +1471,7 @@ thead tr {
 }
 
 #CountryCodeList_iso2 {
-	width: 355px;
+	width: 358px;
 	height: 35px;
 	padding: 6px;
 }
@@ -1533,4 +1521,12 @@ thead tr {
 	padding-top: 35px;
 	padding-left: 35px;
 	padding-right: 35px;
+}
+
+.checkbox-style{
+	margin-top: 10px !important;
+}
+
+div.form label{
+	text-transform: capitalize;	
 }

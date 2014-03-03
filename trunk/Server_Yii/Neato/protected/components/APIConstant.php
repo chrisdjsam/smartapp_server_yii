@@ -88,12 +88,12 @@ class APIConstant {
     const OFFLINE_ROBOT = '-185';
     const TOO_SHORT = '-186';
     const INVALID_COUNTRY_NAME = '-187';
-    const INVALID_COUNTRY_CODE = '-188'; 
+    const INVALID_COUNTRY_CODE = '-188';
     const INVALID_OPT_IN_FLAG = '-189';
     const ROBOT_IS_DEAD = '-190';
     const ROBOT_IS_ALIVE = '-191';
-    
-    
+
+
     public static $english = array(
         APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Method call failed the API Authentication',
         APIConstant::APP_DETAILS_NOT_FOUND => 'App Id does not exist.',
@@ -120,7 +120,7 @@ class APIConstant {
         APIConstant::REGISTRATION_IDS_NOT_VALID => 'Invalid registration IDs',
         APIConstant::NO_USER_FOUND_FOR_ROBOT => 'No user was found for robot',
         APIConstant::USER_PREFERENCE_NOT_VALID => 'User preference does not permit this operation.',
-        APIConstant::JSON_OBJECT_NOT_VALID => 'The JSON Object you have provided does not appear to be a valid.',
+        APIConstant::JSON_OBJECT_NOT_VALID => 'The JSON Object you have provided does not appear to be valid.',
         APIConstant::ROBOT_MAP_ID_DOES_NOT_EXIST => 'Robot map id does not exist.',
         APIConstant::MISSING_BOTH_DATA_VERSIONS => 'Provide at least one data version(xml or blob) or schedule type.',
         APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION => 'Version mismatch for xml data.',
@@ -129,7 +129,7 @@ class APIConstant {
         APIConstant::ROBOT_ATLAS_ID_DOES_NOT_EXIST => 'Robot atlas id does not exist.',
         APIConstant::SCHEDULE_TYPE_NOT_VALID_OR_MISSING => 'Robot schedule type is not valid.',
         APIConstant::ROBOT_SCHEDULE_ID_DOES_NOT_EXIST => 'Robot schedule id does not exist.',
-        APIConstant::SCHEDULE_DATA_NOT_FOUND => 'Sorry,we did not find any schedule data for given robot serial number and schedule type',
+        APIConstant::SCHEDULE_DATA_NOT_FOUND => 'Sorry, we did not find any schedule data for given robot serial number and schedule type',
         APIConstant::GRID_IMAGE_EXISTS_FOR_ATLAS_ID_AND_GRID_ID => 'Combination of atlas id and grid id exist. Try updating for same.',
         APIConstant::GRID_IMAGE_DOES_NOT_EXIST_FOR_ATLAS_ID_AND_GRID_ID => 'Combination of atlas id and grid id does not exist.',
         APIConstant::ROBOT_CUSTOM_ID_NOT_EXIST => 'Robot custom id does not exist.',
@@ -149,14 +149,14 @@ class APIConstant {
         APIConstant::KEY_NOT_VALID => 'Sorry, entered key does not match with serial number.',
         APIConstant::CONFIGURATION_FAILED => 'Set robot configuration failed due to database problem',
         APIConstant::TOKEN_NOT_INVALID => 'Please enter valid linking code',
-        APIConstant::TOKEN_EXPIRED => 'Sorry, provided linking code is expired',
+        APIConstant::TOKEN_EXPIRED => 'Sorry, provided linking code has expired',
         APIConstant::SLEEP_OR_WAKEUP_TIME_NOT_VALID => 'Please enter valid sleep time or wakeup time',
         APIConstant::UNSUPPORTED_FILE_TYPE => 'Unsupported file type',
         APIConstant::USER_ATTRIBUTE_NOT_FOUND => 'No attribute found for this user',
         APIConstant::NO_SCHEDULE_DATA_FOUND => 'No schedule data found for this robot',
         APIConstant::INVALID_XML => 'Invalid XML.',
         APIConstant::COULD_NOT_DELETE_ROBOT => 'Could not delete robot.',
-        APIConstant::COULD_NOT_SET_USER_ATTRIBUTES => 'Could not set user attributed.',
+        APIConstant::COULD_NOT_SET_USER_ATTRIBUTES => 'Could not set user attribute.',
         APIConstant::GRID_ID_CONTAIN_ATLEAST_ONE_CHAR_OR_NUMBER => 'id_grid should contain atleast one character or number .',
         APIConstant::BLOB_DATA_MISSING => 'Please Provide Blob data.',
         APIConstant::GRID_ID_MISSING => 'Please Provide Grid ID.',
@@ -174,18 +174,18 @@ class APIConstant {
         APIConstant::ERROR_INVALID_ROBOT_ACCOUNT_DETAIL => 'Invalid robot account detail',
         APIConstant::TOKEN_ALREADY_EXIT => 'Robot user association already exists',
         APIConstant::TOKEN_ALREADY_USED => 'linking code is already used for association.',
-        APIConstant::LINKING_CODE_PROCESS => 'The linking request for this robot is under process', 
-        APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST => 'Robot-User association is already exist', 
-        APIConstant::INVALID_DELETE_TYPE => 'Please enter 1 for delete robot data and 0 for clear the robot data.', 
-        APIConstant::UNEXPECTED_ERROR => 'Unexpected error occurred.', 
-        APIConstant::OFFLINE_ROBOT => 'Robot is offline.', 
-        APIConstant::TOO_SHORT => 'Password length should be 6 character.', 
+        APIConstant::LINKING_CODE_PROCESS => 'The linking request for this robot is under process',
+        APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST => 'Association for Robot-user pair already exists',
+        APIConstant::INVALID_DELETE_TYPE => 'Please enter 1 for delete robot data and 0 for clear the robot data.',
+        APIConstant::UNEXPECTED_ERROR => 'Unexpected error occurred.',
+        APIConstant::OFFLINE_ROBOT => 'Robot is offline.',
+        APIConstant::TOO_SHORT => 'Password length should be 6 character.',
         APIConstant::INVALID_COUNTRY_NAME => 'Provided country name is not valid.',
-        APIConstant::INVALID_COUNTRY_CODE => 'Country code is invalid.', 
+        APIConstant::INVALID_COUNTRY_CODE => 'Country code is invalid.',
         APIConstant::INVALID_OPT_IN_FLAG => 'opt_in flag is invalid. It should be true or false',
     	APIConstant::ROBOT_IS_DEAD => 'Robot is dead',
     	APIConstant::ROBOT_IS_ALIVE => 'Robot is alive',
-    		
+
         );
 
     static function getMessageForErrorCode($errorCode) {

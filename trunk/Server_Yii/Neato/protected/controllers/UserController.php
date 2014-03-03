@@ -52,8 +52,11 @@ class UserController extends Controller
                 $update_user_data_flag = isset($_POST['update_user_data_flag']) ? $_POST['update_user_data_flag'] : 'N' ;
                 
                 if($update_user_data_flag == 'Y') {
+                	if(Yii::app()->user->UserRoleId != '2'){
+                		$name = isset($_POST['User']['name']) ? $_POST['User']['name'] : '' ;
+                		$update_user->name = $name;
+                	}
                     
-                    $name = isset($_POST['User']['name']) ? $_POST['User']['name'] : '' ;
                     $alternate_email = isset($_POST['User']['alternate_email']) ? $_POST['User']['alternate_email'] : '';
                     $country_code = $_POST['CountryCodeList']['iso2'];
                     $opt_in = $_POST['User']['opt_in'];
@@ -65,7 +68,7 @@ class UserController extends Controller
                     }
                     
                     $update_user->alternate_email = $alternate_email;
-                    $update_user->name = $name;
+                    
                     $update_user->country_code = $country_code;
                     $update_user->opt_in = $opt_in;
                     

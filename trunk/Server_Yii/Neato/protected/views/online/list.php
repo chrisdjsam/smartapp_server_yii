@@ -17,10 +17,10 @@ $this->breadcrumbs=array(
 	<?php if(!empty($users_data)){?>
 		All the online users are listed below.<br />
 	<?php }else{?>
-		No Users are online.
-	<?php }?>	 
+		No users are online.
+	<?php }?>
 	</p>
-	<?php if(!empty($users_data)){?>	
+	<?php if(!empty($users_data)){?>
 	<table class="pretty-table online-user-table">
 			<thead>
 				<tr>
@@ -41,7 +41,7 @@ $this->breadcrumbs=array(
 					</a>
 					</td>
 					<td><?php echo($user->chat_id);?></td>
-					<td class='multiple-item'><?php if ($user->doesRobotAssociationExist()){ 
+					<td class='multiple-item'><?php if ($user->doesRobotAssociationExist()){
 						$is_first_robot = true;
 						$html_string = '';
 						foreach($user->usersRobots as $value){
@@ -70,9 +70,9 @@ $this->breadcrumbs=array(
 		method="POST" id="onlineUserList">
 	<p class="list_details">
 	<?php if(!empty($robot_data)){?>
-		All the online robots are listed below.<br /> 
+		All the online robots are listed below.<br />
 		<?php }else{?>
-		No Robots are online.<br />
+		No robots are online.<br />
 		<?php }?>
 	</p>
 	<?php if(!empty($robot_data)){?>
@@ -83,13 +83,13 @@ $this->breadcrumbs=array(
 					<th style="width: 15%;" title="Name">Name</th>
 					<th style="width: 20%;" title="Chat ID">Chat ID</th>
 					<th style="width: 40%;" title="Associated Users">Associated Users</th>
-					
+
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($robot_data as $robot){?>
 				<tr>
-					
+
 					<td><a
 						rel=<?php echo $this->createUrl('robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
 						href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
@@ -109,13 +109,13 @@ $this->breadcrumbs=array(
 						 	}
 						 	$is_first_user = false;
 						 	$html_string .= "<a class='single-item qtiplink' title='View details of (".$value->idUser->email.")' rel='".$this->createUrl('user/userprofilepopup',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."' href='".$this->createUrl('user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."'>".$value->idUser->email."</a>"
-									?> <?php 
+									?> <?php
 						}
 					 	echo $html_string;
 					}
 					?>
 					</td>
-	
+
 				</tr>
 				<?php } ?>
 			</tbody>
@@ -130,7 +130,7 @@ $this->breadcrumbs=array(
 	<form>
 	<p class="list_details">
 	<?php if(!empty($virtually_online_robots)){?>
-		All the virtually online robots are listed below.<br /> 
+		All the virtually online robots are listed below.<br />
 		<?php }else{?>
 		No robots are virtually online.<br />
 		<?php }?>
@@ -143,13 +143,13 @@ $this->breadcrumbs=array(
 					<th style="width: 15%;" title="Name">Name</th>
 					<th style="width: 20%;" title="Chat ID">Chat ID</th>
 					<th style="width: 40%;" title="Associated Users">Associated Users</th>
-					
+
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($virtually_online_robots as $robot){?>
 				<tr>
-					
+
 					<td><a
 						rel=<?php echo $this->createUrl('robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
 						href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
@@ -169,13 +169,13 @@ $this->breadcrumbs=array(
 						 	}
 						 	$is_first_user = false;
 						 	$html_string .= "<a class='single-item qtiplink' title='View details of (".$value->idUser->email.")' rel='".$this->createUrl('user/userprofilepopup',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."' href='".$this->createUrl('user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."'>".$value->idUser->email."</a>"
-									?> <?php 
+									?> <?php
 						}
 					 	echo $html_string;
 					}
 					?>
 					</td>
-	
+
 				</tr>
 				<?php } ?>
 			</tbody>

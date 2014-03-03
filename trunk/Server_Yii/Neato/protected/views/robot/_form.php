@@ -42,20 +42,21 @@ $user_role_id = Yii::app()->user->UserRoleId;
                 <?php echo $form->textField($model,'name',array('size'=>30,'maxlength'=>100)); ?>
                 <?php echo $form->error($model,'name'); ?>
 	</div>
-	
+	<?php if($user_role_id !== '2'){?>
         <div class="row">
                 <?php echo $form->labelEx($model,'sleep_time'); ?>
                 <?php echo $form->textField($model,'sleep_time',array('size'=>30,'maxlength'=>100)); ?>
                 <span class="robot_time_instruct">sleep time in seconds.</span>
                 <?php echo $form->error($model,'sleep_time'); ?>
-	</div>
-    
+		</div>
+	    
         <div class="row">
                 <?php echo $form->labelEx($model,'lag_time'); ?>
                 <?php echo $form->textField($model,'lag_time',array('size'=>30,'maxlength'=>100)); ?>
                 <span class="robot_time_instruct">wakeup time in seconds.</span>
                 <?php echo $form->error($model,'lag_time'); ?>
-	</div>
+		</div>
+	<?php }?>		
    
 	<div class="row-buttons">
                 <?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save', array('class'=>"neato-button",  "title" => "Add")); ?>

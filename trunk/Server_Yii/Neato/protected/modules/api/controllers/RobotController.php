@@ -43,7 +43,7 @@ class RobotController extends APIController {
     public function actionCreate() {
         $robot_serial_no = trim(Yii::app()->request->getParam('serial_number', ''));
         $robot_name = Yii::app()->request->getParam('name', '');
-        
+
         $robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
         if ($robot !== null) {
             //if ($robot->serial_number === $robot_serial_no) {
@@ -54,13 +54,13 @@ class RobotController extends APIController {
         $model = new Robot();
         $model->name = $robot_name;
         $model->serial_number = $robot_serial_no;
-        
+
 //	$chat_details = AppCore::create_chat_user_for_robot();
         $chat_details = RobotCore::create_chat_user_for_robot();
         if (!$chat_details['jabber_status']) {
             $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
             self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
-        }     
+        }
 	 $model->chat_id = $chat_details['chat_id'];
         $model->chat_pwd = $chat_details['chat_pwd'];
 
@@ -78,7 +78,7 @@ class RobotController extends APIController {
             $response_message = self::yii_api_echo('Robot could not be created because jabber service is not responding');
             self::terminate(-1, $response_message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
         }
-    } 
+    }
 
 // public function actionCreate2OLd() {
 //        $robot_serial_no = trim(Yii::app()->request->getParam('serial_number', ''));
@@ -108,7 +108,7 @@ class RobotController extends APIController {
 //        $model = new Robot();
 //        $model->name = $robot_name;
 //        $model->serial_number = $robot_serial_no;
-//        
+//
 //        $chat_details = AppCore::create_chat_user_for_robot();
 //
 //        if (!$chat_details['jabber_status']) {
@@ -125,7 +125,7 @@ class RobotController extends APIController {
 //            $robot_robot_type->robot_id = $model->id;
 //            $robot_robot_type->robot_type_id = $robot_type_data->id;
 //            $robot_robot_type->save();
-//            
+//
 //            $response_data = array("success" => true, "message" => self::yii_api_echo('Robot created successfully.'));
 //            self::success($response_data);
 //        } else {
@@ -133,24 +133,24 @@ class RobotController extends APIController {
 //            self::terminate(-1, $response_message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 //        }
 //    }
-    
+
     public function actionCreate2() {
         $robot_serial_no = trim(Yii::app()->request->getParam('serial_number', ''));
         $robot_name = trim(Yii::app()->request->getParam('name', ''));
         $robot_type = trim(Yii::app()->request->getParam('robot_type', ''));
-        
+
         if(empty($robot_type) && ($robot_type != '0')){
             $robot_type = Yii::app()->params['default_robot_type'];
         }
-        
+
         $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
-        
-                
+
+
         if(empty($robot_type_data)){
             $message = "'Robot Type is not valid'";
-            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
+            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID);
         }
-         
+
         $robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
         if ($robot !== null) {
 //            if ($robot->serial_number === $robot_serial_no) {
@@ -165,22 +165,22 @@ class RobotController extends APIController {
 
 //        $chat_details = AppCore::create_chat_user_for_robot();
         $chat_details = RobotCore::create_chat_user_for_robot();
-        
+
         if (!$chat_details['jabber_status']) {
             $message = self::yii_api_echo("Robot could not be created because jabber service is not responding.");
             self::terminate(-1, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
         }
-        
+
         $model->chat_id = $chat_details['chat_id'];
         $model->chat_pwd = $chat_details['chat_pwd'];
-        
+
         if ($model->save()) {
-            
+
             $robot_robot_type = new RobotRobotTypes();
             $robot_robot_type->robot_id = $model->id;
             $robot_robot_type->robot_type_id = $robot_type_data->id;
             $robot_robot_type->save();
-            
+
             $response_data = array("success" => true, "message" => self::yii_api_echo('Robot created successfully.'));
             self::success($response_data);
         } else {
@@ -188,10 +188,10 @@ class RobotController extends APIController {
             self::terminate(-1, $response_message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
         }
     }
-    
+
     /**
      * Method to check if robot is online for given robot serial number.
-     * 
+     *
      * Parameters:
      * ul>
      * 		<li><b>serial_number</b> :Serial Number of the robot</li>
@@ -388,10 +388,10 @@ class RobotController extends APIController {
 
     /**
      * Metod to delete a robot for given serial number.
-     * 
+     *
      * Parameters:
      * <ul>
-     * 	<li><b>serial_number</b> :Serial number of robot</li> 
+     * 	<li><b>serial_number</b> :Serial number of robot</li>
      * 	<ul>
      * Success Responses:
      * <ul>
@@ -401,9 +401,9 @@ class RobotController extends APIController {
      * 				</li>
      * 			</ul>
      * 		</li>
-     * 								
+     *
      * 	</ul>
-     * 
+     *
      * 	Failure Responses: <br />
      * 	<ul>
      * 		<li>If parameter serial_number is missing
@@ -411,15 +411,15 @@ class RobotController extends APIController {
      * 				<li>{"status":-1,"message":"Missing parameter serial_number in
      * 					method robot.get_details"}</li>
      * 			</ul>
-     * 		
+     *
      * 		<li>If serial number does not exist
      * 			<ul>
      * 				<li>{"status":-1,"message":"Robot serial number does not exist"}</li>
      * 			</ul>
      * 		</li>
      * 	</ul>
-     * 
-     * 
+     *
+     *
      */
     public function actionDelete($prevent_termination = false) {
 
@@ -460,7 +460,7 @@ class RobotController extends APIController {
 
     /**
      * Method to set robot profile parameters and values.
-     * 
+     *
      * Parameters:
      * <ul>
      * 		<li><b>api_key</b> :Your API Key</li>
@@ -472,44 +472,44 @@ class RobotController extends APIController {
      * 	<ul>
      * 		<li>{"status":0,"result":"1"}</li>
      * 	</ul>
-     * 
+     *
      * 	Failure Responses: <br />
      * 	<ul>
-     * 
+     *
      * 		<li>If API Key is missing or not correct:
      * 			<ul>
      * 				<li>{"status":-1,"message":"Method call failed the API
      * 					Authentication"}</li>
      * 			</ul>
      * 		</li>
-     * 
+     *
      * 		<li>If serial_number is not provided:
      * 			<ul>
      * 				<li>{"status":-1,"message":"Missing parameter serial_number in
      * 					method robot.set_profile_details"}</li>
      * 			</ul>
      * 		</li>
-     * 
+     *
      * 		<li>If profile key is not added:
      * 			<ul>
      * 				<li>{"status":-1,"message":"Missing parameter profile in method
      * 					robot.set_profile_details"}</li>
      * 			</ul>
      * 		</li>
-     * 
+     *
      * 		<li>If key is added but value is not provided :
      * 			<ul>
      * 				<li>{"status":-1,"message":"Invalid value for key name."}</li>
      * 			</ul>
      * 		</li>
      * 	</ul>
-     * 
-     * 
+     *
+     *
      */
 //	public function actionSetProfileDetails(){
-//           
+//
 //		$robot = self::verify_for_robot_serial_number_existence(Yii::app()->request->getParam('serial_number', ''));
-//	
+//
 //		$robot_profile = Yii::app()->request->getParam('profile', '');
 //
 //		if ($robot !== null){
@@ -523,7 +523,7 @@ class RobotController extends APIController {
 //						$robot->name = $value;
 //						$robot->save();
 //						break;
-//					
+//
 //					default:
 //                                            $data = RobotKeyValues::model()->find('_key = :_key AND robot_id = :robot_id', array(':_key' => $key, ':robot_id' => $robot->id));
 //                                            if(!empty($data)){
@@ -536,12 +536,12 @@ class RobotController extends APIController {
 //                                            } else {
 ////                                                if(empty($value)){
 ////                                                    continue;
-////                                                }                                                
+////                                                }
 //                                                $robot_key_value = new RobotKeyValues();
 //                                                $robot_key_value->robot_id = $robot->id;
 //                                                $robot_key_value->_key = $key ;
 //                                                $robot_key_value->value = $value ;
-//                                                $robot_key_value->save();                                                    
+//                                                $robot_key_value->save();
 //                                            }
 //                                        break;
 //				}
@@ -551,7 +551,7 @@ class RobotController extends APIController {
 //			$response_message = self::yii_api_echo('APIException:RobotAuthenticationFailed');
 //			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 //		}
-//	
+//
 //	}
 
 
@@ -1127,7 +1127,7 @@ class RobotController extends APIController {
         		$_GET['sSearch'] = " ";
         	}
         }
-        
+
         $result = AppCore::dataTableOperation($userColumns, $userIndexColumn, $userTable, $_GET, $userDataModelName);
 
         /*
@@ -1182,7 +1182,7 @@ class RobotController extends APIController {
             	$row[] = $serial_number;
             	$row[] = $associated_users;
             }
-            
+
 
             $output['aaData'][] = $row;
         }
@@ -1237,12 +1237,12 @@ class RobotController extends APIController {
 
 //        if(empty($robot_robot_type)) {
 //            $robot_robot_type = new RobotRobotTypes();
-//            
+//
 //            $robot_robot_type->robot_id = $robot->id;
 //            $robot_robot_type->robot_type_id = 1;
-//            
+//
 //            $robot_robot_type->save();
-//            
+//
 //        }
 
         $robot_type_data = RobotTypes::model()->findByPk($robot_robot_type->robot_type_id);
@@ -1322,7 +1322,7 @@ class RobotController extends APIController {
 
         self::success($response_data);
     }
-    
+
     public function actionSetRobotConfiguration2() {
 
         $serial_number = Yii::app()->request->getParam('serial_number', '');
@@ -1330,36 +1330,36 @@ class RobotController extends APIController {
         $wakeup_time = Yii::app()->request->getParam('wakeup_time', '');
         $config_key_value = Yii::app()->request->getParam('config_key_value', '');
         $robot_type = trim(Yii::app()->request->getParam('robot_type', ''));
-        
+
         if (!ctype_digit($sleep_time) || !ctype_digit($wakeup_time)) {
             self::terminate(-1, "Please enter valid sleep time or wakeup time", APIConstant::SLEEP_OR_WAKEUP_TIME_NOT_VALID);
         }
         $serial_number = trim($serial_number);
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
-        
+
         $robot_id = $robot->id;
-        
+
         $robot_type_data = RobotTypes::model()->find('type = :type', array(':type' => $robot_type));
-         
+
 //        if(($robot_type != '0')){
 //            $message = "Robot Type is not valid";
-//            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
+//            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID);
 //        }
-        
+
         if((!empty($robot_type) && empty($robot_type_data)) || ($robot_type == '0')){
             $message = "Robot Type is not valid";
-            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID); 
+            self::terminate(-1, $message, APIConstant::ROBOT_TYPE_NOT_VALID);
         }
-        
+
         $robot->sleep_time = $sleep_time;
         $robot->lag_time = $wakeup_time;
-        
+
         if (!$robot->save()) {
             self::terminate(-1, "Set robot configuration failed due to database problem", APIConstant::CONFIGURATION_FAILED);
         }
 
         $utc = $robot->updated_on;
-        
+
         if(!empty($robot_type)){
             $robot_robot_type_data = RobotRobotTypes::model()->find('robot_id = :robot_id', array(':robot_id' => $robot_id));
             if (!empty($robot_robot_type_data)) {
@@ -1367,8 +1367,8 @@ class RobotController extends APIController {
                 $robot_robot_type_data->update();
             }
         }
-        
-        
+
+
         if (!empty($config_key_value)) {
 
             foreach ($config_key_value as $key => $value) {
@@ -1397,7 +1397,7 @@ class RobotController extends APIController {
 
         self::success($response_data);
     }
-    
+
 
     public function actionGetRobotConfiguration() {
 
@@ -1454,18 +1454,18 @@ class RobotController extends APIController {
     }
 
     public function actionClearRobotAssociation() {
-        
+
         $serial_number = Yii::app()->request->getParam('serial_number', '');
         $is_delete = Yii::app()->request->getParam('is_delete', '');
         $email = Yii::app()->request->getParam('email', '');
-        
+
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
-        
+
         if (!AppHelper::is_valid_email($email)) {
             $message = self::yii_api_echo("The email address you have provided does not seem to be a valid email address.");
             self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
         }
-        
+
         $user = User::model()->findByAttributes(array('email' => $email));
         if (empty($user)) {
             $response_message = self::yii_api_echo('Email does not exist in system');
@@ -1476,9 +1476,9 @@ class RobotController extends APIController {
         if (is_null($user_robot_model)) {
             self::terminate(-1, "Robot is not associated with given user.", APIConstant::USER_AND_ROBOT_ASSOCIATION_DOES_NOT_EXIST);
         }
-        
+
         if ($is_delete == '0') {
-            
+
             $robot->sleep_time = Yii::app()->params['default_sleep_time'];
             $robot->lag_time = Yii::app()->params['default_lag_time'];
             $robot->update();
@@ -1536,25 +1536,25 @@ class RobotController extends APIController {
             self::success($response_data);
         }
         if ($is_delete == '1') {
-         
+
             if (!empty($robot)) {
                 Robot::model()->deleteAll('serial_number = :serial_number', array(':serial_number' => $serial_number));
                 $response_data = array('success' => true, 'message' => 'Robot is Deleted.');
                 self::success($response_data);
             }
-        } 
+        }
         if (($is_delete != '0') || ($is_delete != '1')){
             $message = "Please enter 1 for delete robot data and 0 for clear the robot data.";
             self::terminate(-1, $message, APIConstant::INVALID_DELETE_TYPE);
         }
     }
-    
+
     public function actionRequestLinkCode() {
 
         $serial_number = Yii::app()->request->getParam('serial_number', '');
-        
+
         $robot = self::verify_for_robot_serial_number_existence($serial_number);
-        
+
         $token = UniqueToken::hash(($robot->id + (hexdec(uniqid())) / 100000), 4);
         $token = preg_replace('/0*/', '', $token, 1);
         $token = trim($token);
@@ -1566,35 +1566,35 @@ class RobotController extends APIController {
 
 //        AppCore::removeExpiredLinkingCode($robot);
         RobotCore::removeExpiredLinkingCode($robot);
-        
+
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
-        
+
         if(empty($robot_user_association_token)){
-            
+
             $robot_user_association_token = new RobotUserAssociationTokens();
             $robot_user_association_token->robot_id = $robot->id;
             $robot_user_association_token->token = $token;
             $robot_user_association_token->created_on = date('Y-m-d H:i:s');
             $robot_user_association_token->save();
-            
+
         } else {
 
             $robot_linking_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $robot->serial_number));
-            
+
             if(!empty($robot_linking_data)){
-                
+
 //                $message = "Sorry, Robot is in linking mode";
 //                self::terminate(-1, $message, APIConstant::LINKING_CODE_PROCESS);
-                
-                $user_email = $robot_linking_data->email; 
-                
+
+                $user_email = $robot_linking_data->email;
+
                 $rejected_linking_code = $robot_linking_data->linking_code;
-                                
+
                 $robot_linking_data->delete();
 
                 $utc_str = gmdate("M d Y H:i:s", time());
                 $utc = strtotime($utc_str);
-                
+
                 $xmpp_message_model = new XmppMessageLogs();
                 $xmpp_message_model->save();
                 $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10003</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><linkCode>' .$rejected_linking_code. '</linkCode></params></request></payload></packet>';
@@ -1602,9 +1602,9 @@ class RobotController extends APIController {
                 $xmpp_message_model->send_at = $utc;
                 $xmpp_message_model->xmpp_message = $message;
                 $xmpp_message_model->save();
-                
+
                 $user_model = User::model()->findByAttributes(array("email" => $user_email));
-                
+
                 $user_chat_id = $user_model->chat_id;
 //                AppCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
                 RobotCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
@@ -1614,23 +1614,23 @@ class RobotController extends APIController {
 //                    AppCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
                     RobotCore::send_chat_message($robot->chat_id, $user_chat_id, $message);
                 }
-                
+
             }
-            
+
             $robot_user_association_token->token = $token;
             $robot_user_association_token->created_on = date('Y-m-d H:i:s');
             $robot_user_association_token->save();
-            
+
         }
-        
+
 //        $validity_of_linking_code = AppCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
         $validity_of_linking_code = RobotCore::getValidityOfLinkingCode($robot_user_association_token->created_on);
 
         $response_data = array('success' => true, 'linking_code' => $robot_user_association_token->token, 'expiry_time' => $validity_of_linking_code);
         self::success($response_data);
-        
+
     }
-    
+
 
     public function actionInitiateLinkToRobot() {
 
@@ -1639,21 +1639,21 @@ class RobotController extends APIController {
 
         $utc_str = gmdate("M d Y H:i:s", time());
         $utc = strtotime($utc_str);
-        
+
         if (!AppHelper::is_valid_email($email)) {
 
             $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
             self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
-            
+
         }
-        
+
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $token));
         $db_token = isset($robot_user_association_token) ? $robot_user_association_token->token : '';
 
         if (empty($robot_user_association_token)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-        	
+
 	if(strcmp($token, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
@@ -1678,38 +1678,38 @@ class RobotController extends APIController {
 
         if (empty($user_model)) {
             self::terminate(-1, "Sorry, provided email does not exist", APIConstant::EMAIL_DOES_NOT_EXIST);
-        }        
-        
+        }
+
         $user_id = $user_model->id;
         $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
 
         if ((!is_null($user_robot_model))) {
-            
-            self::terminate(-1, "Robot-User association is already exist", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
-            
+
+            self::terminate(-1, "Association for Robot-user pair already exists", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
+
         }
-        
+
 //        AppCore::removeExpiredLinkingCode($robot_model_data);
         RobotCore::removeExpiredLinkingCode($robot_model_data);
-        
+
         $default_state = Yii::app()->params['default_linking_process'];
 
 //        $robot_linking_data = RobotLinkingCode::model()->findByAttributes(array("email" => $email));
         $robot_linking_data = RobotLinkingCode::model()->findAll('email = :email', array(':email' => $email));
-        
+
         if (!empty($robot_linking_data)) {
-            
+
             foreach ($robot_linking_data as $robot_linking) {
-                
+
                 $current_linking_state = $robot_linking->current_linking_state;
                 if (($current_linking_state == $default_state)) {
                     if($robot_linking->linking_code == $token){
                         self::terminate(-1, "Linking process is going on for the robot", APIConstant::LINKING_CODE_PROCESS);
                     }
                 }
-                
+
             }
-            
+
         }
 
         $from = $user_model->chat_id;
@@ -1731,7 +1731,7 @@ class RobotController extends APIController {
         $robot_linking_code->linking_code = $token;
         $robot_linking_code->linking_code_created_on = $linking_code_created_on;
         $robot_linking_code->timestamp = new CDbExpression('NOW()');
-        
+
         $robot_linking_code->save();
 
         $xmpp_message_model = new XmppMessageLogs();
@@ -1752,7 +1752,7 @@ class RobotController extends APIController {
 
         self::success($response_data);
     }
-    
+
     public function actionLinkToRobot() {
 
         $email = Yii::app()->request->getParam('email', '');
@@ -1760,24 +1760,24 @@ class RobotController extends APIController {
 
         $utc_str = gmdate("M d Y H:i:s", time());
         $utc = strtotime($utc_str);
-        
+
         if (!AppHelper::is_valid_email($email)) {
 
             $message = self::yii_api_echo("The email address you have provided does not appear to be a valid email address.");
             self::terminate(-1, $message, APIConstant::EMAIL_NOT_VALID);
         }
-        
+
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $token));
         $db_token = isset($robot_user_association_token) ? $robot_user_association_token->token : '';
-        
+
         if (empty($robot_user_association_token)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-	
+
 	if(strcmp($token, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
-        }	
-        
+        }
+
         $robot_id = $robot_user_association_token->robot_id;
 
         $robot_model_data = Robot::model()->find('id = :id', array(':id' => $robot_id));
@@ -1797,28 +1797,28 @@ class RobotController extends APIController {
 
         if (empty($user_model)) {
             self::terminate(-1, "Sorry, provided email does not exist", APIConstant::EMAIL_DOES_NOT_EXIST);
-        }        
-        
+        }
+
         $user_id = $user_model->id;
         $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
 
         if ((!is_null($user_robot_model))) {
-            
-            self::terminate(-1, "Robot-User association is already exist", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
-            
+
+            self::terminate(-1, "Association for Robot-user pair already exists", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
+
         }
-        
+
 //        AppCore::removeExpiredLinkingCode($robot_model_data);
         RobotCore::removeExpiredLinkingCode($robot_model_data);
-        
+
 //        $online_users_chat_ids = AppCore::getOnlineUsers();
         $online_users_chat_ids = RobotCore::getOnlineUsers();
         if (!in_array($robot_model_data->chat_id, $online_users_chat_ids)) {
             self::terminate(-1, "Robot is offline", APIConstant::OFFLINE_ROBOT);
         }
-        
+
         $requested_user_email = $email;
-            
+
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
         $xmpp_message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10004</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot_model_data->serial_number . '</robotId>><emailId>' . $requested_user_email . '</emailId></params></request></payload></packet>';
@@ -1843,7 +1843,7 @@ class RobotController extends APIController {
         $user_robot_obj->save();
 
         $response_data = array('success' => true, 'serial_number' => $robot_model_data->serial_number, 'message' => 'Robot-User association is done successfully');
-        
+
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
         $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10001</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><emailId>' . $email . '</emailId><linkCode>' . $token . '</linkCode></params></request></payload></packet>';
@@ -1851,7 +1851,7 @@ class RobotController extends APIController {
         $xmpp_message_model->send_at = $utc;
         $xmpp_message_model->xmpp_message = $message;
         $xmpp_message_model->save();
-        
+
 //        AppCore::send_chat_message($user_model->chat_id, $robot_model_data->chat_id, $message);
         RobotCore::send_chat_message($user_model->chat_id, $robot_model_data->chat_id, $message);
 
@@ -1866,13 +1866,13 @@ class RobotController extends APIController {
 
 //        AppCore::send_chat_message($robot_model_data->chat_id, $user_model->chat_id, $message);
         RobotCore::send_chat_message($robot_model_data->chat_id, $user_model->chat_id, $message);
-        
+
 //        AppCore::removeLinkingCode($robot_model_data);
         RobotCore::removeLinkingCode($robot_model_data);
-        
+
         self::success($response_data);
     }
-    
+
     public function actionConfirmLinking() {
 
         $serial_number = Yii::app()->request->getParam('serial_number', '');
@@ -1891,17 +1891,17 @@ class RobotController extends APIController {
         if (empty($robot_user_association_tokens)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-        
+
         if(strcmp($linking_code, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-        
+
         $associated_robot_ids = $robot_user_association_tokens->robot_id;
-        
+
         $robot_model_data = Robot::model()->find('id = :id', array(':id' => $associated_robot_ids));
-        
+
         $associated_robot_serial_number = $robot_model_data->serial_number;
-        
+
         if(isset($robot_user_association_tokens->created_on)){
 //            if(!AppCore::isLinkingCodeValid($robot_user_association_tokens->created_on)){
             if(!RobotCore::isLinkingCodeValid($robot_user_association_tokens->created_on)){
@@ -1914,41 +1914,41 @@ class RobotController extends APIController {
         }
 
         $robot_linking_code_data = RobotLinkingCode::model()->find('linking_code = :linking_code', array(':linking_code' => $linking_code));
-        
+
         if (empty($robot_linking_code_data)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
 
         if ($associated_robot_serial_number == $serial_number) {
-            
+
             $robot_linking_code_data->current_linking_state = '0';
             $robot_linking_code_data->update();
-            
+
         } else {
-            
+
             self::terminate(-1, "Please enter valid serial number", APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
-            
+
         }
 
         $requested_user_email = $robot_linking_code_data->email;
-            
+
         $user_model = User::model()->findByAttributes(array("email" => $requested_user_email));
-        
+
         $robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $linking_code));
-        
+
         $user_id = $user_model->id;
         $robot_id = $robot_user_association_token->robot_id;
 
         $user_robot_model = UsersRobot::model()->findByAttributes(array("id_user" => $user_id, "id_robot" => $robot_id));
 
         if ((!is_null($user_robot_model))) {
-            
+
 //            AppCore::removeLinkingCode($robot);
             RobotCore::removeLinkingCode($robot);
-            self::terminate(-1, "Robot-User association is already exist", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
-            
+            self::terminate(-1, "Association for Robot-user pair already exists", APIConstant::ROBOT_USER_ASSOCIATION_ALREADY_EXIST);
+
         } else if ($associated_robot_serial_number == $serial_number) {
-            
+
             $xmpp_message_model = new XmppMessageLogs();
             $xmpp_message_model->save();
             $xmpp_message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10004</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId>><emailId>' . $requested_user_email . '</emailId></params></request></payload></packet>';
@@ -1956,7 +1956,7 @@ class RobotController extends APIController {
             $xmpp_message_model->send_at = $utc;
             $xmpp_message_model->xmpp_message = $xmpp_message;
             $xmpp_message_model->save();
-        
+
             if (!empty($robot->usersRobots)) {
 
                 foreach ($robot->usersRobots as $user_robots) {
@@ -1989,13 +1989,13 @@ class RobotController extends APIController {
 
 //        AppCore::send_chat_message($from, $user_model->chat_id, $message);
         RobotCore::send_chat_message($from, $user_model->chat_id, $message);
-        
+
 //        AppCore::removeLinkingCode($robot);
         RobotCore::removeLinkingCode($robot);
-        
+
         self::success($response_data);
     }
-    
+
     public function actionRejectLinking() {
 
         $serial_number = Yii::app()->request->getParam('serial_number', '');
@@ -2014,17 +2014,17 @@ class RobotController extends APIController {
         if (empty($robot_linking_code_data)) {
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
-       
+
 	if(strcmp($token, $db_token) != 0){
             self::terminate(-1, "Please enter valid linking code", APIConstant::TOKEN_NOT_INVALID);
         }
 
         $user_email = $robot_linking_code_data->email;
         $associated_robot_serial_number = $robot_linking_code_data->serial_number;
-        
+
         $xmpp_message_model = new XmppMessageLogs();
         $xmpp_message_model->save();
-        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10003</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><linkCode>' .$token. '</linkCode></params></request></payload></packet>';        
+        $message = '<?xml version="1.0" encoding="UTF-8"?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>10003</command><requestId>' . $xmpp_message_model->id . '</requestId><timeStamp>' . $utc . '</timeStamp><retryCount>0</retryCount><responseNeeded>false</responseNeeded><distributionMode>2</distributionMode><params><robotId>' . $robot->serial_number . '</robotId><linkCode>' .$token. '</linkCode></params></request></payload></packet>';
         $xmpp_message_model->send_from = $robot->id;
         $xmpp_message_model->send_at = $utc;
         $xmpp_message_model->xmpp_message = $message;
@@ -2035,13 +2035,13 @@ class RobotController extends APIController {
             RobotLinkingCode::model()->deleteAll('linking_code = :linking_code', array(':linking_code' => $token));
             $msg = 'linking_code was not accepted';
             $response_data = array('success' => true, 'message' => $msg);
-            
+
             $user_model = User::model()->findByAttributes(array("email" => $user_email));
 
             $user_chat_id = $user_model->chat_id;
 //            AppCore::send_chat_message($from, $user_chat_id, $message);
             RobotCore::send_chat_message($from, $user_chat_id, $message);
-            
+
             foreach ($robot->usersRobots as $usersRobot) {
                 $user_chat_id = $usersRobot->idUser->chat_id;
 //                AppCore::send_chat_message($from, $user_chat_id, $message);
@@ -2049,11 +2049,11 @@ class RobotController extends APIController {
             }
 
             self::success($response_data);
-            
+
         } else {
-            
+
             self::terminate(-1, "Sorry, provided serial number is not match", APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
-            
+
         }
     }
 
@@ -2069,18 +2069,18 @@ class RobotController extends APIController {
         $utc = strtotime($utc_str);
 
         $robot_linking_code_data = RobotUserAssociationTokens::model()->find('robot_id = :robot_id', array(':robot_id' => $robot->id));
-        
+
         if(empty($robot_linking_code_data)){
             self::terminate(-1, "Sorry, provided serial number is not match", APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
         }
-        
+
         $rejected_linking_code = $robot_linking_code_data->token;
-        
+
         $robot_linking_code_data = RobotLinkingCode::model()->find('serial_number = :serial_number', array(':serial_number' => $serial_number));
-        
+
 //        AppCore::removeLinkingCode($robot);
         RobotCore::removeLinkingCode($robot);
-        
+
         if(!empty($robot_linking_code_data)) {
 
             $xmpp_message_model = new XmppMessageLogs();
@@ -2090,7 +2090,7 @@ class RobotController extends APIController {
             $xmpp_message_model->send_at = $utc;
             $xmpp_message_model->xmpp_message = $message;
             $xmpp_message_model->save();
-        
+
             $user_model = User::model()->findByAttributes(array("email" => $robot_linking_code_data->email));
 
             $user_chat_id = $user_model->chat_id;
@@ -2102,9 +2102,9 @@ class RobotController extends APIController {
 //                AppCore::send_chat_message($from, $user_chat_id, $message);
                 RobotCore::send_chat_message($from, $user_chat_id, $message);
             }
-            
+
         }
-        
+
         $msg = 'Discard the generated link_code.';
         $response_data = array('success' => true, 'message' => $msg);
 
@@ -2122,26 +2122,26 @@ class RobotController extends APIController {
 
         $this->renderPartial('/default/defaultView', array('content' => $robot_status));
     }
-    
+
     public function actionIsRobotAlive(){
     	if (Yii::app()->user->getIsGuest()) {
     		$this->redirect(Yii::app()->request->baseUrl.'/user/login');
     	}
     	$serial_number = Yii::app()->request->getParam('robotSerailNo', '');
-    	
+
     	$robot = self::verify_for_robot_serial_number_existence($serial_number);
     	$utc = gmdate("M d Y H:i:s", time());
     	$xmpp_message_model = new XmppMessageLogs();
     	$xmpp_message_model->save();
-    	
+
     	$message = "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><packet><header><version>1</version><signature>0xcafebabe</signature></header><payload><request><command>105</command><requestId>" . $xmpp_message_model->id . "</requestId><timeStamp>" . $utc . "</timeStamp><retryCount>0</retryCount><responseRequired>false</responseRequired><distributionMode>2</distributionMode></request></payload></packet>";
-    	
+
     	$xmpp_message_model->send_from = $robot->id;
     	$xmpp_message_model->send_at = $utc;
-    	
+
     	$xmpp_message_model->xmpp_message = $message;
     	$xmpp_message_model->save();
-    	
+
     	$user_id = Yii::app()->user->id;
     	$user_data = User::model()->findByPk($user_id);
     	RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id, $message);
@@ -2149,16 +2149,16 @@ class RobotController extends APIController {
     	$response = array('code' => 0, 'message' => 'Send XMPP message successfully');
     	$this->renderPartial('/default/defaultView', array('content' => $response));
     }
-    
+
     public function actionCheckRobotAvailability(){
-    	
+
     	if (Yii::app()->user->getIsGuest()) {
     		$this->redirect(Yii::app()->request->baseUrl.'/user/login');
     	}
     	$serial_number = Yii::app()->request->getParam('robotSerailNo', '');
-    	
+
     	$alive_robot = AliveRobot::model()->findByAttributes(array('serial_number' => $serial_number));
-    	
+
     	$response = array('code' => 0, 'message' => 'Robot is alive');
     	if(empty($alive_robot)) {
     		$response = array('code' => -1, 'message' => 'Robot is dead');
@@ -2167,7 +2167,7 @@ class RobotController extends APIController {
     	}
     	$this->renderPartial('/default/defaultView', array('content' => $response));
     }
-    
+
     public function actionAliveRobot(){
 
     	if (Yii::app()->user->getIsGuest()) {
@@ -2175,10 +2175,10 @@ class RobotController extends APIController {
     	}
     	$serial_number = Yii::app()->request->getParam('serial_number', '');
     	$robot = self::verify_for_robot_serial_number_existence($serial_number);
-    	
+
     	$model = new AliveRobot();
     	$model->serial_number = $serial_number;
-    	 
+
     	if($model->save()) {
     		$response_message = self::yii_api_echo('Robot is alive');
     		$response_data = array("success" => true, "message"=> $response_message);
