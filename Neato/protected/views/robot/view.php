@@ -40,6 +40,9 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<?php if($user_role_id !== '2'){ ?>
 		<p class="list_details">This page shows the robot's basic, schedule data.</p>
 	<?php } ?>
+	<?php if($user_role_id == '2'){ ?>
+		<p class="list_details">Click on edit button to update robot.</p>
+	<?php } ?>
 	
 	<!-- 	<div class="action-button-container"> -->
 	<!--<a href="<?php echo $this->createUrl('robot/delete',array('rid'=>AppHelper::two_way_string_encrypt($model->id)))?>" -->
@@ -56,7 +59,9 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
                 ?>
         </div>
         <br />
-	<div class="robot-data-table-heading">Basic Information</div>
+        <?php if($user_role_id !== '2'){ ?>
+			<div class="robot-data-table-heading">Basic Information</div>
+		<?php }?>
 	<?php
         
         $online_status = ' (OFFLINE)';

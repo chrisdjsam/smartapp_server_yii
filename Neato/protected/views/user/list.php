@@ -28,9 +28,9 @@ $this->breadcrumbs=array(
 		All the users are listed below.
 		<br /><?php }?>
 		<?php if($userRole == '2'){?>
-		You can search a specific user by typing in his exact email address and then clicking on Search button.
+		You can search a specific user by typing in his exact email address and then clicking on search button.<br />
 		<?php }?>		 
-		<br />
+
 		You can view user profile by
 		clicking on the email of a specific user.<br /> You can view robot
 		information by clicking on the associated robot's serial number.<br />

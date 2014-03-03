@@ -46,7 +46,7 @@ $userRole = Yii::app()->user->UserRoleId;
 				if($userRole != '2'){
                 	?>
                 Now we require that you validate your registered email within 1 hour of registration. <br/>
-                For some reason if user could not validate your email, as an admin, you can validate it by selecting "yes" against the "Is email validated?".<br />
+                For some reason if user could not validate your email, as an admin, you can validate it by selecting "Yes" against the "Is email validated?".<br />
                     <?php
             	}	
             }
@@ -77,29 +77,38 @@ $userRole = Yii::app()->user->UserRoleId;
         }
     }
     ?>
-
-       
     <?php  if(!$is_wp_enabled){
-                if (Yii::app()->user->isAdmin && Yii::app()->user->id !== $model->id) { ?>
-
-                    <p class="list_details">
-                        You can delete this user by clicking on delete user button.<br /> You
-                        can reset password for this user by clicking on reset password button.<br />
-                        Please note that deleting a user would also delete the user-robot
-                        associations for this specific user.<br /> Please note that resetting
-                        password for this user would reset the user's old password and send an
-                        email mentioning user's new password.<br />And user would not able to
-                        login using old password.<br />
-                        Click on edit to update user profile.<br />
-                        Now we require that user validates his registered email within 1 hour of registration. <br/>
-                        For some reason if user could not validate his email, as <?php if($userRole != '2'){?>an admin<?php }else{?>a support<?php }?>, you can validate his email by selecting "yes" against the "Is email validated?".<br />
-                    </p>
-                    <div class="action_delete_reset">
-                        <div class="action-button-container">
-                            <a href="<?php echo $this->createUrl('user/Delete', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-delete" title="Delete User">Delete User</a> 
-                            <a href="<?php echo $this->createUrl('user/Resetpassword', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-reset-password" title="Reset Password">Reset Password</a>
-                        </div>
-                    </div>
+                if (Yii::app()->user->isAdmin && Yii::app()->user->id !== $model->id) { 
+					if($userRole != '2'){ ?>
+	                    <p class="list_details">
+	                        You can delete this user by clicking on delete user button.<br /> You
+	                        can reset password for this user by clicking on reset password button.<br />
+	                        Please note that deleting a user would also delete the user-robot
+	                        associations for this specific user.<br /> Please note that resetting
+	                        password for this user would reset the user's old password and send an
+	                        email mentioning user's new password.<br />
+	                        Click on edit to update user profile.<br />
+	                        Now we require that user validates his registered email within 1 hour of registration. <br/>
+	                        For some reason if user could not validate his email, as <?php if($userRole != '2'){?>an admin<?php }else{?>a support<?php }?>, you can validate his email by selecting "Yes" against the "Is email validated?".<br />
+	                    </p>
+	                    <div class="action_delete_reset">
+	                        <div class="action-button-container">
+	                            <a href="<?php echo $this->createUrl('user/Delete', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-delete" title="Delete User">Delete User</a> 
+	                            <a href="<?php echo $this->createUrl('user/Resetpassword', array('h' => AppHelper::two_way_string_encrypt($model->id))); ?>" class="user-neato-button neato-button requires-confirmation-reset-password" title="Reset Password">Reset Password</a>
+	                        </div>
+	                    </div>
+	              <?php }else{ ?>
+	              			<div class="edit-user-profile">
+						        <p class="list_details">
+						            Click on edit button to edit profile.<br />
+						        </p>
+							</div> 
+							<div class="update-user-profile">
+						        <p class="list_details">
+						            Click on save button to update profile.<br />
+						        </p>
+							</div> 
+	               <?php }?>
     <?php } 
             }?>
 
@@ -247,6 +256,7 @@ $userRole = Yii::app()->user->UserRoleId;
     });
 
     $(document).ready(function(){
+    	hideUpdateAndShowEditInfo();
     	$('.update-user-profile').hide();
         $('#update_user_data').click(function(){
             
@@ -265,23 +275,26 @@ $userRole = Yii::app()->user->UserRoleId;
         });
         
         $('#update_user_data_cancel').click(function(){
-            
-            $('.update_user_form').hide();
+        	hideUpdateAndShowEditInfo();
             $('#user_profile_detail').show();
+            $('.update_user_form').hide();
             $('#edit_user_profile_btn').show();
             $('.view-user-profile').show();
-            $('.update-user-profile').hide();        
         });
-        
     });
     
-function hideUserProfile () {
+	function hideUpdateAndShowEditInfo(){
+		$('.edit-user-profile').show();
+		$('.update-user-profile').hide();
+	}
     
-    $('.update_user_form').show();
-    $('#user_profile_detail').hide();
-    $('#edit_user_profile_btn').hide();
-    $('.view-user-profile').hide();
-    $('.update-user-profile').show();
+	function hideUserProfile () {
+	    $('.update_user_form').show();
+	    $('#user_profile_detail').hide();
+	    $('#edit_user_profile_btn').hide();
+	    $('.view-user-profile').hide();
+	    $('.update-user-profile').show();
+	    $('.edit-user-profile').hide();
     
 }
 

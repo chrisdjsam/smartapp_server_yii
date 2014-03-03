@@ -27,7 +27,7 @@ $this->breadcrumbs=array(
 			All the available robots are listed below.<br />
 		<?php }?>
 		<?php if($userRole == '2'){?>
-		You can search a specific robot by typing in serial number and then clicking on Search button.<br />
+		You can search a specific robot by typing in serial number and then clicking on search button.<br />
 		<?php }?>		 
 				 
 		You can view robot information by clicking on the serial number.<br />

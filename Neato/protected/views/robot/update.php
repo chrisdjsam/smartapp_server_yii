@@ -17,8 +17,10 @@ $user_role_id = Yii::app()->user->UserRoleId;
 		<legend> update <?php print $model->serial_number; ?></legend>
 	<?php }?>
 	<p class="list_details">
-            Please update robot information.<br />
-            If you enter sleep time, you must enter wakeup time and vice versa.
+            Click on save button to update robot information.<br />
+            <?php if($user_role_id !== '2'){?>
+            	If you enter sleep time, you must enter wakeup time and vice versa.
+            <?php }?>
         </p>
         
 	<?php 

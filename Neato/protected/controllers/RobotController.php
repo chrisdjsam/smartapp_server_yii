@@ -385,20 +385,24 @@ class RobotController extends Controller
                 if(isset($model->robotRobotTypes)){
                     $robot_type_model = $model->robotRobotTypes->robotType;
                 }
-               
-		if(isset($_POST['Robot'], $_POST['RobotTypes']))
+        if(Yii::app()->user->UserRoleId == '2'){
+        	$update_robot_info = isset($_POST['Robot']) ? true: false;
+        }else{
+        	$update_robot_info = isset($_POST['Robot'], $_POST['RobotTypes']) ? true: false;
+        }
+		if($update_robot_info)
 		{
+			
 			$model->attributes=$_POST['Robot'];
                         
 			if($model->save()){
-                            
-                                // update robot type
-                                $robot_robot_type = RobotRobotTypes::model()->find('robot_id = :robot_id', array(':robot_id' => $model->id));
-                                $robot_robot_type->robot_type_id = $_POST['RobotTypes']['type'];
-                                $robot_robot_type->save();
-                                
-                                $utc = $model->updated_on;
-                                
+				if(Yii::app()->user->UserRoleId != '2'){  //because we do not get robot type for role_id == 2 i.e support role 
+					// update robot type
+					$robot_robot_type = RobotRobotTypes::model()->find('robot_id = :robot_id', array(':robot_id' => $model->id));
+					$robot_robot_type->robot_type_id = $_POST['RobotTypes']['type'];
+					$robot_robot_type->save();
+				}
+                $utc = $model->updated_on;
 				$msg = AppCore::yii_echo("editrobot:ok",$model->serial_number);
 				Yii::app()->user->setFlash('success', $msg);
                                 

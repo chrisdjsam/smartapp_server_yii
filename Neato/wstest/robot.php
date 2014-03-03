@@ -160,7 +160,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
 <!--                        <li>If a parameter(robot_type) is missing
                             <ul>
                                 <li>
@@ -168,7 +168,7 @@
                                 </li>
                             </ul>
                         </li>-->
-                        
+
                         <li>If robot_type is invalid
                             <ul>
                                 <li>
@@ -176,7 +176,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li>If Jabber service is not able to create chat user
                             <ul>
                                 <li>
@@ -212,7 +212,7 @@
             <td><input type="text" name='robot_type'>
             </td>
         </tr>
-        
+
         <tr>
             <td><input type="button" name='submit' dummy='robotcreate2'
                        value='Submit' class='submit_form'>
@@ -244,7 +244,7 @@
                 <div class='details_div'>
                     POST method to check if robot online. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.is_online<br /> 
+                    robot.is_online<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -487,23 +487,23 @@
                                                                             {"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)", "error":{"code":"-148","message":"Missing parameter source serial number or source smartapp id in method call"}}
                                                                         </li>
                                                                 </ul>
-                                                        </li>                                                        
-                                                        
+                                                        </li>
+
                                                         <li>If source_smartapp_id is invalid:
                                                                 <ul>
                                                                         <li>
                                                                             {"status":-1,"message":"Please enter valid email address in field source_smartapp_id.", "error":{"code":"-149","message":"Please enter valid email id in the field source smartapp id"}}
                                                                         </li>
                                                                 </ul>
-                                                        </li>                                                                                                                
-                                                        
+                                                        </li>
+
                                                         <li>If source_smartapp_id does not exist:
                                                                 <ul>
                                                                         <li>
                                                                             {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system.","error":{"code":"-150","message":"Sorry, Provided source_smartapp_id(email) does not exist in our system"}}
                                                                         </li>
                                                                 </ul>
-                                                        </li>                                                                                                                                                                        
+                                                        </li>
 
                                                         <li>If source_smartapp_id(email) is not associated with given robot:
                                                                 <ul>
@@ -511,8 +511,8 @@
                                                                             {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot","error":{"code":"-151","message":"Sorry, Provided source_smartapp_id(email) is not associated with given robot"}}
                                                                         </li>
                                                                 </ul>
-                                                        </li>                                                                                                                                                                        
-                                                        
+                                                        </li>
+
                                                         <li>If entered key is invalid:
                                                                 <ul>
                                                                         <li>
@@ -520,7 +520,7 @@
                                                                         </li>
                                                                 </ul>
                                                         </li>
-                                                        
+
                                                         <li>If profile key is not added:
                                                                 <ul>
                                                                         <li>
@@ -555,13 +555,13 @@
                                 <td>
                                     <input type="text" name='source_smartapp_id'>
                                 </td>
-                        </tr>                        
+                        </tr>
                         <tr>
                                 <td>value_extra</td>
                                 <td>
                                     <input type="text" name='value_extra'>
                                 </td>
-                        </tr>                                                
+                        </tr>
                         <tr>
                                 <td id='labelPlaceholderRow3' colspan="2"></td>
                         </tr>
@@ -645,7 +645,7 @@
                                     {"status":-1,"message":"Please provide atleast one source(source_serial_number or source_smartapp_id)","error":{"code":"-148","message":"Missing parameter source serial number or source smartapp id in method call"}}
                                 </li>
                             </ul>
-                        </li>                                                        
+                        </li>
 
                         <li>If source_smartapp_id is invalid:
                             <ul>
@@ -653,7 +653,7 @@
                                     {"status":-1,"message":"Please enter valid email address in field source_smartapp_id.","error":{"code":"-149","message":"Please enter valid email id in the field source smartapp id"}}
                                 </li>
                             </ul>
-                        </li>                                                                                                                
+                        </li>
 
                         <li>If source_smartapp_id does not exist:
                             <ul>
@@ -661,7 +661,7 @@
                                     {"status":-1,"message":"Sorry, Provided source_smartapp_id(email) does not exist in our system.","error":{"code":"-150","message":"Sorry, Provided source_smartapp_id(email) does not exist in our system"}}
                                 </li>
                             </ul>
-                        </li>                                                                                                                                                                        
+                        </li>
 
                         <li>If source_smartapp_id(email) is not associated with given robot:
                             <ul>
@@ -713,26 +713,26 @@
             <td>
                 <input type="text" name='source_smartapp_id'>
             </td>
-        </tr>                        
+        </tr>
         <tr>
             <td>cause_agent_id</td>
             <td>
                 <input type="text" name='cause_agent_id'>
             </td>
-        </tr>                        
+        </tr>
         <tr>
             <td>value_extra</td>
             <td>
                 <input type="text" name='value_extra'>
             </td>
-        </tr>                                                
+        </tr>
         <tr>
             <td>notification_flag</td>
             <td>
                 <input type="text" name='notification_flag'>
                 <span style="color: blue;">(Consideration: 0 for false and 1 for true)</span>
             </td>
-        </tr>                                                
+        </tr>
         <tr>
             <td id='labelPlaceholderRow4' colspan="2"></td>
         </tr>
@@ -792,7 +792,7 @@
                             <ul>
                                 <li>{"status":0,"result":{"success":true,"profile_details":{"name":"robot 1","serial_number":"1","real":"steel","dark":"knight"}}}</li>
                             </ul>
-                        </li>                                                        
+                        </li>
                     </ul>
 
                     Failure Responses: <br />
@@ -820,7 +820,7 @@
                                     {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114, "message":"Robot serial number does not exist"}}
                                 </li>
                             </ul>
-                        </li>                                                        
+                        </li>
 
                         <li>If key is invalid:
                             <ul>
@@ -828,7 +828,7 @@
                                     {"status":-1,"message":"Sorry, entered key is invalid","error":{"code":"-152","message":"Sorry, entered key does not match with serial number."}}
                                 </li>
                             </ul>
-                        </li>                                                        
+                        </li>
 
                     </ul>
                 </div>
@@ -900,7 +900,7 @@
                             <ul>
                                 <li>{"status":0,"result":{"success":true,"profile_details":{"name":{"value":"robot 1","timestamp":0},"serial_number":{"value":"1","timestamp":0},"real":{"value":"steel","timestamp":"1368090063"},"dark":{"value":"knight","timestamp":"1368090063"}}}}</li>
                             </ul>
-                        </li>                                                        
+                        </li>
 
                     </ul>
 
@@ -929,7 +929,7 @@
                                     {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
                                 </li>
                             </ul>
-                        </li>                                                        
+                        </li>
 
                         <li>If key is invalid:
                             <ul>
@@ -971,7 +971,7 @@
                             </ul>
                         </li>
 
-                        <li>If profile key is not added 
+                        <li>If profile key is not added
                             <ul>
                                 <li>
                                     {"status":-1,"message":"Missing parameter profile in method robot.set_profile_details2","error":{"code":"-102","message":"Missing parameter in method call"}}
@@ -1046,7 +1046,7 @@
 
                     </ul>
                     Success Response:
-                    <ul>                                                        
+                    <ul>
                         <li>{"status":0,"result":{"success":true}}</li>
                     </ul>
 
@@ -1091,7 +1091,7 @@
                                     {"status":-1,"message":"Robot serial number does not exist", "error":{"code":-114,"message":"Robot serial number does not exist"}}
                                 </li>
                             </ul>
-                        </li>                                                        
+                        </li>
 
                         <li>If key is invalid:
                             <ul>
@@ -1166,14 +1166,14 @@
             <td>
                 <input type="text" name='source_smartapp_id'>
             </td>
-        </tr>                        
+        </tr>
         <tr>
             <td>notification_flag</td>
             <td>
                 <input type="text" name='notification_flag'>
                 <span style="color: blue;">(Consideration: 0 for false and 1 for true)</span>
             </td>
-        </tr>                        
+        </tr>
         <tr>
             <td>
                 <input type="button" name='submit' dummy='delete_robot_profile_key2' value='Submit' class='submit_form'>
@@ -1719,7 +1719,7 @@
                 <div class='details_div'>
                     POST method to get robot presence status. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.get_robot_presence_status<br /> 
+                    robot.get_robot_presence_status<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -1814,7 +1814,7 @@
                 <div class='details_div'>
                     POST method to ping from robot. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.ping_from_robot<br /> 
+                    robot.ping_from_robot<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -1878,7 +1878,7 @@
             <td>status</td>
             <td><input type="text" name='status'>
             </td>
-        </tr>                        
+        </tr>
 
         <tr>
             <td><input type="button" name='submit' dummy='pingFromRobot'
@@ -1910,7 +1910,7 @@
                 <div class='details_div'>
                     POST method to check whether robot is virtually online or not. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.is_robot_online_virtual<br /> 
+                    robot.is_robot_online_virtual<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -2005,7 +2005,7 @@
                 <div class='details_div'>
                     POST method to get robot type metadata using robot type. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.get_robot_type_metadata_using_type<br /> 
+                    robot.get_robot_type_metadata_using_type<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -2095,7 +2095,7 @@
                 <div class='details_div'>
                     POST method to get robot type metadata using robot Id. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.get_robot_type_metadata_using_id<br /> 
+                    robot.get_robot_type_metadata_using_id<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -2184,7 +2184,7 @@
                 <div class='details_div'>
                     POST method to set robot configuration. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.set_robot_configuration<br /> 
+                    robot.set_robot_configuration<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -2306,7 +2306,7 @@
                 <div class='details_div'>
                     POST method to set robot configuration 2. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.set_robot_configuration2<br /> 
+                    robot.set_robot_configuration2<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -2344,7 +2344,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li>If sleep_time is missing
                             <ul>
                                 <li>
@@ -2352,7 +2352,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li>If wakeup_time is missing
                             <ul>
                                 <li>
@@ -2360,7 +2360,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li>If serial number does not exist
                             <ul>
                                 <li>
@@ -2375,7 +2375,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li>If provided robot_type is invalid
                             <ul>
                                 <li>
@@ -2383,7 +2383,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
 <!--                         <li>If robot_type is missing
                             <ul>
                                 <li>
@@ -2421,7 +2421,7 @@
             <td><input type="text" name='wakeup_time'>
             </td>
         </tr>
-        
+
         <tr>
             <td>robot_type</td>
             <td><input type="text" name='robot_type'>
@@ -2439,7 +2439,7 @@
                 <div id='addLabelLink6'>Add Robot Config Key</div>
             </td>
         </tr>
-       
+
 
         <tr>
             <td><input type="button" name='submit' dummy='set_robot_configuration2'
@@ -2472,7 +2472,7 @@
                 <div class='details_div'>
                     POST method to get robot configuration. <br /> <br /> URL:
                     <?php echo($baseURL) ?>
-                    robot.get_robot_configuration<br /> 
+                    robot.get_robot_configuration<br />
                     Parameters:
                     <ul>
                         <li><b>api_key</b> :Your API Key</li>
@@ -2562,7 +2562,7 @@
 					<div class='details_div'>
 						POST method to set Clear Robot Data. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.clear_robot_association<br /> 
+						robot.clear_robot_association<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
@@ -2577,15 +2577,15 @@
 									<li>{"status":0,"result":{"success":true,"message":"Robot is Cleaned."}}</li>
 								</ul>
 							</li>
-                                                        
+
                                                         <li>If everything goes fine(if user use 1 for delete robot data)
 								<ul>
 									<li>{"status":0,"result":{"success":true,"message":"Robot is Deleted."}}</li>
 								</ul>
 							</li>
-                                                        
+
 						</ul>
-                                                
+
 
 						Failure Responses: <br />
 						<ul>
@@ -2639,7 +2639,7 @@
                                                                         </li>
 								</ul>
 							</li>
-							
+
 						</ul>
 					</div>
 				</td>
@@ -2657,20 +2657,20 @@
 				<td><input type="text" name='serial_number'>
 				</td>
 			</tr>
-                        
+
                         <tr>
 				<td>email</td>
 				<td><input type="text" name='email'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td>is_delete</td>
 				<td><input type="text" name='is_delete'>
 				<span style="color: blue;">'0' is used for clear the robot data and '1' is used to delete Robot data</span>
                                 </td>
-			</tr>                        
-                        
+			</tr>
+
 			<tr>
 				<td><input type="button" name='submit' dummy='clear_robot_association'
 					value='Submit' class='submit_form'>
@@ -2685,7 +2685,7 @@
 
 		</table>
 	</form>
-        
+
         <form action="<?php echo($baseURL)?>robot.request_link_code" method='POST'
 		id='request_link_code' class='ajaxified_forms'>
 
@@ -2701,18 +2701,18 @@
 					<div class='details_div'>
 						POST method to Request Link Code. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.request_link_code<br /> 
+						robot.request_link_code<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
 							<li><b>serial_number</b> :Serial Number of the robot</li>
 						</ul>
-                                                
+
                                                 Note:
                                                 <ul>
 							<li>Token will be expired after 5 minutes.</li>
 						</ul>
-                                                
+
 						Success Response:
                                                 <ul>
                                                         <li>If everything goes fine
@@ -2721,7 +2721,7 @@
 								</ul>
 							</li>
 						</ul>
-                                                
+
 						Failure Responses: <br />
 						<ul>
 							<li>If API Key is missing:
@@ -2763,7 +2763,7 @@
 				<td><input type="text" name='serial_number'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td><input type="button" name='submit' dummy='request_link_code'
 					value='Submit' class='submit_form'>
@@ -2794,7 +2794,7 @@
 					<div class='details_div'>
 						POST method to set Initiate Link To Robot. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.initiate_link_to_robot<br /> 
+						robot.initiate_link_to_robot<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
@@ -2808,15 +2808,15 @@
 									<li>{"status":0,"result":{"success":true,"message":"Request For Robot-User association is done successfully"}}</li>
 								</ul>
 							</li>
-                                                        
+
                                                         <li>If request is already sent,
 								<ul>
 									<li>{"status":0,"result":{"success":true,"message":"Requested linking code is already used."}}</li>
 								</ul>
 							</li>
-                                                        
+
 						</ul>
-                                                
+
 
 						Failure Responses: <br />
 						<ul>
@@ -2870,7 +2870,7 @@
                                                                         </li>
                                                                 </ul>
                                                         </li>
-                                                        
+
 						</ul>
 					</div>
 				</td>
@@ -2888,13 +2888,13 @@
 				<td><input type="text" name='email'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td>linking_code</td>
 				<td><input type="text" name='linking_code'>
 				</td>
-			</tr>                        
-                        
+			</tr>
+
 			<tr>
 				<td><input type="button" name='submit' dummy='initiate_link_to_robot'
 					value='Submit' class='submit_form'>
@@ -2925,7 +2925,7 @@
 					<div class='details_div'>
 						POST method to Confirm Linking. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.confirm_linking<br /> 
+						robot.confirm_linking<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
@@ -2985,16 +2985,16 @@
                                                                         </li>
 								</ul>
 							</li>
-                                                        <li>If Robot-User association is already exist.
+                                                        <li>If robot-user pair already exists.
 								<ul>
 									<li>
-                                                                            {"status":-1,"message":"Robot-User association is already exist","error":{"code":"-182","message":"Robot-User association is already exist"}}
+                                                                            {"status":-1,"message":"Association for Robot-user pair already exists","error":{"code":"-182","message":"Association for Robot-user pair already exists"}}
                                                                         </li>
 								</ul>
 							</li>
-                                                        
-                                                        
-                                                        
+
+
+
 						</ul>
 					</div>
 				</td>
@@ -3012,13 +3012,13 @@
 				<td><input type="text" name='serial_number'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td>linking_code</td>
 				<td><input type="text" name='linking_code'>
 				</td>
-			</tr>                        
-                        
+			</tr>
+
 			<tr>
 				<td><input type="button" name='submit' dummy='confirm_linking'
 					value='Submit' class='submit_form'>
@@ -3049,7 +3049,7 @@
 					<div class='details_div'>
 						POST method to Reject Linking. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.reject_linking<br /> 
+						robot.reject_linking<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
@@ -3064,7 +3064,7 @@
 								</ul>
 							</li>
 						</ul>
-                                                
+
 
 						Failure Responses: <br />
 						<ul>
@@ -3128,13 +3128,13 @@
 				<td><input type="text" name='serial_number'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td>linking_code</td>
 				<td><input type="text" name='linking_code'>
 				</td>
-			</tr>                        
-                        
+			</tr>
+
 			<tr>
 				<td><input type="button" name='submit' dummy='reject_linking'
 					value='Submit' class='submit_form'>
@@ -3165,7 +3165,7 @@
 					<div class='details_div'>
 						POST method to Cancel Linking. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.cancel_linking<br /> 
+						robot.cancel_linking<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
@@ -3179,7 +3179,7 @@
 								</ul>
 							</li>
 						</ul>
-                                                
+
 
 						Failure Responses: <br />
 						<ul>
@@ -3205,7 +3205,7 @@
                                                                         </li>
 								</ul>
 							</li>
-                                                        
+
 						</ul>
 					</div>
 				</td>
@@ -3223,7 +3223,7 @@
 				<td><input type="text" name='serial_number'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td><input type="button" name='submit' dummy='cancel_linking'
 					value='Submit' class='submit_form'>
@@ -3254,7 +3254,7 @@
 					<div class='details_div'>
 						POST method to set Link To Robot. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.link_to_robot<br /> 
+						robot.link_to_robot<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
@@ -3268,15 +3268,15 @@
 									<li>{"status":0,"result":{"success":true,"message":"Request For Robot-User association is done successfully"}}</li>
 								</ul>
 							</li>
-                                                        
+
                                                         <li>If request is already sent,
 								<ul>
 									<li>{"status":0,"result":{"success":true,"message":"Requested linking code is already used."}}</li>
 								</ul>
 							</li>
-                                                        
+
 						</ul>
-                                                
+
 
 						Failure Responses: <br />
 						<ul>
@@ -3330,7 +3330,7 @@
                                                                         </li>
                                                                 </ul>
                                                         </li>
-                                                        
+
 						</ul>
 					</div>
 				</td>
@@ -3348,13 +3348,13 @@
 				<td><input type="text" name='email'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td>linking_code</td>
 				<td><input type="text" name='linking_code'>
 				</td>
-			</tr>                        
-                        
+			</tr>
+
 			<tr>
 				<td><input type="button" name='submit' dummy='link_to_robot'
 					value='Submit' class='submit_form'>
@@ -3369,7 +3369,7 @@
 
 		</table>
 	</form>
-	
+
 <!-- 	Check Robot serial_number is present in alive robot db-->
 	<form action="<?php echo($baseURL)?>robot.health_check" method='POST'
 		id='alive_robot' class='ajaxified_forms'>
@@ -3386,13 +3386,13 @@
 					<div class='details_div'>
 						POST method to alive robot. <br /> <br /> URL:
 						<?php echo($baseURL)?>
-						robot.health_check<br /> 
+						robot.health_check<br />
 						Parameters:
 						<ul>
 							<li><b>api_key</b> :Your API Key</li>
-							
+
 						</ul>
-                                                
+
 
 						Failure Responses: <br />
 						<ul>
@@ -3421,7 +3421,7 @@
 				<td><input type="text" name='serial_number'>
 				</td>
 			</tr>
-                        
+
 			<tr>
 				<td><input type="button" name='submit' dummy='alive_robot'
 					value='Submit' class='submit_form'>
