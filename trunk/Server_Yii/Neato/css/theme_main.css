@@ -245,7 +245,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .neato-button,.neato-button_alt,.neato_href {
-	background:#113C2B;;
+	background: #113C2B;;
 	border: none;
 	color: white !important;
 	cursor: pointer;
@@ -259,7 +259,7 @@ h1,h2,h3,h4,h5,h6 {
 	box-shadow: 0 0 0;
 }
 
-.neato-button:hover,.neato-button_alt:hover, .search-button:hover {
+.neato-button:hover,.neato-button_alt:hover,.search-button:hover {
 	background: #009A3D;
 }
 
@@ -1523,14 +1523,18 @@ thead tr {
 	padding-right: 35px;
 }
 
-.checkbox-style{
+.checkbox-style {
 	margin-top: 10px !important;
 }
 
-div.form label{
-	text-transform: capitalize;	
+div.form label {
+	text-transform: capitalize;
 }
 
-.user-add-form-input{
+.user-add-form-input {
 	width: 36.6%;
+}
+
+.register-button {
+	height: 50px;
 }

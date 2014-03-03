@@ -1052,7 +1052,7 @@ CREATE TABLE IF NOT EXISTS `xmpp_notification_via_mq` (
   `message` longtext CHARACTER SET utf8,
   `is_jabber_setup` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34737 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------

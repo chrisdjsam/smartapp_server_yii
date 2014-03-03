@@ -63,11 +63,20 @@ class UserController extends APIController {
 			$user_model->chat_id = $chat_details['chat_id'];
 			$user_model->chat_pwd = $chat_details['chat_pwd'];
 
+			$user_role = '3'; //set deafult role as normal user
+			
 			if(!$user_model->save()){
 				$message = AppCore::yii_echo("login fail - 3");
 				$content = array('status' => -1, 'message' => $message);
 				$this->renderPartial('/default/defaultView', array('content' => $content));
 				Yii::app()->end();
+			}
+			
+			$user_role_obj = new UserRole();
+			$user_role_obj->user_id = $user_model->id;
+			$user_role_obj->user_role_id = $user_role;
+			if(!$user_role_obj->save()){
+				Yii::app()->user->setFlash('success', 'user role not saved');
 			}
 
 //                        AppCore::setDefaultUserPushNotificationOptions($user_model->id);
@@ -1499,7 +1508,13 @@ class UserController extends APIController {
 				if(!$user_model->save()){
 					//need to work
 				}
-
+				$user_role = '3'; //set deafult role as normal user
+				$user_role_obj = new UserRole();
+				$user_role_obj->user_id = $user_model->id;
+				$user_role_obj->user_role_id = $user_role;
+				if(!$user_role_obj->save()){
+					Yii::app()->user->setFlash('success', 'user role not saved');
+				}
                                 // update extra attribute of user
                                 $user_id = $user_model->id;
                                 $validation_key = md5($user_id.'_'.$user_email);
@@ -1717,7 +1732,14 @@ class UserController extends APIController {
 				if(!$user_model->save()){
 					//need to work
 				}
-
+				$user_role = '3'; //set deafult role as normal user
+				$user_role_obj = new UserRole();
+				$user_role_obj->user_id = $user_model->id;
+				$user_role_obj->user_role_id = $user_role;
+				if(!$user_role_obj->save()){
+					Yii::app()->user->setFlash('success', 'user role not saved');
+				}
+				
                                 // update extra attribute of user
                                 $user_id = $user_model->id;
                                 $validation_key = md5($user_id.'_'.$user_email);
@@ -1952,6 +1974,14 @@ class UserController extends APIController {
 
 				if(!$user_model->save()){
 					//need to work
+				}
+				
+				$user_role = '3'; //set deafult role as normal user
+				$user_role_obj = new UserRole();
+				$user_role_obj->user_id = $user_model->id;
+				$user_role_obj->user_role_id = $user_role;
+				if(!$user_role_obj->save()){
+					Yii::app()->user->setFlash('success', 'user role not saved');
 				}
 
                                 // update extra attribute of user
@@ -2191,6 +2221,14 @@ class UserController extends APIController {
 
 				if(!$user_model->save()){
 					//need to work
+				}
+				
+				$user_role = '3'; //set deafult role as normal user
+				$user_role_obj = new UserRole();
+				$user_role_obj->user_id = $user_model->id;
+				$user_role_obj->user_role_id = $user_role;
+				if(!$user_role_obj->save()){
+					Yii::app()->user->setFlash('success', 'user role not saved');
 				}
 
                                 // update extra attribute of user
@@ -2520,8 +2558,9 @@ class UserController extends APIController {
                     'iTotalDisplayRecords' => $result['iTotalDisplayRecords'],
                     'aaData' => array()
                 );
-
+                
                 foreach ($result['rResult'] as $user) {
+                	
 					$user_role_data = UserRole::model()->findByAttributes(array('user_id' => $user->id ));
 					$current_user_id = $user_role_data->user_role_id;
                     $row = array();
@@ -2563,7 +2602,9 @@ class UserController extends APIController {
                     	$row [] = $associated_robots;
                     	$output ['aaData'] [] = $row;
                     }
+                    
                 }
+                
                 $this->renderPartial('/default/defaultView', array('content' => $output));
     }
 

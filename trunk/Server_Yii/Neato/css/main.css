@@ -21,7 +21,7 @@ body {
 
 #content {
 	padding-left: 20px;
-    padding-right: 20px;
+	padding-right: 20px;
 }
 
 #sidebar {
@@ -216,6 +216,7 @@ div.search-form {
 	min-height: 540px;
 	padding-bottom: 27px;
 	background-color: #fff;
+	padding: 20px;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -230,7 +231,7 @@ h1,h2,h3,h4,h5,h6 {
 	font-weight: bold;
 }
 
-.neato-button, .neato-button_alt, .neato_href {
+.neato-button,.neato-button_alt,.neato_href {
 	background: #3F2C1D;
 	border: none;
 	color: white !important;
@@ -243,30 +244,29 @@ h1,h2,h3,h4,h5,h6 {
 	text-align: center;
 	text-decoration: none;
 	box-shadow: 0 0 0;
-	
 }
 
-.neato-button:hover, .neato-button_alt:hover {
-	background:  #B63805;
+.neato-button:hover,.neato-button_alt:hover {
+	background: #B63805;
 }
 
-.rounded-corners{
+.rounded-corners {
 	border-radius: 15px 15px 15px 15px;
-	overflow: hidden; float: left;
-	margin: 5px;	
-		}
-
-
-.row-buttons input.neato-button{
-	margin:0px !important;
-	padding: 6px 13px \0/IE8+9;
+	overflow: hidden;
+	float: left;
+	margin: 5px;
 }
 
-.change-password-buttons a.neato-button{
+.row-buttons input.neato-button {
+	margin: 0px !important;
+	padding: 6px 13px \0/IE8 +9;
+}
+
+.change-password-buttons a.neato-button {
 	padding-top: 5px !important;
 	padding-bottom: 5px !important;
-/* 	padding-top: 5px !important  \0/IE8+9; */
-	padding-bottom: 4px !important  \0/IE8+9;
+	/* 	padding-top: 5px !important  \0/IE8+9; */
+	padding-bottom: 4px !important \0/IE8 +9;
 }
 
 .top-buttons-container {
@@ -328,19 +328,18 @@ ul,li,menu,dir {
 .menu-user {
 	color: #999999;
 	float: right;
-	
 }
-.noAdminMenuUser{
+
+.noAdminMenuUser {
 	margin-top: 27px;
 }
 
-.adminMenuUser{
+.adminMenuUser {
 	float: right;
-	text-align:right;
-	width:	34%;
-        padding-top: 15px;
+	text-align: right;
+	width: 34%;
+	padding-top: 15px;
 }
-
 
 .menu-user a {
 	color: #999999;
@@ -364,7 +363,7 @@ ul,li,menu,dir {
 }
 
 .menu-hz>li {
-vertical-align :middle;
+	vertical-align: middle;
 }
 
 .menu-footer-default {
@@ -761,7 +760,6 @@ input,textarea {
 	overflow: hidden;
 	border: 1px solid #cccccc;
 	min-height: 465px;
-	width: 99.2%;
 }
 
 .data-container legend {
@@ -834,7 +832,7 @@ input,textarea {
 	word-wrap: break-word;
 }
 
-.pretty-table .pretty-table-center-td,.pretty-table .pretty-table-center-th, .robot_types-table td 
+.pretty-table .pretty-table-center-td,.pretty-table .pretty-table-center-th,.robot_types-table td
 	{
 	text-align: center;
 }
@@ -932,12 +930,11 @@ input,textarea {
 
 .btn-facebook {
 	margin-left: -3px;
-	height: 32px; 
+	height: 32px;
 	width: 199px;
 }
 
-a.neato-button, div.neato-button {
-	
+a.neato-button,div.neato-button {
 	min-width: 65px;
 }
 
@@ -976,7 +973,7 @@ table.detail-view {
 	clear: both;
 	font-weight: bold;
 	color: #33408E;
-	font-size: 14px;	
+	font-size: 14px;
 }
 
 .robot-data-table-separator {
@@ -988,20 +985,20 @@ table.detail-view {
 	padding-top: 10px;
 }
 
-.popup-container, .popup-container .popup-body{
+.popup-container,.popup-container .popup-body {
 	max-width: 548px;
 	min-width: 548px;
 	max-height: 353px;
 }
 
-.popup-container .popup-body{
+.popup-container .popup-body {
 	max-width: 538px;
 	min-width: 538px;
 	max-height: 348px;
 	min-height: 0px;
 }
 
-.popup-container .popup-body fieldset{
+.popup-container .popup-body fieldset {
 	max-width: 538px;
 	min-width: 538px;
 	max-height: 345px;
@@ -1079,8 +1076,8 @@ table.detail-view {
 	width: 100px;
 }
 
-.rounded-corners a.requires-confirmation-reset-password{
-    width:105px;
+.rounded-corners a.requires-confirmation-reset-password {
+	width: 105px;
 }
 
 a.user-neato-button {
@@ -1097,203 +1094,204 @@ a.user-neato-button {
 	width: 100px;
 }
 
-fieldset.robot-online-fieldset{
+fieldset.robot-online-fieldset {
 	min-height: 0px !important;
 }
 
 .list-add_app_version {
-    height: 56px;
+	height: 56px;
 }
 
 .notification_datagrid {
-    height: 40px;
+	height: 40px;
 }
 
 div.send_notification_container {
-    padding: 25px 5px;
+	padding: 25px 5px;
 }
 
-#message_to_send{
-    width:80%;
+#message_to_send {
+	width: 80%;
 }
 
 div.notification_by_device_type {
-    margin: 25px auto;
+	margin: 25px auto;
 }
 
 label.notification_filter_label {
-    margin-right: 15px;
-    font-size: 12px;
+	margin-right: 15px;
+	font-size: 12px;
 }
 
 div.send_notification_btn {
-    float: right;
-    margin: 10px 5px 0 0;
-    width: 100%;
+	float: right;
+	margin: 10px 5px 0 0;
+	width: 100%;
 }
 
 .neato-button_alt {
-    margin: 4px;
-    width: 70px;
-    border-radius: 15px;
+	margin: 4px;
+	width: 70px;
+	border-radius: 15px;
 }
 
-form#notification_form_data div#DataTables_Table_0_wrapper{
-    display: none;
+form#notification_form_data div#DataTables_Table_0_wrapper {
+	display: none;
 }
 
-div.space_for_notification_response{
-    font-size: 12px;
-    font-style: italic;
-    padding-bottom: 10px;
-    padding-left: 5px;
-    padding-top: 5px;
-    width: 850px;
+div.space_for_notification_response {
+	font-size: 12px;
+	font-style: italic;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	padding-top: 5px;
+	width: 850px;
 }
 
 .label-value_notification_history {
-    font-size: 12px;
-    width: 650px !important;
-    word-wrap: break-word;
-    line-height: 21px;
+	font-size: 12px;
+	width: 650px !important;
+	word-wrap: break-word;
+	line-height: 21px;
 }
 
-#notification_details{
-    overflow:auto;
-    max-height:550px;
-    font-size: 14px;
+#notification_details {
+	overflow: auto;
+	max-height: 550px;
+	font-size: 14px;
 }
 
-.device-entry-center-div{
-    margin: 0 auto;
-    text-align: center;
+.device-entry-center-div {
+	margin: 0 auto;
+	text-align: center;
 }
 
-.device-entry{
-    padding-bottom:10px;
-    font-size: 12px;
+.device-entry {
+	padding-bottom: 10px;
+	font-size: 12px;
 }
 
-.center-align-style{
-text-align: center;
- margin: 6px auto;
- width: 206px;
- position: relative;
- left: 19px;
+.center-align-style {
+	text-align: center;
+	margin: 6px auto;
+	width: 206px;
+	position: relative;
+	left: 19px;
 }
 
 div.href_download_file {
-    margin: 5px auto 0;
-    width: 142px;
+	margin: 5px auto 0;
+	width: 142px;
 }
 
 .notification_history_details {
-    color: blue !important;
-    cursor: pointer;
+	color: blue !important;
+	cursor: pointer;
 }
 
 div.validated_email_page {
-    text-align: center; 
-    padding: 100px;
+	text-align: center;
+	padding: 100px;
 }
 
 div.update_user_form {
-    margin: 25px auto !important;
-    width: 55%;
+	margin: 25px auto !important;
+	width: 55%;
 }
 
 .update_user_lable {
-    float: left;
-    margin-top: 8px;
-    width: 145px
+	float: left;
+	margin-top: 8px;
+	width: 145px
 }
 
-.update_user_input { 
-    margin: 0px;
+.update_user_input {
+	margin: 0px;
 }
 
 .update_user_radio {
-    margin: 3px 0px 0px 6px;
-    width: 60px;
+	margin: 3px 0px 0px 6px;
+	width: 60px;
 }
 
 .action_delete_reset {
-    height: 40px;
+	height: 40px;
 }
 
 .gcm_text_style {
-    font-family: monospace;
-    font-size: 11px;
+	font-family: monospace;
+	font-size: 11px;
 }
 
 .login_submit_btn {
-    height: 50px;
+	height: 50px;
 }
 
 .resend_validation_email_popup_class {
-    padding: 40px !important;
+	padding: 40px !important;
 }
 
 .email_resend_label_style {
-    margin-right: 20px;
+	margin-right: 20px;
 }
 
 .errorMessage {
-    color: red;
+	color: red;
 }
 
 .email_resend_input_style {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 .text_transform_none {
-    text-transform: none !important;
+	text-transform: none !important;
 }
 
 .neato_tab_my_profile {
-    margin-right: 4px;
+	margin-right: 4px;
 }
 
-.associate_user_btn{
-    width: 100px;
-    padding: 8px;
+.associate_user_btn {
+	width: 100px;
+	padding: 8px;
 }
 
 table.detail-view td {
-    word-break: break-all;
+	word-break: break-all;
 }
 
 .robot_type_label {
-    margin-right: 15px;
+	margin-right: 15px;
 }
 
 .robot_time_instruct {
-    color: gray; 
-    font-style: italic;
+	color: gray;
+	font-style: italic;
 }
 
 .paginate_button_disabled {
-    display: none;
+	display: none;
 }
 
-.dropdownlist select{
-    width: 66%;
+.dropdownlist select {
+	width: 66%;
 }
 
-.full-width{
-    width: 100%;
+.full-width {
+	width: 100%;
 }
 
-.checkbox-style{
-    position: relative;
-    top: 6px;
+.checkbox-style {
+	position: relative;
+	top: 6px;
 }
+
 .support-login-legend {
 	color: #DC4405;
-    font-size: 16px;
-    font-weight: bold;
-    padding-left: 5px;
-    padding-right: 5px;
+	font-size: 16px;
+	font-weight: bold;
+	padding-left: 5px;
+	padding-right: 5px;
 	padding: 5px;
 }
 
@@ -1314,12 +1312,12 @@ table.detail-view td {
 	box-shadow: 0 2px 4px #CCCCCC;
 }
 
-.support-form-row > .errorMessage {
+.support-form-row>.errorMessage {
 	left: 142px;
 	position: relative !important;
 }
 
-#is-robot-alive{
+#is-robot-alive {
 	display: none;
 }
 
@@ -1343,17 +1341,21 @@ table.detail-view td {
 	width: 100%;
 	border: 1px solid #DC4405 !important;
 }
-.support-login-form{
+
+.support-login-form {
 	padding-top: 55px;
 	padding-left: 55px;
-	padding-right: 55px; 
-	
+	padding-right: 55px;
 }
 
-div.form label{
-	text-transform: capitalize;	
+div.form label {
+	text-transform: capitalize;
 }
 
-.user-add-form-input{
+.user-add-form-input {
 	width: 36.6%;
+}
+
+.register-button {
+	height: 50px;
 }
