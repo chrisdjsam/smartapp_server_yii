@@ -46,7 +46,7 @@ class UniqueToken {
         $prime = $primes[$len];
         $dec = bcmod(bcmul($num, $prime), $ceil);
         $hash = self::base62($dec);
-        return str_pad($hash, $len, "0", STR_PAD_LEFT);
+        return strtoupper(str_pad($hash, $len, "0", STR_PAD_LEFT));
     }
  
     public static function unbase62($key) {

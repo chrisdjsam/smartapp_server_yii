@@ -283,8 +283,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .top-buttons-container {
-	float: right;
-	width: 300px;
+	padding-top: 12px;
+	margin-left: 59.45%;
 }
 
 .page-default {
@@ -353,8 +353,9 @@ ul,li,menu,dir {
 .adminMenuUser {
 	float: right;
 	text-align: right;
-	width: 34%;
+	width: 40%;
 	padding-top: 15px;
+	margin-right: 24px;
 }
 
 .menu-user a {
@@ -1537,4 +1538,26 @@ div.form label {
 
 .register-button {
 	height: 50px;
+}
+
+.unavailable {
+	margin: 20px auto;
+	width: 44%;
+}
+
+.support-menu-user {
+	padding-top: 50px;
+}
+
+.top-buttons {
+	width: 100px;
+}
+
+.remembe-me-check {
+	float: left;
+	margin-top: 2px;
+}
+
+.remembe-me-check input{
+	margin: 0 !important;
 }
