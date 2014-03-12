@@ -22,6 +22,7 @@ body {
 #content {
 	padding-left: 20px;
 	padding-right: 20px;
+	padding-bottom: 50px;
 }
 
 #sidebar {
@@ -337,8 +338,9 @@ ul,li,menu,dir {
 .adminMenuUser {
 	float: right;
 	text-align: right;
-	width: 34%;
+	width: 40%;
 	padding-top: 15px;
+	margin-right: 24px;
 }
 
 .menu-user a {
@@ -1358,4 +1360,18 @@ div.form label {
 
 .register-button {
 	height: 50px;
+}
+
+.unavailable {
+	margin: 20px auto;
+	width: 44%;
+}
+
+.remembe-me-check {
+	float: left;
+	margin-top: 1px;
+}
+
+.remembe-me-check input{
+	margin: 0 !important;
 }

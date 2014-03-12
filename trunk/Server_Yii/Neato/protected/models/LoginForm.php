@@ -24,7 +24,6 @@ class LoginForm extends CFormModel
 		return array(
 				// email and password are required
 				array('email, password', 'required'),
-//				array('email', 'email', 'checkMX'=>true),
 				// rememberMe needs to be a boolean
 				array('rememberMe', 'boolean'),
 				// password needs to be authenticated
@@ -37,20 +36,20 @@ class LoginForm extends CFormModel
 	 */
 	public function attributeLabels()
 	{
-	
-          if(!Yii::app()->params['is_wp_enabled']){
-               return array(
-                               'email'=>'Email',
-                               'password'=>'Password',
-                               'rememberMe'=>'Remember me next time',
-               );
-           }else{  
-                return array(
-                                    'email'=>'Username',
-                                    'password'=>'Password',
-                                    'rememberMe'=>'Remember me next time',
-                    );
-             }
+
+		if(!Yii::app()->params['is_wp_enabled']){
+			return array(
+					'email'=>'Email',
+					'password'=>'Password',
+					'rememberMe'=>'Remember me',
+			);
+		}else{
+			return array(
+					'email'=>'Username',
+					'password'=>'Password',
+					'rememberMe'=>'Remember me',
+			);
+		}
 	}
 
 	/**
@@ -69,31 +68,31 @@ class LoginForm extends CFormModel
 			}
 		}
 	}
-        
-        public function wpAuthenticateError(){
-            
-            $wperror = $_POST['errors'];
-            if(isset($wperror->incorrect_password)){
-               $error_message = $wperror->incorrect_password[0];
-            }
-            if(isset($wperror->invalid_username)){
-               $error_message = $wperror->invalid_username[0];
-            }
-            if(isset($wperror->empty_username)){
-               $error_message = $wperror->empty_username[0];
-            }
-            if(isset($wperror->empty_password)){
-               $error_message = $wperror->empty_password[0];
-            }
-            
-            if(empty($wperror)){
-                $error_message = 'The email and password field is empty';
-            }
-            
-        $this->addError('password',$error_message);
-        }
 
-                	/**
+	public function wpAuthenticateError(){
+
+		$wperror = $_POST['errors'];
+		if(isset($wperror->incorrect_password)){
+			$error_message = $wperror->incorrect_password[0];
+		}
+		if(isset($wperror->invalid_username)){
+			$error_message = $wperror->invalid_username[0];
+		}
+		if(isset($wperror->empty_username)){
+			$error_message = $wperror->empty_username[0];
+		}
+		if(isset($wperror->empty_password)){
+			$error_message = $wperror->empty_password[0];
+		}
+
+		if(empty($wperror)){
+			$error_message = 'The email and password field is empty';
+		}
+
+		$this->addError('password',$error_message);
+	}
+
+	/**
 	 * Logs in the user using the given username and password in the model.
 	 * @return boolean whether login is successful
 	 */
