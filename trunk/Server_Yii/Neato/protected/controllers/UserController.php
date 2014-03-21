@@ -150,14 +150,13 @@ class UserController extends Controller
 			$user_add_model->attributes = $_POST['UserAddForm'];
 			if ($user_add_model->validate()) {
 				$user_model = new User();
-					
+
 				$pass_word = $user_add_model->password;
 				$encrypted_pass_word = AppHelper::one_way_encrypt($pass_word);
 
 				$user_model->name = $user_add_model->name;
 				$user_model->email = $user_add_model->email;
 
-				// 				$user_model->is_admin = $_POST['UserAddForm']['is_admin'];
 				$user_role = Yii::app ()->request->getParam ( 'user_role', '' );
 
 				if($user_role == '-1'){
@@ -175,12 +174,9 @@ class UserController extends Controller
 
 				$user_model->is_admin = $is_admin;
 
-
-
 				$user_model->password = $encrypted_pass_word;
 				$user_model->reset_password = $encrypted_pass_word;
-					
-				//				$chat_details = AppCore::create_chat_user_for_user();
+
 				$chat_details = UserCore::create_chat_user_for_user();
 
 				if(!$chat_details['jabber_status']){
@@ -193,7 +189,7 @@ class UserController extends Controller
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
 
 				if($user_model->save()){
-						
+
 					$user_role_obj = new UserRole();
 					$user_role_obj->user_id = $user_model->id;
 					$user_role_obj->user_role_id = $user_role;
@@ -203,11 +199,10 @@ class UserController extends Controller
 								'model'=>$user_add_model,
 						));
 					}
-						
+
 					$msg = AppCore::yii_echo("adduser:ok",$user_name);
 					Yii::app()->user->setFlash('success', $msg);
-						
-					//                  AppCore::setDefaultUserPushNotificationOptions($user_model->id);
+
 					UserCore::setDefaultUserPushNotificationOptions($user_model->id);
 				}
 				$this->redirect(array('list'));
@@ -226,7 +221,6 @@ class UserController extends Controller
 	public function actionSupportLogin(){
 
 		$this->layout = 'support';
-		// 		$layout='//layouts/support';
 		if (!Yii::app()->user->getIsGuest()) {
 			$this->redirect(Yii::app()->user->returnUrl);
 		}
@@ -259,7 +253,7 @@ class UserController extends Controller
 				// validate user input and redirect to the userprofile page if valid
 				if($login_model->validate() && $login_model->login())
 				{
-					if(Yii::app()->user->UserRoleId == '3' && Yii::app()->params['is_customize']){
+					if(Yii::app()->user->UserRoleId == '3'){
 						$this->redirect(array('unavailable'));
 					}
 
@@ -268,7 +262,6 @@ class UserController extends Controller
 					$is_validated = (boolean)Yii::app()->user->isValidated;
 					$message = 'You have been logged in Successfully.';
 
-					//                                $grace_period = AppCore::getGracePeriod();
 					$grace_period = UserCore::getGracePeriod();
 
 					if(!$is_validated){
@@ -295,7 +288,6 @@ class UserController extends Controller
 					}
 					Yii::app()->user->setFlash('success', $message);
 					if(Yii::app()->user->isAdmin){
-						//$this->redirect(Yii::app()->user->returnUrl);
 						$this->redirect(array('/robot/list'));
 					}else{
 						$this->redirect(array('userprofile'));
@@ -348,7 +340,7 @@ class UserController extends Controller
 				if($login_model->validate() && $login_model->login())
 				{
 
-					if(Yii::app()->user->UserRoleId == '3' && Yii::app()->params['is_customize']){
+					if(Yii::app()->user->UserRoleId == '3'){
 						$this->redirect(array('unavailable'));
 					}
 
@@ -357,7 +349,6 @@ class UserController extends Controller
 					$is_validated = (boolean)Yii::app()->user->isValidated;
 					$message = 'You have been logged in Successfully.';
 
-					//                                $grace_period = AppCore::getGracePeriod();
 					$grace_period = UserCore::getGracePeriod();
 
 					if(!$is_validated){
@@ -384,8 +375,6 @@ class UserController extends Controller
 					}
 					Yii::app()->user->setFlash('success', $message);
 					if(Yii::app()->user->isAdmin){
-						//$this->redirect(Yii::app()->user->returnUrl);
-						// 					$this->redirect(array('list'));
 						$this->redirect(array('/robot/list'));
 					}else{
 						$this->redirect(array('userprofile'));
@@ -404,8 +393,6 @@ class UserController extends Controller
 	}
 
 	public function is_wpuser(){
-
-
 
 		$wp_user = $_POST['LoginForm'];
 		$url = Yii::app()->params['wordpress_api_url'].'?json=login';
@@ -438,14 +425,13 @@ class UserController extends Controller
 			$save_user_from_wp->opt_in = '1';
 			$save_user_from_wp->extram_param = json_encode($user_extram_param);
 			$save_user_from_wp->wp_id = isset($result->posts->data)? $result->posts->data->ID : '';
-			//                                $chat_details = AppCore::create_chat_user_for_user();
 			$chat_details = UserCore::create_chat_user_for_user();
 			if(!$chat_details['jabber_status']){
 				$message = "User could not be created because jabber service in not responding.";
 				Yii::app()->user->setFlash('warning', $message);
 				throw new CHttpException(501, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
 			}
-			 
+
 			$save_user_from_wp->password = $encrypted_pass_word;
 			$save_user_from_wp->reset_password = $encrypted_pass_word;
 			$save_user_from_wp->chat_id = $chat_details['chat_id'];
@@ -466,7 +452,7 @@ class UserController extends Controller
 
 					//need to work
 				}
-				 
+
 			}else{
 
 			}
@@ -506,7 +492,6 @@ class UserController extends Controller
 				$is_validated = (boolean)Yii::app()->user->isValidated;
 				$message = 'You have been logged in Successfully.';
 
-				//                                $grace_period = AppCore::getGracePeriod();
 				$grace_period = UserCore::getGracePeriod();
 
 				if(!$is_validated){
@@ -535,7 +520,6 @@ class UserController extends Controller
 
 				Yii::app()->user->setFlash('success', $message);
 				if(Yii::app()->user->isAdmin){
-					//$this->redirect(Yii::app()->user->returnUrl);
 					$this->redirect(array('list'));
 				}else{
 					$this->redirect(array('userprofile'));
@@ -608,7 +592,7 @@ class UserController extends Controller
 
 			if ($registration_model->validate()) {
 				$user_model = new User();
-					
+
 				$pass_word = $registration_model->password;
 				$encrypted_pass_word = AppHelper::one_way_encrypt($pass_word);
 
@@ -618,12 +602,9 @@ class UserController extends Controller
 				$user_model->opt_in = $_POST['User']['opt_in'];
 				$user_model->extram_param = json_encode($user_extram_param);
 
-				//                                $user_model->alternate_email = $registration_model->alternate_email;
-					
 				$user_model->password = $encrypted_pass_word;
 				$user_model->reset_password = $encrypted_pass_word;
-					
-				//				$chat_details = AppCore::create_chat_user_for_user();
+
 				$chat_details = UserCore::create_chat_user_for_user();
 				if(!$chat_details['jabber_status']){
 					$message = "User could not be created because jabber service in not responding.";
@@ -637,15 +618,13 @@ class UserController extends Controller
 				$user_role = '3'; //set deafult role as normal user
 				//				$login_link = $this->createUrl("/user/login");
 				if($user_model->save()){
-						
+
 					$user_role_obj = new UserRole();
 					$user_role_obj->user_id = $user_model->id;
 					$user_role_obj->user_role_id = $user_role;
 					if(!$user_role_obj->save()){
 						Yii::app()->user->setFlash('success', 'user role not saved');
 					}
-						
-					//					AppEmail::emailWelcomeNewUser($email, $user_name, $new_password, $login_link);
 
 					// update extra attribute of user
 					$user_id = $user_model->id;
@@ -704,7 +683,6 @@ class UserController extends Controller
 			if($user_model !== null ){
 				$chat_id = $user_model->chat_id;
 				if($user_model->delete()){
-					//					AppCore::delete_chat_user($chat_id);
 					RobotCore::delete_chat_user($chat_id);
 					$message = AppCore::yii_echo("You have deleted a user successfully");
 					Yii::app()->user->setFlash('success', $message);
@@ -718,7 +696,6 @@ class UserController extends Controller
 					if($user_model !== null ){
 						$chat_id = $user_model->chat_id;
 						if($user_model->delete()){
-							//							AppCore::delete_chat_user($chat_id);
 							RobotCore::delete_chat_user($chat_id);
 						}
 					}
@@ -909,7 +886,7 @@ class UserController extends Controller
 			} else {
 				AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link);
 			}
-				
+
 			Yii::app()->user->setFlash('success', AppCore::yii_echo("You have successfully reset password of user %s.",$user_name));
 			$this->redirect($this->createUrl('user/userprofile',array('h'=>$h_id)));
 		}
