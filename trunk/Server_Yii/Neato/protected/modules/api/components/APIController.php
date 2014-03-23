@@ -6,67 +6,59 @@
  *
  */
 class APIController extends Controller {
-    
-    
-        /**
+
+	/**
 	 * Custom code to handle all errors and exceptions of API Controllers.
 	 */
-        public function init() {
-            parent::init();
+	public function init() {
+		parent::init();
 
-            Yii::app()->attachEventHandler('onError', array($this, 'handleError'));
-            Yii::app()->attachEventHandler('onException', array($this, 'handleError'));
-        }
+		Yii::app()->attachEventHandler('onError', array($this, 'handleError'));
+		Yii::app()->attachEventHandler('onException', array($this, 'handleError'));
+	}
 
-        public function handleError(CEvent $event) {
-            if ($event instanceof CExceptionEvent) {
+	public function handleError(CEvent $event) {
+		if ($event instanceof CExceptionEvent) {
 
-                // handle exception
-                self::terminate(-1, $event->exception->getMessage());
-                
-            } elseif ($event instanceof CErrorEvent) {
+			// handle exception
+			self::terminate(-1, $event->exception->getMessage());
 
-                // handle error
-                self::terminate(-1, $event->message);
-                
-            }
+		} elseif ($event instanceof CErrorEvent) {
 
-            $event->handled = TRUE;
-        }
-        
-        /**
-         * Override beforeAction mathod to set user session data
-         * @param type $action
-         * @return boolean
-         */
-        function beforeAction($action) {
-            parent::beforeAction($action);
-            
-            Yii::app()->params['start_time'] = round(microtime(true) * 1000);
-            
-            return true;
-            
-        }
+			// handle error
+			self::terminate(-1, $event->message);
 
-    /**
+		}
+
+		$event->handled = TRUE;
+	}
+
+	/**
+	 * Override beforeAction mathod to set user session data
+	 * @param type $action
+	 * @return boolean
+	 */
+	function beforeAction($action) {
+		parent::beforeAction($action);
+
+		Yii::app()->params['start_time'] = round(microtime(true) * 1000);
+
+		return true;
+
+	}
+
+	/**
 	 * Common code to all API Controllers to terminate API call with an error
-	 *
-	 * @param  $errorCode
-	 * @param  $message
-	 * @param  $callback
 	 */
 	protected function terminate($status, $message, $errorCode = 0, $callback = '') {
-            $content = array('status' => $status, 'message' => $message, 'error' => array('code' => $errorCode, 'message' => APIConstant::getMessageForErrorCode($errorCode)));
-            AppCore::ws_log_details(0, $content);
+		$content = array('status' => $status, 'message' => $message, 'error' => array('code' => $errorCode, 'message' => APIConstant::getMessageForErrorCode($errorCode)));
+		AppCore::ws_log_details(0, $content);
 		$this->renderPartial('/default/defaultView', array('callback' => $callback, 'content' => $content));
 		Yii::app()->end();
 	}
 
 	/**
 	 * Common code to all API Controllers to terminate API call with an success response
-	 *
-	 * @param  $message
-	 * @param  $callback
 	 */
 	protected function success($response_data) {
 		$content = array('status' => 0, 'result' => $response_data);
@@ -74,8 +66,8 @@ class APIController extends Controller {
 		$this->renderPartial('/default/defaultView', array('content' => $content));
 		Yii::app()->end();
 	}
-        
-        /**
+
+	/**
 	 *
 	 * @param  $response_data
 	 * @param  $extra_param
@@ -127,8 +119,7 @@ class APIController extends Controller {
 			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 		}
 	}
-	
-	
+
 	/**
 	 * Common code to all API Controllers to check existence of user for provided id, if not terminate with error messge
 	 * @param int $id_user
@@ -136,7 +127,7 @@ class APIController extends Controller {
 	 * @return object of cactiverecord for user
 	 */
 	protected function verify_for_user_id_existence($id_user, $prevent_termination = false){
-		
+
 		$user = User::model()->findByPk($id_user);
 		if($user !== null ){
 			return $user;
@@ -146,8 +137,7 @@ class APIController extends Controller {
 			self::terminate(-1, $response_message, APIConstant::USER_ID_NOT_FOUND);
 		}
 	}
-	
-	
+
 	/**
 	 * Common code to all API Controllers to check repetition, if not terminate with error messge
 	 * @param int $robot_map_id
@@ -156,7 +146,7 @@ class APIController extends Controller {
 	protected function verify_for_robot_atlas_repetition($robot_serial_no){
 		$robot = Robot::model()->findByAttributes(array('serial_number' => $robot_serial_no));
 		if($robot !== null ){
-			
+
 			if($robot->robotAtlas){
 				$response_message = self::yii_api_echo('Robot can have only one atlas');
 				self::terminate(-1, $response_message, APIConstant::ATLAS_ALREADY_ADDED);
@@ -169,7 +159,6 @@ class APIController extends Controller {
 			self::terminate(-1, $response_message, APIConstant::SERIAL_NUMBER_DOES_NOT_EXIST);
 		}
 	}
-			
 
 	/**
 	 * Common code to all API Controllers to check existence of robot map for provided map id, if not terminate with error messge
@@ -218,7 +207,7 @@ class APIController extends Controller {
 			self::terminate(-1, $response_message, APIConstant::GRID_IMAGE_DOES_NOT_EXIST_FOR_ATLAS_ID_AND_GRID_ID);
 		}
 	}
-	
+
 	/**
 	 * Common code to all API Controllers to check existence of atlas grid image for provided atlas id and user specified grid id, if not terminate with error messge
 	 * @param int $id_atlas
@@ -232,7 +221,9 @@ class APIController extends Controller {
 			return $atlas_grid_image;
 		}
 		else{
-			if($prevent_termination === true) {return null;}
+			if($prevent_termination === true) {
+				return null;
+			}
 			$response_message = self::yii_api_echo('Combination of atlas id and grid id does not exist');
 			self::terminate(-1, $response_message, APIConstant::GRID_IMAGE_DOES_NOT_EXIST_FOR_ATLAS_ID_AND_GRID_ID);
 		}
@@ -242,7 +233,7 @@ class APIController extends Controller {
 	 * Common code to all API Controllers to check if provided id is empty / blank, if not terminate with error messge
 	 * @param int $id_grid
 	 * @return provided $id_grid after trimming spaces
-	 */	
+	 */
 	protected function verify_for_empty_grid_id($id_grid){
 		if(trim($id_grid) == ""){
 			$response_message = self::yii_api_echo('id_grid should contain atleast one character or number .');
@@ -257,20 +248,20 @@ class APIController extends Controller {
 	 * @param int $id_atlas
 	 * @param String $id_grid
 	 * @return object of cactiverecord for atlas grid image
-	 */	
+	 */
 	protected function verify_for_atlas_id_grid_id_repetition($id_atlas,$id_grid){
 		$atlas_grid_image= AtlasGridImage::model()->find('id_atlas = :id_atlas AND id_grid = :id_grid',array('id_atlas'=>$id_atlas ,'id_grid' => $id_grid));
 		if($atlas_grid_image !== null ){
-			
+
 			$response_message = self::yii_api_echo('Combination of atlas id and grid id exist. Try updating for same.');
 			self::terminate(-1, $response_message, APIConstant::GRID_IMAGE_EXISTS_FOR_ATLAS_ID_AND_GRID_ID);
-			
+
 		}
 		else{
 			return $atlas_grid_image;
 		}
 	}
-	
+
 	/**
 	 * Common code to all API Controllers to check existence of robot schedule for provided schedule id, if not terminate with error messge
 	 * @param int $robot_schedule_id
@@ -317,8 +308,7 @@ class APIController extends Controller {
 			self::terminate(-1, $response_message, APIConstant::ROBOT_CUSTOM_ID_NOT_EXIST);
 		}
 	}
-	
-	
+
 	/**
 	 * Common code to all API Controllers to check existence of robot custom for provided custom id, if not terminate with error messge
 	 * @param int $robot_custom_id

@@ -27,7 +27,7 @@ class RestController extends APIController {
 		$_REQUEST['response_type'] = 'XML';
 		self::api_init();
 	}
-        
+
 	/**
 	 * It will expose all the functions for API calls
 	 * Then invoke the authenticate_method and excute_method
@@ -54,8 +54,8 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
-                 self::expose_function('auth.get_user_auth_token',
+
+		self::expose_function('auth.get_user_auth_token',
 				"user/GetAuthToken2",
 				array( 'account_type' => array ('type' => 'string', 'required' => true),
 						'email' => array ('type' => 'string', 'required' => ''),
@@ -66,11 +66,11 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
-		
+
+
 		self::expose_function('user.change_password',
 				"user/ChangePassword",
-				array( 
+				array(
 						'password_new' => array ('type' => 'string', 'required' => true),
 						'password_old' => array ('type' => 'string', 'required' => true),
 				),
@@ -78,7 +78,7 @@ class RestController extends APIController {
 				'POST',
 				true,
 				true);
-		
+
 		self::expose_function('user.forget_password',
 				"user/ForgetPassword",
 				array(
@@ -88,22 +88,20 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-		
+
 
 		self::expose_function('user.check_for_upgrades',
 				"app/CheckForUpgrades",
 				array('app_id' => array ('type' => 'string', 'required' => true),
-				'current_appversion' => array ('type' => 'string', 'required' => false),
-				'os_type' => array ('type' => 'string', 'required' => false),
-				'os_version' => array ('type' => 'string', 'required' => false),
+						'current_appversion' => array ('type' => 'string', 'required' => false),
+						'os_type' => array ('type' => 'string', 'required' => false),
+						'os_version' => array ('type' => 'string', 'required' => false),
 				),
 				"Check for upgrade for application.",
 				'POST',
 				true,
 				false);
-		
-		
-		
+
 		self::expose_function('user.create',
 				"user/create",
 				array('name' => array ('type' => 'string'),
@@ -117,12 +115,12 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
+
 		self::expose_function('user.create2',
 				"user/create2",
 				array('name' => array ('type' => 'string'),
 						'email' => array ('type' => 'string', 'default' => ''),
-                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
+						'alternate_email' => array ('type' => 'string', 'default' => ''),
 						'password' => array ('type' => 'string', 'required' => true),
 						'account_type' => array ('type' => 'string'),
 						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
@@ -132,32 +130,33 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                self::expose_function('user.create3',
+
+		self::expose_function('user.create3',
 				"user/create3",
 				array('name' => array ('type' => 'string'),
 						'email' => array ('type' => 'string', 'default' => ''),
-                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
+						'alternate_email' => array ('type' => 'string', 'default' => ''),
 						'password' => array ('type' => 'string', 'required' => true),
 						'account_type' => array ('type' => 'string'),
 						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
 						'social_additional_attributes' => array('type'=>'array', 'default'=>array()),
-                                                'extra_param' => array ('type' => 'string', 'default' => ''),
+						'extra_param' => array ('type' => 'string', 'default' => ''),
 				),
 				"Register user",
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('user.create4',
+
+		self::expose_function('user.create4',
 				"user/create4",
 				array('name' => array ('type' => 'string'),
 						'email' => array ('type' => 'string', 'default' => ''),
-                                                'alternate_email' => array ('type' => 'string', 'default' => ''),
+						'alternate_email' => array ('type' => 'string', 'default' => ''),
 						'password' => array ('type' => 'string', 'required' => true),
 						'account_type' => array ('type' => 'string'),
 						'external_social_id' => array ('type' => 'string', 'required' => false, 'default'=>""),
 						'social_additional_attributes' => array('type'=>'array', 'default'=>array()),
-                                                'extra_param' => array ('type' => 'string', 'default' => ''),
+						'extra_param' => array ('type' => 'string', 'default' => ''),
 				),
 				"Register user",
 				'POST',
@@ -173,7 +172,7 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                                
+
 		self::expose_function('user.ResendValidationEmail',
 				"user/resendValidationEmail",
 				array(
@@ -183,7 +182,7 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
+
 		self::expose_function('user.set_account_details',
 				"user/SetAccountDetails",
 				array('email' => array ('type' => 'string','required' => true),
@@ -192,9 +191,8 @@ class RestController extends APIController {
 				'POST',
 				true,
 				true);
-		
-		
-                self::expose_function('user.get_country_code',
+
+		self::expose_function('user.get_country_code',
 				"user/getCountryCode",
 				array('country_name' => array ('type' => 'string', 'required' => false),
 				),
@@ -202,18 +200,17 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
-                
+
 		self::expose_function('user.set_attributes',
 				"user/SetAttributes",
 				array('auth_token' => array ('type' => 'string', 'required' => true),
 						'profile' => array ('type' => 'array'),),
-				
+
 				'Set attributes like device type and version.',
 				'POST',
 				true,
 				true);
-		
+
 		self::expose_function('user.get_attributes',
 				"user/GetAttributes",
 				array(
@@ -223,10 +220,7 @@ class RestController extends APIController {
 				'POST',
 				true,
 				true);
-		
-		
-		
-		
+
 		self::expose_function('user.get_user_account_details',
 				"user/GetAccountDetails",
 				array('email' => array ('type' => 'string','required' => false),
@@ -271,16 +265,15 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('user.get_error_code',
+
+		self::expose_function('user.get_error_code',
 				"user/getErrorCode",
-				array('error_code' => array ('type' => 'string', 'required' => false),						
+				array('error_code' => array ('type' => 'string', 'required' => false),
 				),
 				"Error message detail from error code",
 				'POST',
 				true,
 				false);
-                
 
 		self::expose_function('robot.create',
 				"robot/create",
@@ -291,18 +284,18 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('robot.create2',
+
+		self::expose_function('robot.create2',
 				"robot/create2",
 				array('serial_number' => array ('type' => 'string', 'required' => true),
 						'name' => array ('type' => 'string',  'required' => false),
-                                                'robot_type' => array ('type' => 'string', 'required' => false),
+						'robot_type' => array ('type' => 'string', 'required' => false),
 				),
 				"Create Robot 2",
 				'POST',
 				true,
 				false);
-		
+
 		self::expose_function('robot.is_online',
 				"robot/isOnline",
 				array('serial_number' => array ('type' => 'string', 'required' => true),
@@ -319,7 +312,7 @@ class RestController extends APIController {
 				"Get Robot Presence Status",
 				'POST',
 				true,
-				false);                
+				false);
 
 		self::expose_function('robot.is_robot_online_virtual',
 				"robot/isRobotOnlineVirtual",
@@ -328,196 +321,175 @@ class RestController extends APIController {
 				"Is Robot Online Virtual",
 				'POST',
 				true,
-				false);                                
-                
+				false);
+
 		self::expose_function('robot.ping_from_robot',
 				"robot/pingFromRobot",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
-                                    'status' => array ('type' => 'string', 'default'=>''),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'status' => array ('type' => 'string', 'default'=>''),
 				),
 				"Get Robot Presence Status",
 				'POST',
 				true,
-				false);                                
-                
+				false);
+
 		self::expose_function('robot.get_robot_type_metadata_using_type',
 				"robot/getRobotTypeMetadataUsingType",
 				array(
-                                    'robot_type' => array ('type' => 'string', 'required' => true),
+						'robot_type' => array ('type' => 'string', 'required' => true),
 				),
 				"Get Robot Type Metadata Using Robot Type",
 				'POST',
 				true,
-				false);                                                
+				false);
 
 		self::expose_function('robot.get_robot_type_metadata_using_id',
 				"robot/getRobotTypeMetadataUsingId",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
 				),
 				"Get Robot Type Metadata Using Robot Id",
 				'POST',
 				true,
-				false);                                                
-                
+				false);
+
 		self::expose_function('robot.set_robot_configuration',
 				"robot/setRobotConfiguration",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
-                                    'sleep_time' => array ('type' => 'string', 'required' => true),
-                                    'wakeup_time' => array ('type' => 'string', 'required' => true),
-                                    'config_key_value' => array ('type' => 'array', 'default' => array()),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'sleep_time' => array ('type' => 'string', 'required' => true),
+						'wakeup_time' => array ('type' => 'string', 'required' => true),
+						'config_key_value' => array ('type' => 'array', 'default' => array()),
 				),
 				"Set Robot Configuration",
 				'POST',
 				true,
-				false); 
-                
-                self::expose_function('robot.set_robot_configuration2',
+				false);
+
+		self::expose_function('robot.set_robot_configuration2',
 				"robot/setRobotConfiguration2",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
-                                    'sleep_time' => array ('type' => 'string', 'required' => true),
-                                    'wakeup_time' => array ('type' => 'string', 'required' => true),
-                                    'robot_type' => array ('type' => 'string', 'required' => false),
-                                    'config_key_value' => array ('type' => 'array', 'default' => array()),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'sleep_time' => array ('type' => 'string', 'required' => true),
+						'wakeup_time' => array ('type' => 'string', 'required' => true),
+						'robot_type' => array ('type' => 'string', 'required' => false),
+						'config_key_value' => array ('type' => 'array', 'default' => array()),
 				),
 				"Set Robot Configuration 2",
 				'POST',
 				true,
-				false); 
+				false);
 
 		self::expose_function('robot.get_robot_configuration',
 				"robot/getRobotConfiguration",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
 				),
 				"Get Robot Configuration",
 				'POST',
 				true,
-				false);                                                                
+				false);
 
-//		self::expose_function('robot.get_token_for_robot_user_association',
-//				"robot/getTokenForRobotUserAssociation",
-//				array(
-//                                    'serial_number' => array ('type' => 'string', 'required' => true),
-//				),
-//				"Get Token for Robot-User Association",
-//				'POST',
-//				true,
-//				false);                                                                
-                
-                self::expose_function('robot.clear_robot_association',
+		self::expose_function('robot.clear_robot_association',
 				"robot/ClearRobotAssociation",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
-                                    'email' => array ('type' => 'string', 'required' => true),
-                                    'is_delete' => array('type' => 'string', 'required'=> true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'email' => array ('type' => 'string', 'required' => true),
+						'is_delete' => array('type' => 'string', 'required'=> true),
 				),
 				"Clear Robot Association",
 				'POST',
 				true,
-				false);                                                                
-                
-//		self::expose_function('robot.robot_user_association_by_token',
-//				"robot/robotUserAssociationByToken",
-//				array(
-//                                    'email' => array ('type' => 'string', 'required' => true),
-//                                    'linking_code' => array ('type' => 'string', 'required' => true),
-//				),
-//				"Initiate Link To Robot",
-//				'POST',
-//				true,
-//				false); 
-                self::expose_function('robot.request_link_code',
+				false);
+
+		self::expose_function('robot.request_link_code',
 				"robot/RequestLinkCode",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
 				),
 				"request_link_code",
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('robot.initiate_link_to_robot',
+
+		self::expose_function('robot.initiate_link_to_robot',
 				"robot/InitiateLinkToRobot",
 				array(
-                                    'email' => array ('type' => 'string', 'required' => true),
-                                    'linking_code' => array ('type' => 'string', 'required' => true),
+						'email' => array ('type' => 'string', 'required' => true),
+						'linking_code' => array ('type' => 'string', 'required' => true),
 				),
 				"Initiate Link To Robot",
 				'POST',
 				true,
-				false);  
-                
-                self::expose_function('robot.link_to_robot',
+				false);
+
+		self::expose_function('robot.link_to_robot',
 				"robot/LinkToRobot",
 				array(
-                                    'email' => array ('type' => 'string', 'required' => true),
-                                    'linking_code' => array ('type' => 'string', 'required' => true),
+						'email' => array ('type' => 'string', 'required' => true),
+						'linking_code' => array ('type' => 'string', 'required' => true),
 				),
 				"Link To Robot",
 				'POST',
 				true,
-				false);  
-                
-                self::expose_function('robot.confirm_linking',
+				false);
+
+		self::expose_function('robot.confirm_linking',
 				"robot/ConfirmLinking",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
-                                    'linking_code' => array ('type' => 'string', 'required' => true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'linking_code' => array ('type' => 'string', 'required' => true),
 				),
 				"Confirm Linking",
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('robot.reject_linking',
+
+		self::expose_function('robot.reject_linking',
 				"robot/RejectLinking",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
-                                    'linking_code' => array ('type' => 'string', 'required' => true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'linking_code' => array ('type' => 'string', 'required' => true),
 				),
 				"Reject Linking",
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('robot.cancel_linking',
+
+		self::expose_function('robot.cancel_linking',
 				"robot/CancelLinking",
 				array(
-                                    'serial_number' => array ('type' => 'string', 'required' => true),
-//                                    'token' => array ('type' => 'string', 'required' => true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						//                                    'token' => array ('type' => 'string', 'required' => true),
 				),
 				"Cancel Linking",
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('robot.health_check',
-                "robot/AliveRobot",
-                array(
-                				'serial_number' => array ('type' => 'string', 'required' => true),
-                ),
-                "Alive Robot",
-                'POST',
-                true,
-                false);
-                
+
+		self::expose_function('robot.health_check',
+				"robot/AliveRobot",
+				array(
+						'serial_number' => array ('type' => 'string', 'required' => true),
+				),
+				"Alive Robot",
+				'POST',
+				true,
+				false);
+
 		self::expose_function('message.send_xmpp_message_to_robot',
 				"message/SendXmppMessageToRobot",
 				array(
-				'user_id' => array ('type' => 'string', 'required' => true),
-				'serial_number' => array ('type' => 'string', 'required' => true),
-				'message' => array ('type' => 'string', 'required' => true),
+						'user_id' => array ('type' => 'string', 'required' => true),
+						'serial_number' => array ('type' => 'string', 'required' => true),
+						'message' => array ('type' => 'string', 'required' => true),
 				),
 				"send message to robot",
 				'POST',
 				true,
 				false);
-		
-		
+
 		self::expose_function('message.send_message_to_associated_users',
 				"message/SendMessageToAssociatedUsers",
 				array(
@@ -540,9 +512,9 @@ class RestController extends APIController {
 				"send message to associated users",
 				'POST',
 				true,
-				false);                
-                
-                self::expose_function('message.send_notification_to_given_registration_ids',
+				false);
+
+		self::expose_function('message.send_notification_to_given_registration_ids',
 				"message/SendNotificationToGivenRegistrationIds",
 				array(
 						'registration_ids' => array ('type' => 'array', 'default'=>array()),
@@ -553,7 +525,7 @@ class RestController extends APIController {
 				true,
 				false);
 
-                self::expose_function('message.send_notification_to_all_users_of_robot2',
+		self::expose_function('message.send_notification_to_all_users_of_robot2',
 				"message/SendNotificationToAllUsersOfRobot2",
 				array(
 						'serial_number' => array ('type' => 'array', 'required' => true),
@@ -562,9 +534,9 @@ class RestController extends APIController {
 				"send notification to associated users",
 				'POST',
 				true,
-				false);                
-                
-                self::expose_function('message.send_notification_to_given_emails',
+				false);
+
+		self::expose_function('message.send_notification_to_given_emails',
 				"message/SendNotificationToGivenEmails",
 				array(
 						'emails' => array ('type' => 'array', 'default'=>array()),
@@ -573,25 +545,23 @@ class RestController extends APIController {
 				"send notification to associated users",
 				'POST',
 				true,
-				false);                
-                
-                
-                self::expose_function('message.notification_registration',
+				false);
+
+		self::expose_function('message.notification_registration',
 				"message/notificationRegistration",
 				array(
-                                                'user_email' => array ('type' => 'string', 'required' => true),
+						'user_email' => array ('type' => 'string', 'required' => true),
 						'registration_id' => array ('type' => 'string', 'required' => true),
 						'device_type' => array ('type' => 'string', 'required' => true),
-                                                'application_id' => array ('type' => 'string', 'required' => false),
-                                                'notification_server_type' => array ('type' => 'string', 'required' => false),
+						'application_id' => array ('type' => 'string', 'required' => false),
+						'notification_server_type' => array ('type' => 'string', 'required' => false),
 				),
 				"Store Registration Id To Send Notification",
 				'POST',
 				true,
 				false);
-                
-                
-                self::expose_function('message.notification_unregistration',
+
+		self::expose_function('message.notification_unregistration',
 				"message/notificationUnRegistration",
 				array(
 						'registration_id' => array ('type' => 'string', 'required' => true),
@@ -600,19 +570,19 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('message.set_user_push_notification_options',
+
+		self::expose_function('message.set_user_push_notification_options',
 				"message/setUserPushNotificationOptions",
 				array(
 						'email' => array ('type' => 'string', 'required' => true),
-                                                'json_object' => array ('type' => 'string', 'required' => true),
+						'json_object' => array ('type' => 'string', 'required' => true),
 				),
 				"Set User Push Notification Options",
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('message.get_user_push_notification_options',
+
+		self::expose_function('message.get_user_push_notification_options',
 				"message/getUserPushNotificationOptions",
 				array(
 						'email' => array ('type' => 'string', 'required' => true),
@@ -620,82 +590,59 @@ class RestController extends APIController {
 				"Get User Push Notification Options",
 				'POST',
 				true,
-				false);                
-				
-				
-//		self::expose_function('robot.set_profile_details',
-//				"robot/SetProfileDetails",
-//				array('serial_number' => array ('type' => 'string','required' => true),
-//				'profile' => array ('type' => 'array'),),
-//				"Set profile details",
-//				'POST',
-//				false,
-//				false);
-
-//		self::expose_function('robot.set_profile_details2',
-//				"robot/SetProfileDetails2",
-//				array('serial_number' => array ('type' => 'string','required' => true),
-//                                'source_serial_number' => array ('type' => 'string','default' => ''),
-//                                'source_smartapp_id' => array ('type' => 'string','default' => ''),
-//                                'value_extra' => array ('type' => 'string','default' => ''),
-//				'profile' => array ('type' => 'array'),),
-//				"Set profile details 2",
-//				'POST',
-//				false,
-//				false);               
+				false);
 
 		self::expose_function('robot.set_profile_details3',
 				"robot/SetProfileDetails3",
 				array('serial_number' => array ('type' => 'string','required' => true),
-                                'source_serial_number' => array ('type' => 'string','default' => ''),
-                                'source_smartapp_id' => array ('type' => 'string','default' => ''),
-                                'cause_agent_id' => array ('type' => 'string','required' => true),
-                                'value_extra' => array ('type' => 'string','default' => ''),
-                                'notification_flag' => array ('type' => 'string','default' => '1'),
-				'profile' => array ('type' => 'array'),),
+						'source_serial_number' => array ('type' => 'string','default' => ''),
+						'source_smartapp_id' => array ('type' => 'string','default' => ''),
+						'cause_agent_id' => array ('type' => 'string','required' => true),
+						'value_extra' => array ('type' => 'string','default' => ''),
+						'notification_flag' => array ('type' => 'string','default' => '1'),
+						'profile' => array ('type' => 'array'),),
 				"Set profile details 3",
 				'POST',
 				false,
-				false);               
-                
+				false);
+
 		self::expose_function('robot.get_profile_details',
 				"robot/GetProfileDetails",
 				array(
-                                        'serial_number' => array ('type' => 'string','required' => true),
-                                        'key' => array ('type' => 'string','default' => ''),
-                                     ),
+						'serial_number' => array ('type' => 'string','required' => true),
+						'key' => array ('type' => 'string','default' => ''),
+				),
 				"Get profile details",
 				'POST',
 				false,
-				false);                
-                
+				false);
+
 		self::expose_function('robot.get_profile_details2',
 				"robot/GetProfileDetails2",
 				array(
-                                        'serial_number' => array ('type' => 'string','required' => true),
-                                        'key' => array ('type' => 'string','default' => ''),
-                                     ),
+						'serial_number' => array ('type' => 'string','required' => true),
+						'key' => array ('type' => 'string','default' => ''),
+				),
 				"Get profile details",
 				'POST',
 				false,
-				false);                
-                
-                
+				false);
+
 		self::expose_function('robot.delete_robot_profile_key2',
 				"robot/DeleteRobotProfileKey2",
 				array(
-                                        'serial_number' => array ('type' => 'string','required' => true),
-                                        'key' => array ('type' => 'string','required' => true),
-                                        'cause_agent_id' => array ('type' => 'string','required' => true),
-                                        'source_serial_number' => array ('type' => 'string','default' => ''),
-                                        'source_smartapp_id' => array ('type' => 'string','default' => ''),
-                                        'notification_flag' => array ('type' => 'string','default' => '1'),
-                                     ),
+						'serial_number' => array ('type' => 'string','required' => true),
+						'key' => array ('type' => 'string','required' => true),
+						'cause_agent_id' => array ('type' => 'string','required' => true),
+						'source_serial_number' => array ('type' => 'string','default' => ''),
+						'source_smartapp_id' => array ('type' => 'string','default' => ''),
+						'notification_flag' => array ('type' => 'string','default' => '1'),
+				),
 				"Delete robot profile key 2",
 				'POST',
 				false,
-				false);                
-                
+				false);
+
 		self::expose_function('robot.get_details',
 				"robot/getDetails",
 				array('serial_number' => array ('type' => 'string', 'required' => true)),
@@ -703,8 +650,7 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-		
-		
+
 		self::expose_function('robot.delete',
 				"robot/delete",
 				array('serial_number' => array ('type' => 'string', 'required' => true)),
@@ -712,7 +658,6 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-		
 
 		self::expose_function('robot.get_associated_users',
 				"robot/GetAssociatedUser",
@@ -744,9 +689,6 @@ class RestController extends APIController {
 				'username' => array ('type' => 'string'),
 				'password' => array ('type' => 'string', 'required' => true, 'default' => "9999"),),
 				"test login expose", "POST", true, false);
-	
-		
-
 
 		self::expose_function('robotschedule.post_data',
 				"robotSchedule/PostData",
@@ -802,12 +744,12 @@ class RestController extends APIController {
 				'POST',
 				true,
 				false);
-                
-                self::expose_function('robotschedule.get_schedule_based_on_type',
+
+		self::expose_function('robotschedule.get_schedule_based_on_type',
 				"robotSchedule/getScheduleBasedOnType",
 				array(
-                                    'robot_serial_number' => array ('type' => 'string','required' => true),
-                                    'schedule_type' => array ('type' => 'string','required' => true),
+						'robot_serial_number' => array ('type' => 'string','required' => true),
+						'schedule_type' => array ('type' => 'string','required' => true),
 				),
 				"Get Schedule Based On Type",
 				'POST',
@@ -820,11 +762,9 @@ class RestController extends APIController {
 						'encoded_blob_data' => array ('type' => 'array','required' => false),
 						'blob_data' => array ('type' => 'array','required' => false),
 				),
-
 				"Set robot custom data",
 				'POST',
 				true,
-
 				false);
 
 		self::expose_function('robot.get_customs',
@@ -840,7 +780,6 @@ class RestController extends APIController {
 				"robotCustom/GetData",
 				array('robot_custom_id' => array ('type' => 'string', 'required' => true),
 				),
-
 				"Pass on a robot custom id ",
 				'POST',
 				true,
@@ -853,7 +792,6 @@ class RestController extends APIController {
 						'encoded_blob_data' => array ('type' => 'array','required' => false),
 						'blob_data' => array ('type' => 'array','required' => false),
 				),
-
 				"Pass on a robot custom id, data version, encoded_blob_data, blob_data",
 				'POST',
 				true,
@@ -863,31 +801,25 @@ class RestController extends APIController {
 				"robotCustom/DeleteData",
 				array('robot_custom_id' => array ('type' => 'string', 'required' => true),
 				),
-
 				"Delete robot custom data",
 				'POST',
 				true,
 				false);
 
-                
-                self::expose_function('user.creatuserthree',
+		self::expose_function('user.creatuserthree',
 				"user/creatuserthree",
-				array('user_name' => array ('type' => 'string', 'required' => false), 'email' => array('type'=> 'string', 'required' => false)						
+				array('user_name' => array ('type' => 'string', 'required' => false), 'email' => array('type'=> 'string', 'required' => false)
 				),
 				"User creation method",
 				'POST',
 				true,
 				false);
-                
-		
-				
-		
+
 		// Get parameter variables
 		$method = Yii::app()->request->getParam('method', '');
 
 		// this will throw an exception if authentication fails
 		self::authenticate_method($method);
-
 		self::execute_method($method);
 	}
 
@@ -1108,7 +1040,7 @@ class RestController extends APIController {
 	 */
 	protected  function expose_function($method, $function, array $parameters = NULL, $description = "",
 	$call_method = "GET", $require_api_auth = false, $require_user_auth = false) {
-            
+
 		if (($method == "") || ($function == "")) {
 			$msg = self::yii_api_echo('InvalidParameterException:APIMethodOrFunctionNotSet');
 			self::terminate(-1, $msg, '');
@@ -1182,5 +1114,5 @@ class RestController extends APIController {
 			unset($this->API_METHODS[$method]);
 		}
 	}
- 
+
 }

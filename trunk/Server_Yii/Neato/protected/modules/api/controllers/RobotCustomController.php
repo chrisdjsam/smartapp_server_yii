@@ -138,9 +138,9 @@ class RobotCustomController extends APIController {
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 		$robot_id = $robot->id;
-		
+
 		$encoded_blob_data_arr = Yii::app()->request->getParam('encoded_blob_data', '');
-                if (!$encoded_blob_data_arr || !isset($_FILES['blob_data'])) {
+		if (!$encoded_blob_data_arr || !isset($_FILES['blob_data'])) {
 			if (!$encoded_blob_data_arr){
 				$response_message = self::yii_api_echo('Provide atleast one data.');
 				self::terminate(-1, $response_message, APIConstant::PARAMETER_MISSING);
@@ -158,21 +158,21 @@ class RobotCustomController extends APIController {
 				self::terminate(-1, $response_message, APIConstant::PARAMETER_MISSING);
 			}
 		}
-                
-                if (isset($_FILES['blob_data'])){
+
+		if (isset($_FILES['blob_data'])){
 			$blob_data_array = self::blob_data_array_convert($_FILES["blob_data"]);
-                        
-                    foreach ($blob_data_array as $key => $value){
-                        $image_type = $value['type'];
-                        $imagefile_extn = explode("/", $image_type);
-                        $image_format = isset($imagefile_extn[1]) ? $imagefile_extn[1] : '';
-                        }
+
+			foreach ($blob_data_array as $key => $value){
+				$image_type = $value['type'];
+				$imagefile_extn = explode("/", $image_type);
+				$image_format = isset($imagefile_extn[1]) ? $imagefile_extn[1] : '';
+			}
 		}
-                else{
-                    $response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
-                    self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
-                }
-                
+		else{
+			$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
+			self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
+		}
+
 		$encoded_blob_data_type_arr = array();
 		$suported_extension_arr =  array('jpg','jpeg', 'gif', 'png');
 
@@ -189,7 +189,7 @@ class RobotCustomController extends APIController {
 				if(strpos($mime_type, "image")!== false){
 					$custom_blob_data_file_extension = str_replace("image/","",$mime_type);
 				}
-                                
+
 				if(!in_array($image_format, $suported_extension_arr)){
 					$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
 					self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
@@ -215,7 +215,7 @@ class RobotCustomController extends APIController {
 		$robot_custom_model->id_robot = $robot_id;
 
 		if(!$robot_custom_model->save()){
-			//need to work
+			//TODO
 		}
 
 		$robot_custom_post_data_details = array();
@@ -232,7 +232,7 @@ class RobotCustomController extends APIController {
 		}
 
 		$encoded_blob_data_type_arr = array();
-			
+
 		foreach ($encoded_blob_data_arr as $key=>$encoded_blob_data){
 
 			if($encoded_blob_data !== ''){
@@ -265,7 +265,7 @@ class RobotCustomController extends APIController {
 				$robot_custom_data_model->version = $custom_blob_data_file_version;
 
 				if(!$robot_custom_data_model->save()){
-					//need to work
+					//TODO
 				}
 			}
 		}
@@ -298,7 +298,7 @@ class RobotCustomController extends APIController {
 					$robot_custom_data_model->version = $custom_blob_data_file_version;
 
 					if(!$robot_custom_data_model->save()){
-						//need to work
+						//TODO
 					}
 				}
 			}
@@ -582,39 +582,39 @@ class RobotCustomController extends APIController {
 		$blob_data_array = array();
 		if (isset($_FILES['blob_data'])){
 			$blob_data_array = self::blob_data_array_convert($_FILES["blob_data"]);
-                        
-                    foreach ($blob_data_array as $key => $value){
-                        $image_type = $value['type'];
-                        $imagefile_extn = explode("/", $image_type);
-                        $image_format = isset($imagefile_extn[1]) ? $imagefile_extn[1] : '';
-                        }
+
+			foreach ($blob_data_array as $key => $value){
+				$image_type = $value['type'];
+				$imagefile_extn = explode("/", $image_type);
+				$image_format = isset($imagefile_extn[1]) ? $imagefile_extn[1] : '';
+			}
 		}
-                else{
-                    $response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
-                    self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
-                }
-              
-                $encoded_blob_data_type_arr = array();
+		else{
+			$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
+			self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
+		}
+
+		$encoded_blob_data_type_arr = array();
 		$suported_extension_arr =  array('jpg','jpeg', 'gif', 'png');
-                
+
 		foreach ($encoded_blob_data_arr as $key=>$encoded_blob_data){
 			if($encoded_blob_data !== ''){
 				$encoded_blob_data_type_arr[] = $key;
-                                
+
 				$decoded_blob_data = base64_decode($encoded_blob_data);
 				$f = finfo_open();
 				$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
-                                finfo_close($f);
+				finfo_close($f);
 
 				$custom_blob_data_file_extension = 'none';
 				if(strpos($mime_type, "image")!== false){
 					$custom_blob_data_file_extension = str_replace("image/","",$mime_type);
 				}
-                        
+
 				if(!in_array($image_format, $suported_extension_arr)){
 					$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
 					self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
-                                }
+				}
 			}
 		}
 		if (isset($_FILES['blob_data'])){
@@ -622,7 +622,7 @@ class RobotCustomController extends APIController {
 				if (!in_array($key, $encoded_blob_data_type_arr)){
 					$custom_blob_data_temp_file_path = $value['tmp_name'];
 					$custom_blob_data_file_extension = pathinfo($value['name'], PATHINFO_EXTENSION);
-                                        
+
 					if(!in_array($custom_blob_data_file_extension, $suported_extension_arr)){
 						$response_message = self::yii_api_echo('Only jpg/jpeg/gif/png files are supported by custom data');
 						self::terminate(-1, $response_message, APIConstant::UNSUPPORTED_FILE_TYPE);
@@ -632,7 +632,7 @@ class RobotCustomController extends APIController {
 		}
 
 		$uploads_dir_for_robot_custom = '';
-                
+
 		$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 		$uploads_dir_for_robot_custom = Yii::app()->getBasePath().$back . Yii::app()->params['robot-custom-data-directory-name']. DIRECTORY_SEPARATOR . $robot_custom_model->id;
 
@@ -645,14 +645,14 @@ class RobotCustomController extends APIController {
 				$decoded_blob_data = base64_decode($encoded_blob_data_arr[$key]);
 				$f = finfo_open();
 				$mime_type = finfo_buffer($f, $decoded_blob_data, FILEINFO_MIME_TYPE);
-                                finfo_close($f);
+				finfo_close($f);
 				$custom_blob_data_file_extension = 'jpg';
 				if(strpos($mime_type, "image")!== false){
 					$custom_blob_data_file_extension = str_replace("image/","",$mime_type);
 				}
 
 				$custom_blob_data_file_name = time().'_'.$key. "." .$custom_blob_data_file_extension;
-                                $blob_data = $decoded_blob_data;
+				$blob_data = $decoded_blob_data;
 
 				$new_blob_data_file_path = $uploads_dir_for_robot_custom. DIRECTORY_SEPARATOR . $custom_blob_data_file_name;
 
@@ -661,7 +661,7 @@ class RobotCustomController extends APIController {
 				$bolob_data = $blob_data_array[$key];
 				$custom_blob_data_temp_file_path = $bolob_data['tmp_name'];
 				$custom_blob_data_file_extension = pathinfo($bolob_data['name'], PATHINFO_EXTENSION);
-					
+
 				$custom_blob_data_file_name = time().'_'.$key. "." .$custom_blob_data_file_extension;
 
 				$handle = fopen($custom_blob_data_temp_file_path, "r");
@@ -675,7 +675,7 @@ class RobotCustomController extends APIController {
 			if ($new_blob_data_file_path != ''){
 				$custom_blob_file_handle = fopen($new_blob_data_file_path, 'w');
 				fwrite($custom_blob_file_handle, $blob_data); //@todo need to handle file write exceptions
-                                fclose($custom_blob_file_handle);
+				fclose($custom_blob_file_handle);
 			}
 
 			//update robot_custom_data
@@ -684,7 +684,7 @@ class RobotCustomController extends APIController {
 
 			if($robot_custom_data_model->file_name != ''){
 				$old_blob_data_file_path = $uploads_dir_for_robot_custom. DIRECTORY_SEPARATOR .$robot_custom_data_model->file_name;
-                        }
+			}
 
 			$robot_custom_data_model->id_robot_custom = $robot_custom_id;
 			$robot_custom_data_model->id_robot_custom_data_type = $id_robot_custom_data_type;

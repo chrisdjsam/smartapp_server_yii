@@ -27,7 +27,7 @@ class WebUser extends CWebUser {
 		}
 		return $this->_model;
 	}
-	
+
 	/**
 	 * Returns the user name.
 	 * access it by Yii::app()->user->name
@@ -57,11 +57,11 @@ class WebUser extends CWebUser {
 		$user = $this->loadUser(Yii::app()->user->id);
 		return $user->is_admin;
 	}
-	
+
 	function getUserRoleId() {
-		
+
 		$user = $this->loadUser(Yii::app()->user->id);
-		
+
 		if ($this->_model === null) {
 			return $this->_model;
 		}else{
@@ -69,8 +69,8 @@ class WebUser extends CWebUser {
 			return $user_role->user_role_id;
 		}
 	}
-        
-        /**
+
+	/**
 	 * Returns the value that the user is validated or not (1/0).
 	 * access it by Yii::app()->user->isValidated
 	 * @return boolean value.
@@ -79,8 +79,8 @@ class WebUser extends CWebUser {
 		$user = $this->loadUser(Yii::app()->user->id);
 		return $user->is_validated;
 	}
-        
-        /**
+
+	/**
 	 * Returns the value that the user is validated or not (1/0).
 	 * access it by Yii::app()->user->isValidated
 	 * @return boolean value.
@@ -89,7 +89,7 @@ class WebUser extends CWebUser {
 		$user = $this->loadUser(Yii::app()->user->id);
 		return $user->created_on;
 	}
-        
+
 }
 
 ?>

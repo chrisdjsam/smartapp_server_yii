@@ -31,7 +31,6 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//echo $this->redirect(Yii::app()->user->returnUrl);
 		if (!Yii::app()->user->getIsGuest()) {
 			if(Yii::app()->user->isAdmin){
 				$this->redirect(Yii::app()->request->baseUrl.'/user/list');
@@ -108,8 +107,8 @@ class SiteController extends Controller
 		$this->layout = 'support';
 		$this->render('privacy', array());
 	}
-	
-	
+
+
 	/**
 	 * Displays the terms page.
 	 */
@@ -126,7 +125,7 @@ class SiteController extends Controller
 		$this->layout = 'support';
 		$this->render('terms', array());
 	}
-	
+
 	/**
 	 * Displays the about_us page.
 	 */
@@ -134,7 +133,7 @@ class SiteController extends Controller
 	{
 		$this->render('about_us', array());
 	}
-	
+
 	/**
 	 * Displays the about_us page.
 	 */
@@ -143,7 +142,7 @@ class SiteController extends Controller
 		$this->layout = 'support';
 		$this->render('about_us', array());
 	}
-	
+
 
 	/**
 	 * Lists all API logging.

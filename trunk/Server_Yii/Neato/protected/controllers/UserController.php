@@ -76,7 +76,6 @@ class UserController extends Controller
 			$extra_param['country_code'] = $country_code;
 			$extra_param['opt_in'] = $country_allow;
 
-
 			$update_user->extram_param = json_encode($extra_param);
 
 			if(Yii::app()->user->isAdmin){
@@ -306,90 +305,7 @@ class UserController extends Controller
 	}
 
 	public function actionLogin(){
-
-		if (!Yii::app()->user->getIsGuest()) {
-			$this->redirect(Yii::app()->user->returnUrl);
-		}
-		$login_model=new LoginForm;
-
-		// Uncomment the following line if AJAX validation is needed
-
-		//		$this->performAjaxValidation($login_model, 'login-form');
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$password = $_POST['LoginForm']['password'];
-			$encrypted_password = AppHelper::one_way_encrypt($password);
-			$user_model_for_find_admin = User::model()->findByAttributes(array("email"=>$_POST['LoginForm']['email'],"password" => $encrypted_password, 'is_admin' => 1));
-
-			if (Yii::app()->params['is_wp_enabled'] == true && empty($user_model_for_find_admin)) {
-				$is_wpuser = self::is_wpuser();
-				if (isset($is_wpuser->posts->data)) {
-					$_POST['LoginForm']['email'] = $is_wpuser->posts->data->user_login;
-				}
-
-				if(isset($is_wpuser->posts->errors)){
-					$_POST['errors']  = $is_wpuser->posts->errors;
-					$error_result=$login_model->wpAuthenticateError();
-				}
-			}
-			$login_model->attributes=$_POST['LoginForm'];
-			if(!isset($is_wpuser->posts->errors)){
-				// validate user input and redirect to the userprofile page if valid
-				if($login_model->validate() && $login_model->login())
-				{
-
-					if(Yii::app()->user->UserRoleId == '3'){
-						$this->redirect(array('unavailable'));
-					}
-
-					Yii::app()->session['cause_agent_id'] = UniqueToken::hash(time(), 8);
-
-					$is_validated = (boolean)Yii::app()->user->isValidated;
-					$message = 'You have been logged in Successfully.';
-
-					$grace_period = UserCore::getGracePeriod();
-
-					if(!$is_validated){
-
-						$user_created_on_timestamp = strtotime(Yii::app()->user->createdOn);
-
-						$current_system_timestamp = time();
-
-						$time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
-
-						if($time_diff < $grace_period){
-
-							$message = "You have been logged in Successfully. Please validate your email.";
-
-						} else {
-							Yii::app()->user->logout();
-							$message = "Sorry, Please validate your email first and then login again.";
-							Yii::app()->user->setFlash('error', $message);
-							$this->render('login',array('model'=>$login_model));
-							exit();
-
-						}
-
-					}
-					Yii::app()->user->setFlash('success', $message);
-					if(Yii::app()->user->isAdmin){
-						$this->redirect(array('/robot/list'));
-					}else{
-						$this->redirect(array('userprofile'));
-					}
-					echo $this->redirect(Yii::app()->user->returnUrl);
-					$this->redirect(Yii::app()->user->returnUrl);
-
-				}else{
-
-					Yii::app()->user->setFlash('error', AppCore::yii_echo("We could not log you in. Please check your email and password."));
-				}
-			}
-		}
-		// display the login form
-		$this->render('login',array('model'=>$login_model));
+		$this->actionSupportLogin();
 	}
 
 	public function is_wpuser(){
@@ -449,8 +365,7 @@ class UserController extends Controller
 				$save_user_from_wp->validation_counter =  1;
 
 				if(!$save_user_from_wp->save()){
-
-					//need to work
+					//TODO
 				}
 
 			}else{
@@ -459,7 +374,7 @@ class UserController extends Controller
 		}else if(isset($result->posts->data) && isset($is_user_registered)){
 			$is_user_registered->password = AppHelper::one_way_encrypt($wp_user['password']);
 			if(!$is_user_registered->update()){
-				// need to work
+				//TODO
 			}
 
 		}
@@ -569,98 +484,9 @@ class UserController extends Controller
 	 */
 	public function actionRegister()
 	{
-		if (!Yii::app()->user->getIsGuest()) {
-			$this->redirect(Yii::app()->user->returnUrl);
-		}
-		$registration_model = new RegisterForm();
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($registration_model, 'register-form');
-
-		if(isset($_POST['RegisterForm']))
-		{
-
-			$user_name = $_POST['RegisterForm']['name'];
-			$email = $_POST['RegisterForm']['email'];
-			$new_password = $_POST['RegisterForm']['password'];
-
-			$registration_model->attributes=$_POST['RegisterForm'];
-
-			$user_extram_param  = array();
-			$user_extram_param['country_code'] = $_POST['CountryCodeList']['iso2'];
-			$user_extram_param['opt_in'] = $_POST['User']['opt_in'] ? 'true' : 'false';
-
-			if ($registration_model->validate()) {
-				$user_model = new User();
-
-				$pass_word = $registration_model->password;
-				$encrypted_pass_word = AppHelper::one_way_encrypt($pass_word);
-
-				$user_model->name = $registration_model->name;
-				$user_model->email = $registration_model->email;
-				$user_model->country_code = $_POST['CountryCodeList']['iso2'];
-				$user_model->opt_in = $_POST['User']['opt_in'];
-				$user_model->extram_param = json_encode($user_extram_param);
-
-				$user_model->password = $encrypted_pass_word;
-				$user_model->reset_password = $encrypted_pass_word;
-
-				$chat_details = UserCore::create_chat_user_for_user();
-				if(!$chat_details['jabber_status']){
-					$message = "User could not be created because jabber service in not responding.";
-					Yii::app()->user->setFlash('warning', $message);
-					throw new CHttpException(501, $message, APIConstant::UNAVAILABLE_JABBER_SERVICE);
-				}
-
-				$user_model->chat_id = $chat_details['chat_id'];
-				$user_model->chat_pwd = $chat_details['chat_pwd'];
-
-				$user_role = '3'; //set deafult role as normal user
-				//				$login_link = $this->createUrl("/user/login");
-				if($user_model->save()){
-
-					$user_role_obj = new UserRole();
-					$user_role_obj->user_id = $user_model->id;
-					$user_role_obj->user_role_id = $user_role;
-					if(!$user_role_obj->save()){
-						Yii::app()->user->setFlash('success', 'user role not saved');
-					}
-
-					// update extra attribute of user
-					$user_id = $user_model->id;
-					$validation_key = md5($user_id.'_'.$email);
-					$alternate_user_email = isset($user_model->alternate_email) ? $user_model->alternate_email : '' ;
-
-					$user_model->validation_key =  $validation_key;
-					$user_model->is_validated = 0;
-
-					if (!empty($alternate_user_email)) {
-						AppEmail::emailValidate($email, $user_name, $validation_key, $alternate_user_email);
-					} else {
-						AppEmail::emailValidate($email, $user_name, $validation_key);
-					}
-
-					$user_model->validation_counter =  1;
-
-					if(!$user_model->save()){
-						//need to work
-					}
-
-					$msg = AppCore::yii_echo("registeruser:ok",$user_name);
-					Yii::app()->user->setFlash('success', $msg);
-					$registration_model->login();
-					$this->redirect(array('userprofile'));
-				}else {
-					$msg = AppCore::yii_echo("Registration failed.");
-					Yii::app()->user->setFlash('error', $msg);
-				}
-			}
-		}
-		$this->render('register',array(
-				'model'=>$registration_model
-		));
+		$this->actionSupportLogin();
 	}
-
+	
 	/**
 	 * Deletes a set of users that were selected by the admin from the front end.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -973,6 +799,23 @@ class UserController extends Controller
 		}
 		$this->render('validated', array('is_user_active' => $is_user_active));
 
+	}
+
+	public function actionUpdateUserCountry() {
+		$userData = User::model()->findAll();
+		foreach ($userData as $user){
+			$userToSave = User::model()->findByPk($user->id);
+			$country_code_data = CountryCodeList::model()->find('iso2 = :iso2', array(':iso2' => $userToSave->country_code));
+			if(!$country_code_data){
+				$extram_param = json_decode($userToSave->extram_param);
+				$extram_param->country_code = 'US';
+				$extram_param = json_encode($extram_param);
+				$userToSave->country_code = 'US';
+				$userToSave->extram_param = $extram_param;
+				$userToSave->save();
+			}
+		}
+		AppHelper::dump("Done");
 	}
 
 }

@@ -6,7 +6,6 @@ $this->breadcrumbs=array(
 		'Terms',
 );
 ?>
-
 <fieldset class='data-container static-data-container'>
 	<legend>Terms and Conditions</legend>
 	<p>Terms and conditions description.</p>

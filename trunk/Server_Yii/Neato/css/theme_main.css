@@ -425,6 +425,7 @@ ul,li,menu,dir {
 .copyright-notice {
 	font-size: 11px;
 	padding-right: 10px;
+	margin-top: 15px;
 }
 
 .button-div {
@@ -1560,4 +1561,7 @@ div.form label {
 
 .remembe-me-check input{
 	margin: 0 !important;
+}
+.support-delete-div .rounded-corners{
+margin-top:0px;
 }

@@ -4,7 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="language" content="en" />
-
 <!-- blueprint CSS framework -->
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
 	media="screen, projection" />
@@ -17,14 +16,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jq_datatable/jquery.dataTables.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jqtip.min.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
-
 <title>
 	<?php echo CHtml::encode($this->pageTitle); ?>
 </title>
@@ -34,11 +29,9 @@ $cs = Yii::app()->getClientScript();
 $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request->baseUrl . '";', CClientScript::POS_HEAD);
 ?>
 
-<!-- <script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-1.6.4.min.js"></script>-->
 <!-- page -->
 <script defer src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/script.js?<?php echo Yii::app()->params['app-version-no']?>"></script>
 </head>
-
 <body>
 	<div class="WaitingDialogClass" style="display: none;">
 		<div id="WaitingDialog" title="Please Wait">
@@ -54,7 +47,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 		}
 		?>
 	</div>
-	<?php 
+	<?php
 	$isLoggedIn = !Yii::app()->user->getIsGuest();
 	$isAdmin = false;
 	if($isLoggedIn){
@@ -62,14 +55,11 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	}
 	$userRole = Yii::app()->user->UserRoleId;
 	?>
-
 	<div class="container page-default">
-
 		<div class="page-header " id="header-color">
 			<div class="inner">
 				<?php
 			if($isLoggedIn){?>
-
 				<?php if($isAdmin){?>
 				<ul class="adminMenuUser">
 					<li>
@@ -86,7 +76,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						<a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out"> Log out </a>
 					</li>
 				</ul>
-
 				<?php }?>
 				<ul class="menu-user ">
 					<?php if(!$isAdmin){?>
@@ -98,7 +87,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 							</a>
 						</li>
 						<?php }?>
-
 						<?php if($userRole != 2){ ?>
 						<li>
 							<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="My Profile" class="neato_tab_my_profile">My Profile</a>
@@ -136,9 +124,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 							<a href="<?php echo $this->createUrl('/app/list')?>" title="List of all available app versions ">Version Control</a>
 						</li>
 						<?php } ?>
-
 						<?php }?>
-
 						<?php if(!$isAdmin){?>
 						<li>
 							<a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out">Log out</a>
@@ -155,27 +141,15 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 					</h1>
 					<div class="top-buttons-container">
 						<?php if(!$isLoggedIn){?>
-
 						<?php }?>
 					</div>
-			
+
 			</div>
 		</div>
 		<!-- header -->
 		<div class="page-body " id="theme-color">
 			<!--<div class="page-body ">-->
-			<!-- mainmenu -->
-			<?php //if(isset($this->breadcrumbs)):?>
-			<?php
-			//		$this->widget('zii.widgets.CBreadcrumbs', array(
-			//			'links'=>$this->breadcrumbs,
-			//		));
-			?>
-			<!-- breadcrumbs -->
-			<?php //endif?>
-
 			<?php echo $content; ?>
-
 			<div class="clear"></div>
 		</div>
 		<div class="page-footer" id="footer-color">
@@ -196,11 +170,9 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 					<?php echo date('Y'); ?>
 					<?php echo Yii::app()->name?>
 				</div>
-
 			</div>
 		</div>
 		<!-- footer -->
-
 	</div>
 	<!-- noty -->
 	<script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/noty/jquery.noty.min.js"></script>
@@ -217,7 +189,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	<script type="text/javascript">
     $(document).ready(function() {
 	    $(this).find('.neato-button').wrap('<div class="rounded-corners"/>');
-    }); 
+    });
     </script>
 </body>
 </html>

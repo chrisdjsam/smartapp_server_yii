@@ -11,7 +11,5 @@ $this->breadcrumbs=array(
 		'Register',
 );
 
-
 ?>
-
 <?php echo $this->renderPartial('_register', array('model'=>$model)); ?>

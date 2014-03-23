@@ -10,63 +10,59 @@ class OnlineController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-		
+
 	/* Lists all users and robots.
-	*/
+	 */
 	public function actionList()
 	{
 		if(Yii::app()->user->UserRoleId == '2'){
 			$this->layout = 'support';
 		}
-		
+
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robot/list');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
 		self::check_for_admin_privileges();
-		
-//		$online_users_chat_ids = AppCore::getOnlineUsers();
-                $online_users_chat_ids = RobotCore::getOnlineUsers();
-		
+
+		$online_users_chat_ids = RobotCore::getOnlineUsers();
+
 		$robot_data = Robot::model()->findAll();
 		$online_robots= array();
-                $virtually_online_robots= array();
-		
+		$virtually_online_robots= array();
+
 		foreach ($robot_data as $robot){
-                    
+
 			if(in_array($robot->chat_id, $online_users_chat_ids)){
-				$online_robots[] = $robot; 
-                                $virtually_online_robots[] = $robot;
+				$online_robots[] = $robot;
+				$virtually_online_robots[] = $robot;
 			} else {
-                            
-//                            $sleep_lag_time = AppCore::getSleepLagTime($robot);
-                            $sleep_lag_time = RobotCore::getSleepLagTime($robot);
-                            $robot_ping_interval = $sleep_lag_time['sleep_time'];
-                            
-                         if(AppCore::getVirtuallyOnlinRobots($robot->serial_number, $robot_ping_interval)){
-                                $virtually_online_robots[] = $robot;
-                            }
-                            
-                        }
-                                                
-                        
-                        
+
+				$sleep_lag_time = RobotCore::getSleepLagTime($robot);
+				$robot_ping_interval = $sleep_lag_time['sleep_time'];
+
+				if(AppCore::getVirtuallyOnlinRobots($robot->serial_number, $robot_ping_interval)){
+					$virtually_online_robots[] = $robot;
+				}
+
+			}
+
 		}
 
-                $users_data = User::model()->findAll();
+		$users_data = User::model()->findAll();
 		$online_users = array();
 		foreach ($users_data as $user){
 			if(in_array($user->chat_id, $online_users_chat_ids )) {
-				$online_users[] = $user;  
+				$online_users[] = $user;
 			}
 		}
 
-                $this->render('list',array(
+		$this->render('list',array(
 				'users_data'=>$online_users,
 				'robot_data'=>$online_robots,
-                                'virtually_online_robots'=>$virtually_online_robots,
+				'virtually_online_robots'=>$virtually_online_robots,
 		));
-		
+
 	}
-		
+
 }

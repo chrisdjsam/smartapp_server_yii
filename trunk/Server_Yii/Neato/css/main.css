@@ -411,6 +411,7 @@ ul,li,menu,dir {
 .copyright-notice {
 	font-size: 11px;
 	padding-right: 10px;
+	margin-top: 15px;	
 }
 
 .button-div {
@@ -1372,6 +1373,6 @@ div.form label {
 	margin-top: 1px;
 }
 
-.remembe-me-check input{
+.remembe-me-check input {
 	margin: 0 !important;
 }
