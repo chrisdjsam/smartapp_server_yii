@@ -1,7 +1,8 @@
-	<script type="text/javascript" src="jquery-1.8.1.min.js"></script>
-	<script type="text/javascript" src="jquery.form.js"></script>
-	<script type="text/javascript" src="json2.js"></script>
-	<script>
+
+<script type="text/javascript" src="jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="jquery.form.js"></script>
+<script type="text/javascript" src="json2.js"></script>
+<script>
 $(document).ready(function(){
 	$('.toggle_details').text('');
 	$('#apply_api_key').click(function(){

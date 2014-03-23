@@ -180,9 +180,6 @@ $userRole = Yii::app()->user->UserRoleId;
 				'opt_in',
 		);
 	}
-
-
-
 	$this->widget('zii.widgets.CDetailView', array(
 			'data' => $model,
 			'attributes' => $cDetailAttribute,
@@ -220,7 +217,7 @@ $userRole = Yii::app()->user->UserRoleId;
 		</div>
 		<div class="row dropdownlist">
 			<?php echo $form->labelEx($update_user, 'country', array('class' => 'update_user_lable')); ?>
-			<?php echo $form->dropDownList($modelcountrycode,'iso2', CHtml::listData(CountryCodeList::model()->findAll(array('order'=>'iso2')), 'iso2', 'short_name'), array('options'=>array($update_user->country_code => array('selected'=>'selected')))); ?>
+			<?php echo $form->dropDownList($modelcountrycode,'iso2', CHtml::listData(CountryCodeList::model()->findAll(array('order'=>'short_name')), 'iso2', 'short_name'), array('options'=>array($update_user->country_code => array('selected'=>'selected')))); ?>
 			<?php echo $form->error($update_user, 'country', array('class' => 'prepend-4 errorMessage')); ?>
 		</div>
 		<div class="row">
@@ -230,7 +227,6 @@ $userRole = Yii::app()->user->UserRoleId;
 		<?php if(Yii::app()->user->isAdmin) { ?>
 		<div class="row" style="height: 40px;">
 			<?php echo $form->labelEx($update_user, 'is_validated', array('class' => 'update_user_lable', 'style' => 'margin-top: 2px;')); ?>
-			<?php // echo $form->textField($update_user, 'is_validated', array('size' => 30, 'cols' => 128, 'tabindex' => 2, 'class' => 'update_user_input')); ?>
 			<input type="radio" name="is_validated" class="left" <?php if($update_user->is_validated == 1){ ?> checked="checked" <?php } ?>
 				value="1">
 			<label class="update_user_lable update_user_radio">Yes</label>
@@ -309,6 +305,4 @@ $userRole = Yii::app()->user->UserRoleId;
 	    $('.edit-user-profile').hide();
 
 }
-
-
 </script>

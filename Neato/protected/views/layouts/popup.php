@@ -5,20 +5,13 @@
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css?<?php echo Yii::app()->params['app-version-no']?>" />
 </head>
-
 <body>
 	<div class="container page-default popup-container">
-
-
 		<div class="page-body popup-body">
 			<!-- mainmenu -->
-
 			<?php echo $content; ?>
-
 			<div class="clear"></div>
 		</div>
-
-
 	</div>
 </body>
 </html>

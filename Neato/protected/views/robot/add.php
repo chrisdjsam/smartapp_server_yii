@@ -8,16 +8,16 @@ $this->breadcrumbs=array(
 );
 
 ?>
-
 <fieldset class='data-container static-data-container'>
 	<legend>Add Robot</legend>
 	<p class="list_details">
-		Please enter serial number to add a robot.<br /> 
-                You can not enter same serial number twice.<br /> 
-                If you enter sleep time, you must enter wakeup time and vice versa.
+		Please enter serial number to add a robot.
+		<br />
+		You can not enter same serial number twice.
+		<br />
+		If you enter sleep time, you must enter wakeup time and vice versa.
 	</p>
-        
 	<?php 
-            $selected = array('empty'=>'---Select Robot Type---');
-            echo $this->renderPartial('_form', array('model'=>$model, 'robot_type_model'=>$robot_type_model, 'selected'=>$selected)); 
-        ?>
+	$selected = array('empty'=>'---Select Robot Type---');
+	echo $this->renderPartial('_form', array('model'=>$model, 'robot_type_model'=>$robot_type_model, 'selected'=>$selected));
+	?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * This controller class manages all the user and robots related interactions.
- * 
+ *
  */
 class UsersRobotController extends Controller
 {
@@ -143,10 +143,6 @@ class UsersRobotController extends Controller
 			Yii::app()->user->setFlash('error', AppCore::yii_echo("No user and robot association selected to delete"));
 		}
 		$this->redirect(Yii::app()->request->baseUrl.'/usersRobot/list');
-
-		/*$this->loadModel($id)->delete();
-		 Yii::app()->user->setFlash('success', AppCore::yii_echo("You have deleted uset and robot association successfully"));
-		$this->redirect(Yii::app()->request->baseUrl.'/usersRobot/list');*/
 	}
 
 	/**

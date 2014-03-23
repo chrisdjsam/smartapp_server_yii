@@ -18,15 +18,15 @@ class Controller extends CController
 	 * @var array the breadcrumbs of the current page. The value of this property will
 	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
 	 * for more details on how to specify this property.
-	*/
+	 */
 	public $breadcrumbs=array();
-                
+
 	/**
 	 * Required by Facebook SDK Extension
 	 * @param type $view
 	 * @param type $output
 	 * @return boolean
-	*/
+	 */
 	protected function afterRender($view, &$output) {
 		parent::afterRender($view, $output);
 
@@ -69,17 +69,17 @@ class Controller extends CController
 	 * @see CController::beforeAction()
 	 */
 	public function beforeAction($action){
-            
-                if (!Yii::app()->user->getIsGuest()) {
-//                    $is_validated = AppCore::getIsValidateStatus(Yii::app()->user->isValidated, Yii::app()->user->id);
-                    $is_validated = UserCore::getIsValidateStatus(Yii::app()->user->isValidated, Yii::app()->user->id);
-                    if($is_validated == -2) {
-                        Yii::app()->user->logout();
-                        Yii::app()->session->open();
-                        Yii::app()->user->setFlash('error',"Sorry, Please validate your email first and then login again.");
-                        $this->redirect(Yii::app()->request->baseUrl.'/user/login');
-                    }
-                }
+
+		if (!Yii::app()->user->getIsGuest()) {
+			//                    $is_validated = AppCore::getIsValidateStatus(Yii::app()->user->isValidated, Yii::app()->user->id);
+			$is_validated = UserCore::getIsValidateStatus(Yii::app()->user->isValidated, Yii::app()->user->id);
+			if($is_validated == -2) {
+				Yii::app()->user->logout();
+				Yii::app()->session->open();
+				Yii::app()->user->setFlash('error',"Sorry, Please validate your email first and then login again.");
+				$this->redirect(Yii::app()->request->baseUrl.'/user/login');
+			}
+		}
 
 		$cs = Yii::app()->clientScript;
 		$cs->registerCoreScript('jquery');

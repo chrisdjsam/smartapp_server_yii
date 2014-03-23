@@ -4,7 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="language" content="en" />
-
 <!-- blueprint CSS framework -->
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
 	media="screen, projection" />
@@ -17,13 +16,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jq_datatable/jquery.dataTables.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jqtip.min.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
 <title>
 	<?php echo CHtml::encode($this->pageTitle); ?>
 </title>
@@ -32,12 +28,9 @@
 $cs = Yii::app()->getClientScript();
 $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request->baseUrl . '";', CClientScript::POS_HEAD);
 ?>
-
-<!-- <script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-1.6.4.min.js"></script>-->
 <!-- page -->
 <script defer src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/script.js?<?php echo Yii::app()->params['app-version-no']?>"></script>
 </head>
-
 <body>
 	<div class="WaitingDialogClass" style="display: none;">
 		<div id="WaitingDialog" title="Please Wait">
@@ -54,7 +47,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 		$is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 		?>
 	</div>
-	<?php 
+	<?php
 	$isLoggedIn = !Yii::app()->user->getIsGuest();
 	$isAdmin = false;
 	if($isLoggedIn){
@@ -62,12 +55,10 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	}
 	?>
 	<div class="container page-default">
-
 		<div class="page-header ">
 			<div class="inner">
 				<?php
 			if($isLoggedIn){?>
-
 				<?php if($isAdmin){?>
 				<ul class="adminMenuUser">
 					<li>
@@ -88,7 +79,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 				</ul>
 				<ul class="menu-user ">
 					<?php }?>
-
 					<?php if(!$isAdmin){?>
 					<ul class="menu-user noAdminMenuUser">
 						<li>
@@ -98,7 +88,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 							</a>
 						</li>
 						<?php }?>
-
 						<?php if($isAdmin){ ?>
 						<li>
 							<a href="<?php echo $this->createUrl('/robot/list')?>" title="List of all Robots">Robots</a>
@@ -122,13 +111,10 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						<li>
 							<a href="<?php echo $this->createUrl('/app/list')?>" title="List of all available app versions ">Version Control</a>
 						</li>
-
 						<?php }?>
-
 						<li>
 							<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="My Profile" class="neato_tab_my_profile">My Profile</a>
 						</li>
-
 						<?php if(!$isAdmin){?>
 						<li>
 							<a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out">Log out</a>
@@ -151,58 +137,30 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						}
 						?>
 						<?php if(!$isLoggedIn){?>
-
-						<div class="button-div button-register neato-button:hover">
-							<a class="neato-button neato-button-register" href="<?php print $register_url?>" title="Register">Register</a>
-						</div>
 						<div class="button-div button-login neato-button:hover">
 							<a class="neato-button neato-button-login" href="<?php echo $this->createUrl('/user/login')?>" title="Login">Login</a>
 						</div>
 						<?php }?>
 					</div>
-			
+
 			</div>
 		</div>
 		<!-- header -->
 		<div class="page-body">
 			<!-- mainmenu -->
-
-			<?php //if(isset($this->breadcrumbs)):?>
-			<?php
-			//		$this->widget('zii.widgets.CBreadcrumbs', array(
-			//			'links'=>$this->breadcrumbs,
-			//		));
-			?>
-			<!-- breadcrumbs -->
-			<?php //endif?>
-
 			<?php echo $content; ?>
-
 			<div class="clear"></div>
 		</div>
 		<div class="page-footer">
 			<div class="">
-				<ul class="menu menu-footer menu-hz menu-footer-default">
-					<li class=" menu menu-item-privacy">
-						<a href="<?php echo $this->createUrl('/site/privacy')?>" title="Privacy Policy">Privacy Policy</a>
-					</li>
-					<li class=" menu menu-item-terms">
-						<a href="<?php echo $this->createUrl('/site/terms')?>" title="Terms">Terms</a>
-					</li>
-					<li class="menu menu-item-about">
-						<a href="<?php echo $this->createUrl('/site/about_us')?>" title="About Us">About Us</a>
-					</li>
-				</ul>
 				<div class="clearfloat float-alt copyright-notice">
 					Copyright &#169;
 					<?php echo date('Y'); ?>
 					<?php echo Yii::app()->name?>
 				</div>
-
 			</div>
 		</div>
 		<!-- footer -->
-
 	</div>
 	<!-- noty -->
 	<script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/noty/jquery.noty.min.js"></script>
@@ -219,7 +177,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	<script type="text/javascript">
     $(document).ready(function() {
 	    $(this).find('.neato-button').wrap('<div class="rounded-corners"/>');
-    }); 
+    });
     </script>
 </body>
 </html>

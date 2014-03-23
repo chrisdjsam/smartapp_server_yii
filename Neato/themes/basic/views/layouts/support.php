@@ -4,7 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="language" content="en" />
-
 <!-- blueprint CSS framework -->
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
 	media="screen, projection" />
@@ -17,14 +16,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jq_datatable/jquery.dataTables.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jqtip.min.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
 <link rel="stylesheet" type="text/css"
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/theme_main.css?<?php echo Yii::app()->params['app-version-no']?>" />
-
-
 <title>
 	<?php echo CHtml::encode($this->pageTitle); ?>
 </title>
@@ -33,12 +28,10 @@
 $cs = Yii::app()->getClientScript();
 $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request->baseUrl . '";', CClientScript::POS_HEAD);
 ?>
-
 <!-- <script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-1.6.4.min.js"></script>-->
 <!-- page -->
 <script defer src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/script.js?<?php echo Yii::app()->params['app-version-no']?>"></script>
 </head>
-
 <body>
 	<div class="WaitingDialogClass" style="display: none;">
 		<div id="WaitingDialog" title="Please Wait">
@@ -54,7 +47,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 		}
 		?>
 	</div>
-	<?php 
+	<?php
 	$isLoggedIn = !Yii::app()->user->getIsGuest();
 	$isAdmin = false;
 	if($isLoggedIn){
@@ -62,18 +55,13 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	}
 	$userRole = Yii::app()->user->UserRoleId;
 	?>
-
 	<div class="container page-default">
-
 		<div class="page-header " id="header-color">
 			<div class="inner">
 				<?php
 			if($isLoggedIn){?>
-
 				<ul class="menu-user support-menu-user">
-
 					<?php if($isAdmin){?>
-
 					<li>
 						Logged in as
 						<b>
@@ -87,13 +75,9 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 					<li>
 						<a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out"> Log out </a>
 					</li>
-
 					<?php }?>
-
 				</ul>
-
 				<?php }?>
-
 				<h1>
 					<div id="logo">
 						<a href="<?php echo $this->createUrl("/user/supportlogin")?>" title="Vorwerk">
@@ -101,14 +85,10 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						</a>
 					</div>
 				</h1>
-
 			</div>
 		</div>
-
 		<div class="top-buttons-container">
-
 			<?php if($isAdmin){ ?>
-
 			<a href="<?php echo $this->createUrl('/robot/list')?>" title="<?php echo ($userRole == '2')?"Robot":"List of all Robots"; ?>"
 				class="neato-button_alt top-buttons">
 				<?php echo ($userRole == '2')?"Search Robot":"Search a robot"; ?>
@@ -119,42 +99,23 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 			</a>
 			<a href="<?php echo $this->createUrl('/online/list')?>" title="List of all online User-Robot"
 				class="neato-button_alt top-buttons">Who is online?</a>
-
 			<?php }?>
-
 		</div>
-
 		<!-- header -->
 		<div class="page-body " id="theme-color">
-
 			<?php echo $content; ?>
-
 			<div class="clear"></div>
-
 		</div>
 		<div class="page-footer" id="footer-color">
 			<div class="">
-				<ul class="menu menu-footer menu-hz menu-footer-default">
-					<li class=" menu menu-item-privacy">
-						<a href="<?php echo $this->createUrl('/site/SupportPrivacy')?>" title="Privacy Policy">Privacy Policy</a>
-					</li>
-					<li class=" menu menu-item-terms">
-						<a href="<?php echo $this->createUrl('/site/SupportTerms')?>" title="Terms">Terms</a>
-					</li>
-					<li class="menu menu-item-about">
-						<a href="<?php echo $this->createUrl('/site/SupportAbout_us')?>" title="About Us">About Us</a>
-					</li>
-				</ul>
 				<div class="clearfloat float-alt copyright-notice">
 					Copyright &#169;
 					<?php echo Yii::app()->name . ',' ?>
 					<?php echo date('Y'); ?>
 				</div>
-
 			</div>
 		</div>
 		<!-- footer -->
-
 	</div>
 	<!-- noty -->
 	<script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/noty/jquery.noty.min.js"></script>
@@ -171,7 +132,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	<script type="text/javascript">
     $(document).ready(function() {
 	    $(this).find('.neato-button').wrap('<div class="rounded-corners"/>');
-    }); 
+    });
     </script>
 </body>
 </html>

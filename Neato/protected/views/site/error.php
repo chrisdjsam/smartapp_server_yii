@@ -7,8 +7,6 @@ $this->breadcrumbs=array(
 		'Error',
 );
 ?>
-
 <div class="error" style="text-align: center">
-	<img alt=""
-		src="<?php echo Yii::app()->request->baseUrl; ?>/images/404-error-page.png">
+	<img alt="" src="<?php echo Yii::app()->request->baseUrl; ?>/images/404-error-page.png">
 </div>

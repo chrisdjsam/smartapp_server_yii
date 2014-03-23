@@ -1,6 +1,4 @@
 <?php
-/* @var $this RobotController */
-/* @var $model Robot */
 $this->pageTitle='Robot Information - ' . Yii::app()->name;
 
 $this->breadcrumbs=array(
@@ -29,10 +27,7 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	$can_send_start_and_stop_command = true;
 }
 ?>
-
-
-<fieldset
-	class='data-container static-data-container'>
+<fieldset class='data-container static-data-container'>
 	<legend>
 		Robot Information for
 		<?php echo $model->serial_number; ?>
@@ -43,18 +38,12 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<?php if($user_role_id == '2'){ ?>
 	<p class="list_details">Click on edit button to update robot.</p>
 	<?php } ?>
-
-	<!-- 	<div class="action-button-container"> -->
-	<!--<a href="<?php echo $this->createUrl('robot/delete',array('rid'=>AppHelper::two_way_string_encrypt($model->id)))?>" -->
-	<!-- 				title="Delete robot" class="neato-button delete-single-item">Delete</a>  -->
-	<!-- 	</div> -->
 	<div class="action-button-container">
 		<!--         'Health check button is hide temp through css' -->
-		<?php 
+		<?php
 		print '<a href="#" id="is-robot-alive" class="neato-button" title="Is robot alive" robot-serail-no = "'.$model->serial_number.'">Health Check</a>';
 		?>
-
-		<?php 
+		<?php
 		print '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($model->id))).'" class="neato-button" title="Edit" robot-serail-no = "'.$model->serial_number.'">Edit</a>';
 		?>
 	</div>
@@ -167,19 +156,16 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 		<br />
 		Click Stop Cleaning Button to send stop cleaning command to this robot.
 	</p>
-
 	<div class="action-button-container send-to-base-command_btn">
 		<a class="send-to-base-command neato-button neato-button-large"
 			href=<?php echo $this->createUrl('api/Robot/SendToBaseCommand',array('chat_id'=>AppHelper::two_way_string_encrypt($model->chat_id)))?>
 			title="Send to Base">Send to Base</a>
 	</div>
-
 	<div class="action-button-container send-stop-command_btn hide">
 		<a class="send-stop-command neato-button neato-button-large"
 			href=<?php echo $this->createUrl('api/Robot/SendStopCommand',array('chat_id'=>AppHelper::two_way_string_encrypt($model->chat_id)))?>
 			title="Stop Cleaning">Stop Cleaning</a>
 	</div>
-
 	<div class="action-button-container send-start-command_btn">
 		<a class="send-start-command neato-button neato-button-large"
 			href=<?php echo $this->createUrl('api/Robot/SendStartCommand',array('chat_id'=>AppHelper::two_way_string_encrypt($model->chat_id)))?>
@@ -187,13 +173,11 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	</div>
 	<?php }
 }?>
-
 	<?php if($user_role_id !== '2'){?>
 	<hr class="robot-data-table-separator">
 	<div id="schedule_section" class="robot-data-table-heading">Schedule Data</div>
 	<p class="list_details">
 		<?php if($model->doesScheduleExist()) {	?>
-
 		<?php if ($isAdmin){?>
 		Click on add to add a robot schedule.
 		<br />
@@ -217,7 +201,7 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<?php if ($isAdmin){ ?>
 	<div class="action-button-container">
 		<a
-			rel="<?php echo $this->createUrl('robotSchedule/add',array('sr_no'=>AppHelper::two_way_string_encrypt($model->serial_number), 
+			rel="<?php echo $this->createUrl('robotSchedule/add',array('sr_no'=>AppHelper::two_way_string_encrypt($model->serial_number),
 																		  'id_robot'=>AppHelper::two_way_string_encrypt($model->id),
 																			))?>"
 			title="Add robot Schedule" class="neato-button qtipPopuplink neato-button-large">Add Schedule</a>
@@ -225,7 +209,6 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<?php }
 	if($model->doesScheduleExist()) {
 		?>
-
 	<div class="robot-data-table-container">
 		<table class="pretty-table robot-schedule-table">
 			<thead>
@@ -244,7 +227,6 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 			</thead>
 			<tbody>
 				<?php foreach ($model->robotSchedules as $schedule){?>
-
 				<tr>
 					<td class='pretty-table-center-td'>
 						<?php echo $schedule->id;?>
@@ -277,7 +259,7 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 					<?php if ($isAdmin){?>
 					<td class='pretty-table-center-td'>
 						<a
-							rel=<?php echo $this->createUrl('robotSchedule/update',array('sr_no'=>AppHelper::two_way_string_encrypt($model->serial_number), 
+							rel=<?php echo $this->createUrl('robotSchedule/update',array('sr_no'=>AppHelper::two_way_string_encrypt($model->serial_number),
 									'id_robot'=>AppHelper::two_way_string_encrypt($model->id),
 									'schedule_id'=>AppHelper::two_way_string_encrypt($schedule->id),
 
@@ -299,23 +281,19 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	<p class="noData">Robot schedule not available</p>
 	<?php }?>
 	<?php }?>
-
 	<input type="hidden" id="scroll_section" value="<?php echo $scroll_to?>" />
 	<input type="hidden" id="command_check_time_limit" value="<?php echo Yii::app()->params['command_check_time_limit']?>" />
 	<input type="hidden" id="time_limit_for_check_robot_avail"
 		value="<?php echo Yii::app()->params['time_limit_for_check_robot_avail']?>" />
 	<input type="hidden" id="view_robot_serial_number" value="<?php echo $model->serial_number; ?>" />
 </fieldset>
-
 <script>
 $(window).load(function () {
 	var section = "#" + $('#scroll_section').attr('value');
 	location.hash = section;
 	});
- 
+
  $(document).ready(function(){
     currentRobotStatus('<?php echo $model->serial_number; ?>');
  });
-
-
 </script>

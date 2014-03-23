@@ -7,7 +7,6 @@ $this->breadcrumbs=array(
 		'Permissionerror',
 );
 ?>
-
 <div class="error">
 	<b>You have no authorization to view this page</b>
 </div>

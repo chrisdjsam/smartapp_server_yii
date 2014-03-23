@@ -8,8 +8,6 @@ $this->breadcrumbs=array(
 		$model->name,
 );
 ?>
-
-		
 <fieldset
 	class='data-container static-data-container'>
 	<!-- 	<div class="action-button-container"> -->
@@ -27,12 +25,12 @@ $this->breadcrumbs=array(
 
 	if($model->doesScheduleExist()) {
 		$schedule = 'Yes';
-		}
+	}
 
-		if ($model->usersRobots){
-	$is_first_user = true;
-	$html_string = '';
-	foreach($model->usersRobots as $value){
+	if ($model->usersRobots){
+		$is_first_user = true;
+		$html_string = '';
+		foreach($model->usersRobots as $value){
 	 	if(!$is_first_user){
 	 		$html_string .= ",&nbsp;";
 	 	}
@@ -47,23 +45,22 @@ $this->breadcrumbs=array(
 					'serial_number',
 					'name',
 					array(
-						'label' =>'Asssociated Users',
-						'type'=>'raw',
-						'value' => $html_string,
-						),
+							'label' =>'Asssociated Users',
+							'type'=>'raw',
+							'value' => $html_string,
+					),
 					'chat_id',
 					'chat_pwd',
 					array(
-						'label' =>'Map',
-						'type'=>'raw',
-						'value' => $map,
-						),
+							'label' =>'Map',
+							'type'=>'raw',
+							'value' => $map,
+					),
 					array(
-						'label' =>'Schedule',
-						'type'=>'raw',
-						'value' => $schedule,
-						),
-		),
+							'label' =>'Schedule',
+							'type'=>'raw',
+							'value' => $schedule,
+					),
+			),
 	)); ?>
-
 </fieldset>

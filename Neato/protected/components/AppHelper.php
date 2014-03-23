@@ -57,19 +57,19 @@ class AppHelper {
 		$message->from = Yii::app()->params['adminEmail'];
 		Yii::app()->mail->send($message);
 	}
-	
-/**
-         * This function is used to check for valid password
-         * @param string $password
-         * @return bool
-         */
 
-	 public static function is_valid_password($pass){
+	/**
+	 * This function is used to check for valid password
+	 * @param string $password
+	 * @return bool
+	 */
+
+	public static function is_valid_password($pass){
 		if(strlen($pass)< 6){
-                    return false;
-                }else{
-                    return true;
-                }
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 	/**
@@ -78,24 +78,28 @@ class AppHelper {
 	 * @return bool
 	 */
 	public static function is_valid_email($email){
-            if(Yii::app()->params['authenticate_via_email'] == false){
-                return true;
-            }else
-                {
-		if(preg_match("/^[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/",$email)){
+		if(Yii::app()->params['authenticate_via_email'] == false){
 			return true;
+		}else
+		{
+			if(preg_match("/^[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/",$email)){
+				return true;
+			}
+			return false;
 		}
-		return false;
-            }
 	}
 
-        public static function is_valid_email_for_all($email){
-                
+	/**
+	 * @param string $email
+	 * @return boolean
+	 */
+	public static function is_valid_email_for_all($email){
+
 		if(preg_match("/^[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&\'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/",$email)){
 			return true;
 		}
 		return false;
-            
+
 	}
 
 	/**
@@ -171,88 +175,87 @@ class AppHelper {
 		}
 		return rmdir($dir);
 	}
-	
+
 	/**
 	 * This function is used to delete a file
 	 * @param strin $path_to_file
 	 * @return boolean
 	 */
 	public static function deleteFile ($path_to_file) {
-		if (file_exists($path_to_file)) 
-			return unlink($path_to_file); 
+		if (file_exists($path_to_file))
+			return unlink($path_to_file);
 		return false;
-		
+
 	}
-        
-        
-        /**
+
+
+	/**
 	 * This function is used to do curl call
 	 * @param string $dir
-         * @param string $header
-         * @param string $data_string
+	 * @param string $header
+	 * @param string $data_string
 	 * @return curl response - $response
 	 */
-        public static function curl_call($url, $headers, $data_string) {
-            
-                $ch = curl_init();
+	public static function curl_call($url, $headers, $data_string) {
 
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-                curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
-                curl_setopt($ch, CURLOPT_POST, TRUE);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-                curl_setopt($ch, CURLOPT_VERBOSE, TRUE);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		$ch = curl_init();
 
-                $response = curl_exec($ch);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+		curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+		curl_setopt($ch, CURLOPT_POST, TRUE);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+		curl_setopt($ch, CURLOPT_VERBOSE, TRUE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-                curl_close($ch);
+		$response = curl_exec($ch);
 
-                return $response;
-                
-        }
-        
-        public static function strip_string($text, $length) {
-            $length = abs((int) $length);
-            if (strlen($text) > $length) {
-                $text = $text . '...';
-            }
-            return($text);
-        }
-        
-        public static function download_file($filename, $ctype) {
+		curl_close($ch);
 
-    // required for IE, otherwise Content-disposition is ignored
-            if (ini_get('zlib.output_compression'))
-                ini_set('zlib.output_compression', 'Off');
+		return $response;
 
-            header("Pragma: public"); // required
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            header("Cache-Control: private", false); // required for certain browsers
-            header("Content-Type: $ctype");
+	}
 
-    // change, added quotes to allow spaces in filenames
+	public static function strip_string($text, $length) {
+		$length = abs((int) $length);
+		if (strlen($text) > $length) {
+			$text = $text . '...';
+		}
+		return($text);
+	}
 
-            header("Content-Disposition: attachment; filename=\"" . basename($filename) . "\";");
-            header("Content-Transfer-Encoding: binary");
-            header("Content-Length: " . filesize($filename));
-            readfile("$filename");
-            
-        }
-        
-        
-        public static function parseXMLToJSON ($url) {
+	public static function download_file($filename, $ctype) {
+
+		// required for IE, otherwise Content-disposition is ignored
+		if (ini_get('zlib.output_compression'))
+			ini_set('zlib.output_compression', 'Off');
+
+		header("Pragma: public"); // required
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: private", false); // required for certain browsers
+		header("Content-Type: $ctype");
+
+		// change, added quotes to allow spaces in filenames
+
+		header("Content-Disposition: attachment; filename=\"" . basename($filename) . "\";");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: " . filesize($filename));
+		readfile("$filename");
+
+	}
+
+	public static function parseXMLToJSON ($url) {
 
 		$fileContents = file_get_contents($url);
-                
-                $fileContents = str_replace(array("\n", "\r", "\t"), '', $fileContents);
-                
+
+		$fileContents = str_replace(array("\n", "\r", "\t"), '', $fileContents);
+
 		$fileContents = trim(str_replace('"', "'", $fileContents));
-                
+
 		$simpleXml = simplexml_load_string($fileContents);
 
 		$json = json_encode($simpleXml);
@@ -260,73 +263,72 @@ class AppHelper {
 		return $json;
 
 	}
-        
-        public static function remote_file_exists($url){
-                return(bool)preg_match('~HTTP/1\.\d\s+200\s+OK~', @current(get_headers($url)));
-        }  
-        
-        public static function getTimeSummary ($time, $timeBase = false) {
-            if (!$timeBase) {
-                $timeBase = time();
-            }
 
-            if ($time <= time()) {
-                $dif = $timeBase - $time;
+	public static function remote_file_exists($url){
+		return(bool)preg_match('~HTTP/1\.\d\s+200\s+OK~', @current(get_headers($url)));
+	}
 
-                if ($dif < 60) {
-                    if ($dif < 2) {
-                        return "1 second ago";
-                    }
+	public static function getTimeSummary ($time, $timeBase = false) {
+		if (!$timeBase) {
+			$timeBase = time();
+		}
 
-                    return $dif." seconds ago";
-                }
+		if ($time <= time()) {
+			$dif = $timeBase - $time;
 
-                if ($dif < 3600) {
-                    if (floor($dif / 60) < 2) {
-                        return "A minute ago";
-                    }
+			if ($dif < 60) {
+				if ($dif < 2) {
+					return "1 second ago";
+				}
 
-                    return floor($dif / 60)." minutes ago";
-                }
+				return $dif." seconds ago";
+			}
 
-                if (date("d n Y", $timeBase) == date("d n Y", $time)) {
-                    return "Today, ".date("g:i A", $time);
-                }
+			if ($dif < 3600) {
+				if (floor($dif / 60) < 2) {
+					return "A minute ago";
+				}
 
-                if (date("n Y", $timeBase) == date("n Y", $time) && date("d", $timeBase) - date("d", $time) == 1) {
-                    return "Yesterday, ".date("g:i A", $time);
-                }
+				return floor($dif / 60)." minutes ago";
+			}
 
-                if (date("Y", $time) == date("Y", time())) {
-                    return date("F, jS g:i A", $time);
-                }
-            } else {
-                $dif = $time - $timeBase;
+			if (date("d n Y", $timeBase) == date("d n Y", $time)) {
+				return "Today, ".date("g:i A", $time);
+			}
 
-                if ($dif < 60) {
-                    if ($dif < 2) {
-                        return "1 second";
-                    }
+			if (date("n Y", $timeBase) == date("n Y", $time) && date("d", $timeBase) - date("d", $time) == 1) {
+				return "Yesterday, ".date("g:i A", $time);
+			}
 
-                    return $dif." seconds";
-                }
+			if (date("Y", $time) == date("Y", time())) {
+				return date("F, jS g:i A", $time);
+			}
+		} else {
+			$dif = $time - $timeBase;
 
-                if ($dif < 3600) {
-                    if (floor($dif / 60) < 2) {
-                        return "Less than a minute";
-                    }
+			if ($dif < 60) {
+				if ($dif < 2) {
+					return "1 second";
+				}
 
-                    return floor($dif / 60)." minutes";
-                }
+				return $dif." seconds";
+			}
 
-                if (date("d n Y", ($timeBase + 86400)) == date("d n Y", ($time))) {
-                    return "Tomorrow, at ".date("g:i A", $time);
-                }
-            }
+			if ($dif < 3600) {
+				if (floor($dif / 60) < 2) {
+					return "Less than a minute";
+				}
 
-            return date("F, jS g:i A Y", $time);
-    }
-        
+				return floor($dif / 60)." minutes";
+			}
+
+			if (date("d n Y", ($timeBase + 86400)) == date("d n Y", ($time))) {
+				return "Tomorrow, at ".date("g:i A", $time);
+			}
+		}
+
+		return date("F, jS g:i A Y", $time);
+	}
+
 }
-
 ?>

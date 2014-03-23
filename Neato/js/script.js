@@ -233,6 +233,7 @@ $(document).ready(function() {
 		aTargets = [ 0 ];
 		bSearchable = [ null, null, null, null, ];
 	}
+	
 	userTable = $('.user-table').dataTable({
 		"bStateSave" : true,
 		"iDisplayLength" : 25,
