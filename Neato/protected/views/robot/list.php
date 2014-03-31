@@ -35,9 +35,9 @@ $this->breadcrumbs=array(
 		<?php if($userRole != '2'){?>
 		All the available robots are listed below.
 		<br />
-		<?php }?>
 		Click on edit to update a specific robot information.
 		<br />
+		<?php }?>
 		<?php if($userRole != '2'){?>
 		You can also select a robot and click on delete button to delete a robot.
 		<br />
@@ -54,7 +54,7 @@ $this->breadcrumbs=array(
 			<button class="btn btn-small search-button for-robot">Search</button>
 		</span>
 	</div>
-			
+
 	<?php }?>
 	<form action="<?php echo $this->createUrl('api/robot/deleteRobot') ?>" method="POST" id="robotsList">
 		<?php if($userRole != '2'){?>

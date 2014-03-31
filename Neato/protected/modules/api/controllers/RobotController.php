@@ -525,13 +525,16 @@ class RobotController extends APIController {
 			$profileArray['name'] = array('value' => $robot->name, 'timestamp' => 0);
 			$profileArray['serial_number'] = array('value' => $robot->serial_number, 'timestamp' => 0);
 			if (!empty($data)) {
-
 				foreach ($data as $datarow) {
 					if ($key == $datarow->_key || empty($key)) {
 						$profileArray[$datarow->_key] = array('value' => $datarow->value, 'timestamp' => $datarow->timestamp);
 					}
 				}
-				if (count($profileArray) == 2) {
+				if (count($profileArray) == 2 && $key != "name" && $key != "serial_number" ) {
+					self::terminate(-1, "Sorry, entered key is invalid", APIConstant::KEY_NOT_VALID);
+				}
+			}else {
+				if(!empty($key) && $key != "name" && $key != "serial_number" ){
 					self::terminate(-1, "Sorry, entered key is invalid", APIConstant::KEY_NOT_VALID);
 				}
 			}
@@ -965,9 +968,9 @@ class RobotController extends APIController {
 			}
 
 			$edit = '<a href="' . $this->createUrl('/robot/update', array('h' => AppHelper::two_way_string_encrypt($robot->id))) . '" title="Edit robot ' . $robot->serial_number . '">edit</a>';
-			
+
 			$row[] = $select_checkbox;
-			$row[] = $serial_number;			
+			$row[] = $serial_number;
 			if($user_role_id != '2'){
 				$row[] = $robot_type;
 				$row[] = $associated_users;

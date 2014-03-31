@@ -42,7 +42,7 @@ class RobotCore {
 	 */
 	public static function getOnlineUsers(){
 		$online_users_array = array();
-		if(Yii::app()->params['always_on']){
+		if(Yii::app()->params['robot_always_connected']){
 			if(Yii::app()->params['isjabbersetup']){
 				$cmd = "sudo ejabberdctl connected_users";
 				$output = shell_exec($cmd);
