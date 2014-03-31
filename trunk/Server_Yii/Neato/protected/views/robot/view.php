@@ -34,20 +34,17 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	</legend>
 	<?php if($user_role_id !== '2'){ ?>
 	<p class="list_details">This page shows the robot's basic, schedule data.</p>
-	<?php } ?>
-	<?php if($user_role_id == '2'){ ?>
-	<p class="list_details">Click on edit button to update robot.</p>
-	<?php } ?>
 	<div class="action-button-container">
-		<!--         'Health check button is hide temp through css' -->
+		<!-- 'Health check button is hide temp through css' -->
 		<?php
-		print '<a href="#" id="is-robot-alive" class="neato-button" title="Is robot alive" robot-serail-no = "'.$model->serial_number.'">Health Check</a>';
+			print '<a href="#" id="is-robot-alive" class="neato-button" title="Is robot alive" robot-serail-no = "'.$model->serial_number.'">Health Check</a>';
 		?>
 		<?php
-		print '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($model->id))).'" class="neato-button" title="Edit" robot-serail-no = "'.$model->serial_number.'">Edit</a>';
+			print '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($model->id))).'" class="neato-button" title="Edit" robot-serail-no = "'.$model->serial_number.'">Edit</a>';
 		?>
 	</div>
 	<br />
+	<?php } ?>
 	<?php if($user_role_id !== '2'){ ?>
 	<div class="robot-data-table-heading">Basic Information</div>
 	<?php }?>

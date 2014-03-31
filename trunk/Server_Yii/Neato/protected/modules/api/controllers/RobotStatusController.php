@@ -7,15 +7,18 @@ class RobotStatusController extends APIController {
 
 	public function actionOnline(){
 
-		if(Yii::app()->params['always_on']){
-			return;
-		}
-
 		$chat_user = Yii::app()->request->getParam('user', '');
 		$server = Yii::app()->request->getParam('server', '');
 		$message = "Came online";
 
 		$chat_id = $chat_user . '@' . $server;
+
+		self::callForSetRobotProfile($chat_id, 1);
+
+		if(Yii::app()->params['robot_always_connected']){
+			return;
+		}
+
 		$result = false;
 
 		include_once Yii::app()->basePath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database_config.php';
@@ -79,15 +82,17 @@ class RobotStatusController extends APIController {
 
 	public function actionOffline(){
 
-		if(Yii::app()->params['always_on']){
-			return;
-		}
-
 		$chat_user = Yii::app()->request->getParam('user', '');
 		$server = Yii::app()->request->getParam('server', '');
 		$message = "Went offline";
 
 		$chat_id = $chat_user . '@' . $server;
+
+		self::callForSetRobotProfile($chat_id, 0);
+
+		if(Yii::app()->params['robot_always_connected']){
+			return;
+		}
 
 		$result = false;
 
@@ -146,6 +151,23 @@ class RobotStatusController extends APIController {
 		mysql_close($dbhandle);
 		return false;
 
+	}
+
+	public static function callForSetRobotProfile($chat_id, $operation) {
+		$robot = Robot::model()->findByAttributes(array('chat_id' => $chat_id));
+		if($robot) {
+			$apiHostname = Yii::app()->params['apiHostname'];
+			$apiProtocol = Yii::app()->params['apiProtocol'];
+			$url = $apiProtocol . $apiHostname . "api/robot/setProfileDetails3";
+			$headers = array();
+			$data_string = array();
+			$data_string['serial_number'] = $robot['serial_number'];
+			$data_string['source_serial_number'] = $robot['serial_number'];
+			$data_string['cause_agent_id'] = '';
+			$data_string['notification_flag'] = '1';
+			$data_string['profile[robotOnlineStatus]'] = $operation;
+			echo AppHelper::curl_call($url, $headers, $data_string);
+		}
 	}
 
 }

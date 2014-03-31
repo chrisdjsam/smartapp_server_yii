@@ -154,17 +154,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 		</div>
 		<div class="page-footer" id="footer-color">
 			<div class="">
-				<ul class="menu menu-footer menu-hz menu-footer-default">
-					<li class=" menu menu-item-privacy">
-						<a href="<?php echo $this->createUrl('/site/SupportPrivacy')?>" title="Privacy Policy">Privacy Policy</a>
-					</li>
-					<li class=" menu menu-item-terms">
-						<a href="<?php echo $this->createUrl('/site/SupportTerms')?>" title="Terms">Terms</a>
-					</li>
-					<li class="menu menu-item-about">
-						<a href="<?php echo $this->createUrl('/site/SupportAbout_us')?>" title="About Us">About Us</a>
-					</li>
-				</ul>
 				<div class="clearfloat float-alt copyright-notice">
 					Copyright &#169;
 					<?php echo date('Y'); ?>

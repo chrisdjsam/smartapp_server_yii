@@ -136,6 +136,6 @@ return array(
         'neato_amqp_publisher_path' => '<YOUR_NEATO_AMQP_PUBLISHER_PATH_HERE>',
         'default_sleep_time' => 2,
         'default_lag_time' => 15,
-        'always_on' => true,
+        'robot_always_connected' => true,
 	),
 );

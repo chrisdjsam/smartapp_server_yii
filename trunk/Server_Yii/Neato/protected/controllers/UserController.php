@@ -486,7 +486,7 @@ class UserController extends Controller
 	{
 		$this->actionSupportLogin();
 	}
-	
+
 	/**
 	 * Deletes a set of users that were selected by the admin from the front end.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -808,9 +808,9 @@ class UserController extends Controller
 			$country_code_data = CountryCodeList::model()->find('iso2 = :iso2', array(':iso2' => $userToSave->country_code));
 			if(!$country_code_data){
 				$extram_param = json_decode($userToSave->extram_param);
-				$extram_param->country_code = 'US';
+				$extram_param->country_code = 'DE';
 				$extram_param = json_encode($extram_param);
-				$userToSave->country_code = 'US';
+				$userToSave->country_code = 'DE';
 				$userToSave->extram_param = $extram_param;
 				$userToSave->save();
 			}
