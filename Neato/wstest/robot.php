@@ -1318,8 +1318,8 @@
 								<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_details",
 									"error":{"code":"-102","message":"Missing parameter in method call"}}</li>
 							</ul>
-						
-						
+
+
 						<li>
 							If serial number does not exist
 							<ul>
@@ -1420,8 +1420,8 @@
 								<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_associated_users",
 									"error":{"code":"-102","message":"Missing parameter in method call"}}</li>
 							</ul>
-						
-						
+
+
 						<li>
 							If serial number does not exist
 							<ul>
@@ -1757,8 +1757,8 @@
 								<li>{"status":-1,"message":"Missing parameter serial_number in method robot.get_details",
 									"error":{"code":"-102","message":"Missing parameter in method call"}}</li>
 							</ul>
-						
-						
+
+
 						<li>
 							If serial number does not exist
 							<ul>
@@ -3547,6 +3547,7 @@
 		</tr>
 	</table>
 </form>
+
 <!-- 	Check Robot serial_number is present in alive robot db-->
 <form action="<?php echo($baseURL)?>robot.health_check" method='POST' id='alive_robot' class='ajaxified_forms'>
 	<table class='custom_table'>
@@ -3602,6 +3603,96 @@
 		<tr>
 			<td>
 				<input type="button" name='submit' dummy='alive_robot' value='Submit' class='submit_form'>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class='request_div'>View Request</div>
+				<br />
+				<div class='response_div'>View Response</div>
+			</td>
+		</tr>
+	</table>
+</form>
+
+<form action="<?php echo($baseURL)?>site.get_timestamp_delta" method='POST' id='get_timestamp_delta' class='ajaxified_forms'>
+	<table class='custom_table'>
+		<tr>
+			<td id="Get Timestamp Delta" colspan="2">
+				<label>Get Timestamp Delta</label>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class='api_description'>
+				<div class='toggle_details'>More</div>
+				<div class='details_div'>
+					POST method to get timestamp delta.
+					<br />
+					<br />
+					URL:
+					<?php echo($baseURL)?>
+					site.get_timestamp_delta
+					<br />
+					Parameters:
+					<ul>
+						<li>
+							<b>api_key</b>
+							:Your API Key
+						</li>
+						<li>
+							<b>timestamp</b>
+							:Current API consumer's timestamp
+						</li>
+					</ul>
+					Success Response:
+					<ul>
+						<li>
+							If everything goes fine
+							<ul>
+								<li>{"status":0,"result":{"currentTimeStamp":1396010443,"delta":4}}</li>
+							</ul>
+						</li>
+					</ul>
+					Failure Responses:
+					<ul>
+						<li>
+							If API Key is missing:
+							<ul>
+								<li>{"status":-1,"message":"User could not be authenticated", "error":{"code":"-174","message":"User authentication
+									failed"}}</li>
+							</ul>
+						</li>
+						<li>
+							If timestamp is missing:
+							<ul>
+								<li>{"status":-1,"message":"Missing parameter timestamp in method site.get_timestamp_delta","error":{"code":"-102","message":"Missing parameter in method call"}}</li>
+							</ul>
+						</li>
+						<li>
+							If timestamp is invalid:
+							<ul>
+								<li>{"status":-1,"message":"Please provide valid timestamp","error":{"code":"-193","message":"Invalid timestamp."}}</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class='label_field'>api_key</td>
+			<td class='value_field'>
+				<input type="text" name='api_key' class='api_keys' value='<?php echo($api_key);?>' />
+			</td>
+		</tr>
+		<tr>
+			<td>timestamp</td>
+			<td>
+				<input type="text" name='timestamp'>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="button" name='submit' dummy='get_timestamp_delta' value='Submit' class='submit_form'>
 			</td>
 		</tr>
 		<tr>

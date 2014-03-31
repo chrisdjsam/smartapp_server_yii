@@ -29,4 +29,23 @@ class SiteController extends APIController {
 	public function actionApiVersion() {
 		self::success(1);
 	}
+
+	public function actionGetTimestampDelta() {
+		$timestamp = Yii::app()->request->getParam('timestamp', 0);
+
+		if(!is_numeric($timestamp)){
+			self::terminate(-1, "Please provide valid timestamp", APIConstant::INVALID_TIMESTAMP);
+		}
+
+		$current_timestamp = time();
+		$delta = $current_timestamp - $timestamp;
+		$delta = abs($delta);
+
+		$response = array();
+		$response['currentTimeStamp'] = time();
+		$response['delta'] = $delta;
+
+		self::success($response);
+	}
+
 }
