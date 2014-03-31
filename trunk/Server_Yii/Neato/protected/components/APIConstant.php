@@ -93,6 +93,7 @@ class APIConstant {
 	const ROBOT_IS_DEAD = '-190';
 	const ROBOT_IS_ALIVE = '-191';
 	const ROBOT_ALREADY_HAS_A_USER_ASSOCIATED = '-192';
+	const INVALID_TIMESTAMP = '-193';
 
 	public static $english = array(
 			APIConstant::API_KEY_MISSING_OR_INCORRECT => 'Failed API Authentication.',
@@ -186,6 +187,8 @@ class APIConstant {
 			APIConstant::ROBOT_IS_DEAD => 'Robot is dead',
 			APIConstant::ROBOT_IS_ALIVE => 'Robot is alive',
 			APIConstant::ROBOT_ALREADY_HAS_A_USER_ASSOCIATED => 'Robot already has a user associated with it.',
+			APIConstant::INVALID_TIMESTAMP => 'Invalid timestamp.',
+
 	);
 
 	static function getMessageForErrorCode($errorCode) {

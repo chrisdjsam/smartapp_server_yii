@@ -43,6 +43,14 @@ class RestController extends APIController {
 				true,
 				false);
 
+		self::expose_function("site.get_timestamp_delta",
+				"site/getTimestampDelta",
+				array('timestamp' => array ('type' => 'string', 'required' => true)),
+				'Get Timestamp Delta',
+				'POST',
+				true,
+				false);
+
 		self::expose_function('auth.get_user_auth_token2',
 				"user/GetAuthToken2",
 				array( 'account_type' => array ('type' => 'string', 'required' => true),

@@ -1884,10 +1884,6 @@ class RobotController extends APIController {
 	}
 
 	public function actionAliveRobot(){
-
-		if (Yii::app()->user->getIsGuest()) {
-			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
-		}
 		$serial_number = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($serial_number);
 

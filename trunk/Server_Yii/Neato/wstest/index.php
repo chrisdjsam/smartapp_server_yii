@@ -41,10 +41,10 @@ a.new-api {
 			<tr>
 				<th align="left">
 					<h3>API Test Console Quick Links</h3>
-				
-				
+
+
 				<th>
-			
+
 			</tr>
 		</thead>
 		<tr>
@@ -98,7 +98,7 @@ a.new-api {
 												<a href="user.php#Set User Account Details">Set User Account Details</a>
 											</li>
 											<li>
-												<a href="user.php#Get Country Code Details" class="new-api">Get Country Code Details</a>
+												<a href="user.php#Get Country Code Details">Get Country Code Details</a>
 											</li>
 											<li>
 												<a href="user.php#Get User Account Details">Get User Account Details</a>
@@ -134,7 +134,7 @@ a.new-api {
 												<a href="user.php#Get Error Code">Get Error Detail By Error Code</a>
 											</li>
 											<li>
-												<a href="user.php#Create User 3" class="new-api">Create User 3</a>
+												<a href="user.php#Create User 3">Create User 3</a>
 											</li>
 										</ul>
 									</td>
@@ -166,22 +166,22 @@ a.new-api {
 												<a href="robot.php#Create Robot">Create Robot</a>
 											</li>
 											<li>
-												<a href="robot.php#Create Robot 2" class="new-api">Create Robot 2</a>
+												<a href="robot.php#Create Robot 2">Create Robot 2</a>
 											</li>
 											<li>
 												<a href="robot.php#Check if robot is online">Check If Robot Is Online</a>
 											</li>
 											<li>
-												<a href="robot.php#Set Robot Profile Details 3" class="new-api">Set Robot Profile Details 3</a>
+												<a href="robot.php#Set Robot Profile Details 3">Set Robot Profile Details 3</a>
 											</li>
 											<li>
 												<a href="robot.php#Get Robot Profile Details">Get Robot Profile Details</a>
 											</li>
 											<li>
-												<a href="robot.php#Get Robot Profile Details 2" class="new-api">Get Robot Profile Details 2</a>
+												<a href="robot.php#Get Robot Profile Details 2">Get Robot Profile Details 2</a>
 											</li>
 											<li>
-												<a href="robot.php#Delete Robot Profile Key 2" class="new-api">Delete Robot Profile Key 2</a>
+												<a href="robot.php#Delete Robot Profile Key 2">Delete Robot Profile Key 2</a>
 											</li>
 											<li>
 												<a href="robot.php#Get Robot Details">Get Robot Details</a>
@@ -217,7 +217,7 @@ a.new-api {
 												<a href="robot.php#Set Robot Configuration">Set Robot Configuration</a>
 											</li>
 											<li>
-												<a href="robot.php#Set Robot Configuration 2" class="new-api">Set Robot Configuration 2</a>
+												<a href="robot.php#Set Robot Configuration 2">Set Robot Configuration 2</a>
 											</li>
 											<li>
 												<a href="robot.php#Get Robot Configuration">Get Robot Configuration</a>
@@ -241,10 +241,13 @@ a.new-api {
 												<a href="robot.php#Cancel Linking">Cancel Linking</a>
 											</li>
 											<li>
-												<a href="robot.php#Link To Robot" class="new-api">Link To Robot</a>
+												<a href="robot.php#Link To Robot">Link To Robot</a>
 											</li>
 											<li>
-												<a href="robot.php#Robot Health Check responder" class="new-api">Respond to Robot's Health Check</a>
+												<a href="robot.php#Robot Health Check responder">Respond to Robot's Health Check</a>
+											</li>
+											<li>
+												<a href="robot.php#Get Timestamp Delta" class="new-api">Get Timestamp Delta</a>
 											</li>
 										</ul>
 									</td>
@@ -280,7 +283,7 @@ a.new-api {
 												<a href="messages.php#Send Message To Associated Users">Send Message To Associated Users</a>
 											</li>
 											<li>
-												<a href="messages.php#Send XMPP Message To All Associated Users 2" class="new-api">Send XMPP Message To All Associated
+												<a href="messages.php#Send XMPP Message To All Associated Users 2">Send XMPP Message To All Associated
 													Users 2</a>
 											</li>
 											<li>
@@ -302,7 +305,7 @@ a.new-api {
 												<a href="messages.php#Get User Push Notification Options">Get User Push Notification Options</a>
 											</li>
 											<li>
-												<a href="messages.php#Send notification to all the users of robot2" class="new-api">Send notification to all the users
+												<a href="messages.php#Send notification to all the users of robot2">Send notification to all the users
 													of robot2</a>
 											</li>
 										</ul>
@@ -353,7 +356,7 @@ a.new-api {
 												<a href="robot_schedule.php#Delete Robot Schedule Data">Delete Robot Schedule Data</a>
 											</li>
 											<li>
-												<a href="robot_schedule.php#Get Schedule Based On Type" class="new-api">Get Schedule Based On Type</a>
+												<a href="robot_schedule.php#Get Schedule Based On Type">Get Schedule Based On Type</a>
 											</li>
 										</ul>
 									</td>
