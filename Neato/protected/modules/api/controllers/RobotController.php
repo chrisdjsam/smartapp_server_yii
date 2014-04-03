@@ -1310,14 +1310,7 @@ class RobotController extends APIController {
 
 		$robot = self::verify_for_robot_serial_number_existence($serial_number);
 
-		$token = UniqueToken::hash(($robot->id + (hexdec(uniqid())) / 100000), 4);
-		$token = preg_replace('/0*/', '', $token, 1);
-		$token = trim($token);
-
-		while (strlen($token) != 4) {
-			$token = UniqueToken::hash(($robot->id + (hexdec(uniqid())) / 100000), 4);
-			$token = trim($token);
-		}
+		$token = RobotCore::getLinkCode($robot->id);
 
 		RobotCore::removeExpiredLinkingCode($robot);
 

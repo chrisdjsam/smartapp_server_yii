@@ -573,11 +573,12 @@ class UserController extends APIController {
 				$login_link = $this->createUrl("/user/login");
 				if($user_model->save()){
 
+					$country_lang = $user_model->language;
 					$alternate_user_email = $user_model->alternate_email;
 					if (!empty($alternate_user_email)) {
-						AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link, $alternate_user_email);
+						AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link, $alternate_user_email, $country_lang);
 					} else {
-						AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
+						AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link, '', $country_lang);
 					}
 
 					$response_message = "New password is sent to your email.";
@@ -698,12 +699,12 @@ class UserController extends APIController {
 
 						if($user->update()){
 
+							$country_lang = $user->language;
 							$alternate_user_email = trim($user->alternate_email);
-
 							if (!empty($alternate_user_email)) {
-								AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link, $alternate_user_email);
+								AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link, $alternate_user_email, $country_lang);
 							} else {
-								AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link);
+								AppEmail::emailChangePassword($email, $user_name, $password_new, $login_link, '', $country_lang);
 							}
 
 							$response_message = "Your password is changed successfully.";
@@ -1873,14 +1874,14 @@ class UserController extends APIController {
 			//showing error of email exixting condition
 			if  (json_decode($result)->posts == 'Email already exists') {
 				$response_message = self::yii_api_echo('This email address has been already registered.');
-		  self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
+		  		self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
 			}
 			//showing error of username exixting condition
 
 			if  (isset(json_decode($result)->posts->errors->existing_user_login)) {
 				$error = json_decode($result)->posts->errors->existing_user_login;
 				$response_message = self::yii_api_echo('This email address has been already registered.');
-		  self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
+		  		self::terminate(-1, $response_message, APIConstant::EMAIL_EXISTS);
 			}
 		 $data_string = array();
 		 $data_string['log'] = $user_email;
@@ -1937,13 +1938,16 @@ class UserController extends APIController {
 
 				$user_model->is_validated = 0;
 
+				$country_lang = AppCore::getCountryLanguage($country_code);
+
 				if (!empty($alternate_user_email)) {
-					AppEmail::emailValidate($user_email, $user_name, $validation_key, $alternate_user_email);
+					AppEmail::emailValidate($user_email, $user_name, $validation_key, $alternate_user_email, $country_lang);
 				} else {
-					AppEmail::emailValidate($user_email, $user_name, $validation_key);
+					AppEmail::emailValidate($user_email, $user_name, $validation_key, '', $country_lang);
 				}
 
 				$user_model->validation_counter =  1;
+				$user_model->language = $country_lang;
 
 				if(!$user_model->save()){
 					//TODO

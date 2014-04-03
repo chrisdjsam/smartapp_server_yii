@@ -373,6 +373,7 @@ class AppCore {
 				 *  Forgot password email
 		         */
 				'forgotpassword_subject' => Yii::app()->name . " forgot password",
+				'forgotpassword_German_subject' => Yii::app()->name . " forgot password",
 				'forgotpassword_message' => "<html><body>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -400,12 +401,77 @@ class AppCore {
 
 				</html>",
 
+				'forgotpassword_German_message' => "<html><body>
+
+				<div>Language: German</div>
+
+				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+
+				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+				<b>Welcome to " . Yii::app()->name . "</b></div>
+
+				<br>Hi %s,<br><br>
+
+				Your email id is : %s<br><br>
+				Your password is : %s<br><br>
+				You can login  by clicking <a href='%s'>here</a>
+
+				<br><br>
+
+				Regards,
+
+				<br><br>
+
+				<b>Team " . Yii::app()->name . "</b>
+
+				</div>
+
+				</body>
+
+				</html>",
+
+
 				/**
 				 *  Reset/Change password email
 		         */
 				'change_password_subject' => Yii::app()->name . " change password",
+				'change_password_German_subject' => Yii::app()->name . " change password",
+
 				'resetpassword_subject' => Yii::app()->name . " reset password",
-				'changepassword_message' => "<html><body>
+				'resetpassword_German_subject' => Yii::app()->name . " reset password",
+
+				'change_password_message' => "<html><body>
+
+				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+
+				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+				<b>Welcome to " . Yii::app()->name . "</b></div>
+
+				<br>Hi %s,<br><br>
+
+				Your email id is : %s<br><br>
+				Your new password is : %s<br><br>
+				You can login  by clicking <a href='%s'>here</a>
+
+				<br><br>
+
+				Regards,
+
+				<br><br>
+
+				<b>Team " . Yii::app()->name . "</b>
+
+				</div>
+
+				</body>
+
+				</html>",
+
+				'change_password_German_message' => "
+
+				<html><body>
+
+				<div>Language: German</div>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>
 
@@ -436,6 +502,8 @@ class AppCore {
 				 *  email validation template
 		         */
 				'validate_email_subject' => Yii::app()->name . " validate email",
+				'validate_email_German_subject' => Yii::app()->name . " validate email",
+
 				'validate_email_message' => "<html><body>
 
 				<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -461,6 +529,35 @@ class AppCore {
 				</body>
 
 				</html>",
+				'validate_email_German_message' => "
+				<html><body>
+
+				<div>Language: German</div>
+
+				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+
+				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+				<b>Welcome to " . Yii::app()->name . "</b></div>
+
+				<br>Hi %s,<br><br>
+
+				Thank you for registration. Please validate your primary email %s by clicking on following link.<br><br>
+				%s<br><br>
+
+				<br><br>
+
+				Regards,
+
+				<br><br>
+
+				<b>Team " . Yii::app()->name . "</b>
+
+				</div>
+
+				</body>
+
+				</html>",
+
 
 				/**
 				 *  New user email
@@ -1553,6 +1650,25 @@ class AppCore {
 			RobotUserAssociationTokens::model()->deleteAll('token = :token', array(':token' => $value->linking_code));
 			$value->delete();
 		}
+	}
+
+	public static function getCountryLanguage($country_code){
+		$country_data = CountryCodeList::model()->find("iso2 = :iso2", array(':iso2'=>$country_code));
+		$country_lang = false;
+		if($country_data){
+			$country_lang = $country_data->language;
+		}
+		return $country_lang;
+	}
+
+	public static function getMessageTemplateKey($message_key, $country_lang){
+		if($country_lang){
+			$template_key = $message_key . '_' . $country_lang;
+			if(AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject'){
+				$message_key = $template_key;
+			}
+		}
+		return $message_key;
 	}
 
 }

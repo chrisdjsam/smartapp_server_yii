@@ -365,13 +365,29 @@ class RobotCore {
 	}
 
 	public static function sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message){
-		RobotCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
 		foreach ($robot->usersRobots as $userRobot){
 			if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
 				RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 			}
 		}
 	}
+
+	public static function getLinkCode($robot_id){
+
+		$token_legth = Yii::app()->params['link_code_length'];
+
+		$token = UniqueToken::hash(($robot_id + (hexdec(uniqid())) / 100000), $token_legth);
+		$token = trim($token);
+		if (strlen($token) != $token_legth) {
+			self::getLinkCode($robot_id);
+		}
+		$robot_user_association_token = RobotUserAssociationTokens::model()->find('token = :token', array(':token' => $token));
+		if (!empty($robot_user_association_token)) {
+			self::getLinkCode($robot_id);
+		}
+		return $token;
+	}
+
 }
 
 ?>

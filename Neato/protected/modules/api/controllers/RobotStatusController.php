@@ -155,6 +155,18 @@ class RobotStatusController extends APIController {
 
 	public static function callForSetRobotProfile($chat_id, $operation) {
 		$robot = Robot::model()->findByAttributes(array('chat_id' => $chat_id));
+
+		$RobotKeyValues = $robot->RobotKeyValues;
+		$operationStored = '-1';
+		foreach ($RobotKeyValues as $robotkv){
+			if($robotkv->_key == 'robotOnlineStatus'){
+				$operationStored = $robotkv->value;
+			}
+		}
+		if($operationStored == $operation) {
+			return false;
+		}
+
 		if($robot) {
 			$apiHostname = Yii::app()->params['apiHostname'];
 			$apiProtocol = Yii::app()->params['apiProtocol'];
@@ -169,5 +181,6 @@ class RobotStatusController extends APIController {
 			echo AppHelper::curl_call($url, $headers, $data_string);
 		}
 	}
+
 
 }
