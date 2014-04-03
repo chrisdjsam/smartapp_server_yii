@@ -13,6 +13,7 @@
  * @property string $un_member
  * @property string $calling_code
  * @property string $cctld
+ * @property string $language
  */
 class BaseCountryCodeList extends CActiveRecord
 {
@@ -51,7 +52,7 @@ class BaseCountryCodeList extends CActiveRecord
 			array('cctld', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, iso2, short_name, long_name, iso3, numcode, un_member, calling_code, cctld', 'safe', 'on'=>'search'),
+			array('id, iso2, short_name, long_name, iso3, numcode, un_member, calling_code, cctld, language', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class BaseCountryCodeList extends CActiveRecord
 			'un_member' => 'Un Member',
 			'calling_code' => 'Calling Code',
 			'cctld' => 'Cctld',
+			'language' => 'Language',
 		);
 	}
 
@@ -104,6 +106,7 @@ class BaseCountryCodeList extends CActiveRecord
 		$criteria->compare('un_member',$this->un_member,true);
 		$criteria->compare('calling_code',$this->calling_code,true);
 		$criteria->compare('cctld',$this->cctld,true);
+		$criteria->compare('language',$this->language,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

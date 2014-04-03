@@ -60,6 +60,7 @@ class UserController extends Controller
 			$alternate_email = isset($_POST['User']['alternate_email']) ? $_POST['User']['alternate_email'] : '';
 			$country_code = $_POST['CountryCodeList']['iso2'];
 			$opt_in = $_POST['User']['opt_in'];
+			$country_lang = AppCore::getCountryLanguage($country_code);
 
 			if($opt_in == 1){
 				$country_allow = 'true';
@@ -71,6 +72,7 @@ class UserController extends Controller
 
 			$update_user->country_code = $country_code;
 			$update_user->opt_in = $opt_in;
+			$update_user->language = $country_lang;
 
 			$extra_param = array();
 			$extra_param['country_code'] = $country_code;
@@ -706,11 +708,12 @@ class UserController extends Controller
 		$login_link = $this->createUrl("/user/login");
 		if($user_model->save()){
 
+			$country_lang = $user_model->language;
 			$alternate_email = $user_model->alternate_email;
 			if(!empty($alternate_email)){
-				AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, $alternate_email);
+				AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, $alternate_email, $country_lang);
 			} else {
-				AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link);
+				AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, '', $country_lang);
 			}
 
 			Yii::app()->user->setFlash('success', AppCore::yii_echo("You have successfully reset password of user %s.",$user_name));
@@ -755,12 +758,12 @@ class UserController extends Controller
 					$login_link = $this->createUrl("/user/login");
 					if($user_model->save()){
 
+						$country_lang = $user_model->language;
 						$alternate_user_email = trim($user_model->alternate_email);
-
 						if (!empty($alternate_user_email)) {
-							AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, $alternate_user_email);
+							AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, $alternate_user_email, $country_lang);
 						} else {
-							AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link);
+							AppEmail::emailChangePassword($email, $user_name, $new_password, $login_link, '', $country_lang);
 						}
 
 						Yii::app()->user->setFlash('success', AppCore::yii_echo("Your password is changed successfully."));
@@ -817,5 +820,19 @@ class UserController extends Controller
 		}
 		AppHelper::dump("Done");
 	}
+
+	public function actionUpdateUserLanguage() {
+		$userData = User::model()->findAll();
+		foreach ($userData as $user){
+			$userToSave = User::model()->findByPk($user->id);
+			$country_code_data = CountryCodeList::model()->find('iso2 = :iso2', array(':iso2' => $userToSave->country_code));
+			if($country_code_data){
+				$userToSave->language = $country_code_data->language;
+				$userToSave->save();
+			}
+		}
+		AppHelper::dump("Done");
+	}
+
 
 }

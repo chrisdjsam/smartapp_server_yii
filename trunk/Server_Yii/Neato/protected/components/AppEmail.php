@@ -25,10 +25,11 @@ class AppEmail {
 	 * @param string $name
 	 * @param string $new_password
 	 */
-	public static function emailChangePassword($email, $name, $new_password, $login_link, $alternate_user_email = ''){
+	public static function emailChangePassword($email, $name, $new_password, $login_link, $alternate_user_email = '', $country_lang=false){
 		$login_link = Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME'].$login_link;
-		$message = AppCore::yii_echo("changepassword_message", array($name, $email, $new_password, $login_link));
-		$subject = AppCore::yii_echo("change_password_subject");
+		$template_key = AppCore::getMessageTemplateKey('change_password', $country_lang);
+		$message = AppCore::yii_echo($template_key . '_message', array($name, $email, $new_password, $login_link));
+		$subject = AppCore::yii_echo($template_key . "_subject");
 		if(!empty($alternate_user_email)){
 			AppHelper::send_mail($alternate_user_email, $subject, $message);
 		}
@@ -41,10 +42,11 @@ class AppEmail {
 	 * @param string $name
 	 * @param string $new_password
 	 */
-	public static function emailForgotPassword($email, $name, $new_password, $login_link, $alternate_user_email = ''){
+	public static function emailForgotPassword($email, $name, $new_password, $login_link, $alternate_user_email = '', $country_lang=false){
 		$login_link = Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME'].$login_link;
-		$message = AppCore::yii_echo("forgotpassword_message", array($name, $email, $new_password, $login_link));
-		$subject = AppCore::yii_echo("forgotpassword_subject");
+		$template_key = AppCore::getMessageTemplateKey('forgotpassword', $country_lang);
+		$message = AppCore::yii_echo($template_key . "_message", array($name, $email, $new_password, $login_link));
+		$subject = AppCore::yii_echo($template_key . "_subject");
 		if(!empty($alternate_user_email)){
 			AppHelper::send_mail($alternate_user_email, $subject, $message);
 		}
@@ -59,8 +61,8 @@ class AppEmail {
 	 */
 	public static function emailResetPassword($email, $name, $new_password, $login_link, $alternate_user_email = ''){
 		$login_link = Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME'].$login_link;
-		$message = AppCore::yii_echo("changepassword_message", array($name, $email, $new_password, $login_link));
-		$subject = AppCore::yii_echo("changepassword_subject");
+		$message = AppCore::yii_echo("change_password_message", array($name, $email, $new_password, $login_link));
+		$subject = AppCore::yii_echo("change_password_subject");
 		if(!empty($alternate_user_email)){
 			AppHelper::send_mail($alternate_user_email, $subject, $message);
 		}
@@ -74,10 +76,13 @@ class AppEmail {
 	 * @param string $validation_key
 	 * @param string $alternate_email
 	 */
-	public static function emailValidate($email, $name, $validation_key, $alternate_email = ''){
+	public static function emailValidate($email, $name, $validation_key, $alternate_email = '', $country_lang = false){
 		$validation_link = Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME'] . '/user/validateEmail?k=' . $validation_key;
-		$message = AppCore::yii_echo("validate_email_message", array($name, $email, $validation_link));
-		$subject = AppCore::yii_echo("validate_email_subject");
+
+		$template_key = AppCore::getMessageTemplateKey('validate_email', $country_lang);
+		$message = AppCore::yii_echo($template_key . '_message', array($name, $email, $validation_link));
+
+		$subject = AppCore::yii_echo($template_key . '_subject');
 		if(!empty($alternate_email)){
 			AppHelper::send_mail($alternate_email, $subject, $message);
 		}
