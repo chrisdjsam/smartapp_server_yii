@@ -752,9 +752,9 @@ class AppCore {
 				if (isset($sGet['bSearchable_' . $i]) && $sGet['bSearchable_' . $i] == "true") {
 
 					if(Yii::app()->user->UserRoleId == '2'){
-						$sWhere .= $aColumns[$i] . " = '" . mysql_real_escape_string($sGet['sSearch']) . "' OR ";
+						$sWhere .= $aColumns[$i] . " = '" . addslashes($sGet['sSearch']) . "' OR ";
 					}else {
-						$sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($sGet['sSearch']) . "%' OR ";
+						$sWhere .= $aColumns[$i] . " LIKE '%" . addslashes($sGet['sSearch']) . "%' OR ";
 					}
 				}
 			}
@@ -772,7 +772,7 @@ class AppCore {
 				} else {
 					$sWhere .= " AND ";
 				}
-				$sWhere .= $aColumns[$i] . " LIKE '%" . mysql_real_escape_string($sGet['sSearch_' . $i]) . "%' ";
+				$sWhere .= $aColumns[$i] . " LIKE '%" . addslashes($sGet['sSearch_' . $i]) . "%' ";
 			}
 		}
 
