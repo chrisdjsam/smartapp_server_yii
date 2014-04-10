@@ -136,6 +136,18 @@ return array(
         'neato_amqp_publisher_path' => '<YOUR_NEATO_AMQP_PUBLISHER_PATH_HERE>',
         'default_sleep_time' => 2,
         'default_lag_time' => 15,
+		'robot_user_association_token_lifetime' => 300,
+		'default_json_for_notification_preference' => '{"global":"false", "notifications":[{"key":"101", "value":"false"}, {"key":"102", "value":"false"}, {"key":"103", "value":"false"}, {"key":"212", "value":"false"}, {"key":"22000", "value":"false"}, {"key":"20219", "value":"false"}]}',
+		'schedule_key' => 'schedule_updated',
+		'schedule_value' => 'true',
+		'cleaning_command' => 'cleaningCommand',
+		'robot_name_key' => 'name',
+		'command_check_time_limit' => 30000,
+		'default_linking_process' => 1,
+		'is_wp_enabled' => false,
+		'authenticate_via_email' => true, //if is_wp_enabled is true, keep it false otherwise keep true
+		'wordpress_api_url' => '<URL OF WORDPRESS API>',
         'robot_always_connected' => true,
+        'link_code_length' => 4,
 	),
 );
