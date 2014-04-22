@@ -782,7 +782,11 @@ class UserController extends Controller
 	}
 
 	public function actionValidateEmail() {
-
+		
+		if(isset(Yii::app()->theme->name) && Yii::app()->theme->name == AppConstant::THEME_BASIC){
+			$this->layout = 'landing_page';
+		}
+				
 		$validation_key = Yii::app()->request->getParam('k', '');
 		$is_user_active = 'N';
 
@@ -800,7 +804,11 @@ class UserController extends Controller
 			}
 
 		}
-		$this->render('validated', array('is_user_active' => $is_user_active));
+		if(isset(Yii::app()->theme->name) && Yii::app()->theme->name == AppConstant::THEME_BASIC){
+			$this->render('vorwerk_validated', array('is_user_active' => $is_user_active));
+		}else{
+			$this->render('validated', array('is_user_active' => $is_user_active));
+		}
 
 	}
 

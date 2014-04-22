@@ -65,9 +65,7 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 				<ul class="adminMenuUser">
 					<li>
 						Logged in as
-						<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>">
-							<?php echo Yii::app()->user->name;?>
-						</a>
+						<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name;?></a>
 						<?php echo "(Administrator)";?>
 					</li>
 					<li>

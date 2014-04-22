@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+
+/* landing page css */
+body#activatelandingpage {
+	background: #1A1A1A url("../images/bg.png") repeat-x;
+	margin: 0px;
+	font-family: Arial, Helvetica, Sans-Serif;
+	color: #FFFFFF;
+}
+
+#activatelandingpage #logo {
+	width: 640px;
+	margin: 96px auto 0;
+	text-align: center;
+}
+
+#activatelandingpage #text {
+	width: 566px;
+	margin: 182px auto 0;
+	font-size: 35px;
+	line-height: 46px;
+	text-align: center;
+}

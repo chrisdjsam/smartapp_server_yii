@@ -47,7 +47,7 @@ $this->breadcrumbs=array(
 	<div class="search-box">
 		<input class="search-text-input" type="text" aria-controls=""/ >
 		<span>
-			<button class="search-button for-user">Search</button>
+			<input type="button" class="search-button for-user neato-button" value="Search" />
 		</span>
 	</div>
 	<?php }?>

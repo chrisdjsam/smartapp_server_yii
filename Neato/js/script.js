@@ -174,7 +174,7 @@ $(document).ready(function() {
 	clickSearchButton();
 
 	if (user_role_id == '2') {
-		aTargets = [ 0, 1 ];
+		aTargets = [ 0, 1, 2 ];
 
 	} else {
 		aTargets = [ 0, 2, 3, 4, 5];

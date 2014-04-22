@@ -370,226 +370,378 @@ class AppCore {
 				'deleteuser:ok' => "You have successfully deleted a user <b> %s </b>.",
 
 				/**
+				 * EMAIL
+				 */
+				'vorwerk_email_' . AppConstant::LANGUAGE_EN . '_header' => '<html>
+																			<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head>
+																			<body style="background:#FFF;margin:20px;font-family:Arial,Helvetica,Sans-Serif">
+																			<div>
+																			  <table width="600" cellpadding="20" cellspacing="0" border="0">
+																			    <tr>
+																				    <td>
+																				    	<img src="'.Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME']."/images/logo.gif".'" alt="logo" /><br /><br />
+																			    	</td>
+																				</tr>
+																				    <td>
+																					    <img src="'.Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME']."/images/header.jpg".'" alt="header" />
+																				    </td>
+																				</tr>',
+				'vorwerk_email_' . AppConstant::LANGUAGE_DE . '_header' => '<html>
+																			<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head>
+																			<body style="background:#FFF;margin:20px;font-family:Arial,Helvetica,Sans-Serif">
+																			<div>
+																			<table width="600" cellpadding="20" cellspacing="0" border="0">
+																			<tr>
+																				<td>
+																					<img src="'.Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME']."/images/logo.gif".'" alt="logo" /><br /><br />
+																				</td>
+																			</tr>
+																				<td>
+																					<img src="'.Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME']."/images/header.jpg".'" alt="header" />
+																				</td>
+																			</tr>',
+
+				'vorwerk_email_' . AppConstant::LANGUAGE_EN . '_footer' => '<tr>
+																				<td style="font-size:10px;color:#113c2b;padding:0px 20px 20px;">
+																					<div style="border-top:1px solid #b1b2b3;">&nbsp;</div>
+																					Please contact us in case of problems or questions during the test phase VR200<br />
+																					directly to our partner agency TRND:  <br />
+																					In the project blog at: <a href="http://www.trnd.com/saugroboter" style="color:#009A3D;">www.trnd.com/saugroboter</a><br />
+																					Or by email to: <a href="mailto:vorwerk@trnd.com" style="color:#009A3D;">vorwerk@trnd.com</a><br />
+																				</td>
+																			</tr>
+																			<tr>
+																				<td style="padding:0px 20px;">
+																					<table width="600" cellspacing="0" cellpadding="10" border="0" style="background:#113c2b;color:#FFFFFF;font-size:10px;">
+																						<tr>
+																							<td width="460" align="right" style="padding-right:10px;"><b>Follow us on:</b></td>
+																							<td width="24" style="padding-right:10px;"><a href="http://newsletter.vorwerk-kobold.de/ff/ch.php?cmd=go2056341189&amp;vas=401947068" target="_blank"><img height="24" width="24" border="0" alt="" src="' . Yii::app()->params['apiProtocol'] . $_SERVER['SERVER_NAME'] . "/images/facebook_icon.png" . '" style="display:block;"></a></td>
+																							<td width="24"><a href="http://newsletter.vorwerk-kobold.de/ff/ch.php?cmd=go2056341189&amp;vas=401947069" id="v401947069" target="_blank"><img height="24" width="24" border="0" alt="" src="' . Yii::app()->params['apiProtocol'] . $_SERVER['SERVER_NAME'] . "/images/youtube_icon.png" . '" style="display:block;"></a></td>
+																						</tr>
+																					</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																			</tbody>
+																			</table>
+																			</div>
+																			</body>',
+
+				'vorwerk_email_' . AppConstant::LANGUAGE_DE . '_footer' => '<tr>
+																				<td style="font-size:10px;color:#113c2b;padding:0px 20px 20px;">
+																					<div style="border-top:1px solid #b1b2b3;">&nbsp;</div>
+																					Bitte wende Dich bei Problemen oder Rückfragen während der VR200 Testphase<br />
+																					direkt an unsere Partneragentur TRND:  <br />
+																					Im Projektblog unter: <a href="http://www.trnd.com/saugroboter" style="color:#009A3D;">www.trnd.com/saugroboter</a><br />
+																					Oder per Email an: <a href="mailto:vorwerk@trnd.com" style="color:#009A3D;">vorwerk@trnd.com</a><br />
+																				</td>
+																			</tr>
+																			<tr>
+																				<td style="padding:0px 20px;">
+																					<table width="600" cellspacing="0" cellpadding="10" border="0" style="background:#113c2b;color:#FFFFFF;font-size:10px;">
+																						<tr>
+																							<td width="460" align="right" style="padding-right:10px;"><b>Follow us on:</b></td>
+																							<td width="24" style="padding-right:10px;"><a href="http://newsletter.vorwerk-kobold.de/ff/ch.php?cmd=go2056341189&amp;vas=401947068" target="_blank"><img height="24" width="24" border="0" alt="" src="' . Yii::app()->params['apiProtocol'] . $_SERVER['SERVER_NAME'] . "/images/facebook_icon.png" . '" style="display:block;"></a></td>
+																							<td width="24"><a href="http://newsletter.vorwerk-kobold.de/ff/ch.php?cmd=go2056341189&amp;vas=401947069" id="v401947069" target="_blank"><img height="24" width="24" border="0" alt="" src="' . Yii::app()->params['apiProtocol'] . $_SERVER['SERVER_NAME'] . "/images/youtube_icon.png" . '" style="display:block;"></a></td>
+																						</tr>
+																					</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																		</table>
+																		</div>
+																		</body>',
+
+				/**
 				 *  Forgot password email
 		         */
-				'forgotpassword_subject' => Yii::app()->name . " forgot password",
-				'forgotpassword_German_subject' => Yii::app()->name . " forgot password",
-				'forgotpassword_message' => "<html><body>
+				'forgotpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " forgot password",
+				'forgotpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " forgot password",
 
-				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " forgot password",
+				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " forgot password",
 
-				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to " . Yii::app()->name . "</b></div>
+				'forgotpassword_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>Welcome to " . Yii::app()->name . "</b></div>
+																			<br>Hi %s,<br><br>
+																			Your email id is : %s<br><br>
+																			Your password is : %s<br><br>
+																			You can login  by clicking <a href='%s'>here</a>
+																			<br><br>
+																			Regards,
+																			<br><br>
+																			<b>Team " . Yii::app()->name . "</b>
+																			</div>
+																			</body>
+																			</html>",
 
-				<br>Hi %s,<br><br>
+				'forgotpassword_'. AppConstant::LANGUAGE_DE . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>Welcome to " . Yii::app()->name . "</b></div>
+																			<br>Hi %s,<br><br>
+																			Your email id is : %s<br><br>
+																			Your password is : %s<br><br>
+																			You can login  by clicking <a href='%s'>here</a>
+																			<br><br>
+																			Regards,
+																			<br><br>
+																			<b>Team " . Yii::app()->name . "</b>
+																			</div>
+																			</body>
+																			</html>",
 
-				Your email id is : %s<br><br>
-				Your password is : %s<br><br>
-				You can login  by clicking <a href='%s'>here</a>
+				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_EN . '_message' => "%s<tr>
+																							<td>
+																								<br>Hi %s,<br><br>
+																								Your email id is : %s<br><br>
+																								Your password is : %s<br><br>
+																								You can login  by clicking <a href='%s'>here</a>
+																								<br><br>
+																								Regards,
+																								<br><br>
+																								<b>Team " . Yii::app()->name . "</b>
+																							</td>
+																					</tr>%s",
 
-				<br><br>
-
-				Regards,
-
-				<br><br>
-
-				<b>Team " . Yii::app()->name . "</b>
-
-				</div>
-
-				</body>
-
-				</html>",
-
-				'forgotpassword_German_message' => "<html><body>
-
-				<div>Language: German</div>
-
-				<div style='border: 1px solid #E3E3E3; padding:10px;'>
-
-				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to " . Yii::app()->name . "</b></div>
-
-				<br>Hi %s,<br><br>
-
-				Your email id is : %s<br><br>
-				Your password is : %s<br><br>
-				You can login  by clicking <a href='%s'>here</a>
-
-				<br><br>
-
-				Regards,
-
-				<br><br>
-
-				<b>Team " . Yii::app()->name . "</b>
-
-				</div>
-
-				</body>
-
-				</html>",
-
+				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_DE . '_message' => "%s<tr>
+																							<td>
+																								<br>Hi %s,<br><br>
+																								Your email id is : %s<br><br>
+																								Your password is : %s<br><br>
+																								You can login  by clicking <a href='%s'>here</a>
+																								<br><br>
+																								Regards,
+																								<br><br>
+																								<b>Team " . Yii::app()->name . "</b>
+																							</td>
+																					</tr>%s",
 
 				/**
 				 *  Reset/Change password email
 		         */
-				'change_password_subject' => Yii::app()->name . " change password",
-				'change_password_German_subject' => Yii::app()->name . " change password",
+				'change_password_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " change password",
+				'change_password_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " change password",
 
-				'resetpassword_subject' => Yii::app()->name . " reset password",
-				'resetpassword_German_subject' => Yii::app()->name . " reset password",
+				'vorwerk_change_password_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " change password",
+				'vorwerk_change_password_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " change password",
 
-				'change_password_message' => "<html><body>
+				'resetpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " reset password",
+				'resetpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " reset password",
 
-				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+				'vorwerk_resetpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " reset password",
+				'vorwerk_resetpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " reset password",
 
-				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to " . Yii::app()->name . "</b></div>
+				'change_password_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
+																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																				<b>Welcome to " . Yii::app()->name . "</b></div>
+																				<br>Hi %s,<br><br>
+																				Your email id is : %s<br><br>
+																				Your new password is : %s<br><br>
+																				You can login  by clicking <a href='%s'>here</a>
+																				<br><br>
+																				Regards,
+																				<br><br>
+																				<b>Team " . Yii::app()->name . "</b>
+																				</div>
+																				</body>
+																				</html>",
 
-				<br>Hi %s,<br><br>
+				'change_password_'. AppConstant::LANGUAGE_DE . '_message' => "
+																			<html><body>
+																			<div>Language: German</div>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>Welcome to " . Yii::app()->name . "</b></div>
+																			<br>Hi %s,<br><br>
+																			Your email id is : %s<br><br>
+																			Your new password is : %s<br><br>
+																			You can login  by clicking <a href='%s'>here</a>
+																			<br><br>
+																			Regards,
+																			<br><br>
+																			<b>Team " . Yii::app()->name . "</b>
+																			</div>
+																			</body>
+																			</html>",
 
-				Your email id is : %s<br><br>
-				Your new password is : %s<br><br>
-				You can login  by clicking <a href='%s'>here</a>
+				'vorwerk_change_password_'. AppConstant::LANGUAGE_EN . '_message' => '%s<tr>
+																						<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
+																							<span style="font-weight:bold;font-size:18px;">Dear customer,</span>
+																							<br /><br /><br />
+																							The password for your Vorwerk VR200 user account has been set back to: <br />
+																							<span style="color:#009A3D;font-weight:bold;">%s</span><br />
+																							Please use this password along with your Email Address<br />
+																							<span style="color:#009A3D;font-weight:bold;">%s</span>,<br />
+																							when next you are using the Vorwerk VR200 App.<br /><br />
+																							Safety Note: Please change this password after the next login.<br /><br />
+																							Regards,<br />
+																							Vorwerk Customer Service<br />
+																			      		</td>
+																				    </tr>%s',
 
-				<br><br>
-
-				Regards,
-
-				<br><br>
-
-				<b>Team " . Yii::app()->name . "</b>
-
-				</div>
-
-				</body>
-
-				</html>",
-
-				'change_password_German_message' => "
-
-				<html><body>
-
-				<div>Language: German</div>
-
-				<div style='border: 1px solid #E3E3E3; padding:10px;'>
-
-				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to " . Yii::app()->name . "</b></div>
-
-				<br>Hi %s,<br><br>
-
-				Your email id is : %s<br><br>
-				Your new password is : %s<br><br>
-				You can login  by clicking <a href='%s'>here</a>
-
-				<br><br>
-
-				Regards,
-
-				<br><br>
-
-				<b>Team " . Yii::app()->name . "</b>
-
-				</div>
-
-				</body>
-
-				</html>",
+				'vorwerk_change_password_' . AppConstant::LANGUAGE_DE . '_message' => '%s<tr>
+																						<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
+																							<span style="font-weight:bold;font-size:18px;">Liebe Kundin, lieber Kunde,</span>
+																							<br /><br /><br />
+																							das Passwort für dein Vorwerk VR200 Benutzerkonto wurde zurück gesetzt auf:<br />
+																							<span style="color:#009A3D;font-weight:bold;">%s</span><br />
+																							Bitte nutze dieses Passwort zusammen mit deiner Email Adresse<br />
+																							<span style="color:#009A3D;font-weight:bold;">%s</span>,<br />
+																							wenn du die Vorwerk VR200 App das nächste Mal verwendest.<br /><br />
+																							Sicherheitshinweis: Bitte ändere dieses Passwort nach dem nächsten Login.<br /><br />
+																							Viele Grüße<br />
+																							Vorwerk Kundenservice<br />
+																			      		</td>
+																				    </tr>%s',
 
 				/**
 				 *  email validation template
 		         */
-				'validate_email_subject' => Yii::app()->name . " validate email",
-				'validate_email_German_subject' => Yii::app()->name . " validate email",
+				'validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " validate email",
+				'validate_email_' . AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " validate email",
 
-				'validate_email_message' => "<html><body>
+				'vorwerk_validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " validate email",
+				'vorwerk_validate_email_' . AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " validate email",
 
-				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+				'validate_email_' . AppConstant::LANGUAGE_EN . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>Welcome to " . Yii::app()->name . "</b></div>
+																			<br>Hi %s,<br><br>
+																			Thank you for registration. Please validate your primary email %s by clicking on the following link.<br><br>
+																			%s<br><br>
+																			<br><br>
+																			Regards,
+																			<br><br>
+																			<b>Team " . Yii::app()->name . "</b>
+																			</div>
+																			</body>
+																			</html>",
 
-				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to " . Yii::app()->name . "</b></div>
+				'validate_email_' . AppConstant::LANGUAGE_DE . '_message' => "
+																			<html><body>
+																			<div>Language: German</div>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>Welcome to " . Yii::app()->name . "</b></div>
+																			<br>Hi %s,<br><br>
+																			Thank you for registration. Please validate your primary email %s by clicking on the following link.<br><br>
+																			%s<br><br>
+																			<br><br>
+																			Regards,
+																			<br><br>
+																			<b>Team " . Yii::app()->name . "</b>
+																			</div>
+																			</body>
+																			</html>",
 
-				<br>Hi %s,<br><br>
+				'vorwerk_validate_email_' . AppConstant::LANGUAGE_EN . '_message' => '%s<tr>
+																							<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
+																								<span style="font-weight:bold;font-size:18px;">Dear customer,</span><br /><br /><br />
+																								Thank you that you have registered for the VR200 App.<br />
+																								Please confirm your email address<br />
+																								<span style="color:#009A3D;font-weight:bold;">%s</span><br />
+																								by clicking this link:<br />%s<br /><br />
+																								Regards,<br />
+																								Vorwerk Customer Service<br />
+																							</td>
+																						</tr>%s',
 
-				Thank you for registration. Please validate your primary email %s by clicking on following link.<br><br>
-				%s<br><br>
 
-				<br><br>
-
-				Regards,
-
-				<br><br>
-
-				<b>Team " . Yii::app()->name . "</b>
-
-				</div>
-
-				</body>
-
-				</html>",
-				'validate_email_German_message' => "
-				<html><body>
-
-				<div>Language: German</div>
-
-				<div style='border: 1px solid #E3E3E3; padding:10px;'>
-
-				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to " . Yii::app()->name . "</b></div>
-
-				<br>Hi %s,<br><br>
-
-				Thank you for registration. Please validate your primary email %s by clicking on following link.<br><br>
-				%s<br><br>
-
-				<br><br>
-
-				Regards,
-
-				<br><br>
-
-				<b>Team " . Yii::app()->name . "</b>
-
-				</div>
-
-				</body>
-
-				</html>",
-
+				'vorwerk_validate_email_' . AppConstant::LANGUAGE_DE . '_message' => '%s<tr>
+																							<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
+																								<span style="font-weight:bold;font-size:18px;">Liebe Kundin, lieber Kunde,</span><br /><br /><br />
+																								danke, daß du dich für die VR200 App registriert hast.<br />
+																								Bitte bestätige Deine Email Adresse<br />
+																								<span style="color:#009A3D;font-weight:bold;">%s</span><br />
+																								durch Anklicken dieses Links:<br />%s<br /><br />
+																								Viele Grüße<br />
+																								Vorwerk Kundenservice<br />
+																					      	</td>
+																				    	</tr>%s',
 
 				/**
 				 *  New user email
 		         */
-				'welocome_subject' => "Welcome to " . Yii::app()->name,
-				'welcome_message' => "<html><body>
+				'welocome_' . AppConstant::LANGUAGE_EN . 'subject' => "Welcome to " . Yii::app()->name,
+				'welocome_' . AppConstant::LANGUAGE_DE . 'subject' => "Welcome to " . Yii::app()->name,
 
-				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+				'vorwerk_welocome_' . AppConstant::LANGUAGE_EN . 'subject' => "Welcome to " . Yii::app()->name,
+				'vorwerk_welocome_' . AppConstant::LANGUAGE_DE . 'subject' => "Welcome to " . Yii::app()->name,
 
-				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-				<b>Welcome to " . Yii::app()->name . "</b></div>
+				'welcome_' . AppConstant::LANGUAGE_EN . 'message' => "<html><body>
+																		<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																		<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																		<b>Welcome to " . Yii::app()->name . "</b></div>
+																		<br>Hi %s,<br><br>
+																		Thanks for registering with " . Yii::app()->name . ".<br><br>
+																		Your email id is : %s<br><br>
+																		Your password is : %s<br><br>
+																		You can login  by clicking <a href='%s'>here</a>
+																		<br><br>
+																		Regards,
+																		<br><br>
+																		<b>Team " . Yii::app()->name . "</b>
+																		</div>
+																		</body>
+																		</html>",
 
-				<br>Hi %s,<br><br>
-				Thanks for registering with " . Yii::app()->name . ".<br><br>
+				'welcome_' . AppConstant::LANGUAGE_DE . 'message' => "<html><body>
+																		<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																		<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																		<b>Welcome to " . Yii::app()->name . "</b></div>
+																		<br>Hi %s,<br><br>
+																		Thanks for registering with " . Yii::app()->name . ".<br><br>
+																		Your email id is : %s<br><br>
+																		Your password is : %s<br><br>
+																		You can login  by clicking <a href='%s'>here</a>
+																		<br><br>
+																		Regards,
+																		<br><br>
+																		<b>Team " . Yii::app()->name . "</b>
+																		</div>
+																		</body>
+																		</html>",
 
-				Your email id is : %s<br><br>
-				Your password is : %s<br><br>
-				You can login  by clicking <a href='%s'>here</a>
 
-				<br><br>
+				'vorwerk_welcome_' . AppConstant::LANGUAGE_EN . 'message' => "<html><body>
+																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																				<b>Welcome to " . Yii::app()->name . "</b></div>
+																				<br>Hi %s,<br><br>
+																				Thanks for registering with " . Yii::app()->name . ".<br><br>
+																				Your email id is : %s<br><br>
+																				Your password is : %s<br><br>
+																				You can login  by clicking <a href='%s'>here</a>
+																				<br><br>
+																				Regards,
+																				<br><br>
+																				<b>Team " . Yii::app()->name . "</b>
+																				</div>
+																				</body>
+																				</html>",
 
-				Regards,
-
-				<br><br>
-
-				<b>Team " . Yii::app()->name . "</b>
-
-				</div>
-
-				</body>
-
-				</html>",
+				'vorwerk_welcome_' . AppConstant::LANGUAGE_DE . 'message' => "<html><body>
+																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																				<b>Welcome to " . Yii::app()->name . "</b></div>
+																				<br>Hi %s,<br><br>
+																				Thanks for registering with " . Yii::app()->name . ".<br><br>
+																				Your email id is : %s<br><br>
+																				Your password is : %s<br><br>
+																				You can login  by clicking <a href='%s'>here</a>
+																				<br><br>
+																				Regards,
+																				<br><br>
+																				<b>Team " . Yii::app()->name . "</b>
+																				</div>
+																				</body>
+																				</html>",
 
 		);
 
@@ -1662,13 +1814,14 @@ class AppCore {
 	}
 
 	public static function getMessageTemplateKey($message_key, $country_lang){
+		$result = $message_key . '_' . AppConstant::LANGUAGE_DEFAULT;
 		if($country_lang){
 			$template_key = $message_key . '_' . $country_lang;
-			if(AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject'){
-				$message_key = $template_key;
+			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
+				$result = $template_key;
 			}
 		}
-		return $message_key;
+		return $result;
 	}
 
 }
