@@ -1,0 +1,13 @@
+ALTER TABLE `country_code_list`  ADD `language` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'English';
+UPDATE `country_code_list` SET `language`='German' WHERE `short_name` = 'Austria';
+UPDATE `country_code_list` SET `language`='Chinese' WHERE `short_name` = 'China';
+UPDATE `country_code_list` SET `language`='Czech' WHERE `short_name` = 'Czech Republic';
+UPDATE `country_code_list` SET `language`='French' WHERE `short_name` = 'France';
+UPDATE `country_code_list` SET `language`='Italian' WHERE `short_name` = 'Italy';
+UPDATE `country_code_list` SET `language`='Japanese' WHERE `short_name` = 'Japan';
+UPDATE `country_code_list` SET `language`='Catalan' WHERE `short_name` = 'Spain';
+UPDATE `country_code_list` SET `language`='German' WHERE `short_name` = 'Switzerland';
+UPDATE `country_code_list` SET `language`='English' WHERE `short_name` = 'United Kingdom';
+UPDATE `country_code_list` SET `language`='German' WHERE `short_name` = 'Germany';
+ALTER TABLE `users`  ADD `language` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'English';
+ALTER TABLE `users` CHANGE `push_notification_preference` `push_notification_preference` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '1 for ''true'' and 0 for ''false''';

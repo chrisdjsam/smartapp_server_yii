@@ -68,7 +68,7 @@ $userRole = Yii::app()->user->UserRoleId;
 						</td>
 						<td class='pretty-table-center-td'>
 							<a class="look-like-a-link"
-								title="App version<?php echo $value->latest_version; ?> for <?php echo $value->os_type . ' ' . $value->os_version; ?>"
+								title="<?php echo $value->latest_version; ?>"
 								href="<?php echo $value->latest_version_url; ?>" target="_blank">
 								<?php echo $value->latest_version_url; ?>
 							</a>
@@ -79,12 +79,12 @@ $userRole = Yii::app()->user->UserRoleId;
 						<?php if ($isAdmin) { ?>
 						<td class='pretty-table-center-td'>
 							<a href=<?php echo $this->createUrl('app/update', array('h' => AppHelper::two_way_string_encrypt($value->id),)) ?>
-								title="Edit App Version <?php echo $value->app_id ?>" class="look-like-a-link ">edit</a>
+								title="Edit App ID <?php echo $value->app_id ?>" class="look-like-a-link ">edit</a>
 						</td>
 						<td class='pretty-table-center-td'>
 							<div class="delete-single-app_version look-like-a-link "
 								href=<?php echo $this->createUrl('api/app/appDelete', array('h' => AppHelper::two_way_string_encrypt($value->app_id))) ?>
-								title="Delete App Version<?php echo $value->app_id ?>">delete</div>
+								title="Delete App ID <?php echo $value->app_id ?>">delete</div>
 						</td>
 						<?php } ?>
 					</tr>

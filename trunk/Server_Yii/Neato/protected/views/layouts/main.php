@@ -63,9 +63,7 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 				<ul class="adminMenuUser">
 					<li>
 						Logged in as
-						<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>">
-							<?php echo Yii::app()->user->name;?>
-						</a>
+						<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>"><?php echo Yii::app()->user->name; ?></a>
 						<?php echo "(Administrator)";?>
 					</li>
 					<?php if(!$is_wp_enabled){ ?>

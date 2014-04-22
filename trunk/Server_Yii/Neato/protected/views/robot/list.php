@@ -38,9 +38,9 @@ $this->breadcrumbs=array(
 		Click on edit to update a specific robot information.
 		<br />
 		<?php }?>
-		<?php if($userRole != '2'){?>
 		You can also select a robot and click on delete button to delete a robot.
 		<br />
+		<?php if($userRole != '2'){?>
 		Please note that deleting a robot would also delete the user-robot associations for that specific robot.
 		<?php }?>
 	</p>
@@ -51,7 +51,7 @@ $this->breadcrumbs=array(
 	<div class="search-box">
 		<input class="search-text-input" type="text" aria-controls=""/ >
 		<span>
-			<button class="btn btn-small search-button for-robot">Search</button>
+			<input type="button" class="btn btn-small search-button for-robot neato-button" value="Search" />
 		</span>
 	</div>
 

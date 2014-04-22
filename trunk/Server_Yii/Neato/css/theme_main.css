@@ -275,8 +275,7 @@ h1,h2,h3,h4,h5,h6 {
 	padding: 6px 13px \0/IE8 +9;
 }
 
-.change-password-buttons a.neato-button {
-	/*    padding-top: 5px ;
+.change-password-buttons a.neato-button { /*    padding-top: 5px ;
     padding-bottom: 5px;*/
 	/*padding-top: 5px !important  \0/IE8+9;*/
 	padding-bottom: 4px \0/IE8 +9;
@@ -904,14 +903,12 @@ input,textarea {
 }
 
 .dataTables_length label,.dataTables_filter label,.dataTables_info,.dataTables_paginate a
-	{
-	/*color: rgb(167, 26, 26);*/
+	{ /*color: rgb(167, 26, 26);*/
 	color: #009A3D;
 	font-size: 11px;
 }
 
-.dataTables_length select {
-	/*	font-size: 10px;*/
+.dataTables_length select { /*	font-size: 10px;*/
 	font-size: 9px;
 	/*height: 17px;*/
 	height: 18px;
@@ -933,7 +930,6 @@ input,textarea {
 
 .action-button-container {
 	float: right;
-	margin-bottom: 15px;
 }
 
 .list_details {
@@ -1328,8 +1324,7 @@ table.detail-view tr.odd {
 	background: none repeat scroll 0 0 #DEDEDE !important;
 }
 
-table.dataTable tr.odd {
-	/*background-color: #F3FFEF !important;*/
+table.dataTable tr.odd { /*background-color: #F3FFEF !important;*/
 	/*    background-color: rgb(145, 230, 152) !important;*/
 	
 }
@@ -1338,8 +1333,7 @@ table.dataTable tr.even td.sorting_1 {
 	background-color: #FFFFFF !important;
 }
 
-table.dataTable tr.odd td.sorting_1 {
-	/*background-color: #F3FFEF;*/
+table.dataTable tr.odd td.sorting_1 { /*background-color: #F3FFEF;*/
 	
 }
 
@@ -1356,8 +1350,7 @@ table.dataTable tr.odd td.sorting_1 {
 	border-right: 1px solid #009A3D;
 }
 
-#header-color {
-	/*background-color: rgb(159, 213, 122);*/
+#header-color { /*background-color: rgb(159, 213, 122);*/
 	
 }
 
@@ -1389,8 +1382,7 @@ table.detail-view {
 }
 
 div.form div.error input,div.form div.error textarea,div.form div.error select,div.form input.error,div.form textarea.error,div.form select.error
-	{
-	/*background-color: rgb(145, 230, 152);*/
+	{ /*background-color: rgb(145, 230, 152);*/
 	border-color: #382121;
 }
 
@@ -1437,6 +1429,7 @@ thead tr {
 	position: relative;
 	width: 100%;
 	border: 1px solid #009A3D !important;
+	margin-top: 45px !important;
 }
 
 .search-box {
@@ -1520,7 +1513,7 @@ thead tr {
 }
 
 .support-login-form {
-	padding-top: 35px;
+	padding-top: 28px;
 	padding-left: 35px;
 	padding-right: 35px;
 }
@@ -1559,9 +1552,10 @@ div.form label {
 	margin-top: 2px;
 }
 
-.remembe-me-check input{
+.remembe-me-check input {
 	margin: 0 !important;
 }
-.support-delete-div .rounded-corners{
-margin-top:0px;
+
+.support-delete-div .rounded-corners {
+	margin-top: 0px;
 }

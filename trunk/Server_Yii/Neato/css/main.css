@@ -271,8 +271,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .top-buttons-container {
-	float: right;
-	width: 300px;
+	padding-top: 12px;
+	margin-left: 59.45%;
 }
 
 .page-default {
@@ -411,7 +411,7 @@ ul,li,menu,dir {
 .copyright-notice {
 	font-size: 11px;
 	padding-right: 10px;
-	margin-top: 15px;	
+	margin-top: 15px;
 }
 
 .button-div {
@@ -825,6 +825,14 @@ input,textarea {
 	width: 100%;
 }
 
+.pretty-table th {
+	height: 35px;
+}
+
+.pretty-table td {
+	height: 22px;
+}
+
 .pretty-table th,.pretty-table td {
 	border: 1px solid #CCC;
 	text-align: left;
@@ -953,7 +961,7 @@ a.neato-button-login {
 	font-size: 13px;
 }
 
-input.neato-button {
+input.neato-button, button.neato-button {
 	width: 91px;
 }
 
@@ -1343,10 +1351,11 @@ table.detail-view td {
 	position: relative;
 	width: 100%;
 	border: 1px solid #DC4405 !important;
+	margin-top: 45px !important;
 }
 
 .support-login-form {
-	padding-top: 55px;
+	padding-top: 25px;
 	padding-left: 55px;
 	padding-right: 55px;
 }
@@ -1375,4 +1384,30 @@ div.form label {
 
 .remembe-me-check input {
 	margin: 0 !important;
+}
+
+.top-buttons {
+	width: 100px;
+}
+
+.support-menu-user {
+	padding-top: 50px;
+}
+
+.search-box {
+	float: right;
+	margin-bottom: 6px;
+}
+
+.search-text-input {
+	float: left;
+	font-size: 12px;
+	height: 20px;
+	margin-right: 4px;
+	margin-top: 5px;
+	width: 200px;
+}
+
+.support-delete-div {
+	margin-bottom: 0px;
 }

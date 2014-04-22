@@ -74,7 +74,7 @@ class AppController extends APIController {
 		$app_id = $_POST['AppInfo']['app_id'];
 		$app_id = trim($app_id);
 		if(!is_numeric($app_id) && !is_int($app_id) ){
-			$response_message = "app_id should be an integer only.";
+			$response_message = "App Id should be an integer only.";
 			self::terminate(-1, $response_message, APIConstant::APP_ID_SHOULD_BE_INTEGER);
 		}
 

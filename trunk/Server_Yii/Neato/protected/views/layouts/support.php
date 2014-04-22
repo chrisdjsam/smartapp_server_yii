@@ -60,8 +60,8 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 			<div class="inner">
 				<?php
 			if($isLoggedIn){?>
-				<?php if($isAdmin){?>
-				<ul class="adminMenuUser">
+				<ul class="menu-user support-menu-user">
+					<?php if($isAdmin){?>
 					<li>
 						Logged in as
 						<b>
@@ -70,83 +70,38 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						<?php echo "(Support)";?>
 					</li>
 					<li>
-						<a href="<?php echo $this->createUrl('/user/changepassword')?>" title="Change your password">Change Password</a>
+						<a href="<?php echo $this->createUrl('/user/changepassword')?>" title="Change my password">Change my password</a>
 					</li>
 					<li>
 						<a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out"> Log out </a>
 					</li>
+					<?php }?>
 				</ul>
 				<?php }?>
-				<ul class="menu-user ">
-					<?php if(!$isAdmin){?>
-					<ul class="menu-user noAdminMenuUser">
-						<li>
-							Logged in as
-							<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="<?php echo Yii::app()->user->name;?>">
-								<?php echo Yii::app()->user->name;?>
-							</a>
-						</li>
-						<?php }?>
-						<?php if($userRole != 2){ ?>
-						<li>
-							<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="My Profile" class="neato_tab_my_profile">My Profile</a>
-						</li>
-						<?php } ?>
-						<?php if($isAdmin){ ?>
-						<li>
-							<a href="<?php echo $this->createUrl('/robot/list')?>"
-								title="<?php echo ($userRole == '2')?"Robot":"List of all Robots"; ?>">
-								<?php echo ($userRole == '2')?"Search Robot":"Search a robot"; ?>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo $this->createUrl('user/list')?>" title="<?php echo ($userRole == '2')?"User":"List of all Users"; ?>">
-								<?php echo ($userRole == '2')?"Search User":"Search a user"; ?>
-							</a>
-						</li>
-						<?php if($userRole != 2){ ?>
-						<li>
-							<a href="<?php echo $this->createUrl('/usersRobot/list')?>" title="List of all User-Robot Associations">User-Robot
-								Associations</a>
-						</li>
-						<?php }?>
-						<li>
-							<a href="<?php echo $this->createUrl('/online/list')?>" title="List of all online User-Robot">Who is online?</a>
-						</li>
-						<?php if($userRole != '2'){ ?>
-						<li>
-							<a href="<?php echo $this->createUrl('/notification/list')?>" title="Send Notifications">Notifications</a>
-						</li>
-						<li>
-							<a href="<?php echo $this->createUrl('/robot/types')?>" title="Robot Types">Types</a>
-						</li>
-						<li>
-							<a href="<?php echo $this->createUrl('/app/list')?>" title="List of all available app versions ">Version Control</a>
-						</li>
-						<?php } ?>
-						<?php }?>
-						<?php if(!$isAdmin){?>
-						<li>
-							<a href="<?php echo $this->createUrl('/user/logout')?>" title="Log Out">Log out</a>
-						</li>
-						<?php } ?>
-					</ul>
-					<?php }	?>
-					<h1>
-						<div id="logo">
-							<a href="<?php echo $this->createUrl("/user/supportlogin")?>" title="Neato Robotics">
-								<?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo.png","Neato Robotics", array('class'=> 'app-logo')); ?>
-							</a>
-						</div>
-					</h1>
-					<div class="top-buttons-container">
-						<?php if(!$isLoggedIn){?>
-						<?php }?>
+				<h1>
+					<div id="logo">
+						<a href="<?php echo $this->createUrl("/user/supportlogin")?>" title="Neato Robotics">
+							<?php echo CHtml::image(Yii::app()->request->baseUrl."/images/logo.png","Neato Robotics", array('class'=> 'app-logo')); ?>
+						</a>
 					</div>
-
+				</h1>
 			</div>
 		</div>
-		<!-- header -->
+		<div class="top-buttons-container">
+			<?php if($isAdmin){ ?>
+			<a href="<?php echo $this->createUrl('/robot/list')?>" title="<?php echo ($userRole == '2')?"Robot":"List of all Robots"; ?>"
+				class="neato-button_alt top-buttons">
+				<?php echo ($userRole == '2')?"Search Robot":"Search a robot"; ?>
+			</a>
+			<a href="<?php echo $this->createUrl('user/list')?>" title="<?php echo ($userRole == '2')?"User":"List of all Users"; ?>"
+				class="neato-button_alt top-buttons">
+				<?php echo ($userRole == '2')?"Search User":"Search a user"; ?>
+			</a>
+			<a href="<?php echo $this->createUrl('/online/list')?>" title="List of all online User-Robot"
+				class="neato-button_alt top-buttons">Who is online?</a>
+			<?php }?>
+		</div>
+			<!-- header -->
 		<div class="page-body " id="theme-color">
 			<!--<div class="page-body ">-->
 			<?php echo $content; ?>
