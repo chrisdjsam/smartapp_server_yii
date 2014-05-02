@@ -52,12 +52,11 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 -- Dumping data for table `user_role`
 --
 
-insert into user_role (user_id, user_role_id) select id, 3 from users
--------------------------------------------------------------------------
+insert into user_role (user_id, user_role_id) select id, 3 from users;
 
 --
 -- Update table `user_role`
 --
 
-UPDATE user_role ur inner join users u on ur.user_id = u.id SET ur.user_role_id = 1 WHERE u.email = 'admin@neatorobotics.com'
+UPDATE user_role ur inner join users u on ur.user_id = u.id SET ur.user_role_id = 1 WHERE u.email = 'admin@neatorobotics.com';
 

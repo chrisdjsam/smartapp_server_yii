@@ -49,13 +49,24 @@ class AppHelper {
 	 * @param string $subject
 	 * @param string $body
 	 */
-	public static function send_mail($mail_to, $subject = 'subject test mail', $body = 'Message content test mail '){
-		$message = new YiiMailMessage;
-		$message->setBody($body, 'text/html');
-		$message->subject = $subject;
-		$message->addTo($mail_to);
-		$message->from = Yii::app()->params['adminEmail'];
-		Yii::app()->mail->send($message);
+	public static function send_mail($mail_to, $subject, $body){
+		$smtp_model = new SMTPViaMQ();
+		$smtp_model->from = Yii::app()->params['adminEmail'];
+		$smtp_model->to = $mail_to;
+		$smtp_model->subject = $subject;
+		$smtp_model->body = $body;
+		$smtp_model->created_on = new CDbExpression('NOW()');
+		if (!$smtp_model->save()) {
+			error_log("+++++++++++++++++++++++++++", 0);
+			error_log("Failed to save SMTP data", 0);
+			error_log("+++++++++++++++++++++++++++", 0);
+			Yii::app()->end();
+		}
+		$cmdParam = $smtp_model->id;
+// 		$main_config = include_once '/var/www/Neato_Server/Server_Yii/Neato/amqp/smtp_notification_via_mq.php';
+// 		send_smtp_notification_via_mq($cmdParam);
+		$cmdStr = "php " . Yii::app()->params['amqp_email_publisher_path'];
+		shell_exec($cmdStr . " '" . $cmdParam . "'");
 	}
 
 	/**

@@ -133,7 +133,6 @@ return array(
         'gcm_api_key' => '<YOUR_GCM_API_KEY_HERE>',
         'default_robot_type' => 100,
         'env' => 'prod',
-        'neato_amqp_publisher_path' => '<YOUR_NEATO_AMQP_PUBLISHER_PATH_HERE>',
         'default_sleep_time' => 2,
         'default_lag_time' => 15,
 		'robot_user_association_token_lifetime' => 300,
@@ -149,5 +148,7 @@ return array(
 		'wordpress_api_url' => '<URL OF WORDPRESS API>',
         'robot_always_connected' => true,
         'link_code_length' => 4,
+		'amqp_push_notification_publisher_path' => '<YOUR_AMQP_PUSH_NOTIFICATION_PUBLISHER_PATH_HERE>',
+		'amqp_email_publisher_path' => '<YOUR_AMQP_EMAIL_PUBLISHER_PATH_HERE>',
 	),
 );

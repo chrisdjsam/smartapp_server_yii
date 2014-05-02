@@ -300,7 +300,9 @@ class RobotController extends APIController {
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDeleteRobot() {
+		
 		self::check_for_admin_privileges();
+		
 		if (isset($_REQUEST['chooseoption'])) {
 			foreach ($_REQUEST['chooseoption'] as $robo_id) {
 				$robot = Robot::model()->findByAttributes(array('id' => $robo_id));
@@ -357,7 +359,7 @@ class RobotController extends APIController {
 	 *
 	 */
 	public function actionDelete($prevent_termination = false) {
-
+		
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 
@@ -367,12 +369,26 @@ class RobotController extends APIController {
 			foreach ($robot->robotSchedules as $robot_schedule) {
 				$robot_schedule_id_arr[] = $robot_schedule->id;
 			}
-
+		$robotSerialNumber = $robot->serial_number;
+		
 			$chat_id = $robot->chat_id;
+// 				send email to associated robots
+
+			if(count($robot->usersRobots) > 0){
+				foreach ($robot->usersRobots as $i=>$asscoiateRobot){
+					$email = $asscoiateRobot->idUser->email;
+					$user_name = $asscoiateRobot->idUser->name;
+					$alternate_user_email = $asscoiateRobot->idUser->alternate_email;
+					$country_lang = $asscoiateRobot->idUser->language;
+					AppEmail::emailDeleteRobot($email, $user_name, $robotSerialNumber, $country_lang, $alternate_user_email);
+				}
+			}else{
+				// do nothing means there is no user associated with deleted roZ
+			}
 			if ($robot->delete()) {
 				RobotCore::delete_chat_user($chat_id);
 				RobotCore::delete_robot_schedule_data($robot_schedule_id_arr);
-
+				
 				$response_message = "You have deleted robot $robot_serial_no successfully";
 				$response_data = array("success" => true, "message" => $response_message);
 

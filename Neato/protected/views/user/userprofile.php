@@ -205,6 +205,7 @@ $userRole = Yii::app()->user->UserRoleId;
 		}
 
 		?>
+		<input id="alternate-email-before-edit" type="hidden" name="alternate-email-before-edit" value="<?php echo $update_user->alternate_email;?>">
 		<div class="row">
 			<?php echo $form->labelEx($update_user, 'name', array('class' => 'update_user_lable')); ?>
 			<?php echo $form->textField($update_user, 'name', array('size' => 30, 'cols' => 128, 'tabindex' => 2, 'class' => 'update_user_input', 'disabled' => $disabled)); ?>

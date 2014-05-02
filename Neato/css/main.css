@@ -999,7 +999,7 @@ table.detail-view {
 .popup-container,.popup-container .popup-body {
 	max-width: 548px;
 	min-width: 548px;
-	max-height: 353px;
+	max-height: 380px;
 }
 
 .popup-container .popup-body {
