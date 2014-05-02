@@ -403,14 +403,16 @@ class RobotScheduleController extends APIController {
 			}
 		}
 
-		if($robot_schedule_xml_data_version && $robot_schedule_xml_data_version != $robot_schedule_xml_data_latest_version){
-			$response_message = self::yii_api_echo('Version mismatch for schedule xml data.');
-			self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
-		}
+		if(Yii::app()->params['schedule_enforce_versioning']){
+			if($robot_schedule_xml_data_version && $robot_schedule_xml_data_version != $robot_schedule_xml_data_latest_version){
+				$response_message = self::yii_api_echo('Version mismatch for schedule xml data.');
+				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_XML_DATA_VERSION);
+			}
 
-		if($robot_schedule_blob_data_version && $robot_schedule_blob_data_version != $robot_schedule_blob_data_latest_version){
-			$response_message = self::yii_api_echo('Version mismatch for schedule blob data.');
-			self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
+			if($robot_schedule_blob_data_version && $robot_schedule_blob_data_version != $robot_schedule_blob_data_latest_version){
+				$response_message = self::yii_api_echo('Version mismatch for schedule blob data.');
+				self::terminate(-1, $response_message, APIConstant::DOES_NOT_MATCH_LATEST_BLOB_DATA_VERSION);
+			}
 		}
 
 		if($robot_schedule_xml_data_version || $robot_schedule_blob_data_version){

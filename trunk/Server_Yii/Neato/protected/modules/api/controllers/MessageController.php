@@ -328,6 +328,13 @@ class MessageController extends APIController {
 		$application_id = Yii::app()->request->getParam('application_id', '');
 		$notification_server_type = Yii::app()->request->getParam('notification_server_type', '');
 
+		if($application_id == ''){
+			$application_id = isset($_SERVER['HTTP_APPLICATION_ID'])?$_SERVER['HTTP_APPLICATION_ID']:$application_id;
+		}
+		if($notification_server_type == ''){
+			$notification_server_type = isset($_SERVER['HTTP_NOTIFICATION_SERVER_TYPE'])?$_SERVER['HTTP_NOTIFICATION_SERVER_TYPE']:$notification_server_type;
+		}
+
 		if (!AppHelper::is_valid_email($user_email)) {
 			self::terminate(-1, 'Please enter valid email address.', APIConstant::EMAIL_NOT_VALID);
 		}

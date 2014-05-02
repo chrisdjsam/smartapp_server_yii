@@ -151,5 +151,6 @@ return array(
 		'amqp_push_notification_publisher_path' => '<YOUR_AMQP_PUSH_NOTIFICATION_PUBLISHER_PATH_HERE>',
 		'amqp_xmpp_notification_publisher_path' => '<YOUR_AMQP_XMPP_NOTIFICATION_PUBLISHER_PATH_HERE>',
 		'amqp_smtp_notification_publisher_path' => '<YOUR_AMQP_SMTP_NOTIFICATION_PUBLISHER_PATH_HERE>',
+		'schedule_enforce_versioning' => false,
 	),
 );
