@@ -26,7 +26,7 @@ if($is_wp_enabled){
 	<div class="section login_section support-login-section">
 		<div class="section_left support-login-page">
 			<fieldset class="support-login-fieldset">
-				<legend class="support-login-legend">Support Login</legend>
+				<legend class="support-login-legend">Login</legend>
 				<div class="row support-form-row">
 					<?php echo $form->labelEx($model,'email'); ?>
 					<?php echo $form->textField($model,'email'); ?>
@@ -37,17 +37,6 @@ if($is_wp_enabled){
 					<?php echo $form->passwordField($model,'password'); ?>
 					<?php echo $form->error($model,'password'); ?>
 				</div>
-				<?php if(!Yii::app()->params['is_customize']){ ?>
-				<div class="row support-input-align rememberMe">
-					<div class="remembe-me-check">
-						<?php echo $form->checkBox($model,'rememberMe'); ?>
-					</div>
-					<div>
-						<?php echo $form->label($model,'rememberMe',array("label" => "Remember me", "class" => "remember-me-label")); ?>
-						<?php echo $form->error($model,'rememberMe'); ?>
-					</div>
-				</div>
-				<?php } ?>
 				<div class="row-buttons login_submit_btn support-input-align">
 					<?php echo CHtml::submitButton('Login', array('class'=>"neato-button",  "title" => "Login")); ?>
 					<!--

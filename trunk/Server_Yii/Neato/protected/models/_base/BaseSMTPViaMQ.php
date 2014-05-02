@@ -10,6 +10,7 @@
  * @property string $subject
  * @property string $body
  * @property integer $status
+ * @property integer $response
  * @property string $created_on
  * @property string $updated_on
  */
@@ -47,7 +48,7 @@ class BaseSMTPViaMQ extends CActiveRecord
             array('subject, body', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, from, to, subject, body, status, created_on, updated_on', 'safe', 'on'=>'search'),
+            array('id, from, to, subject, body, status, response, created_on, updated_on', 'safe', 'on'=>'search'),
         );
     }
 
@@ -74,6 +75,7 @@ class BaseSMTPViaMQ extends CActiveRecord
             'subject' => 'Subject',
             'body' => 'Body',
             'status' => 'Status',
+        	'response' => 'Response',
             'created_on' => 'Created On',
             'updated_on' => 'Updated On',
         );
@@ -96,6 +98,7 @@ class BaseSMTPViaMQ extends CActiveRecord
         $criteria->compare('subject',$this->subject,true);
         $criteria->compare('body',$this->body,true);
         $criteria->compare('status',$this->status);
+        $criteria->compare('response',$this->response);
         $criteria->compare('created_on',$this->created_on,true);
         $criteria->compare('updated_on',$this->updated_on,true);
 

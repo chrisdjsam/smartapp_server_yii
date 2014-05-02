@@ -14,7 +14,7 @@ $this->pageTitle='User Validation - ' . Yii::app()->name;
 		<?php
 		} else {
 			?>
-		<h2>Activation Failed due to some problem. please try again.</h2>
+		<h2>Activation failed. Please try again!</h2>
 		<?php
 		}
 		?>

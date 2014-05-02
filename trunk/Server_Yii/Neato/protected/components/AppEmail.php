@@ -13,10 +13,24 @@ class AppEmail {
 	 * @param string $new_password
 	 * @param string $login_link
 	 */
-	public static function emailWelcomeNewUser($email, $name, $new_password, $login_link){
+	public static function emailWelcomeNewUser($email, $name, $new_password, $login_link, $country_lang=AppConstant::LANGUAGE_DEFAULT){
+	
 		$login_link = Yii::app()->params['apiProtocol'].$_SERVER['SERVER_NAME'].$login_link;
-		$message = AppCore::yii_echo("welcome_" . AppConstant::LANGUAGE_DEFAULT . "_message", array($name, $email, $new_password, $login_link));
-		$subject = AppCore::yii_echo("welocome_" . AppConstant::LANGUAGE_DEFAULT . "_subject");
+		
+		$template_key = AppCore::getMessageTemplateKey('welcome', $country_lang);
+		$message = AppCore::yii_echo($template_key . '_message', array($name, $email, $new_password, $login_link));
+		$subject = AppCore::yii_echo($template_key . '_subject');
+		
+		if(isset(Yii::app()->theme->name) && Yii::app()->theme->name == AppConstant::THEME_BASIC){
+			$template_key = AppCore::getMessageTemplateKey('vorwerk_email', $country_lang);
+			$vorwerk_header = AppCore::yii_echo($template_key . "_header");
+			$vorwerk_footer = AppCore::yii_echo($template_key . "_footer");
+			$template_key = AppCore::getMessageTemplateKey('vorwerk_welcome', $country_lang);
+			
+			$message = AppCore::yii_echo($template_key . '_message', array($vorwerk_header, $name, $email, $new_password, $login_link, $vorwerk_footer));
+			$subject = AppCore::yii_echo($template_key . '_subject');
+		}
+		
 		AppHelper::send_mail($email, $subject, $message);
 	}
 

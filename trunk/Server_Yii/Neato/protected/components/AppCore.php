@@ -459,8 +459,8 @@ class AppCore {
 				'forgotpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " forgot password",
 				'forgotpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " forgot password",
 
-				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " forgot password",
-				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " forgot password",
+				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. " forgot password",
+				'vorwerk_forgotpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. " forgot password",
 
 				'forgotpassword_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -522,11 +522,11 @@ class AppCore {
 				/**
 				 *  modified alternate email
 				 */
-				'modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Modified Alternate Email",
-				'modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Modified Alternate Email",
+				'modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . ": Updated Email Address",
+				'modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . ": Email Adresse wurde registriert",
 				
-				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Modified Alternate Email",
-				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Modified Alternate Email",
+				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Updated Email Address",
+				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Email Adresse wurde registriert",
 				
 				'modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -567,12 +567,12 @@ class AppCore {
 				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "%s<tr>
 																							<td>
 																								<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
-																								Our customer service team has registered your email address %s. <br/><br/>
-																								Note further that only the address %s for your login can be used. <br/><br/> 
+																								Our support team registered your email address %s upon your request.
+																								Please note that you still have to use your address %s to login to your Vorwerk VR200 app. 
 																								Email notifications (and newsletter) to be sent to both addresses. <br/><br/>
-																								Regards,
-																								<br><br>
-																								<b>Team " . Yii::app()->name . "</b>
+																								Best regards,
+																								<br>
+																								Vorwerk Customer Service
 																							</td>
 																					</tr>%s",
 				
@@ -592,11 +592,11 @@ class AppCore {
 				/**
 				 *  delete alternate email
 				 */
-				'deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Deleted Alternate Email",
-				'deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Deleted Alternate Email",
+				'deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . ": Removed Your Email Address",
+				'deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . ": Email Adresse wurde gelöscht",
 				
-				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Deleted Alternate Email",
-				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Deleted Alternate Email",
+				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Removed Your Email Address",
+				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Email Adresse wurde gelöscht",
 				
 				'deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -639,13 +639,14 @@ class AppCore {
 				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "%s<tr>
 																							<td>
 																								<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
-																								Our customer service team has deleted your Email address %s on your wish. <br><br>
-																								Please note that from now on all email notifications (and newsletter) only be sent to this address: %s.<br><br> 
-																								If you want to have another email address to register, turn away please contact your national customer service (see user manual and on-www.vorwerk-kobold.com). <br>
+																								Our support team deleted your email address %s upon your request.
+																								Please note that from now on email notifications (and newsletters) will only be send to the following address: %s.<br> 
+																								Our support team is glad to register another email address for you: please call <b>". Yii::app()->params['service_number']. "</b>. <br>
 																								<br>									
-																								Regards,
-																								<br><br>
-																								<b>Team " . Yii::app()->name . "</b>
+																								Best regards,
+																								<br>
+																								Vorwerk Customer Service <br>
+																								<br>
 																							</td>
 																					</tr>%s",
 				
@@ -671,17 +672,17 @@ class AppCore {
 				/**
 				 *  Reset/Change password email
 		         */
-				'change_password_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " change password",
-				'change_password_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " change password",
+				'change_password_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Password Changed",
+				'change_password_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Password Changed",
 
-				'vorwerk_change_password_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " change password",
-				'vorwerk_change_password_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " change password",
+				'vorwerk_change_password_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Password Changed",
+				'vorwerk_change_password_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Passwort wurde geändert",
 
-				'resetpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " reset password",
-				'resetpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " reset password",
+				'resetpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Password Reset",
+				'resetpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Password Reset",
 
-				'vorwerk_resetpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " reset password",
-				'vorwerk_resetpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " reset password",
+				'vorwerk_resetpassword_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. " Password Reset",
+				'vorwerk_resetpassword_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Passwort wurde geändert",
 
 				'change_password_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -721,13 +722,10 @@ class AppCore {
 																						<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
 																							<span style="font-weight:bold;font-size:18px;">Dear customer,</span>
 																							<br /><br /><br />
-																							The password for your Vorwerk VR200 user account has been set back to: <br />
-																							<span style="color:#009A3D;font-weight:bold;">%s</span><br />
-																							Please use this password along with your Email Address<br />
-																							<span style="color:#009A3D;font-weight:bold;">%s</span>,<br />
-																							when next you are using the Vorwerk VR200 App.<br /><br />
-																							Safety Note: Please change this password after the next login.<br /><br />
-																							Regards,<br />
+																							Your password for your Vorwerk VR200 account was reset to:
+																							<span style="color:#009A3D;font-weight:bold;">%s</span>. Please use this password and your email address <span style="color:#009A3D;font-weight:bold;">%s</span>
+																							when you restart your Vorwerk VR200 app. Security hint: Please change this password after you logged in the next time.<br/><br/>
+																							Best regards,<br />
 																							Vorwerk Customer Service<br />
 																			      		</td>
 																				    </tr>%s',
@@ -753,8 +751,8 @@ class AppCore {
 				'validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " validate email",
 				'validate_email_' . AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " validate email",
 
-				'vorwerk_validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " validate email",
-				'vorwerk_validate_email_' . AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " validate email",
+				'vorwerk_validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. " validate email",
+				'vorwerk_validate_email_' . AppConstant::LANGUAGE_DE . '_subject' => "Willkommen zur Vorwerk Kobold "  .Yii::app()->params['paste_vorwerk_email_subject'],
 
 				'validate_email_' . AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -791,11 +789,10 @@ class AppCore {
 				'vorwerk_validate_email_' . AppConstant::LANGUAGE_EN . '_message' => '%s<tr>
 																							<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
 																								<span style="font-weight:bold;font-size:18px;">Dear customer,</span><br /><br /><br />
-																								Thank you that you have registered for the VR200 App.<br />
-																								Please confirm your email address<br />
+																								Thank you for using the Vorwerk VR200 app and your registration. Please validate your primary email
 																								<span style="color:#009A3D;font-weight:bold;">%s</span><br />
-																								by clicking this link:<br />%s<br /><br />
-																								Regards,<br />
+																								by clicking on following link:<br />%s<br /><br />
+																								Best regards,<br />
 																								Vorwerk Customer Service<br />
 																							</td>
 																						</tr>%s',
@@ -816,11 +813,11 @@ class AppCore {
 				/**
 				 *  robot deleted email
 				 */
-				'robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " : Robot Deleted",
-				'robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " : Robot Deleted",
+				'robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . ": Your Robot Was Deleted",
+				'robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . ": Roboter wurde gelöscht",
 				
-				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " : Robot Deleted",
-				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " : Robot Deleted",
+				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Your Robot Was Deleted",
+				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Roboter wurde gelöscht",
 				
 				'robotdeleted_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
@@ -863,13 +860,13 @@ class AppCore {
 																						<td valign="top" align="left" style="font-size:13px;color:#113c2b;"><br />
 																							<br><span style="font-weight:bold;font-size:18px;">Dear Customer,</span><br><br>
 																							<br>
-																							Your robot <b> %s </b> was deleted by our customer service team. <br/>
+																							Your robot <b> %s </b> was deleted upon your request by our customer support team. <br/>
+																							If you want to use your robot again, start your Vorwerk VR200 app, login, goto settings, robot management 
+																							and tap on “add/select robot”. There tap on the “+” on the upper right corner and follow the instructions.<br/>
 																							<br/>
-																							If you want to use the robot again, start the ' . Yii::app()->name . ' app, log in and click "Settings" -<br/>
-																							"Robot Add/Change" "Robot Management". <br><br>
-																							Regards,
+																							Best regards,
 																							<br/><br/>
-																							Vorwerk customer service <br/> 
+																							Vorwerk Customer Service <br/> 
 																			      		</td>
 																					</tr>%s',
 				
@@ -892,13 +889,13 @@ class AppCore {
 				/**
 				 *  New user email
 		         */
-				'welocome_' . AppConstant::LANGUAGE_EN . 'subject' => "Welcome to " . Yii::app()->name,
-				'welocome_' . AppConstant::LANGUAGE_DE . 'subject' => "Welcome to " . Yii::app()->name,
+				'welcome_' . AppConstant::LANGUAGE_EN . '_subject' => "Welcome to " . Yii::app()->name,
+				'welcome_' . AppConstant::LANGUAGE_DE . '_subject' => "Welcome to " . Yii::app()->name,
 
-				'vorwerk_welocome_' . AppConstant::LANGUAGE_EN . 'subject' => "Welcome to " . Yii::app()->name,
-				'vorwerk_welocome_' . AppConstant::LANGUAGE_DE . 'subject' => "Welcome to " . Yii::app()->name,
+				'vorwerk_welcome_' . AppConstant::LANGUAGE_EN . '_subject' => "Welcome to Vorwerk " . Yii::app()->params['paste_vorwerk_email_subject'],
+				'vorwerk_welcome_' . AppConstant::LANGUAGE_DE . '_subject' => "Welcome to Vorwerk " . Yii::app()->params['paste_vorwerk_email_subject'],
 
-				'welcome_' . AppConstant::LANGUAGE_EN . 'message' => "<html><body>
+				'welcome_' . AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																		<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																		<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 																		<b>Welcome to " . Yii::app()->name . "</b></div>
@@ -909,13 +906,13 @@ class AppCore {
 																		You can login  by clicking <a href='%s'>here</a>
 																		<br><br>
 																		Regards,
-																		<br><br>
+																		<br>
 																		<b>Team " . Yii::app()->name . "</b>
 																		</div>
 																		</body>
 																		</html>",
 
-				'welcome_' . AppConstant::LANGUAGE_DE . 'message' => "<html><body>
+				'welcome_' . AppConstant::LANGUAGE_DE . '_message' => "<html><body>
 																		<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																		<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 																		<b>Welcome to " . Yii::app()->name . "</b></div>
@@ -924,7 +921,7 @@ class AppCore {
 																		Your email id is : %s<br><br>
 																		Your password is : %s<br><br>
 																		You can login  by clicking <a href='%s'>here</a>
-																		<br><br>
+																		<br>
 																		Regards,
 																		<br><br>
 																		<b>Team " . Yii::app()->name . "</b>
@@ -933,39 +930,31 @@ class AppCore {
 																		</html>",
 
 
-				'vorwerk_welcome_' . AppConstant::LANGUAGE_EN . 'message' => "<html><body>
-																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
-																				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-																				<b>Welcome to " . Yii::app()->name . "</b></div>
-																				<br>Hi %s,<br><br>
-																				Thanks for registering with " . Yii::app()->name . ".<br><br>
-																				Your email id is : %s<br><br>
-																				Your password is : %s<br><br>
-																				You can login  by clicking <a href='%s'>here</a>
-																				<br><br>
-																				Regards,
-																				<br><br>
-																				<b>Team " . Yii::app()->name . "</b>
-																				</div>
-																				</body>
-																				</html>",
+				'vorwerk_welcome_' . AppConstant::LANGUAGE_EN . '_message' => '%s<tr>
+																					<td valign="top" align="left" style="font-size:13px;color:#113c2b;"><br />
+																						<br>Hi %s,<br><br>
+																						Thanks for registering with ' . Yii::app()->name . '.<br><br>
+																						Your email id is : %s<br><br>
+																						Your password is : %s<br><br>
+																						You can login  by clicking <a href="%s">here</a><br><br>
+																						Best regards,
+																						<br/>
+																						Vorwerk Customer Service <br/> 
+																		      		</td>
+																				</tr>%s',
 
-				'vorwerk_welcome_' . AppConstant::LANGUAGE_DE . 'message' => "<html><body>
-																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
-																				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
-																				<b>Welcome to " . Yii::app()->name . "</b></div>
-																				<br>Hi %s,<br><br>
-																				Thanks for registering with " . Yii::app()->name . ".<br><br>
-																				Your email id is : %s<br><br>
-																				Your password is : %s<br><br>
-																				You can login  by clicking <a href='%s'>here</a>
-																				<br><br>
-																				Regards,
-																				<br><br>
-																				<b>Team " . Yii::app()->name . "</b>
-																				</div>
-																				</body>
-																				</html>",
+				'vorwerk_welcome_' . AppConstant::LANGUAGE_DE . '_message' => '%s<tr>
+																					<td valign="top" align="left" style="font-size:13px;color:#113c2b;"><br />
+																						<br>Hi %s,<br><br>
+																						Thanks for registering with ' . Yii::app()->name . '.<br><br>
+																						Your email id is : %s<br><br>
+																						Your password is : %s<br><br>
+																						You can login  by clicking <a href="%s">here</a><br><br>
+																						Best regards,
+																						<br/>
+																						Vorwerk Customer Service <br/> 
+																		      		</td>
+																				</tr>%s', 
 
 		);
 
@@ -1490,7 +1479,7 @@ class AppCore {
 			$notification_log_id = $log_result['output'];
 		}
 
-		$cmdParam = Yii::app()->params['env'] . "|" . $notification_log_id . "|NPN";
+		$cmdParam = $notification_log_id;
 
 // 		$main_config = include_once '/var/www/Neato_Server/Server_Yii/Neato/push_notification_standalone.php';
 // 		send_push_notification($cmdParam);
