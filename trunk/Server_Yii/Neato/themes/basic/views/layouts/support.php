@@ -130,9 +130,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 	<script type="text/javascript" src="<?PHP echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-ui-1.8.16.min.js"></script>
 	<!-- button gradients with rounded corners -->
 	<script type="text/javascript">
-    $(document).ready(function() {
-	    $(this).find('.neato-button').wrap('<div class="rounded-corners"/>');
-    });
     </script>
 </body>
 </html>

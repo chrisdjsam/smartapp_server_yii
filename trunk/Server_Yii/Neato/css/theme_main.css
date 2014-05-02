@@ -930,6 +930,8 @@ input,textarea {
 
 .action-button-container {
 	float: right;
+	margin-right: 5px;
+	margin-bottom: 5px;
 }
 
 .list_details {
@@ -953,6 +955,7 @@ input,textarea {
 a.neato-button,div.neato-button {
 	min-width: 65px;
 	height: 16px;
+	border-radius: 5px;
 }
 
 a.neato-button-large {
@@ -1148,7 +1151,7 @@ div.send_notification_btn {
 }
 
 .neato-button_alt {
-	margin: 4px;
+	margin: 5px 2px 2px;
 	width: 70px;
 	border-radius: 5px;
 }
@@ -1437,12 +1440,12 @@ thead tr {
 }
 
 .search-box input {
-	height: 14px;
-	width: 150px;
+	/* height: 14px; 
+	margin-top: 2px;
+	width: 150px; */
 	font-size: 12px;
 	color: #009A3D;
 	margin-right: 4px;
-	margin-top: 2px;
 	float: left;
 }
 
@@ -1557,5 +1560,11 @@ div.form label {
 }
 
 .support-delete-div .rounded-corners {
-	margin-top: 0px;
+	margin-top: -1px;
+}
+
+.search-text-input {
+	height: 16px;
+	margin-right: 4px;
+	margin-top: 2px;
 }

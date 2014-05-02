@@ -52,11 +52,15 @@ class UserController extends Controller
 		$update_user_data_flag = isset($_POST['update_user_data_flag']) ? $_POST['update_user_data_flag'] : 'N' ;
 
 		if($update_user_data_flag == 'Y') {
+			
+			$name = $update_user->name;
+			
 			if(Yii::app()->user->UserRoleId != '2'){
 				$name = isset($_POST['User']['name']) ? $_POST['User']['name'] : '' ;
 				$update_user->name = $name;
 			}
-
+			
+			$alternate_email_before_edit = isset($_POST['alternate-email-before-edit']) ? $_POST['alternate-email-before-edit']: ''; 
 			$alternate_email = isset($_POST['User']['alternate_email']) ? $_POST['User']['alternate_email'] : '';
 			$country_code = $_POST['CountryCodeList']['iso2'];
 			$opt_in = $_POST['User']['opt_in'];
@@ -67,9 +71,7 @@ class UserController extends Controller
 			}else{
 				$country_allow = 'false';
 			}
-
 			$update_user->alternate_email = $alternate_email;
-
 			$update_user->country_code = $country_code;
 			$update_user->opt_in = $opt_in;
 			$update_user->language = $country_lang;
@@ -84,8 +86,18 @@ class UserController extends Controller
 				$is_validated = $_POST['is_validated'];
 				$update_user->is_validated = $is_validated;
 			}
+			$email = $update_user->email;
 
 			if($update_user->save()){
+				if(strcasecmp($alternate_email_before_edit, $alternate_email) == 0){
+					// do nothing
+				}else{
+					if($alternate_email != ''){
+						AppEmail::modifyAlternateEmail($alternate_email, $email, $name, $country_lang);
+					}else{
+						AppEmail::deleteAlternateEmail($alternate_email_before_edit, $email, $name, $country_lang);
+					}
+				}
 				$message = "Profile updated successfully.";
 				Yii::app()->user->setFlash('success', $message);
 				$this->redirect($url);

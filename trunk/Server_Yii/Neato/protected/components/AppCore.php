@@ -519,6 +519,154 @@ class AppCore {
 																								<b>Team " . Yii::app()->name . "</b>
 																							</td>
 																					</tr>%s",
+				/**
+				 *  modified alternate email
+				 */
+				'modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Modified Alternate Email",
+				'modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Modified Alternate Email",
+				
+				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Modified Alternate Email",
+				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Modified Alternate Email",
+				
+				'modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>" . Yii::app()->name . "</b></div>
+				
+																			<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
+						
+																			Our customer service team has registered your email address %s. <br/>
+																			<br/>	 
+																			Note further that only the address %s for your login can be used. <br/><br/> 
+																			Email notifications (and newsletter) to be sent to both addresses.<br/><br/> 
+																			Regards,
+																			<br/><br/>
+																			<b>Team " . Yii::app()->name . "</b>
+																			</div>
+																			</body>
+																			</html>",
+				
+				'modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>" . Yii::app()->name . "</b></div>
+																			<br><span style='font-weight:bold;font-size:18px;'>Liebe Kundin, lieber Kunde,</span><br><br>
+																			<br>
+																			unser Kundenservice Team hat deine Email Adresse %s registriert.<br>
+																			Bitte beachte, daß weiterhin nur die Adresse %s für dein Login <br>
+																			verwendet werden kann. <br>
+																			Email Benachrichtigungen (und Newsletter) werden an beide Adressen versendet. <br>
+																			<br/>
+																			Viele Grüße <br>
+																			Vorwerk Kundenservice
+																			<br>
+																			</div>
+																			</body>
+																			</html>",
+				
+				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "%s<tr>
+																							<td>
+																								<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
+																								Our customer service team has registered your email address %s. <br/><br/>
+																								Note further that only the address %s for your login can be used. <br/><br/> 
+																								Email notifications (and newsletter) to be sent to both addresses. <br/><br/>
+																								Regards,
+																								<br><br>
+																								<b>Team " . Yii::app()->name . "</b>
+																							</td>
+																					</tr>%s",
+				
+				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "%s<tr>
+																							<td>
+																								<br><span style='font-weight:bold;font-size:18px;'>Liebe Kundin, lieber Kunde,</span><br>
+																								<br><br>
+																								unser Kundenservice Team hat deine Email Adresse %s registriert.<br>
+																								Bitte beachte, daß weiterhin nur die Adresse %s für dein Login <br>
+																								verwendet werden kann. <br>
+																								Email Benachrichtigungen (und Newsletter) werden an beide Adressen versendet. <br>
+																								<br/>
+																								Viele Grüße <br>
+																								Vorwerk Kundenservice
+																							</td>
+																					</tr>%s",
+				/**
+				 *  delete alternate email
+				 */
+				'deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Deleted Alternate Email",
+				'deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Deleted Alternate Email",
+				
+				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " Deleted Alternate Email",
+				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " Deleted Alternate Email",
+				
+				'deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>" . Yii::app()->name . "</b></div>
+																			<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
+				
+																			Our customer service team has deleted your Email address %s on your wish.<br><br>
+																			Please note that from now on all email notifications (and newsletter) only be sent to this address: %s.<br><br> 
+																			If you want to have another email address to register, turn away please contact your national customer service (see user manual and on-www.vorwerk-kobold.com). <br><br>
+																			Regards,
+																			<br><br>
+																			<b>Team " . Yii::app()->name . "</b>
+																			</div>
+																			</body>
+																			</html>",
+				
+				'deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>" . Yii::app()->name . "</b></div>
+																			<br><span style='font-weight:bold;font-size:18px;'>Liebe Kundin, lieber Kunde,</span><br><br>
+																			<br/>
+																			unser Kundenservice Team hat deine Email Adresse %s <br>
+																			auf deinen Wunsch hin gelöscht.<br>
+																			Bitte beachte, daß ab jetzt alle Email Benachrichtigungen (und Newsletter) nur <br>
+																			noch an dieser Adresse gesendet werden: %s. <br>
+																			<br>
+																			Falls du eine andere Email Adresse registrieren lassen möchtest, wende dich <br>
+																			bitte an deinen nationalen Kundenservice <br>
+																			(siehe Gebrauchsanleitung bzw. auf www.vorwerk-kobold.com). <br>
+																			<br>
+																			Viele Grüße <br>
+																			Vorwerk Kundenservice
+																			<br>
+																			</div>
+																			</body>
+																			</html>",
+				
+				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "%s<tr>
+																							<td>
+																								<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
+																								Our customer service team has deleted your Email address %s on your wish. <br><br>
+																								Please note that from now on all email notifications (and newsletter) only be sent to this address: %s.<br><br> 
+																								If you want to have another email address to register, turn away please contact your national customer service (see user manual and on-www.vorwerk-kobold.com). <br>
+																								<br>									
+																								Regards,
+																								<br><br>
+																								<b>Team " . Yii::app()->name . "</b>
+																							</td>
+																					</tr>%s",
+				
+				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "%s<tr>
+																							<td>
+																								<br><span style='font-weight:bold;font-size:18px;'>Liebe Kundin, lieber Kunde,</span><br/><br/>
+																								<br/>
+																								unser Kundenservice Team hat deine Email Adresse %s <br>
+																								auf deinen Wunsch hin gelöscht.<br>
+																								Bitte beachte, daß ab jetzt alle Email Benachrichtigungen (und Newsletter) nur <br>
+																								noch an dieser Adresse gesendet werden: %s. <br/>
+																								<br/>
+																								Falls du eine andere Email Adresse registrieren lassen möchtest, wende dich <br>
+																								bitte an deinen nationalen Kundenservice <br>
+																								(siehe Gebrauchsanleitung bzw. auf www.vorwerk-kobold.com). <br>
+																								<br/>
+				
+																								Viele Grüße <br>
+																								Vorwerk Kundenservice
+																							</td>
+																					</tr>%s",
 
 				/**
 				 *  Reset/Change password email
@@ -664,6 +812,82 @@ class AppCore {
 																								Vorwerk Kundenservice<br />
 																					      	</td>
 																				    	</tr>%s',
+				
+				/**
+				 *  robot deleted email
+				 */
+				'robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " : Robot Deleted",
+				'robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " : Robot Deleted",
+				
+				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " : Robot Deleted",
+				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " : Robot Deleted",
+				
+				'robotdeleted_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
+																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																				<b>" . Yii::app()->name . "</b></div>
+																				<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
+				
+																				Your robot <b> %s </b> was deleted by our customer service team. <br/><br/>
+																				If you want to use the robot again, start the " . Yii::app()->name . " app, log in and click 'Settings' - 'Robot Add/Change' 'Robot Management'. <br><br>
+																				
+																				Regards,
+																				<br><br>
+																				<b>Team " . Yii::app()->name . "</b><br/>
+																				</div>
+																				</body>
+																			</html>",
+				
+				'robotdeleted_'. AppConstant::LANGUAGE_DE . '_message' => "<html><body>
+																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
+																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
+																			<b>" . Yii::app()->name . "</b></div><br/>
+																			<span style='font-weight:bold;font-size:18px;'>Liebe Kundin, lieber Kunde,</span>
+																			<br/><br/><br/>
+																			dein Roboter <b> %s </b> wurde auf deinen Wunsch hin <br/>
+																			von unserem Kundenservice Team gelöscht. <br/>
+																			<br/>
+																			Wenn du den Roboter wieder nutzen möchtest, starte die Vorwerk <br/>
+																			VR200 App, logge Dich ein und klicke unter „Einstellungen“ – <br/>
+																			„ Roboter Management“ auf „Roboter hinzufügen / wechseln“.<br/>
+																			Dort bitte rechts oben auf „+“ drücken und den Anweisungen folgen.<br/>
+																			<br/>
+																			Viele Grüße <br/>
+																			Vorwerk Kundenservice 
+																			<br>
+																			</div>
+																			</body>
+																			</html>",
+				
+				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_EN . '_message' => '%s<tr>
+																						<td valign="top" align="left" style="font-size:13px;color:#113c2b;"><br />
+																							<br><span style="font-weight:bold;font-size:18px;">Dear Customer,</span><br><br>
+																							<br>
+																							Your robot <b> %s </b> was deleted by our customer service team. <br/>
+																							<br/>
+																							If you want to use the robot again, start the ' . Yii::app()->name . ' app, log in and click "Settings" -<br/>
+																							"Robot Add/Change" "Robot Management". <br><br>
+																							Regards,
+																							<br/><br/>
+																							Vorwerk customer service <br/> 
+																			      		</td>
+																					</tr>%s',
+				
+				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_DE . '_message' => '%s<tr>
+																					<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
+																						<span style="font-weight:bold;font-size:18px;">Liebe Kundin, lieber Kunde,</span><br/>
+																						<br /><br />
+																						dein Roboter <b> %s </b> wurde auf deinen Wunsch hin<br/>
+																						von unserem Kundenservice Team gelöscht.<br/>
+																						<br/>
+																						Wenn du den Roboter wieder nutzen möchtest, starte die Vorwerk<br/>
+																						VR200 App, logge Dich ein und klicke unter „Einstellungen“ –<br/>
+																						„ Roboter Management“ auf „Roboter hinzufügen / wechseln“.<br/>
+																						<br/>
+																						Viele Grüße <br/>
+																						Vorwerk Kundenservice <br/>
+																		      		</td>
+																			</tr>%s',
 
 				/**
 				 *  New user email
@@ -1267,7 +1491,10 @@ class AppCore {
 		}
 
 		$cmdParam = Yii::app()->params['env'] . "|" . $notification_log_id . "|NPN";
-		$cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_path'];
+
+// 		$main_config = include_once '/var/www/Neato_Server/Server_Yii/Neato/push_notification_standalone.php';
+// 		send_push_notification($cmdParam);
+		$cmdStr = "php " . Yii::app()->params['amqp_push_notification_publisher_path'];
 		shell_exec($cmdStr . " '" . $cmdParam . "'");
 
 		return array('code' => 0, 'output' => '');
@@ -1285,18 +1512,19 @@ class AppCore {
 
 		$registration_all_gcm_type['gcm_type'] = array();
 		$registration_all_ios_type['ios_type'] = array();
+		$registration_all_gcm_application_id['gcm_application_id'] = array();
+		$registration_all_ios_application_id['ios_application_id'] = array();
 
 		foreach($registration_ids_all_gcm as $value){
-
 			$registration_gcm_data = NotificationRegistrations::model()->find('registration_id = :registration_id', array(':registration_id' => $value));
 			$registration_all_gcm_type['gcm_type'][] = $registration_gcm_data->notification_server_type;
-
+			$registration_all_gcm_application_id['gcm_application_id'][] = $registration_gcm_data->application_id;
 		}
 
 		foreach($registration_ids_all_ios as $value){
-
 			$registration_ios_data = NotificationRegistrations::model()->find('registration_id = :registration_id', array(':registration_id' => $value));
 			$registration_all_ios_type['ios_type'][] = $registration_ios_data->notification_server_type;
+			$registration_all_ios_application_id['ios_application_id'][] = $registration_ios_data->application_id;
 		}
 
 		if ( !empty($registration_ids_all_gcm) ) {
@@ -1372,6 +1600,8 @@ class AppCore {
 		$notification_to['ios'] = $registration_ids_all_ios;
 		$notification_to['gcm_type'] = $registration_all_gcm_type['gcm_type'];
 		$notification_to['ios_type'] = $registration_all_ios_type['ios_type'];
+		$notification_to['gcm_application_id'] = $registration_all_gcm_application_id['gcm_application_id'];
+		$notification_to['ios_application_id'] = $registration_all_ios_application_id['ios_application_id'];
 
 		$notification_to_str = serialize($notification_to);
 
@@ -1823,7 +2053,42 @@ class AppCore {
 		}
 		return $result;
 	}
-
+	
+	public static function getMessageDeleteRobot($deleteRobot, $country_lang){
+		$result = $deleteRobot . '_' . AppConstant::LANGUAGE_DEFAULT;
+		
+		if($country_lang){
+			$template_key = $deleteRobot . '_' . $country_lang;
+			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
+				$result = $template_key;
+			}
+		}
+		return $result;
+	}
+	
+	public static function getMessageModifiedAlternateEmail($modifiedAlternateEmail, $country_lang){
+		$result = $modifiedAlternateEmail . '_' . AppConstant::LANGUAGE_DEFAULT;
+	
+		if($country_lang){
+			$template_key = $modifiedAlternateEmail . '_' . $country_lang;
+			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
+				$result = $template_key;
+			}
+		}
+		return $result;
+	}
+	public static function getMessagedeletedAlternateEmail($deletedAlternateEmail, $country_lang){
+		$result = $deletedAlternateEmail . '_' . AppConstant::LANGUAGE_DEFAULT;
+	
+		if($country_lang){
+			$template_key = $deletedAlternateEmail . '_' . $country_lang;
+			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
+				$result = $template_key;
+			}
+		}
+		return $result;
+	}
+	
 }
 
 ?>
