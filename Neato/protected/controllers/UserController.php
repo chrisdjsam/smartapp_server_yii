@@ -202,7 +202,7 @@ class UserController extends Controller
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
 
 				if($user_model->save()){
-
+					
 					$user_role_obj = new UserRole();
 					$user_role_obj->user_id = $user_model->id;
 					$user_role_obj->user_role_id = $user_role;
@@ -212,7 +212,9 @@ class UserController extends Controller
 								'model'=>$user_add_model,
 						));
 					}
-
+					$alternate_user_email = '';
+					$login_link = $this->createUrl("/user/login");
+					AppEmail::emailWelcomeNewUser($user_model->email, $user_model->name, $pass_word, $alternate_user_email);
 					$msg = AppCore::yii_echo("adduser:ok",$user_name);
 					Yii::app()->user->setFlash('success', $msg);
 

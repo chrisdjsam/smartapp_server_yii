@@ -1,0 +1,2 @@
+ALTER TABLE `smtp_via_mq`  ADD `response` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `status`;
+ALTER TABLE `xmpp_notification_via_mq`  ADD `response` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;

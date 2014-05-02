@@ -65,7 +65,7 @@ class AppHelper {
 		$cmdParam = $smtp_model->id;
 // 		$main_config = include_once '/var/www/Neato_Server/Server_Yii/Neato/amqp/smtp_notification_via_mq.php';
 // 		send_smtp_notification_via_mq($cmdParam);
-		$cmdStr = "php " . Yii::app()->params['amqp_email_publisher_path'];
+		$cmdStr = "php " . Yii::app()->params['amqp_smtp_notification_publisher_path'];
 		shell_exec($cmdStr . " '" . $cmdParam . "'");
 	}
 

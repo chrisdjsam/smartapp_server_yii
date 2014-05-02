@@ -133,8 +133,8 @@ class RobotCore {
 			$XmppNotificationViaMQ->is_jabber_setup = $is_jabber_setup;
 			$XmppNotificationViaMQ->save();
 
-			$cmdParam = Yii::app()->params['env'] . "|" . $xmpp_uid . "|NXN";
-			$cmdStr = "php " . Yii::app()->params['neato_amqp_publisher_path'];
+			$cmdParam = $xmpp_uid;
+			$cmdStr = "php " . Yii::app()->params['amqp_xmpp_notification_publisher_path'];
 			shell_exec($cmdStr . " '" . $cmdParam . "'");
 
 			return true;

@@ -149,6 +149,7 @@ return array(
         'robot_always_connected' => true,
         'link_code_length' => 4,
 		'amqp_push_notification_publisher_path' => '<YOUR_AMQP_PUSH_NOTIFICATION_PUBLISHER_PATH_HERE>',
-		'amqp_email_publisher_path' => '<YOUR_AMQP_EMAIL_PUBLISHER_PATH_HERE>',
+		'amqp_xmpp_notification_publisher_path' => '<YOUR_AMQP_XMPP_NOTIFICATION_PUBLISHER_PATH_HERE>',
+		'amqp_smtp_notification_publisher_path' => '<YOUR_AMQP_SMTP_NOTIFICATION_PUBLISHER_PATH_HERE>',
 	),
 );
