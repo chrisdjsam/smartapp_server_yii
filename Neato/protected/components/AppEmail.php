@@ -96,7 +96,7 @@ class AppEmail {
 	 * @param string $name
 	 */
 	public static function emailDeleteRobot($email, $name, $robotSerialNumber, $country_lang=AppConstant::LANGUAGE_DEFAULT, $alternate_user_email){
-		$template_key = AppCore::getMessageDeleteRobot('robotdeleted', $country_lang);
+		$template_key = AppCore::getMessageTemplateKey('robotdeleted', $country_lang);
 		$message = AppCore::yii_echo($template_key . '_message', array($robotSerialNumber));
 		
 		$subject = AppCore::yii_echo($template_key . '_subject');
@@ -120,7 +120,7 @@ class AppEmail {
 	 * @param string $name
 	 */
 	public static function modifyAlternateEmail($alternate_email, $email, $name, $country_lang=AppConstant::LANGUAGE_DEFAULT){
-		$template_key = AppCore::getMessageModifiedAlternateEmail('modified_alternate_email', $country_lang);
+		$template_key = AppCore::getMessageTemplateKey('modified_alternate_email', $country_lang);
 		$message = AppCore::yii_echo($template_key . '_message', array($alternate_email, $email));
 		$subject = AppCore::yii_echo($template_key . '_subject');
 		if(isset(Yii::app()->theme->name) && Yii::app()->theme->name == AppConstant::THEME_BASIC){
@@ -143,7 +143,7 @@ class AppEmail {
 	 * @param string $name
 	 */
 	public static function deleteAlternateEmail($alternate_email, $email, $name, $country_lang=AppConstant::LANGUAGE_DEFAULT){
-		$template_key = AppCore::getMessageModifiedAlternateEmail('deleted_alternate_email', $country_lang);
+		$template_key = AppCore::getMessageTemplateKey('deleted_alternate_email', $country_lang);
 		$message = AppCore::yii_echo($template_key . '_message', array($alternate_email, $email));
 		$subject = AppCore::yii_echo($template_key . '_subject');
 		if(isset(Yii::app()->theme->name) && Yii::app()->theme->name == AppConstant::THEME_BASIC){
