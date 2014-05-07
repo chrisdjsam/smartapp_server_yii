@@ -751,7 +751,7 @@ class AppCore {
 				'validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . " validate email",
 				'validate_email_' . AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . " validate email",
 
-				'vorwerk_validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. " validate email",
+				'vorwerk_validate_email_' . AppConstant::LANGUAGE_EN . '_subject' => "Welcome to your Vorwerk VR200 app",
 				'vorwerk_validate_email_' . AppConstant::LANGUAGE_DE . '_subject' => "Willkommen zur Vorwerk Kobold "  .Yii::app()->params['paste_vorwerk_email_subject'],
 
 				'validate_email_' . AppConstant::LANGUAGE_EN . '_message' => "<html><body>
@@ -791,7 +791,7 @@ class AppCore {
 																								<span style="font-weight:bold;font-size:18px;">Dear customer,</span><br /><br /><br />
 																								Thank you for using the Vorwerk VR200 app and your registration. Please validate your primary email
 																								<span style="color:#009A3D;font-weight:bold;">%s</span><br />
-																								by clicking on following link:<br />%s<br /><br />
+																								by clicking on following link: <br />%s<br /><br />
 																								Best regards,<br />
 																								Vorwerk Customer Service<br />
 																							</td>
@@ -865,7 +865,7 @@ class AppCore {
 																							and tap on “add/select robot”. There tap on the “+” on the upper right corner and follow the instructions.<br/>
 																							<br/>
 																							Best regards,
-																							<br/><br/>
+																							<br/>
 																							Vorwerk Customer Service <br/> 
 																			      		</td>
 																					</tr>%s',
@@ -880,6 +880,7 @@ class AppCore {
 																						Wenn du den Roboter wieder nutzen möchtest, starte die Vorwerk<br/>
 																						VR200 App, logge Dich ein und klicke unter „Einstellungen“ –<br/>
 																						„ Roboter Management“ auf „Roboter hinzufügen / wechseln“.<br/>
+																						Dort bitte rechts oben auf „+“ drücken und den Anweisungen folgen.<br/>
 																						<br/>
 																						Viele Grüße <br/>
 																						Vorwerk Kundenservice <br/>
@@ -2036,41 +2037,6 @@ class AppCore {
 		$result = $message_key . '_' . AppConstant::LANGUAGE_DEFAULT;
 		if($country_lang){
 			$template_key = $message_key . '_' . $country_lang;
-			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
-				$result = $template_key;
-			}
-		}
-		return $result;
-	}
-	
-	public static function getMessageDeleteRobot($deleteRobot, $country_lang){
-		$result = $deleteRobot . '_' . AppConstant::LANGUAGE_DEFAULT;
-		
-		if($country_lang){
-			$template_key = $deleteRobot . '_' . $country_lang;
-			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
-				$result = $template_key;
-			}
-		}
-		return $result;
-	}
-	
-	public static function getMessageModifiedAlternateEmail($modifiedAlternateEmail, $country_lang){
-		$result = $modifiedAlternateEmail . '_' . AppConstant::LANGUAGE_DEFAULT;
-	
-		if($country_lang){
-			$template_key = $modifiedAlternateEmail . '_' . $country_lang;
-			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
-				$result = $template_key;
-			}
-		}
-		return $result;
-	}
-	public static function getMessagedeletedAlternateEmail($deletedAlternateEmail, $country_lang){
-		$result = $deletedAlternateEmail . '_' . AppConstant::LANGUAGE_DEFAULT;
-	
-		if($country_lang){
-			$template_key = $deletedAlternateEmail . '_' . $country_lang;
 			if((AppCore::yii_echo($template_key. '_message') != $template_key . '_message' && AppCore::yii_echo($template_key. '_subject') != $template_key . '_subject') || (AppCore::yii_echo($template_key. '_header') != $template_key . '_header' && AppCore::yii_echo($template_key. '_footer') != $template_key . '_footer')){
 				$result = $template_key;
 			}

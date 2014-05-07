@@ -806,17 +806,11 @@ class UserController extends Controller
 
 		$data = User::model()->find('validation_key = :validationKey', array(':validationKey' => $validation_key));
 		if (!empty($data)) {
-
 			$data->is_validated = 1;
 			$data->validation_counter = 0;
-
 			if ($data->save()) {
-
-				Yii::app()->user->id = $data->id;
 				$is_user_active = 'Y';
-
 			}
-
 		}
 		if(isset(Yii::app()->theme->name) && Yii::app()->theme->name == AppConstant::THEME_BASIC){
 			$this->render('vorwerk_validated', array('is_user_active' => $is_user_active));

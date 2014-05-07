@@ -1499,7 +1499,7 @@ class UserController extends APIController {
 				}
 
 				$user_model->validation_counter =  1;
-
+				$user_model->is_emailVerified = 0;
 				if(!$user_model->save()){
 					//TODO
 				}
@@ -1711,7 +1711,7 @@ class UserController extends APIController {
 				}
 
 				$user_model->validation_counter =  1;
-
+				$user_model->is_emailVerified = 0;
 				if(!$user_model->save()){
 					//TODO
 				}
@@ -1948,7 +1948,7 @@ class UserController extends APIController {
 
 				$user_model->validation_counter =  1;
 				$user_model->language = $country_lang;
-
+				$user_model->is_emailVerified = 0;
 				if(!$user_model->save()){
 					//TODO
 				}
