@@ -172,6 +172,7 @@ $(document).ready(function() {
 	createJQtip();
 	isRobotAlive();
 	clickSearchButton();
+	reset_datatable_on_tab_click();
 
 	if (user_role_id == '2') {
 		aTargets = [ 0, 1, 2 ];
@@ -277,57 +278,6 @@ $(document).ready(function() {
 			$('td:eq(0)', nRow).addClass();
 			$('td:eq(3)', nRow).addClass("multiple-item");
 		}
-	});
-
-	$('.online-robot-table').dataTable({
-		"bStateSave" : true,
-		"sPaginationType" : "full_numbers",
-		"fnStateSave" : function(oSettings, oData) {
-			sessionStorage.setItem('DataTables_' + window.location.pathname, JSON.stringify(oData));
-		},
-		"fnStateLoad" : function(oSettings) {
-			return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
-		},
-		"iDisplayLength" : 25,
-		"aoColumnDefs" : [ {
-			"bSortable" : false,
-			'aTargets' : [ 3 ]
-		} ],
-		"aaSorting" : [ [ 1, 'asc' ] ]
-	});
-
-	$('.virtually-online-robot-table').dataTable({
-		"bStateSave" : true,
-		"sPaginationType" : "full_numbers",
-		"fnStateSave" : function(oSettings, oData) {
-			sessionStorage.setItem('DataTables_' + window.location.pathname, JSON.stringify(oData));
-		},
-		"fnStateLoad" : function(oSettings) {
-			return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
-		},
-		"iDisplayLength" : 25,
-		"aoColumnDefs" : [ {
-			"bSortable" : false,
-			'aTargets' : [ 3 ]
-		} ],
-		"aaSorting" : [ [ 1, 'asc' ] ]
-	});
-
-	$('.online-user-table').dataTable({
-		"bStateSave" : true,
-		"sPaginationType" : "full_numbers",
-		"fnStateSave" : function(oSettings, oData) {
-			sessionStorage.setItem('DataTables_' + window.location.pathname, JSON.stringify(oData));
-		},
-		"fnStateLoad" : function(oSettings) {
-			return JSON.parse(sessionStorage.getItem('DataTables_' + window.location.pathname));
-		},
-		"iDisplayLength" : 25,
-		"aoColumnDefs" : [ {
-			"bSortable" : false,
-			'aTargets' : [ 3 ]
-		} ],
-		"aaSorting" : [ [ 1, 'asc' ] ]
 	});
 
 	$('.version-table').dataTable({
@@ -673,8 +623,8 @@ function dataTableForAll(handle, length, url, colomns_to_disable_sort, default_s
 				"success" : function(json) {
 					fnCallback(json);
 					hideWaitDialog();
-					if (method_to_call == 'show_me_details') {
-						show_me_details();
+					if (method_to_call != '') {
+					    eval( method_to_call + '(json)' );
 					}
 				},
 				"beforeSend" : function() {
@@ -701,7 +651,9 @@ function dataTableForAll(handle, length, url, colomns_to_disable_sort, default_s
 			if (method_to_call == 'ws_log_datagrid') {
 				$('td:eq(2), td:eq(4), td:eq(5)', nRow).addClass("pretty-table-center-td");
 			}
-		}
+		},
+		"bDestroy" : true
+		
 	});
 
 }
@@ -912,7 +864,6 @@ function isRobotAlive(){
 	});
 }
 
-
 function checkRobotAvailability(robotSerailNo) {
 //	var robotSerailNo = $(this).attr('robot-serail-no');
 
@@ -948,5 +899,31 @@ function checkRobotAvailability(robotSerailNo) {
 		complete : function() {
 			
 		}
+	});
+}
+
+function jabber_user_history_table(handle, length, url, colomns_to_disable_sort, default_sorting, method_to_call) {
+	if (genericDataTable) {
+		genericDataTable.fnDraw();
+	} else {
+		dataTableForAll(handle, length, url, colomns_to_disable_sort, default_sorting, method_to_call);
+	}
+}
+
+function jabber_robot_history_table(handle, length, url, colomns_to_disable_sort, default_sorting, method_to_call) {
+	if (genericDataTable) {
+		genericDataTable.fnDraw();
+	} else {
+		dataTableForAll(handle, length, url, colomns_to_disable_sort, default_sorting, method_to_call);
+	}
+}
+
+function reset_dt_view() {
+	sessionStorage.removeItem('DataTables_'+window.location.pathname);
+}
+
+function reset_datatable_on_tab_click() {
+	$('.menu-user a').click(function(){
+		reset_dt_view();
 	});
 }

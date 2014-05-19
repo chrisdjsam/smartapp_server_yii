@@ -18,51 +18,122 @@ class OnlineController extends Controller
 		if(Yii::app()->user->UserRoleId == '2'){
 			$this->layout = 'support';
 		}
-
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/robot/list');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
 		self::check_for_admin_privileges();
+		RobotCore::refreshGetOnlineUsersData();
+		$this->render('list');
+	}
 
-		$online_users_chat_ids = RobotCore::getOnlineUsers();
+	public function actionOnlineUsersDataTable() {
+		$dataColumns = array('name', 'email', 'u.chat_id', 'id');
+		$dataIndexColumn = "id";
+		$dataTable = "users u inner join online_chat_ids oci on u.chat_id = oci.chat_id";
+		$dataDataModelName = null;
+		$dataWhere = '';
 
-		$robot_data = Robot::model()->findAll();
-		$online_robots= array();
-		$virtually_online_robots= array();
+		$result = AppCore::dataTableOperation($dataColumns, $dataIndexColumn, $dataTable, $_GET, $dataDataModelName, $dataWhere, true);
 
-		foreach ($robot_data as $robot){
+		/*
+		 * Output
+		*/
+		$output = array(
+				'sEcho' => $result['sEcho'],
+				'iTotalRecords' => $result['iTotalRecords'],
+				'iTotalDisplayRecords' => $result['iTotalDisplayRecords'],
+				'aaData' => array()
+		);
 
-			if(in_array($robot->chat_id, $online_users_chat_ids)){
-				$online_robots[] = $robot;
-				$virtually_online_robots[] = $robot;
-			} else {
+		foreach ($result['rResult'] as $user) {
 
-				$sleep_lag_time = RobotCore::getSleepLagTime($robot);
-				$robot_ping_interval = $sleep_lag_time['sleep_time'];
+			$row = array();
 
-				if(AppCore::getVirtuallyOnlinRobots($robot->serial_number, $robot_ping_interval)){
-					$virtually_online_robots[] = $robot;
+			$user = User::model()->findByPk($user['id']);
+			$user_email = '<a rel="'.$this->createUrl('/user/userprofilepopup', array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" href="'.$this->createUrl('/user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($user->id))).'" class="qtiplink" title="View details of ('.$user->email.')">'.$user->email.'</a>';
+
+			$associated_robots = '';
+			if ($user->doesRobotAssociationExist()) {
+				$is_first_robot = true;
+				foreach ($user->usersRobots as $value) {
+					if (!$is_first_robot) {
+						$associated_robots .= ",";
+					}
+					$is_first_robot = false;
+					$associated_robots .= "<a class='single-item qtiplink robot-qtip' title='View details of (" . $value->idRobot->serial_number . ")' rel='" . $this->createUrl('/robot/popupview', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "' href='" . $this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "'>" . $value->idRobot->serial_number . "</a>";
 				}
-
 			}
+
+			$row [] = $user->name;
+			$row [] = $user_email;
+			$row [] = $user->chat_id;
+			$row [] = $associated_robots;
+			$output ['aaData'] [] = $row;
 
 		}
 
-		$users_data = User::model()->findAll();
-		$online_users = array();
-		foreach ($users_data as $user){
-			if(in_array($user->chat_id, $online_users_chat_ids )) {
-				$online_users[] = $user;
+		$this->renderPartial('/default/defaultView', array('content' => $output));
+	}
+
+	public function actionOnlineRobotsDataTable() {
+		$dataColumns = array('serial_number', 'name', 'r.chat_id', 'id');
+		$dataIndexColumn = "id";
+		$dataTable = "robots r inner join online_chat_ids oci on r.chat_id = oci.chat_id";
+		$dataDataModelName = null;
+		$dataWhere = '';
+
+		$result = AppCore::dataTableOperation($dataColumns, $dataIndexColumn, $dataTable, $_GET, $dataDataModelName, $dataWhere, true);
+
+		/*
+		 * Output
+		*/
+		$output = array(
+				'sEcho' => $result['sEcho'],
+				'iTotalRecords' => $result['iTotalRecords'],
+				'iTotalDisplayRecords' => $result['iTotalDisplayRecords'],
+				'aaData' => array()
+		);
+
+		foreach ($result['rResult'] as $robot) {
+
+			$robot = Robot::model()->findByPk($robot['id']);
+
+			$row = array();
+
+			$serial_number = '<a rel="' . $this->createUrl('/robot/popupview', array('h' => AppHelper::two_way_string_encrypt($robot->id))) . '" href="' . $this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($robot->id))) . '" class="qtiplink robot-qtip" title="View details of (' . $robot->serial_number . ')">' . $robot->serial_number . '</a>';
+
+			$associated_users = '';
+			if ($robot->doesUserAssociationExist()) {
+				$is_first_user = true;
+				foreach ($robot->usersRobots as $value) {
+					if (!$is_first_user) {
+						$associated_users .= ",";
+					}
+					$is_first_user = false;
+					$associated_users .= "<a class='single-item qtiplink' title='View details of (" . $value->idUser->email . ")' rel='" . $this->createUrl('/user/userprofilepopup', array('h' => AppHelper::two_way_string_encrypt($value->idUser->id))) . "' href='" . $this->createUrl('/user/userprofile', array('h' => AppHelper::two_way_string_encrypt($value->idUser->id))) . "'>" . $value->idUser->email . "</a>";
+				}
 			}
+
+			$row[] = $serial_number;
+			$row[] = $robot->name;
+			$row[] = $robot->chat_id;
+			$row[] = $associated_users;
+
+			$output['aaData'][] = $row;
 		}
 
-		$this->render('list',array(
-				'users_data'=>$online_users,
-				'robot_data'=>$online_robots,
-				'virtually_online_robots'=>$virtually_online_robots,
-		));
+		$this->renderPartial('/default/defaultView', array('content' => $output));
+	}
+
+	public function actionRefreshDataTable() {
+
+		$output = array();
+		$output['time'] = date('d-M-Y h:m:s:a') . ' (' . date_default_timezone_get() . ')';
+		RobotCore::refreshGetOnlineUsersData();
+		$this->renderPartial('/default/defaultView', array('content' => $output));
 
 	}
+
 
 }

@@ -7,193 +7,127 @@ $this->breadcrumbs=array(
 		'Online'=>array('index'),
 		'List',
 );
+$baseURL = Yii::app()->baseUrl;
 ?>
-<fieldset class='data-container static-data-container robot-online-fieldset'>
-	<legend>Online Users</legend>
-	<form action="<?php echo $this->createUrl('') ?>" method="POST" id="onlineUserList">
-		<p class="list_details">
-			<?php if(!empty($users_data)){?>
-			All the online users are listed below.
-			<br />
-			<?php }else{?>
-			No users are online.
-			<?php }?>
-		</p>
-		<?php if(!empty($users_data)){?>
-		<table class="pretty-table online-user-table">
-			<thead>
-				<tr>
-					<th title="Name">Name</th>
-					<th title="Email">Email</th>
-					<th title="Chat ID">Chat ID</th>
-					<th title="Associated Robots">Associated Robots</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($users_data as $user){?>
-				<tr>
-					<td>
-						<?php echo($user->name);?>
-					</td>
-					<td>
-						<a rel="<?php echo $this->createUrl('user/userprofilepopup',array('h'=>AppHelper::two_way_string_encrypt($user->id)))?>"
-							href="<?php echo $this->createUrl('user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($user->id)))?>"
-							class='qtiplink' title="View details of (<?php echo($user->email);?>)">
-							<?php echo($user->email);?>
-						</a>
-					</td>
-					<td>
-						<?php echo($user->chat_id);?>
-					</td>
-					<td class='multiple-item'>
-						<?php if ($user->doesRobotAssociationExist()){
-							$is_first_robot = true;
-							$html_string = '';
-							foreach($user->usersRobots as $value){
-						 	if(!$is_first_robot){
-						 		$html_string .= ",";
-						 	}
-						 	$is_first_robot = false;
-						 	$html_string .= "<a class='single-item qtiplink robot-qtip' title='View details of (".$value->idRobot->serial_number.")' rel='".$this->createUrl('robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($value->idRobot->id)))."' href='".$this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($value->idRobot->id)))."'>".$value->idRobot->serial_number."</a>";
-							}
-							echo $html_string;
-						}
-						?>
-					</td>
-				</tr>
-				<?php } ?>
-			</tbody>
-		</table>
-		<?php } ?>
-	</form>
-</fieldset>
-<br />
-<br />
+
+<div>
+	<span>Last refreshed at: <i><span class="last-refreshed-at"><?php print date('d-M-Y h:m:s:a') ." (" . date_default_timezone_get() . ")" ?></span></i></span>
+	<a href="#" class='refresh_list_page neato-button_alt right' title="Refresh">Refresh</a>
+</div>
+<br/>
+<br/>
+
 <fieldset class='data-container static-data-container robot-online-fieldset'>
 	<legend>Online Robots</legend>
-	<form action="<?php echo $this->createUrl('') ?>" method="POST" id="onlineUserList">
-		<p class="list_details">
-			<?php if(!empty($robot_data)){?>
-			All the online robots are listed below.
-			<br />
-			<?php }else{?>
-			No robots are online.
-			<br />
-			<?php }?>
-		</p>
-		<?php if(!empty($robot_data)){?>
+	<form action="<?php echo $this->createUrl('') ?>" method="POST" id="onlineRobotList">
+		<p class="robot_list_details list_details">No robots are online.</p>
 		<table class="pretty-table online-robot-table">
 			<thead>
 				<tr>
 					<th style="width: 15%;" title="Serial Number">Serial Number</th>
-					<th style="width: 15%;" title="Name">Name</th>
+					<th style="width: 20%;" title="Name">Name</th>
 					<th style="width: 20%;" title="Chat ID">Chat ID</th>
-					<th style="width: 40%;" title="Associated Users">Associated Users</th>
+					<th style="width: 35%;" title="Associated Users">Associated Users</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($robot_data as $robot){?>
-				<tr>
-					<td>
-						<a rel=<?php echo $this->createUrl('robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
-							href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
-							class='qtiplink robot-qtip' title="View details of (<?php echo $robot->serial_number?>)">
-							<?php echo $robot->serial_number?>
-						</a>
-					</td>
-					<td>
-						<?php echo($robot->name);?>
-					</td>
-					<td>
-						<?php echo($robot->chat_id);?>
-					</td>
-					<td class='multiple-item'>
-						<?php
-						if ($robot->doesUserAssociationExist()){
-							$is_first_user = true;
-							$html_string = '';
-						 foreach($robot->usersRobots as $value){
-						 	if(!$is_first_user){
-						 		$html_string .= ",";
-						 	}
-						 	$is_first_user = false;
-						 	$html_string .= "<a class='single-item qtiplink' title='View details of (".$value->idUser->email.")' rel='".$this->createUrl('user/userprofilepopup',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."' href='".$this->createUrl('user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."'>".$value->idUser->email."</a>"
-						 	?>
-						<?php
-						 }
-					 	echo $html_string;
-						}
-						?>
-					</td>
-				</tr>
-				<?php } ?>
 			</tbody>
 		</table>
-		<?php }?>
 	</form>
 </fieldset>
 <br />
 <br />
+
 <fieldset class='data-container static-data-container robot-online-fieldset'>
-	<legend>Virtually Online Robots</legend>
-	<form>
-		<p class="list_details">
-			<?php if(!empty($virtually_online_robots)){?>
-			All the virtually online robots are listed below.
-			<br />
-			<?php }else{?>
-			No robots are virtually online.
-			<br />
-			<?php }?>
-		</p>
-		<?php if(!empty($virtually_online_robots)){?>
-		<table class="pretty-table virtually-online-robot-table">
+	<legend>Online Users</legend>
+	<form action="<?php echo $this->createUrl('') ?>" method="POST" id="onlineUserList">
+		<p class="user_list_details list_details">No users are online.</p>
+		<table class="pretty-table online-user-table">
 			<thead>
 				<tr>
-					<th style="width: 15%;" title="Serial Number">Serial Number</th>
 					<th style="width: 15%;" title="Name">Name</th>
+					<th style="width: 20%;" title="Email">Email</th>
 					<th style="width: 20%;" title="Chat ID">Chat ID</th>
-					<th style="width: 40%;" title="Associated Users">Associated Users</th>
+					<th style="width: 35%;" title="Associated Robots">Associated Robots</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($virtually_online_robots as $robot){?>
-				<tr>
-					<td>
-						<a rel=<?php echo $this->createUrl('robot/popupview',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
-							href=<?php echo $this->createUrl('robot/view',array('h'=>AppHelper::two_way_string_encrypt($robot->id)))?>
-							class='qtiplink robot-qtip' title="View details of (<?php echo $robot->serial_number?>)">
-							<?php echo $robot->serial_number?>
-						</a>
-					</td>
-					<td>
-						<?php echo($robot->name);?>
-					</td>
-					<td>
-						<?php echo($robot->chat_id);?>
-					</td>
-					<td class='multiple-item'>
-						<?php
-						if ($robot->doesUserAssociationExist()){
-							$is_first_user = true;
-							$html_string = '';
-						 foreach($robot->usersRobots as $value){
-						 	if(!$is_first_user){
-						 		$html_string .= ",";
-						 	}
-						 	$is_first_user = false;
-						 	$html_string .= "<a class='single-item qtiplink' title='View details of (".$value->idUser->email.")' rel='".$this->createUrl('user/userprofilepopup',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."' href='".$this->createUrl('user/userprofile',array('h'=>AppHelper::two_way_string_encrypt($value->idUser->id)))."'>".$value->idUser->email."</a>"
-						 	?>
-						<?php
-						 }
-					 	echo $html_string;
-						}
-						?>
-					</td>
-				</tr>
-				<?php } ?>
 			</tbody>
 		</table>
-		<?php }?>
 	</form>
 </fieldset>
+<br />
+<br />
+
+<script>
+    $(document).ready(function(){
+    	reset_dt_view();
+		loadOnlineRobots();
+        loadOnlineUsers();
+		refreshDataGrid();
+    });
+
+    function loadOnlineUsers(){
+        var baseURL = '<?php echo $baseURL; ?>';
+        var handle = 'online-user-table';
+        var length = 25;
+        var url = '<?php echo $baseURL . '/online/onlineUsersDataTable' ?>';
+        var colomns_to_disable_sort = [3];
+        var default_sorting = [ 0, 'desc' ];
+        dataTableForAll(handle, length, url, colomns_to_disable_sort, default_sorting, 'updateUserFieldset');
+
+    }
+
+    function loadOnlineRobots(refresh){
+        var baseURL = '<?php echo $baseURL; ?>';
+        var handle = 'online-robot-table';
+        var length = 25;
+        var url = '<?php echo $baseURL . '/online/onlineRobotsDataTable' ?>';
+        var colomns_to_disable_sort = [3];
+        var default_sorting = [ 0, 'desc' ];
+        dataTableForAll(handle, length, url, colomns_to_disable_sort, default_sorting, 'updateRobotFieldset');
+    }
+
+    function updateUserFieldset(data){
+        user_list_details = "All the online users are listed below."
+        if(!data['aaData'].length){
+            user_list_details = "No users are online."
+        }
+        $(".user_list_details").html(user_list_details);
+    }
+
+    function updateRobotFieldset(data){
+        robot_list_details = "All the online robots are listed below."
+        if(!data['aaData'].length){
+   		    robot_list_details = "No robots are online."
+        }
+        $(".robot_list_details").html(robot_list_details);
+    }
+
+    function refresh_time(data){
+        $('.last-refreshed-at').html(data['time'])
+    }
+
+    function refreshDataGrid(){
+    	$('.refresh_list_page').click(function(){
+			$.ajax({
+				type : 'POST',
+				url : app_base_url + '/online/refreshDataTable',
+				dataType : 'jsonp',
+				success : function(r) {
+					hideWaitDialog();
+					refresh_time(r);
+					reset_dt_view();
+		    		loadOnlineRobots();
+		            loadOnlineUsers();
+				},
+				error : function(r) {
+					hideWaitDialog();
+				},
+				beforeSend : function() {
+					showWaitDialog();
+				},
+			});
+        });
+     }
+</script>

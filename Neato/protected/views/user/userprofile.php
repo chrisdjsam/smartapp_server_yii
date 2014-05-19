@@ -164,7 +164,6 @@ $userRole = Yii::app()->user->UserRoleId;
 				'alternate_email',
 				$chat_attribute,
 				'chat_id',
-				'chat_pwd',
 				'created_on',
 				'country_code',
 				'opt_in',
