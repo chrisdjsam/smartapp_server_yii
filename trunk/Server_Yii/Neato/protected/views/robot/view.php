@@ -53,8 +53,6 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 	$online_status = ' (OFFLINE)';
 	if($isOnline == 1){
 		$online_status = ' (ONLINE)';
-	} else if($isOnline == 3) {
-		$online_status = ' (VIRTUALLY ONLINE)';
 	}
 
 	$robot_type = isset($model->robotRobotTypes->robotType) ? $model->robotRobotTypes->robotType->name . ' (' . $model->robotRobotTypes->robotType->type . ')' : '';
@@ -80,7 +78,6 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 								'type'=>'raw',
 								'value' => $model->chat_id . $online_status,
 						),
-						'chat_pwd',
 						array(
 								'label' =>'Robot Type',
 								'type'=>'raw',
@@ -90,16 +87,6 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 								'label' =>'Last Pinged',
 								'type'=>'raw',
 								'value' => $last_ping,
-						),
-						array(
-								'label' =>'Sleep Time',
-								'type'=>'raw',
-								'value' => $sleep_lag_time['sleep_time'] . ' seconds',
-						),
-						array(
-								'label' =>'Wakeup Time',
-								'type'=>'raw',
-								'value' => $sleep_lag_time['lag_time'] . ' seconds',
 						),
 						array(
 								'label' =>'Created on',

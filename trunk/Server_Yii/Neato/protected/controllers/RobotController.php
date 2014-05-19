@@ -39,21 +39,19 @@ class RobotController extends Controller
 		$model =$this->loadModel($id);
 
 		$isOnline = 2; // 2 for offline
-		//                if(in_array($model->chat_id, AppCore::getOnlineUsers())){
 		if(in_array($model->chat_id, RobotCore::getOnlineUsers())){
 			$isOnline = 1; // 1 for online
-		} else {
-
-			//                    $sleep_lag_time = AppCore::getSleepLagTime($model);
-			$sleep_lag_time = RobotCore::getSleepLagTime($model);
-			$robot_ping_interval = $sleep_lag_time['sleep_time'];
-
-			if(AppCore::getVirtuallyOnlinRobots($model->serial_number, $robot_ping_interval)){
-				$isOnline = 3; // 3 for virtually online
-			}
 		}
+// 		else {
 
-		//                $last_ping = AppCore::getLatestPingTimestampFromRobot($model->serial_number);
+// 			$sleep_lag_time = RobotCore::getSleepLagTime($model);
+// 			$robot_ping_interval = $sleep_lag_time['sleep_time'];
+
+// 			if(AppCore::getVirtuallyOnlinRobots($model->serial_number, $robot_ping_interval)){
+// 				$isOnline = 3; // 3 for virtually online
+// 			}
+// 		}
+
 		$last_ping = RobotCore::getLatestPingTimestampFromRobot($model->serial_number);
 
 		if(!empty($last_ping)){
@@ -64,7 +62,6 @@ class RobotController extends Controller
 			$last_ping = 'Unavailable';
 		}
 
-		//                $sleep_lag_time = AppCore::getSleepLagTime($model);
 		$sleep_lag_time = RobotCore::getSleepLagTime($model);
 
 		$this->render('view',array(
@@ -116,7 +113,6 @@ class RobotController extends Controller
 			if(isset($_POST['Robot'], $_POST['RobotTypes']))
 			{
 				$model->attributes=$_POST['Robot'];
-				//			$chat_details = AppCore::create_chat_user_for_robot();
 				$chat_details = RobotCore::create_chat_user_for_robot();
 
 				if(!$chat_details['jabber_status']){
@@ -142,18 +138,14 @@ class RobotController extends Controller
 						$robot_name = $model-> name;
 						$key = Yii::app()->params['robot_name_key'];
 
-						//                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
 						RobotCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
 
 						$user_id = Yii::app()->user->id;
 						$user_data = User::model()->findByPk($user_id);
 						$cause_agent_id = Yii::app()->session['cause_agent_id'];
-						//                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
 						$message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-						//                                    $online_users_chat_ids = AppCore::getOnlineUsers();
 						$online_users_chat_ids = RobotCore::getOnlineUsers();
 
-						//                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
 						RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
 
 					}
@@ -367,7 +359,7 @@ class RobotController extends Controller
 				Yii::app()->user->setReturnUrl($url);
 				$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 			}
-			 
+
 			$h_id = Yii::app()->request->getParam('h', '');
 			if($h_id == ''){
 				$this->redirect(array('list'));
@@ -392,7 +384,7 @@ class RobotController extends Controller
 			}
 			if($update_robot_info)
 			{
-					
+
 				$model->attributes=$_POST['Robot'];
 
 				if($model->save()){
@@ -412,18 +404,14 @@ class RobotController extends Controller
 
 					if($robot_name_before_update != $model-> name){
 
-						//                                    AppCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
 						RobotCore::setRobotKeyValueDetail($robot, $key, $robot_name, $robot->updated_on);
 
 						$user_id = Yii::app()->user->id;
 						$user_data = User::model()->findByPk($user_id);
 						$cause_agent_id = Yii::app()->session['cause_agent_id'];
-						//                                    $message_to_set_robot_key_value = AppCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
 						$message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-						//                                    $online_users_chat_ids = AppCore::getOnlineUsers();
 						$online_users_chat_ids = RobotCore::getOnlineUsers();
 
-						//                                    AppCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
 						RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
 
 					}
@@ -551,7 +539,7 @@ class RobotController extends Controller
 					$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
 					$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
 					$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . $type;
-						
+
 					$robot_atlas_model = RobotAtlas::model()->findByAttributes(array('id' => $id));
 					if($robot_atlas_model !== null ){
 						if($type === Yii::app()->params['robot-atlas-xml-data-directory-name']){
@@ -560,7 +548,7 @@ class RobotController extends Controller
 						$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
 					}
 					break;
-						
+
 				case 'atlasGridImage' :
 					$id_robot = Yii::app()->request->getParam('id_robot', '');
 					$id_robot = AppHelper::two_way_string_decrypt($id_robot);
@@ -574,7 +562,7 @@ class RobotController extends Controller
 					$grid_image_model = AtlasGridImage::model()->findByAttributes(array('id' => $id));
 
 					if($grid_image_model !== null ){
-							
+
 						if($type === Yii::app()->params['robot-atlas-blob-data-directory-name']){
 
 							$file_name= $grid_image_model->blob_data_file_name;
@@ -582,7 +570,7 @@ class RobotController extends Controller
 						$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
 					}
 					break;
-						
+
 
 				default :
 			}

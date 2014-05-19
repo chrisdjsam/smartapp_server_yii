@@ -1101,7 +1101,7 @@ table.detail-view {
 }
 
 a.user-neato-button {
-	width: 95px;
+	width: auto;
 }
 
 .app-logo {
@@ -1567,4 +1567,12 @@ div.form label {
 	height: 16px;
 	margin-right: 4px;
 	margin-top: 2px;
+}
+
+.online-user-table, .online-robot-table {
+	width: 100% !important;
+}
+
+.online-user-table th, .online-robot-table th {
+	text-align: center;
 }

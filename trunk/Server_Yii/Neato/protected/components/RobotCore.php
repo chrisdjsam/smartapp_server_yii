@@ -388,6 +388,37 @@ class RobotCore {
 		return $token;
 	}
 
+	public static function refreshGetOnlineUsersData(){
+		OnlineChatId::model()->deleteAll();
+
+  		$online_users = self::getOnlineUsers();
+
+		if ( !empty($online_users) ){
+			$sql = "INSERT INTO online_chat_ids ( chat_id ) VALUES ";
+			foreach ($online_users as $jabber_user) {
+				$sql .= "('".$jabber_user."'),";
+			}
+			$sql = rtrim($sql, ",");
+			Yii::app()->db->createCommand($sql)->execute();
+		}
+	}
+
+	/**
+	 * return status of requested ejabber user
+	 */
+	public static function jabberOnline($chat_id){
+		$chat_args = explode("@", $chat_id);
+		$user = $chat_args[0];
+		$server = $chat_args[1];
+		$cmd = "sudo ejabberdctl user_resources " . $user ." " .$server;
+		$output = shell_exec($cmd);
+		$output = strval($output);
+		if(!empty($output)){
+			return true;
+		}
+		return false;
+	}
+
 }
 
 ?>

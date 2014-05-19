@@ -1411,3 +1411,11 @@ div.form label {
 .support-delete-div {
 	margin-bottom: 0px;
 }
+
+.online-user-table, .online-robot-table {
+	width: 100% !important;
+}
+
+.online-user-table th, .online-robot-table th {
+	text-align: center;
+}

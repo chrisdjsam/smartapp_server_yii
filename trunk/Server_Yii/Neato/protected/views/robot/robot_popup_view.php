@@ -50,7 +50,6 @@ $this->breadcrumbs=array(
 							'value' => $html_string,
 					),
 					'chat_id',
-					'chat_pwd',
 					array(
 							'label' =>'Map',
 							'type'=>'raw',
