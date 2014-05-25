@@ -300,9 +300,9 @@ class RobotController extends APIController {
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDeleteRobot() {
-		
+
 		self::check_for_admin_privileges();
-		
+
 		if (isset($_REQUEST['chooseoption'])) {
 			foreach ($_REQUEST['chooseoption'] as $robo_id) {
 				$robot = Robot::model()->findByAttributes(array('id' => $robo_id));
@@ -359,7 +359,7 @@ class RobotController extends APIController {
 	 *
 	 */
 	public function actionDelete($prevent_termination = false) {
-		
+
 		$robot_serial_no = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 
@@ -370,7 +370,7 @@ class RobotController extends APIController {
 				$robot_schedule_id_arr[] = $robot_schedule->id;
 			}
 		$robotSerialNumber = $robot->serial_number;
-		
+
 			$chat_id = $robot->chat_id;
 // 				send email to associated robots
 
@@ -388,7 +388,7 @@ class RobotController extends APIController {
 			if ($robot->delete()) {
 				RobotCore::delete_chat_user($chat_id);
 				RobotCore::delete_robot_schedule_data($robot_schedule_id_arr);
-				
+
 				$response_message = "You have deleted robot $robot_serial_no successfully";
 				$response_data = array("success" => true, "message" => $response_message);
 
@@ -406,11 +406,10 @@ class RobotController extends APIController {
 
 		$serial_number = Yii::app()->request->getParam('serial_number', '');
 		$robot = self::verify_for_robot_serial_number_existence($serial_number);
-
 		$source_serial_number = Yii::app()->request->getParam('source_serial_number', '');
 		$source_smartapp_id = Yii::app()->request->getParam('source_smartapp_id', '');
 		$cause_agent_id = Yii::app()->request->getParam('cause_agent_id', '');
-		$value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));
+		$value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));		
 		$notification_flag = $_REQUEST['notification_flag'];
 		$robot_profile = Yii::app()->request->getParam('profile', '');
 
@@ -442,11 +441,10 @@ class RobotController extends APIController {
 				self::terminate(-1, 'Sorry, Provided source_smartapp_id(email) is not associated with given robot', APIConstant::SOURCE_SMARTAPP_ID_IS_NOT_ASSOCIATED_WITH_ROBOT);
 			}
 		}
-
 		if ($value_extra != null) {
 			$value_extra = serialize($value_extra);
 		}
-
+		
 		if ($robot !== null) {
 
 			$robot->value_extra = $value_extra;
@@ -463,30 +461,11 @@ class RobotController extends APIController {
 
 			$message = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
 
-			$online_users_chat_ids = RobotCore::getOnlineUsers();
-
-			if (!in_array($robot->chat_id, $online_users_chat_ids)) {
-
-				$robot_ping_data = RobotCore::getLatestPingTimestampFromRobot($robot->serial_number);
-				$sleep_lag_time = RobotCore::getSleepLagTime($robot);
-				$robot_ping_interval = $sleep_lag_time['sleep_time'];
-
-				$expected_time = $robot_ping_interval;
-
-				if (isset($robot_ping_data[0]->ping_timestamp)) {
-
-					$latest_ping_timestamp = strtotime($robot_ping_data[0]->ping_timestamp);
-					$current_system_timestamp = time();
-					$time_diff = ($current_system_timestamp - $latest_ping_timestamp);
-					$expected_time = $robot_ping_interval - $time_diff;
-				}
-			}
-
 			if (!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag) {
-				RobotCore::sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message);
+				RobotCore::sendXMPPMessageWhereRobotSender($robot, $message);
 			} else if (!empty($source_smartapp_id)) {
 				if ($notification_flag) {
-					RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids);
+					RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message);
 				}
 			}
 
@@ -860,8 +839,8 @@ class RobotController extends APIController {
 		$user_data = User::model()->findByPk($user_id);
 		$cause_agent_id = Yii::app()->session['cause_agent_id'];
 		$message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-		$online_users_chat_ids = RobotCore::getOnlineUsers();
-		RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+
+		RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value);
 
 		$content = array('status' => 0);
 
@@ -891,9 +870,8 @@ class RobotController extends APIController {
 		$user_data = User::model()->findByPk($user_id);
 		$cause_agent_id = Yii::app()->session['cause_agent_id'];
 		$message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-		$online_users_chat_ids = RobotCore::getOnlineUsers();
 
-		RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+		RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value);
 
 		$content = array('status' => 0);
 
@@ -922,9 +900,8 @@ class RobotController extends APIController {
 		$user_data = User::model()->findByPk($user_id);
 		$cause_agent_id = Yii::app()->session['cause_agent_id'];
 		$message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-		$online_users_chat_ids = RobotCore::getOnlineUsers();
 
-		RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+		RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value);
 
 		$content = array('status' => 0);
 
