@@ -144,9 +144,8 @@ class RobotController extends Controller
 						$user_data = User::model()->findByPk($user_id);
 						$cause_agent_id = Yii::app()->session['cause_agent_id'];
 						$message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-						$online_users_chat_ids = RobotCore::getOnlineUsers();
 
-						RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+						RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value);
 
 					}
 
@@ -410,9 +409,8 @@ class RobotController extends Controller
 						$user_data = User::model()->findByPk($user_id);
 						$cause_agent_id = Yii::app()->session['cause_agent_id'];
 						$message_to_set_robot_key_value = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
-						$online_users_chat_ids = RobotCore::getOnlineUsers();
 
-						RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value, $online_users_chat_ids);
+						RobotCore::sendXMPPMessageWhereUserSender($user_data, $robot, $message_to_set_robot_key_value);
 
 					}
 

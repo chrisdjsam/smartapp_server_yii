@@ -248,12 +248,10 @@ class RobotCore {
 		return $message;
 	}
 
-	public static function sendXMPPMessageWhereUserSender($user_data, $robot, $message, $online_users_chat_ids){
+	public static function sendXMPPMessageWhereUserSender($user_data, $robot, $message){
 		RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
 		foreach ($robot->usersRobots as $userRobot){
-			if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-				RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
-			}
+			RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
 		}
 	}
 
@@ -364,11 +362,9 @@ class RobotCore {
 
 	}
 
-	public static function sendXMPPMessageWhereRobotSender($robot, $online_users_chat_ids, $message){
+	public static function sendXMPPMessageWhereRobotSender($robot, $message){
 		foreach ($robot->usersRobots as $userRobot){
-			if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-				RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-			}
+			RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 		}
 	}
 
