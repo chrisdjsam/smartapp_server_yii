@@ -19,12 +19,33 @@ function send_xmpp_notification($notification_id) {
 	if (empty($notification_id)) {
 		return;
 	}
-	$url = APIPROTOCOL . APIHOSTNAME . APICONTROLLER . "sendXMPPNotification";
-	$data_string = array();
-	$data_string['id'] = $notification_id;
-	echo "++++++++++++++++++++++++++++++++++++++++++++";
-	var_dump(curl_call($url, array(), $data_string));
-	echo "++++++++++++++++++++++++++++++++++++++++++++";
+
+	$username = DB_USERNAME;
+	$password = DB_PASSWORD;
+	$hostname = DB_HOSTNAME;
+	$dbname = DB_NAME;
+
+	//connection to the database
+	$dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
+
+	if ($dbhandle === false) {
+		echo("Stale DB Connection");
+		$dbhandle = mysql_connect($hostname, $username, $password, true) or die("Unable to connect to MySQL");
+	}
+	if ($dbhandle === false) {
+		echo("DB Connection Failed");
+		return;
+	}
+
+	mysql_select_db($dbname, $dbhandle);
+
+	$notification_data = mysql_fetch_array(mysql_query("SELECT * FROM `xmpp_notification_via_mq` WHERE xmpp_uid = '$notification_id'"));
+	$from = $notification_data['from'];
+	$to = $notification_data['to'];
+	$message = $notification_data['message'];
+	$cmd = "sudo ejabberdctl send-message-chat " . $from . " " . $to . " " . $message;
+	$output = shell_exec($cmd);
+	echo($output);
 }
 
 function send_smtp_notification($notification_id) {
