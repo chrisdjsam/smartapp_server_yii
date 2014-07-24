@@ -17,6 +17,7 @@ class ConsumerController extends APIController {
 			$response = Yii::app()->mail->send($message);
 			$smpt_data->status = 1;
 			$smpt_data->response = $response;
+			$smpt_data->end_time = round(microtime(true) * 1000);
 			if (!$smpt_data->save()) {
 				error_log("+++++++++++++++++++++++++++", 0);
 				error_log("Failed to update SMTP status and response", 0);

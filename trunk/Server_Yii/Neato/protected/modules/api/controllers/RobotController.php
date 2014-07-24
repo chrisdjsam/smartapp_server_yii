@@ -409,7 +409,7 @@ class RobotController extends APIController {
 		$source_serial_number = Yii::app()->request->getParam('source_serial_number', '');
 		$source_smartapp_id = Yii::app()->request->getParam('source_smartapp_id', '');
 		$cause_agent_id = Yii::app()->request->getParam('cause_agent_id', '');
-		$value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));		
+		$value_extra = json_decode(Yii::app()->request->getParam('value_extra', ''));
 		$notification_flag = $_REQUEST['notification_flag'];
 		$robot_profile = Yii::app()->request->getParam('profile', '');
 
@@ -444,7 +444,7 @@ class RobotController extends APIController {
 		if ($value_extra != null) {
 			$value_extra = serialize($value_extra);
 		}
-		
+
 		if ($robot !== null) {
 
 			$robot->value_extra = $value_extra;
@@ -460,6 +460,8 @@ class RobotController extends APIController {
 			}
 
 			$message = RobotCore::xmppMessageOfSetRobotProfile($robot, $cause_agent_id, $utc);
+
+			Yii::app()->params['xmpp_uids'] = array();
 
 			if (!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag) {
 				RobotCore::sendXMPPMessageWhereRobotSender($robot, $message);

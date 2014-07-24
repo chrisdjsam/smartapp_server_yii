@@ -11,8 +11,8 @@
  * @property string $body
  * @property integer $status
  * @property integer $response
- * @property string $created_on
- * @property string $updated_on
+ * @property string $start_time
+ * @property string $end_time
  */
 class BaseSMTPViaMQ extends CActiveRecord
 {
@@ -42,13 +42,12 @@ class BaseSMTPViaMQ extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created_on', 'required'),
             array('status', 'numerical', 'integerOnly'=>true),
             array('from, to', 'length', 'max'=>255),
             array('subject, body', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, from, to, subject, body, status, response, created_on, updated_on', 'safe', 'on'=>'search'),
+            array('id, from, to, subject, body, status, response, start_time, end_time', 'safe', 'on'=>'search'),
         );
     }
 
@@ -76,8 +75,8 @@ class BaseSMTPViaMQ extends CActiveRecord
             'body' => 'Body',
             'status' => 'Status',
         	'response' => 'Response',
-            'created_on' => 'Created On',
-            'updated_on' => 'Updated On',
+            'start_time' => 'Start Time',
+            'end_time' => 'End Time',
         );
     }
 
@@ -99,8 +98,8 @@ class BaseSMTPViaMQ extends CActiveRecord
         $criteria->compare('body',$this->body,true);
         $criteria->compare('status',$this->status);
         $criteria->compare('response',$this->response);
-        $criteria->compare('created_on',$this->created_on,true);
-        $criteria->compare('updated_on',$this->updated_on,true);
+        $criteria->compare('start_time',$this->start_time,true);
+        $criteria->compare('end_time',$this->end_time,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

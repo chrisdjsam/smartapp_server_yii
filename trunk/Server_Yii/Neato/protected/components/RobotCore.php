@@ -131,13 +131,15 @@ class RobotCore {
 			$XmppNotificationViaMQ->to = $to;
 			$XmppNotificationViaMQ->message = $message;
 			$XmppNotificationViaMQ->is_jabber_setup = $is_jabber_setup;
+			$XmppNotificationViaMQ->start_time = round(microtime(true) * 1000);
+
 			$XmppNotificationViaMQ->save();
 
 			$cmdParam = $xmpp_uid;
 			$cmdStr = "php " . Yii::app()->params['amqp_xmpp_notification_publisher_path'];
 			shell_exec($cmdStr . " '" . $cmdParam . "'");
 
-			return true;
+			return $xmpp_uid;
 		} else {
 			return false;
 		}
@@ -249,9 +251,11 @@ class RobotCore {
 	}
 
 	public static function sendXMPPMessageWhereUserSender($user_data, $robot, $message){
-		RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+		$xmpp_uid = RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id , $message);
+		self::setXMPPUId($xmpp_uid);
 		foreach ($robot->usersRobots as $userRobot){
-			RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+			$xmpp_uid = RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
+			self::setXMPPUId($xmpp_uid);
 		}
 	}
 
@@ -364,7 +368,8 @@ class RobotCore {
 
 	public static function sendXMPPMessageWhereRobotSender($robot, $message){
 		foreach ($robot->usersRobots as $userRobot){
-			RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+			$xmpp_uid = RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
+			self::setXMPPUId($xmpp_uid);
 		}
 	}
 
@@ -413,6 +418,12 @@ class RobotCore {
 			return true;
 		}
 		return false;
+	}
+
+	public static function setXMPPUId($xmpp_uid){
+		$xmpp_uids = Yii::app()->params['xmpp_uids'];
+		$xmpp_uids[] = $xmpp_uid;
+		Yii::app()->params['xmpp_uids'] = $xmpp_uids;
 	}
 
 }

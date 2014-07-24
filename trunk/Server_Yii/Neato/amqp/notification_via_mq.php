@@ -45,7 +45,7 @@ function send_xmpp_notification($notification_id) {
 	$message = $notification_data['message'];
 	$cmd = "sudo ejabberdctl send-message-chat " . $from . " " . $to . " " . $message;
 	$output = shell_exec($cmd);
-	echo($output);
+	mysql_query("UPDATE `xmpp_notification_via_mq` SET  `response`='".strval($output)."',`status`=1, `end_time`='".round(microtime(true) * 1000)."' WHERE xmpp_uid = '$notification_id'");
 }
 
 function send_smtp_notification($notification_id) {

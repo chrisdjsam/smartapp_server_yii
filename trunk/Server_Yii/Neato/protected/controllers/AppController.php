@@ -65,19 +65,32 @@ class AppController extends Controller
 	}
 
 	public function actionLog(){
+		$this->layout = 'log_layout';
+
+		$logLevelConversion = array("0"=> "None", "1" => "Low", "2"=>"High");
+		$logSettings = Yii::app()->params['enablewebservicelogging'];
+		$apiLogLevels = Yii::app()->params['api_verbosity'];
+		$defaultLogLevel = $logLevelConversion[Yii::app()->params['default_api_verbosity']];
+
+		$apiLogLevelsStr = array();
+
+		foreach($apiLogLevels as $key => $value){
+			$apiLogLevel = new stdClass();
+			$apiLogLevel->api = $key;
+			$apiLogLevel->logLevel = $logLevelConversion[$value];
+			$apiLogLevelsStr[] = $apiLogLevel;
+		}
 
 		if (Yii::app()->user->getIsGuest()) {
 			Yii::app()->user->setReturnUrl(Yii::app()->request->baseUrl.'/app/log');
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
-
-		$this->render('log');
-
+		$this->render('log', array('logSettings'=>$logSettings, 'defaultLogLevel'=> $defaultLogLevel, 'apiLogLevelStr'=>$apiLogLevelsStr));
 	}
 
 	public function actionWebServiceLog() {
 
-		$dataColumns = array('remote_address', 'method_name', 'request_data', 'response_data', 'response_time', 'date_and_time', 'id');
+		$dataColumns = array('id', 'method_name', 'serial_number', 'email', 'api_request', 'response_data', 'internal_process_values', 'remote_address', 'date_and_time', 'request_data');
 		$dataIndexColumn = "id";
 		$dataTable = "ws_logging";
 
@@ -99,12 +112,21 @@ class AppController extends Controller
 
 			$row = array();
 
-			$row[] = $data->remote_address;
+			$row[] = $data->id;
 			$row[] = $data->method_name;
-			$row[] = json_encode(unserialize($data->request_data));
-			$row[] = json_encode(unserialize($data->response_data));
-			$row[] = $data->response_time;
+			$row[] = $data->serial_number;
+			$row[] = $data->email;
+			$row[] = empty($data->api_request)?'':$data->api_request;
+			$row[] = empty($data->response_data)?'':json_encode(unserialize($data->response_data));
+			$internal_process_values = $data->internal_process_values;
+			if($data->internal_process_values == 'null'){
+				$internal_process_values = '';
+			}
+			$row[] = $internal_process_values;
+			$row[] = $data->remote_address;
 			$row[] = $data->date_and_time;
+			$row[] = empty($data->request_data)?'':json_encode(unserialize($data->request_data));
+
 
 			$output['aaData'][] = $row;
 
