@@ -152,5 +152,7 @@ return array(
 		'amqp_xmpp_notification_publisher_path' => '<YOUR_AMQP_XMPP_NOTIFICATION_PUBLISHER_PATH_HERE>',
 		'amqp_smtp_notification_publisher_path' => '<YOUR_AMQP_SMTP_NOTIFICATION_PUBLISHER_PATH_HERE>',
 		'schedule_enforce_versioning' => false,
+		'api_verbosity' => array(),  // Note: Here you can specify 3 verbosity levels: 0 - none, 1 - low, 2 - high for each API. Example: array('site.get_api_version'=>0,'robot.is_online'=>1,)
+		'default_api_verbosity'=>'<SET DEFUALT VERBOSITY LEVEL HERE>' //Here you can specify verbosity level: 0/1/2  
 	),
 );

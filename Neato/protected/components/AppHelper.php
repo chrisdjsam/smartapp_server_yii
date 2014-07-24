@@ -55,7 +55,7 @@ class AppHelper {
 		$smtp_model->to = $mail_to;
 		$smtp_model->subject = $subject;
 		$smtp_model->body = $body;
-		$smtp_model->created_on = new CDbExpression('NOW()');
+		$smtp_model->start_time = round(microtime(true) * 1000);
 		if (!$smtp_model->save()) {
 			error_log("+++++++++++++++++++++++++++", 0);
 			error_log("Failed to save SMTP data", 0);

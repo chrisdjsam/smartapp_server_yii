@@ -649,7 +649,7 @@ function dataTableForAll(handle, length, url, colomns_to_disable_sort, default_s
 			}
 
 			if (method_to_call == 'ws_log_datagrid') {
-				$('td:eq(2), td:eq(4), td:eq(5)', nRow).addClass("pretty-table-center-td");
+				$('td:eq(2), td:eq(4), td:eq(5), td:eq(6), td:eq(7)', nRow).addClass("pretty-table-center-td");
 			}
 		},
 		"bDestroy" : true

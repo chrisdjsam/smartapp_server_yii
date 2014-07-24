@@ -524,28 +524,28 @@ class AppCore {
 				 */
 				'modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . ": Updated Email Address",
 				'modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . ": Email Adresse wurde registriert",
-				
+
 				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Updated Email Address",
 				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Email Adresse wurde registriert",
-				
+
 				'modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 																			<b>" . Yii::app()->name . "</b></div>
-				
+
 																			<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
-						
+
 																			Our customer service team has registered your email address %s. <br/>
-																			<br/>	 
-																			Note further that only the address %s for your login can be used. <br/><br/> 
-																			Email notifications (and newsletter) to be sent to both addresses.<br/><br/> 
+																			<br/>
+																			Note further that only the address %s for your login can be used. <br/><br/>
+																			Email notifications (and newsletter) to be sent to both addresses.<br/><br/>
 																			Regards,
 																			<br/><br/>
 																			<b>Team " . Yii::app()->name . "</b>
 																			</div>
 																			</body>
 																			</html>",
-				
+
 				'modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
@@ -563,19 +563,19 @@ class AppCore {
 																			</div>
 																			</body>
 																			</html>",
-				
+
 				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "%s<tr>
 																							<td>
 																								<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
 																								Our support team registered your email address %s upon your request.
-																								Please note that you still have to use your address %s to login to your Vorwerk VR200 app. 
+																								Please note that you still have to use your address %s to login to your Vorwerk VR200 app.
 																								Email notifications (and newsletter) to be sent to both addresses. <br/><br/>
 																								Best regards,
 																								<br>
 																								Vorwerk Customer Service
 																							</td>
 																					</tr>%s",
-				
+
 				'vorwerk_modified_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "%s<tr>
 																							<td>
 																								<br><span style='font-weight:bold;font-size:18px;'>Liebe Kundin, lieber Kunde,</span><br>
@@ -594,18 +594,18 @@ class AppCore {
 				 */
 				'deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . ": Removed Your Email Address",
 				'deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . ": Email Adresse wurde gelöscht",
-				
+
 				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Removed Your Email Address",
 				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Email Adresse wurde gelöscht",
-				
+
 				'deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 																			<b>" . Yii::app()->name . "</b></div>
 																			<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
-				
+
 																			Our customer service team has deleted your Email address %s on your wish.<br><br>
-																			Please note that from now on all email notifications (and newsletter) only be sent to this address: %s.<br><br> 
+																			Please note that from now on all email notifications (and newsletter) only be sent to this address: %s.<br><br>
 																			If you want to have another email address to register, turn away please contact your national customer service (see user manual and on-www.vorwerk-kobold.com). <br><br>
 																			Regards,
 																			<br><br>
@@ -613,7 +613,7 @@ class AppCore {
 																			</div>
 																			</body>
 																			</html>",
-				
+
 				'deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
@@ -635,21 +635,21 @@ class AppCore {
 																			</div>
 																			</body>
 																			</html>",
-				
+
 				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_EN . '_message' => "%s<tr>
 																							<td>
 																								<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
 																								Our support team deleted your email address %s upon your request.
-																								Please note that from now on email notifications (and newsletters) will only be send to the following address: %s.<br> 
+																								Please note that from now on email notifications (and newsletters) will only be send to the following address: %s.<br>
 																								Our support team is glad to register another email address for you: please call <b>". Yii::app()->params['service_number']. "</b>. <br>
-																								<br>									
+																								<br>
 																								Best regards,
 																								<br>
 																								Vorwerk Customer Service <br>
 																								<br>
 																							</td>
 																					</tr>%s",
-				
+
 				'vorwerk_deleted_alternate_email_'. AppConstant::LANGUAGE_DE . '_message' => "%s<tr>
 																							<td>
 																								<br><span style='font-weight:bold;font-size:18px;'>Liebe Kundin, lieber Kunde,</span><br/><br/>
@@ -663,7 +663,7 @@ class AppCore {
 																								bitte an deinen nationalen Kundenservice <br>
 																								(siehe Gebrauchsanleitung bzw. auf www.vorwerk-kobold.com). <br>
 																								<br/>
-				
+
 																								Viele Grüße <br>
 																								Vorwerk Kundenservice
 																							</td>
@@ -809,32 +809,32 @@ class AppCore {
 																								Vorwerk Kundenservice<br />
 																					      	</td>
 																				    	</tr>%s',
-				
+
 				/**
 				 *  robot deleted email
 				 */
 				'robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->name . ": Your Robot Was Deleted",
 				'robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->name . ": Roboter wurde gelöscht",
-				
+
 				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_EN . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Your Robot Was Deleted",
 				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_DE . '_subject' => Yii::app()->params['paste_vorwerk_email_subject']. ": Roboter wurde gelöscht",
-				
+
 				'robotdeleted_'. AppConstant::LANGUAGE_EN . '_message' => "<html><body>
 																				<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																				<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
 																				<b>" . Yii::app()->name . "</b></div>
 																				<br><span style='font-weight:bold;font-size:18px;'>Dear Customer,</span><br><br>
-				
+
 																				Your robot <b> %s </b> was deleted by our customer service team. <br/><br/>
 																				If you want to use the robot again, start the " . Yii::app()->name . " app, log in and click 'Settings' - 'Robot Add/Change' 'Robot Management'. <br><br>
-																				
+
 																				Regards,
 																				<br><br>
 																				<b>Team " . Yii::app()->name . "</b><br/>
 																				</div>
 																				</body>
 																			</html>",
-				
+
 				'robotdeleted_'. AppConstant::LANGUAGE_DE . '_message' => "<html><body>
 																			<div style='border: 1px solid #E3E3E3; padding:10px;'>
 																			<div style='width: auto; background-color: #3BB9FF; height: 20px; color: #ffffff; padding-left:10px; padding-top: 5px;'>
@@ -850,26 +850,26 @@ class AppCore {
 																			Dort bitte rechts oben auf „+“ drücken und den Anweisungen folgen.<br/>
 																			<br/>
 																			Viele Grüße <br/>
-																			Vorwerk Kundenservice 
+																			Vorwerk Kundenservice
 																			<br>
 																			</div>
 																			</body>
 																			</html>",
-				
+
 				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_EN . '_message' => '%s<tr>
 																						<td valign="top" align="left" style="font-size:13px;color:#113c2b;"><br />
 																							<br><span style="font-weight:bold;font-size:18px;">Dear Customer,</span><br><br>
 																							<br>
 																							Your robot <b> %s </b> was deleted upon your request by our customer support team. <br/>
-																							If you want to use your robot again, start your Vorwerk VR200 app, login, goto settings, robot management 
+																							If you want to use your robot again, start your Vorwerk VR200 app, login, goto settings, robot management
 																							and tap on “add/select robot”. There tap on the “+” on the upper right corner and follow the instructions.<br/>
 																							<br/>
 																							Best regards,
 																							<br/>
-																							Vorwerk Customer Service <br/> 
+																							Vorwerk Customer Service <br/>
 																			      		</td>
 																					</tr>%s',
-				
+
 				'vorwerk_robotdeleted_'. AppConstant::LANGUAGE_DE . '_message' => '%s<tr>
 																					<td valign="top" align="left" style="font-size:13px;color:#113c2b;">
 																						<span style="font-weight:bold;font-size:18px;">Liebe Kundin, lieber Kunde,</span><br/>
@@ -940,7 +940,7 @@ class AppCore {
 																						You can login  by clicking <a href="%s">here</a><br><br>
 																						Best regards,
 																						<br/>
-																						Vorwerk Customer Service <br/> 
+																						Vorwerk Customer Service <br/>
 																		      		</td>
 																				</tr>%s',
 
@@ -953,9 +953,9 @@ class AppCore {
 																						You can login  by clicking <a href="%s">here</a><br><br>
 																						Best regards,
 																						<br/>
-																						Vorwerk Customer Service <br/> 
+																						Vorwerk Customer Service <br/>
 																		      		</td>
-																				</tr>%s', 
+																				</tr>%s',
 
 		);
 
@@ -985,57 +985,59 @@ class AppCore {
 		try{
 			//check for enable web service logging flag
 			if(Yii::app()->params['enablewebservicelogging']){
-				$remote_address = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : 'not found';
-				//$_REQUEST;
-				if(!isset($_REQUEST['method'])){
+
+				$request_data = $_REQUEST;
+				if(!isset($request_data['method'])){
 					return false;
 				}
-				$method_name = $_REQUEST['method'];
-				$api_key = $_REQUEST['api_key'];
-				$response_type = $_REQUEST['response_type'];
-				$handler_name = $_REQUEST['handler'];
-
-				//unset extra data
-				$request_data = $_REQUEST;
-				unset($request_data['method']);
-				unset($request_data['api_key']);
-				unset($request_data['request']);
-				unset($request_data['handler']);
-
-				$serialized_request_data = serialize($request_data);
-				$serialized_response_data = serialize($result);
-				//start of code to store all $_server info
-				$can_log_server = 1;
-				if($can_log_server){
-					$serialized_request_and_server_data['request'] = $_REQUEST;
-					$serialized_request_and_server_data['server'] = $_SERVER;
-					$serialized_request_data = serialize($serialized_request_and_server_data);
-				}
-				//end of code to store all $_server info
-
-				$site_id = UserCore::get_site_id();
-				$api_user_model = ApiUser::model()->findByAttributes(array('api_key'=>$api_key));
-				if(!is_null($api_user_model)){
-					$site_id = $api_user_model->id_site;
-				}
-
-				$start_time = Yii::app()->params['start_time'];
-				$end_time = round(microtime(true) * 1000);
-
-				$response_time = $end_time - $start_time;
 
 				$ws_logging_model = new WsLogging();
-				$ws_logging_model->id_site = $site_id;
+
+				$serialized_request_and_server_data['request'] = $request_data;
+				$serialized_request_and_server_data['server'] = $_SERVER;
+				$serialized_request_data = serialize($serialized_request_and_server_data);
+				$serialized_response_data = serialize($result);
+
+				$api_verbosity = Yii::app()->params['api_verbosity'];
+				$api_verbosity_level = Yii::app()->params['default_api_verbosity'];
+
+				if(isset($api_verbosity[$request_data['method']])){
+					$api_verbosity_level = $api_verbosity[$request_data['method']];
+				}
+
+				switch ($api_verbosity_level) {
+					case 0: //None
+						return false;
+					case 1: //Low
+						$ws_logging_model->response_data = $serialized_response_data;
+						break;
+					case 2: //High
+						$ws_logging_model->request_data = $serialized_request_data;
+						$ws_logging_model->response_data = $serialized_response_data;
+						break;
+				}
+
+				$remote_address = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : 'not found';
+				$method_name = $request_data['method'];
+				$start_time = Yii::app()->params['start_time'];
+				$end_time = round(microtime(true) * 1000);
+				$response_time = $end_time - $start_time;
+				$serial_number = isset($request_data['serial_number'])?$request_data['serial_number']:'';
+				$source_smartapp_id = isset($request_data['source_smartapp_id'])?$request_data['source_smartapp_id']:'';
+				$email = isset($request_data['email'])?$request_data['email']:$source_smartapp_id;
+				$source = isset($_SERVER['HTTP_X_NEATO_APPINFO'])?0:1;
+
 				$ws_logging_model->remote_address = $remote_address;
 				$ws_logging_model->method_name = $method_name;
-				$ws_logging_model->api_key = $api_key;
-				$ws_logging_model->response_type = $response_type;
-				$ws_logging_model->handler_name = $handler_name;
-				$ws_logging_model->request_type = $request_type;
-				$ws_logging_model->request_data = $serialized_request_data;
-				$ws_logging_model->response_data = $serialized_response_data;
 				$ws_logging_model->status = $status;
 				$ws_logging_model->response_time = $response_time;
+				$ws_logging_model->serial_number = $serial_number;
+				$ws_logging_model->email =$email;
+				$ws_logging_model->api_request = json_encode($request_data);
+				$ws_logging_model->start_time = $start_time;
+				$ws_logging_model->end_time = $end_time;
+				$ws_logging_model->internal_process_values = empty(Yii::app()->params['xmpp_uids'])?'':json_encode(Yii::app()->params['xmpp_uids']);
+				$ws_logging_model->source = $source;
 
 				$ws_logging_model->save();
 
@@ -2043,7 +2045,7 @@ class AppCore {
 		}
 		return $result;
 	}
-	
+
 }
 
 ?>

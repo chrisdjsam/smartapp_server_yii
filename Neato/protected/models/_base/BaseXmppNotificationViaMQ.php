@@ -11,6 +11,9 @@
  * @property string $message
  * @property integer $is_jabber_setup
  * @property integer $response
+ * @property string $status
+ * @property string $start_time
+ * @property string $end_time
  */
 
 class BaseXmppNotificationViaMQ extends CActiveRecord
@@ -46,7 +49,7 @@ class BaseXmppNotificationViaMQ extends CActiveRecord
 			array('from, to, message', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, xmpp_uid, from, to, message, is_jabber_setup, response', 'safe', 'on'=>'search'),
+			array('id, xmpp_uid, from, to, message, is_jabber_setup, response, status, start_time, end_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,6 +77,9 @@ class BaseXmppNotificationViaMQ extends CActiveRecord
 			'message' => 'Message',
 			'is_jabber_setup' => 'Is Jabber Setup',
 			'response' => 'Response',
+			'status' => 'Status',
+			'start_time' => 'Start Time',
+			'end_time' => 'End Time',
 		);
 	}
 
@@ -95,6 +101,9 @@ class BaseXmppNotificationViaMQ extends CActiveRecord
 		$criteria->compare('message',$this->message,true);
 		$criteria->compare('is_jabber_setup',$this->is_jabber_setup);
 		$criteria->compare('response',$this->response);
+		$criteria->compare('status',$this->status);
+		$criteria->compare('start_time',$this->start_time);
+		$criteria->compare('end_time',$this->end_time);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
