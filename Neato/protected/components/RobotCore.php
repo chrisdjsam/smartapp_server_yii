@@ -285,13 +285,9 @@ class RobotCore {
 
 		$xmpp_message_model->save();
 
-		$online_users_chat_ids = RobotCore::getOnlineUsers();
-
 		RobotCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
 		foreach ($robot->usersRobots as $userRobot) {
-			if (in_array($userRobot->idUser->chat_id, $online_users_chat_ids)) {
-				RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-			}
+			RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 		}
 	}
 

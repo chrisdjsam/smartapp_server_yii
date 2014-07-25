@@ -168,8 +168,7 @@ class RobotController extends APIController {
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 
 		if ($robot !== null) {
-			$online_users_chat_ids = RobotCore::getOnlineUsers();
-			if (in_array($robot->chat_id, $online_users_chat_ids)) {
+			if (RobotCore::jabberOnline($robot->chat_id)) {
 				$response_message = "Robot " . $robot_serial_no . " is online.";
 				$response_data = array("online" => true, "message" => $response_message);
 			} else {
@@ -186,8 +185,7 @@ class RobotController extends APIController {
 		$robot = self::verify_for_robot_serial_number_existence($robot_serial_no);
 
 		if ($robot !== null) {
-			$online_users_chat_ids = RobotCore::getOnlineUsers();
-			if (in_array($robot->chat_id, $online_users_chat_ids)) {
+			if (RobotCore::jabberOnline($robot->chat_id)) {
 				$response_message = "Robot " . $robot_serial_no . " is online.";
 				$response_data = array("online" => true, "message" => $response_message);
 			} else {
@@ -206,33 +204,35 @@ class RobotController extends APIController {
 
 		if ($robot !== null) {
 
-			$data = RobotCore::getLatestPingTimestampFromRobot($robot->serial_number);
-
-			$online_users_chat_ids = RobotCore::getOnlineUsers();
-			if (in_array($robot->chat_id, $online_users_chat_ids)) {
+			if (RobotCore::jabberOnline($robot->chat_id)) {
 				$response_message = "Robot " . $robot_serial_no . " is online.";
 				$response_data = array("online" => true, "message" => $response_message, "expected_time" => $expected_time);
-			} else if (!empty($data)) {
-				$latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
+			} else
+			{
+				$data = RobotCore::getLatestPingTimestampFromRobot($robot->serial_number);
+				if (!empty($data)) {
+					$latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
 
-				$sleep_lag_time = RobotCore::getSleepLagTime($robot);
-				$robot_ping_interval = $sleep_lag_time['sleep_time'];
+					$sleep_lag_time = RobotCore::getSleepLagTime($robot);
+					$robot_ping_interval = $sleep_lag_time['sleep_time'];
 
-				$current_system_timestamp = time();
-				$time_diff = ($current_system_timestamp - $latest_ping_timestamp);
-				$expected_time = $robot_ping_interval - $time_diff;
+					$current_system_timestamp = time();
+					$time_diff = ($current_system_timestamp - $latest_ping_timestamp);
+					$expected_time = $robot_ping_interval - $time_diff;
 
-				if ($time_diff > $robot_ping_interval) {
+					if ($time_diff > $robot_ping_interval) {
+						$response_message = "Robot " . $robot_serial_no . " is offline.";
+						$response_data = array("online" => false, "message" => $response_message, "expected_time" => $expected_time);
+					} else {
+						$response_message = "Robot " . $robot_serial_no . " is online.";
+						$response_data = array("online" => true, "message" => $response_message, "expected_time" => $expected_time);
+					}
+				}else{
 					$response_message = "Robot " . $robot_serial_no . " is offline.";
-					$response_data = array("online" => false, "message" => $response_message, "expected_time" => $expected_time);
-				} else {
-					$response_message = "Robot " . $robot_serial_no . " is online.";
-					$response_data = array("online" => true, "message" => $response_message, "expected_time" => $expected_time);
+					$response_data = array("online" => false, "message" => $response_message);
 				}
-			} else {
-				$response_message = "Robot " . $robot_serial_no . " is offline.";
-				$response_data = array("online" => false, "message" => $response_message);
 			}
+
 			self::success($response_data);
 		}
 	}
@@ -369,10 +369,10 @@ class RobotController extends APIController {
 			foreach ($robot->robotSchedules as $robot_schedule) {
 				$robot_schedule_id_arr[] = $robot_schedule->id;
 			}
-		$robotSerialNumber = $robot->serial_number;
+			$robotSerialNumber = $robot->serial_number;
 
 			$chat_id = $robot->chat_id;
-// 				send email to associated robots
+			// 				send email to associated robots
 
 			if(count($robot->usersRobots) > 0){
 				foreach ($robot->usersRobots as $i=>$asscoiateRobot){
@@ -594,23 +594,17 @@ class RobotController extends APIController {
 				$xmpp_message_model->xmpp_message = $message;
 				$xmpp_message_model->save();
 
-				$online_users_chat_ids = RobotCore::getOnlineUsers();
-
 				if (!empty($source_serial_number) && $source_serial_number == $serial_number && $notification_flag) {
 
 					foreach ($robot->usersRobots as $userRobot) {
-						if (in_array($userRobot->idUser->chat_id, $online_users_chat_ids)) {
-							RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-						}
+						RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 					}
 					RobotCore::send_chat_message($robot->chat_id, $robot->chat_id, $message);
 				} else if (!empty($source_smartapp_id) && $notification_flag) {
 
 					RobotCore::send_chat_message($user_data->chat_id, $robot->chat_id, $message);
 					foreach ($robot->usersRobots as $userRobot) {
-						if (in_array($userRobot->idUser->chat_id, $online_users_chat_ids)) {
-							RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
-						}
+						RobotCore::send_chat_message($user_data->chat_id, $userRobot->idUser->chat_id, $message);
 					}
 				} else if ($notification_flag) {
 					foreach ($robot->usersRobots as $userRobot) {
@@ -927,7 +921,7 @@ class RobotController extends APIController {
 
 		/*
 		 * Output
-		*/
+		 */
 		$output = array(
 				'sEcho' => $result['sEcho'],
 				'iTotalRecords' => $result['iTotalRecords'],
@@ -1539,11 +1533,6 @@ class RobotController extends APIController {
 		}
 
 		RobotCore::removeExpiredLinkingCode($robot_model_data);
-
-		$online_users_chat_ids = RobotCore::getOnlineUsers();
-		if (!in_array($robot_model_data->chat_id, $online_users_chat_ids)) {
-			self::terminate(-1, "Robot is offline", APIConstant::OFFLINE_ROBOT);
-		}
 
 		$requested_user_email = $email;
 
