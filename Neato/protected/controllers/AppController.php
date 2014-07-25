@@ -89,4 +89,52 @@ class AppController extends Controller
 		$this->render('log', array('logSettings'=>$logSettings, 'defaultLogLevel'=> $defaultLogLevel, 'apiLogLevelStr'=>$apiLogLevelsStr));
 	}
 
+	public function actionWebServiceLog() {
+
+		$dataColumns = array('id', 'method_name', 'serial_number', 'email', 'api_request', 'response_data', 'internal_process_values', 'remote_address', 'date_and_time', 'app_info_header', 'request_data');
+		$dataIndexColumn = "id";
+		$dataTable = "ws_logging";
+
+		$dataDataModelName = 'WsLogging';
+
+		$result = AppCore::dataTableOperation($dataColumns, $dataIndexColumn, $dataTable, $_GET, $dataDataModelName);
+
+		/*
+		 * Output
+		*/
+		$output = array(
+				'sEcho' => $result['sEcho'],
+				'iTotalRecords' => $result['iTotalRecords'],
+				'iTotalDisplayRecords' => $result['iTotalDisplayRecords'],
+				'aaData' => array()
+		);
+
+		foreach ($result['rResult'] as $data) {
+
+			$row = array();
+			
+			$row[] = $data->id;
+			$row[] = $data->method_name;
+			$row[] = $data->serial_number;
+			$row[] = $data->email;
+			$row[] = empty($data->api_request)?'':$data->api_request;
+			$row[] = empty($data->response_data)?'':json_encode(unserialize($data->response_data));
+			$internal_process_values = $data->internal_process_values;
+			if($data->internal_process_values == 'null'){
+				$internal_process_values = '';
+			}
+			$row[] = $internal_process_values;
+			$row[] = $data->remote_address;
+			$row[] = $data->date_and_time;
+			$row[] = empty($data->app_info_header) ? '' : ($data->app_info_header);
+			$row[] = empty($data->request_data)?'':json_encode(unserialize($data->request_data));
+
+
+			$output['aaData'][] = $row;
+
+		}
+
+		$this->renderPartial('/default/defaultView', array('content' => $output));
+
+	}
 }

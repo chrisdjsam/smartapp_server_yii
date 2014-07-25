@@ -1246,6 +1246,7 @@ class RobotController extends APIController {
 
 		if ($is_delete == '0') {
 
+			$robot->name = '';
 			$robot->sleep_time = Yii::app()->params['default_sleep_time'];
 			$robot->lag_time = Yii::app()->params['default_lag_time'];
 			$robot->update();
