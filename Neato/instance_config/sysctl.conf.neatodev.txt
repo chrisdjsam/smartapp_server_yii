@@ -128,3 +128,10 @@ net.ipv4.udp_wmem_min = 16384
 net.ipv4.tcp_max_tw_buckets = 1440000
 net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_tw_reuse = 1
+
+### Begin RSL changes
+
+# RSL 06/12/2014 - disable TCP timestamps to improve connection speeds
+net.ipv4.tcp_timestamps = 0
+
+### End RSL changes
