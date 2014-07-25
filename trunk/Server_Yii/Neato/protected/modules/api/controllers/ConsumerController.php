@@ -94,7 +94,7 @@ class ConsumerController extends APIController {
 			$from = $xmpp_notification_data['from'];
 			$to = $xmpp_notification_data['to'];
 			$message = $xmpp_notification_data['message'];
-			$cmd = "sudo ejabberdctl send-message-chat " . $from . " " . $to . " " . $message;
+			$cmd = Yii::app()->params['ejabberdctl'] . " send-message-chat " . $from . " " . $to . " " . $message;
 			$output = shell_exec($cmd);
 			$output = strval($output);
 			$xmpp_notification_data->response = $output;
