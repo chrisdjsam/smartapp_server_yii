@@ -1419,3 +1419,11 @@ div.form label {
 .online-user-table th, .online-robot-table th {
 	text-align: center;
 }
+
+.disabled{
+	display: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+	padding: 0.1em 1em !important;
+}

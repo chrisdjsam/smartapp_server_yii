@@ -1038,6 +1038,7 @@ class AppCore {
 				$ws_logging_model->end_time = $end_time;
 				$ws_logging_model->internal_process_values = empty(Yii::app()->params['xmpp_uids'])?'':json_encode(Yii::app()->params['xmpp_uids']);
 				$ws_logging_model->source = $source;
+				$ws_logging_model->app_info_header = isset($_SERVER['HTTP_X_NEATO_APPINFO'])?$_SERVER['HTTP_X_NEATO_APPINFO']:'';
 
 				$ws_logging_model->save();
 

@@ -65,6 +65,7 @@ class AppController extends Controller
 	}
 
 	public function actionLog(){
+		
 		$this->layout = 'log_layout';
 
 		$logLevelConversion = array("0"=> "None", "1" => "Low", "2"=>"High");
@@ -90,7 +91,7 @@ class AppController extends Controller
 
 	public function actionWebServiceLog() {
 
-		$dataColumns = array('id', 'method_name', 'serial_number', 'email', 'api_request', 'response_data', 'internal_process_values', 'remote_address', 'date_and_time', 'request_data');
+		$dataColumns = array('id', 'method_name', 'serial_number', 'email', 'api_request', 'response_data', 'internal_process_values', 'remote_address', 'date_and_time', 'app_info_header', 'request_data');
 		$dataIndexColumn = "id";
 		$dataTable = "ws_logging";
 
@@ -111,7 +112,7 @@ class AppController extends Controller
 		foreach ($result['rResult'] as $data) {
 
 			$row = array();
-
+			
 			$row[] = $data->id;
 			$row[] = $data->method_name;
 			$row[] = $data->serial_number;
@@ -125,6 +126,7 @@ class AppController extends Controller
 			$row[] = $internal_process_values;
 			$row[] = $data->remote_address;
 			$row[] = $data->date_and_time;
+			$row[] = empty($data->app_info_header) ? '' : ($data->app_info_header);
 			$row[] = empty($data->request_data)?'':json_encode(unserialize($data->request_data));
 
 

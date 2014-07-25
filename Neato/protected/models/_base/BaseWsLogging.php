@@ -53,7 +53,7 @@ class BaseWsLogging extends GxActiveRecord
 			array('remote_address, method_name', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, remote_address, method_name, request_data, response_data, status, date_and_time, response_time, serial_number, email, api_request, start_time, end_time, internal_process_values, source', 'safe', 'on'=>'search'),
+			array('id, remote_address, method_name, request_data, response_data, status, date_and_time, response_time, serial_number, email, api_request, start_time, end_time, internal_process_values, source, app_info_header', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +89,7 @@ class BaseWsLogging extends GxActiveRecord
 			'end_time' => 'End Time',
 			'internal_process_values' => 'Internal Process Values',
 			'source' => 'Source',
+			'app_info_header' => 'App Info Header',
 		);
 	}
 
@@ -118,6 +119,7 @@ class BaseWsLogging extends GxActiveRecord
         $criteria->compare('end_time',$this->end_time,true);
         $criteria->compare('internal_process_values',$this->internal_process_values,true);
         $criteria->compare('source',$this->source,true);
+        $criteria->compare('app_info_header',$this->app_info_header,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
