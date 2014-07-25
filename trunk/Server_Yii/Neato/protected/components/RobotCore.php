@@ -383,17 +383,16 @@ class RobotCore {
 	}
 
 	public static function refreshGetOnlineUsersData(){
-		OnlineChatId::model()->deleteAll();
-
   		$online_users = self::getOnlineUsers();
-
 		if ( !empty($online_users) ){
-			$sql = "INSERT INTO online_chat_ids ( chat_id ) VALUES ";
+			$sql = "DELETE FROM online_chat_ids WHERE 1=1; INSERT INTO online_chat_ids ( chat_id ) VALUES ";
 			foreach ($online_users as $jabber_user) {
 				$sql .= "('".$jabber_user."'),";
 			}
 			$sql = rtrim($sql, ",");
 			Yii::app()->db->createCommand($sql)->execute();
+		}else {
+			OnlineChatId::model()->deleteAll();
 		}
 	}
 
