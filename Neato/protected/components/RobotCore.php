@@ -20,7 +20,7 @@ class RobotCore {
 		$chat_details['chat_pwd'] = $chat_pwd;
 
 		if (Yii::app()->params['isjabbersetup']) {
-			$jabberRegisterString = 'sudo ejabberdctl register ' . $chat_user . ' ' . $ejabberd_node . ' ' . $chat_pwd . ' 2>&1';
+			$jabberRegisterString = Yii::app()->params['ejabberdctl'] . ' register ' . $chat_user . ' ' . $ejabberd_node . ' ' . $chat_pwd . ' 2>&1';
 			exec($jabberRegisterString, $output, $status);
 
 			$success_string = strtolower("successfully registered");
@@ -44,7 +44,7 @@ class RobotCore {
 		$online_users_array = array();
 		if(Yii::app()->params['robot_always_connected']){
 			if(Yii::app()->params['isjabbersetup']){
-				$cmd = "sudo ejabberdctl connected_users";
+				$cmd = Yii::app()->params['ejabberdctl'] . " connected_users";
 				$output = shell_exec($cmd);
 				$output = strval($output);
 				$online_users = array();
@@ -188,7 +188,7 @@ class RobotCore {
 
 		$chat_details['jabber_status'] = true;
 		if (Yii::app()->params['isjabbersetup']) {
-			$jabberRegisterString = 'sudo ejabberdctl unregister ' . $chat_user . ' ' . $ejabberd_node . ' 2>&1';
+			$jabberRegisterString = Yii::app()->params['ejabberdctl'] . ' unregister ' . $chat_user . ' ' . $ejabberd_node . ' 2>&1';
 			exec($jabberRegisterString, $output, $status);
 		}
 		return $chat_details;
@@ -407,7 +407,8 @@ class RobotCore {
 		$chat_args = explode("@", $chat_id);
 		$user = $chat_args[0];
 		$server = $chat_args[1];
-		$cmd = "sudo ejabberdctl user_resources " . $user ." " .$server;
+		$cmd = Yii::app()->params['ejabberdctl'] . " user_resources " . $user ." " .$server;
+
 		$output = shell_exec($cmd);
 		$output = strval($output);
 		if(!empty($output)){

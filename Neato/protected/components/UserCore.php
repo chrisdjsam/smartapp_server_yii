@@ -23,7 +23,7 @@ class UserCore {
 		$chat_details['chat_pwd'] = $chat_pwd;
 
 		if (Yii::app()->params['isjabbersetup']) {
-			$jabberRegisterString = 'sudo ejabberdctl register ' . $chat_user . ' ' . $ejabberd_node . ' ' . $chat_pwd . ' 2>&1';
+			$jabberRegisterString = Yii::app()->params['ejabberdctl'] . ' register ' . $chat_user . ' ' . $ejabberd_node . ' ' . $chat_pwd . ' 2>&1';
 			exec($jabberRegisterString, $output, $status);
 
 			$success_string = strtolower("successfully registered");

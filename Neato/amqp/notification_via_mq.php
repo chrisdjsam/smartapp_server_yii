@@ -43,7 +43,12 @@ function send_xmpp_notification($notification_id) {
 	$from = $notification_data['from'];
 	$to = $notification_data['to'];
 	$message = $notification_data['message'];
-	$cmd = "sudo ejabberdctl send-message-chat " . $from . " " . $to . " " . $message;
+	$message = str_replace("<", "\<", $message);
+	$message = str_replace(">", "\>", $message);
+    $message = str_replace(" ", "\ ", $message);
+    $message = str_replace('"', '\"', $message);
+
+	$cmd = Yii::app()->params['ejabberdctl'] . " send-message-chat " . $from . " " . $to . " " . $message;
 	$output = shell_exec($cmd);
 	mysql_query("UPDATE `xmpp_notification_via_mq` SET  `response`='".strval($output)."',`status`=1, `end_time`='".round(microtime(true) * 1000)."' WHERE xmpp_uid = '$notification_id'");
 }
