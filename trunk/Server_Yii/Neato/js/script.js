@@ -655,7 +655,8 @@ function f_timer(serial_number) {
 		success : function(r) {
 
 			if (r.code == robot_status_code) {
-
+				
+				updateRobotViewElements(r);
 				generate_noty("success", command_success_msg);
 				stopCommandStatus();
 
@@ -694,50 +695,58 @@ function hideCommandKey(serial_number) {
 		data : {
 			serial_number : serial_number
 		},
-		success : function(r) {
-			
-			if(r.is_online){
-				$('#online_status').html(' (ONLINE)');
-			}else {
-				$('#online_status').html(' (OFFLINE)');
-			}
-
-			switch (r.code) {
-				// case '10001':
-				// break;
-	
-				case '10002':
-					$('.send-start-command_btn').hide();
-					$('.send-stop-command_btn').show();
-					break;
-	
-				case '10005':
-					$('.send-stop-command_btn').hide();
-					$('.send-start-command_btn').show();
-					break;
-	
-				// case '10007':
-				// break;
-	
-				case '10008':
-					$('.send-start-command_btn').hide();
-					$('.send-stop-command_btn').show();
-					break;
-	
-				// case '10009':
-				// break;
-	
-				// case '10010':
-				// break;
-	
-				default:
-					$('.send-stop-command_btn').hide();
-					$('.send-start-command_btn').show();
-			}
+		success : function(data) {
+			updateRobotViewElements(data);
+			hideWaitDialog();
+		},
+		beforeSend : function() {
+			showWaitDialog();
 		}
-
 	});
 
+}
+
+function updateRobotViewElements(data){
+	
+	if(data.is_online){
+		$('#online_status').html(' (ONLINE)');
+	}else {
+		$('#online_status').html(' (OFFLINE)');
+	}
+	
+	switch (data.code) {
+		// case '10001':
+		// break;
+
+		case '10002':
+			$('.send-start-command_btn').hide();
+			$('.send-stop-command_btn').show();
+			break;
+	
+		case '10005':
+			$('.send-stop-command_btn').hide();
+			$('.send-start-command_btn').show();
+			break;
+	
+		// case '10007':
+		// break;
+	
+		case '10008':
+			$('.send-start-command_btn').hide();
+			$('.send-stop-command_btn').show();
+			break;
+	
+		// case '10009':
+		// break;
+	
+		// case '10010':
+		// break;
+	
+		default:
+			$('.send-stop-command_btn').hide();
+			$('.send-start-command_btn').show();
+	}
+	
 }
 
 function hideDataTablesInfoForSupportUser() {

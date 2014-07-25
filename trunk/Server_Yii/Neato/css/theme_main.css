@@ -939,11 +939,10 @@ input,textarea {
 	background-position: 4px 6px;
 	background-repeat: no-repeat;
 	border: 1px solid #009A3D;
-	margin: 0;
+	margin: 5px 0px;
 	padding-bottom: 10px;
 	text-indent: 20px;
 	background-color: #F3FFEF;
-	margin: 5px;
 }
 
 .btn-facebook {
