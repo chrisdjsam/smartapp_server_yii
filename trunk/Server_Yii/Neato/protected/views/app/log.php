@@ -74,6 +74,15 @@ $this->breadcrumbs = array(
 .app-log-info {
 	padding-bottom: 5px;
 }
+
+#DataTables_Table_0_processing {
+    left: 0;
+    margin: 0 27%;
+    position: fixed;
+    top: 40%;
+    width: 45.5%;
+}
+
 </style>
 <fieldset class='data-container static-data-container'>
 	<legend>Web Service Logs</legend>
@@ -129,6 +138,7 @@ $this->breadcrumbs = array(
 				<th style="width: 10%;" class='pretty-table-center-th'>Extra Info</th>
 				<th style="width: 7%;" class='pretty-table-center-th'>IP</th>
 				<th style="width: 7%;" class='pretty-table-center-th'>Timestamp</th>
+				<th style="width: 15%;" class='pretty-table-center-th text_transform_none'>App Info</th>
 				<th style="width: 25%;" class='pretty-table-center-th'>Request Dump</th>
 			</tr>
 		</thead>
@@ -174,7 +184,6 @@ function defineAppLogDataTable(){
     jqNC('#refresh_ws_log_page').click(function(){
     	appLogDataTable(handle, length, notification_history_url, colomns_to_disable_sort, default_sorting, 'ws_log_datagrid');
     });
-
 }
 
 function appLogDataTable(handle, length, url, colomns_to_disable_sort, default_sorting, method_to_call) {
@@ -201,7 +210,7 @@ function appLogDataTable(handle, length, url, colomns_to_disable_sort, default_s
 		                          }
 		                      },  // same code for 6 columns
 		                      { "bVisible"     : true,          "aTargets" : [1,2,3,4,6,8] },
-		                      { "bVisible"     : false,         "aTargets" : [0,5,7,9]},
+		                      { "bVisible"     : false,         "aTargets" : [0,5,7,9,10]},
 		                  ],
 
 		"aaSorting" : [ default_sorting ],
