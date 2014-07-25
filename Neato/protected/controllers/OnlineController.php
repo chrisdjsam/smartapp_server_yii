@@ -100,7 +100,7 @@ class OnlineController extends Controller
 				'aaData' => array()
 		);
 
-		foreach ($result['rResult'] as $robot) {
+		foreach (array_unique($result['rResult']) as $robot) {
 
 			$robot = Robot::model()->findByPk($robot['id']);
 
