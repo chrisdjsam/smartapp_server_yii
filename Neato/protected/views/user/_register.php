@@ -33,13 +33,6 @@ $this->breadcrumbs=array(
 			<div class="row-buttons register-button">
 				<?php echo CHtml::submitButton($model->isNewRecord ? 'Register' : 'Save', array('class'=>"neato-button",  "title" => "Register",'tabindex'=>5)); ?>
 			</div>
-			<!--
-			<div class="social_login_connect_with">
-				<b>Or connect with </b>
-			</div>
-			<img alt="Facebook Login" src="<?php //echo Yii::app()->request->baseUrl."/images/facebook.png"?>"
-				class='btn-facebook look-like-a-link' title="Facebook">
-			-->
 		</div>
 		<div class="section_right">
 			<div class="row">

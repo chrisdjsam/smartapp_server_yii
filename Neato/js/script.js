@@ -14,47 +14,6 @@ var command_error_msg = "Robot didn't receive respective command";
 var command_success_msg = "Respective command is received by robot";
 
 var robot_status_code = '10001';
-$('.btn-facebook').click(function() {
-	// $(".login-element").hide();
-	// $(".loading-bar").show();
-	FB.login(function(response) {
-		if (response.status == 'connected') {
-			$.ajax({
-				type : 'POST',
-				url : app_base_url + '/api/user/fblogin',
-				dataType : 'jsonp',
-				data : {
-					r : response
-				},
-				success : function(r) {
-					hideWaitDialog();
-					if (r.status === 0) {
-						generate_noty("success", r.message);
-						window.location = location.protocol + '//' + window.location.hostname + redirect_url;
-					} else { // Handle errors
-						generate_noty("error", "Error on Facebook Login");
-					}
-				},
-				error : function(r) {
-					hideWaitDialog();
-					generate_noty("error", "Error on Facebook Login");
-				},
-				beforeSend : function() {
-					showWaitDialog();
-				},
-				complete : function() {
-					hideWaitDialog();
-				}
-			});
-		} else {
-			$(".login-element").show();
-			$(".loading-bar").hide();
-			generate_noty("error", "Error on Facebook Login");
-		}
-	}, {
-		scope : fb_permissions
-	});
-});
 
 function validateEmail(emailVal) {
 	if (emailVal == '') {
