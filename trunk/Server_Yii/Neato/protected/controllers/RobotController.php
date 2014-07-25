@@ -528,48 +528,7 @@ class RobotController extends Controller
 						$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
 					}
 					break;
-
-				case 'atlas' :
-					$id_robot = Yii::app()->request->getParam('id_robot', '');
-					$id_robot = AppHelper::two_way_string_decrypt($id_robot);
-					self::check_function_argument($id_robot);
-
-					$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-					$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
-					$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . $type;
-
-					$robot_atlas_model = RobotAtlas::model()->findByAttributes(array('id' => $id));
-					if($robot_atlas_model !== null ){
-						if($type === Yii::app()->params['robot-atlas-xml-data-directory-name']){
-							$file_name= $robot_atlas_model->xml_data_file_name;
-						}
-						$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
-					}
-					break;
-
-				case 'atlasGridImage' :
-					$id_robot = Yii::app()->request->getParam('id_robot', '');
-					$id_robot = AppHelper::two_way_string_decrypt($id_robot);
-					self::check_function_argument($id_robot);
-
-					$back = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-					$uploads_dir_for_robot = Yii::app()->getBasePath().$back . Yii::app()->params['robot-atlas-data-directory-name']. DIRECTORY_SEPARATOR . $id_robot;
-					$uploads_dir = $uploads_dir_for_robot . DIRECTORY_SEPARATOR . $type;
-
-
-					$grid_image_model = AtlasGridImage::model()->findByAttributes(array('id' => $id));
-
-					if($grid_image_model !== null ){
-
-						if($type === Yii::app()->params['robot-atlas-blob-data-directory-name']){
-
-							$file_name= $grid_image_model->blob_data_file_name;
-						}
-						$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
-					}
-					break;
-
-
+					
 				default :
 			}
 

@@ -398,76 +398,6 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Displays the login page
-	 */
-	public function actionLoginOld()
-	{
-		if (!Yii::app()->user->getIsGuest()) {
-			$this->redirect(Yii::app()->user->returnUrl);
-		}
-		$login_model=new LoginForm;
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($login_model, 'login-form');
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$login_model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the userprofile page if valid
-			if($login_model->validate() && $login_model->login())
-			{
-
-				Yii::app()->session['cause_agent_id'] = UniqueToken::hash(time(), 8);
-
-				$is_validated = (boolean)Yii::app()->user->isValidated;
-				$message = 'You have been logged in Successfully.';
-
-				$grace_period = UserCore::getGracePeriod();
-
-				if(!$is_validated){
-
-					$user_created_on_timestamp = strtotime(Yii::app()->user->createdOn);
-
-					$current_system_timestamp = time();
-
-					$time_diff = ($current_system_timestamp - $user_created_on_timestamp) / 60;
-
-					if($time_diff < $grace_period){
-
-						$message = "You have been logged in Successfully. Please validate your email.";
-
-					} else {
-
-						Yii::app()->user->logout();
-						$message = "Sorry, Please validate your email first and then login again.";
-						Yii::app()->user->setFlash('error', $message);
-						$this->render('login',array('model'=>$login_model));
-						exit();
-
-					}
-
-				}
-
-				Yii::app()->user->setFlash('success', $message);
-				if(Yii::app()->user->isAdmin){
-					$this->redirect(array('list'));
-				}else{
-					$this->redirect(array('userprofile'));
-				}
-				echo $this->redirect(Yii::app()->user->returnUrl);
-				$this->redirect(Yii::app()->user->returnUrl);
-
-			}else{
-				Yii::app()->user->setFlash('error', AppCore::yii_echo("We could not log you in. Please check your email and password."));
-			}
-		}
-		// display the login form
-		$this->render('login',array('model'=>$login_model));
-	}
-
-
-	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
 	public function actionLogout()
@@ -480,7 +410,6 @@ class UserController extends Controller
 		}else{
 			$this->redirect(Yii::app()->homeUrl);
 		}
-
 	}
 
 	/**
@@ -598,56 +527,6 @@ class UserController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-
-	/**
-	 * Redirects to forgot_paasword.
-	 */
-	public function actionForgotpassword()
-	{
-		if (!Yii::app()->user->getIsGuest()) {
-			$this->redirect(Yii::app()->user->returnUrl);
-		}
-		$forgotPassword_model = new ForgotPasswordForm();
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($forgotPassword_model, 'forgotpassword-form');
-
-		if(isset($_POST['ForgotPasswordForm']))
-		{
-			$forgotPassword_model->attributes=$_POST['ForgotPasswordForm'];
-
-			if ($forgotPassword_model->validate()) {
-				$email = trim($_POST['ForgotPasswordForm']['email']);
-				$user_model = User::model()->findByAttributes(array("email" => $email));
-				if($user_model != null){
-					$new_password = AppHelper::generateRandomString();
-					$encrypted_new_password  = AppHelper::one_way_encrypt($new_password);
-
-					$user_model->reset_password = $encrypted_new_password;
-					$user_name = $user_model->name;
-					$login_link = $this->createUrl("/user/login");
-					if($user_model->save()){
-
-						$alternate_user_email = $user_model->alternate_email;
-						if (!empty($alternate_user_email)) {
-							AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link, $alternate_user_email);
-						} else {
-							AppEmail::emailForgotPassword($email, $user_name, $new_password, $login_link);
-						}
-
-						Yii::app()->user->setFlash('success', AppCore::yii_echo("New password is sent to your email."));
-						$this->redirect("login");
-					}
-				}else{
-					Yii::app()->user->setFlash('error', AppCore::yii_echo("Email does not exist."));
-					$forgotPassword_model->addError("email", "Please enter valid email.");
-				}
-			}
-		}
-		$this->render('forgotpassword',array(
-				'model'=>$forgotPassword_model
-		));
 	}
 
 	/**
@@ -819,36 +698,4 @@ class UserController extends Controller
 		}
 
 	}
-
-	public function actionUpdateUserCountry() {
-		$userData = User::model()->findAll();
-		foreach ($userData as $user){
-			$userToSave = User::model()->findByPk($user->id);
-			$country_code_data = CountryCodeList::model()->find('iso2 = :iso2', array(':iso2' => $userToSave->country_code));
-			if(!$country_code_data){
-				$extram_param = json_decode($userToSave->extram_param);
-				$extram_param->country_code = 'DE';
-				$extram_param = json_encode($extram_param);
-				$userToSave->country_code = 'DE';
-				$userToSave->extram_param = $extram_param;
-				$userToSave->save();
-			}
-		}
-		AppHelper::dump("Done");
-	}
-
-	public function actionUpdateUserLanguage() {
-		$userData = User::model()->findAll();
-		foreach ($userData as $user){
-			$userToSave = User::model()->findByPk($user->id);
-			$country_code_data = CountryCodeList::model()->find('iso2 = :iso2', array(':iso2' => $userToSave->country_code));
-			if($country_code_data){
-				$userToSave->language = $country_code_data->language;
-				$userToSave->save();
-			}
-		}
-		AppHelper::dump("Done");
-	}
-
-
 }
