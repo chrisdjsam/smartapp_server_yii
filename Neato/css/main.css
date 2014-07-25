@@ -1427,3 +1427,9 @@ div.form label {
 .dataTables_wrapper .dataTables_paginate .paginate_button{
 	padding: 0.1em 1em !important;
 }
+
+.retry-after {
+	margin: 10% auto;
+    text-align: center;
+    width: 100%;
+}

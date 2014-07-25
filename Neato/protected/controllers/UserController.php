@@ -52,15 +52,15 @@ class UserController extends Controller
 		$update_user_data_flag = isset($_POST['update_user_data_flag']) ? $_POST['update_user_data_flag'] : 'N' ;
 
 		if($update_user_data_flag == 'Y') {
-			
+
 			$name = $update_user->name;
-			
+
 			if(Yii::app()->user->UserRoleId != '2'){
 				$name = isset($_POST['User']['name']) ? $_POST['User']['name'] : '' ;
 				$update_user->name = $name;
 			}
-			
-			$alternate_email_before_edit = isset($_POST['alternate-email-before-edit']) ? $_POST['alternate-email-before-edit']: ''; 
+
+			$alternate_email_before_edit = isset($_POST['alternate-email-before-edit']) ? $_POST['alternate-email-before-edit']: '';
 			$alternate_email = isset($_POST['User']['alternate_email']) ? $_POST['User']['alternate_email'] : '';
 			$country_code = $_POST['CountryCodeList']['iso2'];
 			$opt_in = $_POST['User']['opt_in'];
@@ -202,7 +202,7 @@ class UserController extends Controller
 				$user_model->chat_pwd = $chat_details['chat_pwd'];
 
 				if($user_model->save()){
-					
+
 					$user_role_obj = new UserRole();
 					$user_role_obj->user_id = $user_model->id;
 					$user_role_obj->user_role_id = $user_role;
@@ -675,11 +675,11 @@ class UserController extends Controller
 	}
 
 	public function actionValidateEmail() {
-		
+
 		if(isset(Yii::app()->theme->name) && Yii::app()->theme->name == AppConstant::THEME_BASIC){
 			$this->layout = 'landing_page';
 		}
-				
+
 		$validation_key = Yii::app()->request->getParam('k', '');
 		$is_user_active = 'N';
 
@@ -696,6 +696,26 @@ class UserController extends Controller
 		}else{
 			$this->render('validated', array('is_user_active' => $is_user_active));
 		}
+
+	}
+
+	public function actionShowMoreAssociations(){
+
+		$user_id = Yii::app()->request->getParam('user_id', '');
+
+		$user = User::model()->findByPk($user_id);
+
+		$index = 0;
+		$associated_robots = '';
+		foreach ($user->usersRobots as $value) {
+			if ($index != 0) {
+				$associated_robots .= ", ";
+			}
+			$associated_robots .= "<a class='single-item qtiplink robot-qtip' title='View details of (" . $value->idRobot->serial_number . ")' rel='" . $this->createUrl('/robot/popupview', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "' href='" . $this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "'>" . $value->idRobot->serial_number . "</a>";
+			$index++;
+		}
+
+		$this->renderPartial('/default/defaultView', array('content' => $associated_robots));
 
 	}
 }

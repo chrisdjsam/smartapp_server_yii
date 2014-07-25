@@ -978,18 +978,24 @@ class RobotController extends APIController {
 	public function actionPingFromRobot() {
 
 		$serial_number = Yii::app()->request->getParam('serial_number', '');
+		$ping_timestamp = new CDbExpression('NOW()');
 		$status = Yii::app()->request->getParam('status', '');
-
 		$message = 'robot ping have been recorded';
 
-		$robot_ping_log = new RobotPingLog();
+		//try to load model with requested serial number.
+		$robot_ping_log = RobotPingLog::model()->find('serial_number = :serial_number', array(':serial_number' => $serial_number));
+
+		//now check if the model is null
+		if(!$robot_ping_log) $robot_ping_log = new RobotPingLog();
+
 		$robot_ping_log->serial_number = $serial_number;
-		$robot_ping_log->ping_timestamp = new CDbExpression('NOW()');
+		$robot_ping_log->ping_timestamp = $ping_timestamp;
 		$robot_ping_log->status = $status;
 		$robot_ping_log->save();
 
 		$response_data = array("success" => true, "message" => $message);
 		self::success($response_data);
+
 	}
 
 	public function actionGetRobotTypeMetadataUsingType() {
