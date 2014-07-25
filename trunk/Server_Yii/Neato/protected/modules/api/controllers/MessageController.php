@@ -194,15 +194,7 @@ class MessageController extends APIController {
 
 		$count= 0;
 		foreach ($robot->usersRobots as $userRobot){
-			if($only_online == '1'){
-				$online_users_chat_ids = RobotCore::getOnlineUsers();
-				if(in_array($userRobot->idUser->chat_id, $online_users_chat_ids)){
-					$count += RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-				}
-			}else {
-				$count += RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
-			}
-
+			$count += RobotCore::send_chat_message($robot->chat_id, $userRobot->idUser->chat_id, $message);
 		}
 
 		$response_message = "Message is sent to $count user(s).";

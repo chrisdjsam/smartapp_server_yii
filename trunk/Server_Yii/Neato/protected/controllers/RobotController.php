@@ -39,7 +39,7 @@ class RobotController extends Controller
 		$model =$this->loadModel($id);
 
 		$isOnline = 2; // 2 for offline
-		if(in_array($model->chat_id, RobotCore::getOnlineUsers())){
+		if(RobotCore::jabberOnline($model->chat_id)){
 			$isOnline = 1; // 1 for online
 		}
 // 		else {
