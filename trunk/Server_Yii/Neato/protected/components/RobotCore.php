@@ -138,7 +138,7 @@ class RobotCore {
 			$cmdParam = $xmpp_uid;
 			$cmdStr = "php " . Yii::app()->params['amqp_xmpp_notification_publisher_path'];
 			shell_exec($cmdStr . " '" . $cmdParam . "'");
-
+			
 			return $xmpp_uid;
 		} else {
 			return false;
@@ -164,15 +164,12 @@ class RobotCore {
 	}
 
 	public static function checkRobotStatus($robot){
-
-		$content = array('code' => 10001);
-
+		$is_online = self::jabberOnline($robot->chat_id);
+		$content = array('code' => 10001, 'is_online' => $is_online);
 		$data = RobotKeyValues::model()->find('robot_id = :robot_id and _key =:_key', array(':robot_id' => $robot->id, ':_key' => 'robotCurrentState'));
-
 		if(!empty($data)){
-			$content = array('code' => $data->value);
+			$content = array('code' => $data->value, 'is_online' => $is_online);
 		}
-
 		return $content;
 	}
 

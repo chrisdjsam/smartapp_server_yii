@@ -2508,16 +2508,19 @@ class UserController extends APIController {
 
 			$associated_robots = '';
 			if ($user->doesRobotAssociationExist()) {
-				$is_first_robot = true;
+				$index = 0;
+				$max_association = 5;
 				foreach ($user->usersRobots as $value) {
-					if (!$is_first_robot) {
-						$associated_robots .= ",";
+					if ($index == $max_association) {
+						$associated_robots .= " ... <a href='#' class='more-user-robot' title='More' user_id='" . $user->id . "'>More</a>";
+						break;
+					}else if ($index != 0) {
+						$associated_robots .= ", ";
 					}
-					$is_first_robot = false;
 					$associated_robots .= "<a class='single-item qtiplink robot-qtip' title='View details of (" . $value->idRobot->serial_number . ")' rel='" . $this->createUrl('/robot/popupview', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "' href='" . $this->createUrl('/robot/view', array('h' => AppHelper::two_way_string_encrypt($value->idRobot->id))) . "'>" . $value->idRobot->serial_number . "</a>";
+					$index++;
 				}
 			}
-
 
 			if($user_role_id != '2'){
 				$row [] = $select_checkbox;

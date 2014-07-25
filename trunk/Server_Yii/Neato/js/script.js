@@ -676,11 +676,7 @@ function commandStatus(serial_number) {
 }
 
 function currentRobotStatus(serial_number) {
-
-	check_status_interval = setInterval(function() {
-		hideCommandKey(serial_number);
-	}, 2000);
-
+	hideCommandKey(serial_number);
 }
 
 function stopCommandStatus() {
@@ -699,39 +695,44 @@ function hideCommandKey(serial_number) {
 			serial_number : serial_number
 		},
 		success : function(r) {
+			
+			if(r.is_online){
+				$('#online_status').html(' (ONLINE)');
+			}else {
+				$('#online_status').html(' (OFFLINE)');
+			}
 
 			switch (r.code) {
-			// case '10001':
-			// break;
-
-			case '10002':
-				$('.send-start-command_btn').hide();
-				$('.send-stop-command_btn').show();
-				break;
-
-			case '10005':
-				$('.send-stop-command_btn').hide();
-				$('.send-start-command_btn').show();
-				break;
-
-			// case '10007':
-			// break;
-
-			case '10008':
-				$('.send-start-command_btn').hide();
-				$('.send-stop-command_btn').show();
-				break;
-
-			// case '10009':
-			// break;
-
-			// case '10010':
-			// break;
-
-			default:
-				$('.send-stop-command_btn').hide();
-				$('.send-start-command_btn').show();
-
+				// case '10001':
+				// break;
+	
+				case '10002':
+					$('.send-start-command_btn').hide();
+					$('.send-stop-command_btn').show();
+					break;
+	
+				case '10005':
+					$('.send-stop-command_btn').hide();
+					$('.send-start-command_btn').show();
+					break;
+	
+				// case '10007':
+				// break;
+	
+				case '10008':
+					$('.send-start-command_btn').hide();
+					$('.send-stop-command_btn').show();
+					break;
+	
+				// case '10009':
+				// break;
+	
+				// case '10010':
+				// break;
+	
+				default:
+					$('.send-stop-command_btn').hide();
+					$('.send-start-command_btn').show();
 			}
 		}
 

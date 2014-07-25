@@ -32,6 +32,8 @@ $this->breadcrumbs=array(
 		<?php }?>
 		You can view user profile by clicking on the email of a specific user.
 		<br />
+		You can view up to 5 robots associated with a user. If you want to view all the robots, click on more.
+		<br />
 		You can view robot information by clicking on the associated robot's serial number.
 		<br />
 		<?php if($userRole != '2'){?>
@@ -79,6 +81,7 @@ $this->breadcrumbs=array(
 	</form>
 </fieldset>
 <script>
+
 var user_role_id = '<?php print Yii::app()->user->UserRoleId;?>'
 $('#deleteSelected').click(function(){
        var is_any_check_box_checked = false;
@@ -95,5 +98,25 @@ $('#deleteSelected').click(function(){
        }else{
                alert('Select at least one row to delete.');
        }
-})
+});
+
+$('.more-user-robot').live('click', function(){
+	var user_id = $(this).attr('user_id');
+	var handle = $(this);
+	$.ajax({
+		"dataType" : 'json',
+		"type" : "POST",
+		"url" : app_base_url + '/user/showMoreAssociations',
+		"data" : { 'user_id': user_id, },
+		"success" : function(json_data) {
+			handle.parent().html(json_data);
+			hideWaitDialog();
+		},
+		"beforeSend" : function() {
+			showWaitDialog();
+		}
+	});
+
+});
+
 </script>

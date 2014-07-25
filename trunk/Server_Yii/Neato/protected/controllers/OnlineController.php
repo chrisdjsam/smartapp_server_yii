@@ -23,8 +23,13 @@ class OnlineController extends Controller
 			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
 		}
 		self::check_for_admin_privileges();
-		RobotCore::refreshGetOnlineUsersData();
-		$this->render('list');
+
+		try{
+			RobotCore::refreshGetOnlineUsersData();
+			$this->render('list');
+		} catch (Exception $e) {
+			$this->render('retry');
+		}
 	}
 
 	public function actionOnlineUsersDataTable() {

@@ -38,9 +38,8 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 		<!-- 'Health check button is hide temp through css' -->
 		<?php
 			print '<a href="#" id="is-robot-alive" class="neato-button" title="Is robot alive" robot-serail-no = "'.$model->serial_number.'">Health Check</a>';
-		?>
-		<?php
 			print '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($model->id))).'" class="neato-button" title="Edit" robot-serail-no = "'.$model->serial_number.'">Edit</a>';
+			print '<a href="#" id="refresh-robot-details" class="neato-button" title="Refresh">Refresh</a>';
 		?>
 	</div>
 	<br />
@@ -76,7 +75,7 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 						array(
 								'label' =>'Chat ID',
 								'type'=>'raw',
-								'value' => $model->chat_id . $online_status,
+								'value' => $model->chat_id . "<span id='online_status'>" . $online_status . "</span>",
 						),
 						array(
 								'label' =>'Robot Type',
@@ -274,10 +273,12 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 <script>
 $(window).load(function () {
 	var section = "#" + $('#scroll_section').attr('value');
-	location.hash = section;
+		location.hash = section;
 	});
 
  $(document).ready(function(){
-    currentRobotStatus('<?php echo $model->serial_number; ?>');
+	 $('#refresh-robot-details').click(function(){
+ 		currentRobotStatus('<?php echo $model->serial_number; ?>');
+     });
  });
 </script>
