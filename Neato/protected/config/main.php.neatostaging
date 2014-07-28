@@ -1,0 +1,180 @@
+<?php
+
+// uncomment the following to define a path alias
+// Yii::setPathOfAlias('local','path/to/local-folder');
+
+// This is the main Web application configuration. Any writable
+// CWebApplication properties can be configured here.
+return array(
+	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+        'name'=>'Vorwerk',
+        'theme' => 'basic',
+
+	// preloading 'log' component
+	'preload'=>array('log'),
+
+	// autoloading model and component classes
+	'import'=>array(
+		'application.models.*',
+		'application.models.user.*',
+		'application.models.robot.*',
+		'application.models.atlas.*',
+                'application.models.app.*',
+		'application.components.*',
+		'ext.giix-components.*', // giix components
+		'ext.yii-mail.YiiMailMessage',
+	),
+
+	'modules'=>array(
+		'api',
+		// uncomment the following to enable the Gii tool
+		/*
+		'gii'=>array(
+			'class'=>'system.gii.GiiModule',
+			'password'=>'Enter Your Password Here',
+			// If removed, Gii defaults to localhost only. Edit carefully to taste.
+			'ipFilters'=>array('127.0.0.1','::1'),
+		),
+		*/
+	),
+
+	// application components
+	'components'=>array(
+		'user'=>array(
+			// enable cookie-based authentication
+			'allowAutoLogin'=>true,
+			'class' => 'WebUser', // Use our overridden class to get more access to the user object
+		),
+		// uncomment the following to enable URLs in path-format
+
+		'urlManager'=>array(
+			'urlFormat'=>'path',
+			'showScriptName'=>false,
+			'rules'=>array(
+				'<controller:\w+>'=>'<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+			),
+		),
+
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=neato',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'password' => 'rsl123',
+			'charset' => 'utf8',
+		),
+		'facebook' => array(
+                    'class' => 'ext.yii-facebook-opengraph.SFacebook',
+                    'appId' => '411402328423931', // needed for JS SDK, Social Plugins and PHP SDK
+                    'secret' => 'agc44a5b1b823eee31433ddd38505e14', // needed for the PHP SDK
+                    'locale' => 'en_US', // override locale setting (defaults to en_US)
+                    'frictionlessRequests' => true,
+                    'async' => true, // load JS SDK asynchronously
+                    'jsCallback' => true, // declare if you are going to be inserting any JS callbacks to the async JS SDK loader
+                    'status' => true, // JS SDK - check login status
+                    'cookie' => true, // JS SDK - enable cookies to allow the server to access the session
+                    'oauth' => true, // JS SDK -enable OAuth 2.0
+                    //'xfbml'=>true,  // JS SDK - parse XFBML / html5 Social Plugins
+                    'html5' => true, // use html5 Social Plugins instead of XFBML
+                //'ogTags'=>array(  // set default OG tags
+                //'title'=>'MY_WEBSITE_NAME',
+                //'description'=>'AHHHH',
+                //'image'=>'URL_TO_WEBSITE_LOGO'
+        ),
+		'errorHandler'=>array(
+			// use 'site/error' action to display errors
+			'errorAction'=>'site/error',
+		),
+		'log'=>array(
+			'class'=>'CLogRouter',
+			'routes'=>array(
+				array(
+					'class'=>'CFileLogRoute',
+					'levels'=>'error, warning',
+				),
+				// uncomment the following to show log messages on web pages
+				/*
+				array(
+					'class'=>'CWebLogRoute',
+				),
+				*/
+			),
+		),
+		'mail'=>array(
+        	'class'=>'ext.yii-mail.YiiMail',
+			'transportType' => 'smtp',
+            'transportOptions'=>array(
+	            'host'=>'ssl://smtp.googlemail.com',
+	            //'encryption'=>'tls',
+	            'username'=>'neato.robotics@gmail.com',
+	            'password'=>'goodrockstar',
+	            'port'=>465,
+            ),
+            'viewPath' => 'application.views.mail',
+            'logging' => true,
+            'dryRun' => false
+   		 ),
+	),
+
+	// application-level parameters that can be accessed
+	// using Yii::app()->params['paramName']
+	'params'=>array(
+		// this is used in contact page
+		'adminEmail'=>'webmaster@neato.com',
+		'environment' => 'Production',
+                'env' => 'staging',
+                'fb-app-name' => 'neato',
+                'isProduction' => true,
+                'apiHostname' => 'neatostaging.rajatogo.com/',
+                'apiProtocol' => 'http://',
+		'ejabberdhost' => 'rajatogo',
+		'isjabbersetup' => true,
+		'autoEmailVerification' => true,
+		'enablewebservicelogging' => true,
+		'fb-permissions' => 'email',
+		'user-auth-token-valid-till' => 300000,
+		'app-version-no' => 168,
+		'two-way-encrypt-key' => 'fkdjfksdkfsdlfdfdskjldddfd',
+		'robot-data-directory-name' => 'robot_data',
+		'robot-blob-data-directory-name' => 'blob',
+		'robot-xml-data-directory-name' => 'xml',
+		'robot-schedule_data-directory-name' => 'robot_schedule_data',
+		'robot-schedule_blob-data-directory-name' => 'blob',
+		'robot-schedule_xml-data-directory-name' => 'xml',
+		'robot-atlas-data-directory-name' => 'robot_atlas_data',
+		'robot-atlas-xml-data-directory-name' => 'xml',
+		'robot-atlas-blob-data-directory-name'=>'blob',
+	        'notification-log-directory-name' => 'notification_logs',
+	        'gcm_api_key' => 'AIzaSyAnczo1eXzLo6EdkWCa_EYqi-DFPqLA2kdBA',
+                'default_robot_type' => 100,
+                'neato_amqp_publisher_path' => '/var/www/php-amqplib/demo/amqp_publisher.php',
+                'default_sleep_time' => 120,
+                'default_lag_time' => 15,
+	        'robot_user_association_token_lifetime' => 300,
+		'default_json_for_notification_preference' => '{"global":"false", "notifications":[{"key":"101", "value":"false"}, {"key":"102", "value":"false"}, {"key":"103", "value":"false"}, {"key":"212", "value":"false"}, {"key":"22000", "value":"false"}, {"key":"20219", "value":"false"}]}',
+	        'schedule_key' => 'schedule_updated',
+	        'schedule_value' => 'true',
+	        'cleaning_command' => 'cleaningCommand',
+	        'robot_name_key' => 'name',
+                'command_check_time_limit' => 30000,
+                'default_linking_process' => 1,
+                'is_wp_enabled' => false,
+                'authenticate_via_email' => true, //if is_wp_enabled is true, keep it false otherwise keep true
+                'wordpress_api_url' => 'http://rajatogo.com/wpneato/',
+		'robot_always_connected' => true,
+		'link_code_length' => 4,
+		'robot_ping_interval' => 6000,
+                'amqp_push_notification_publisher_path' => '/var/www/php-amqplib/demo/amqp_push_notification_publisher.php',
+                'amqp_smtp_notification_publisher_path' => '/var/www/php-amqplib/demo/amqp_smtp_notification_publisher.php',
+                'amqp_xmpp_notification_publisher_path' => '/var/www/php-amqplib/demo/amqp_xmpp_notification_publisher.php',
+		'schedule_enforce_versioning' => false,
+		'interval_to_remove_dysfunctional_chat_ids' => 2,
+                'interval_to_remove_outdated_ws_log' => 5,
+                'api_verbosity' => array(
+                        'robot.ping_from_robot'=>0,
+                ),
+                'default_api_verbosity'=>1,
+		'ejabberdctl'=>'sudo ejabberdctl --concurrent'
+	),
+);
