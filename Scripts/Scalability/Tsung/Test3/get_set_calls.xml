@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="info" version="1.0">
+
+	<clients>
+		<client host="localhost" use_controller_vm="true" maxusers="10000"></client>
+	</clients>
+
+	<servers>
+		<server host="neatocloud1.rajatogo.com" port="5222" type="tcp"></server>
+	</servers>
+
+	<load>
+		<arrivalphase phase="1" duration="5" unit="minute">
+			<users arrivalrate="100" unit="second"></users>
+		</arrivalphase>
+	</load>
+
+	<options>
+		<option type="ts_http" name="user_agent">
+			<user_agent probability="80">Mozilla/5.0 (X11; U; Linux i686;
+				en-US; rv:1.7.8) Gecko/20050513 Galeon/1.3.21</user_agent>
+			<user_agent probability="20">Mozilla/5.0 (Windows; U; Windows
+				NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+		</option>
+	</options>
+
+	<sessions>
+		<session name="robot_get_set_profile_details" probability="100" type="ts_http">
+		
+			<setdynvars sourcetype="random_number" start="1" end="10000">
+				<var name="serial_number" />
+			</setdynvars>
+
+			<request subst="true">
+				<http
+					url="http://neatocloud1.rajatogo.com/api/rest/json/?method=robot.get_profile_details2"
+					method="POST" version="1.1"
+					contents="api_key=1e26686d806d82144a71ea9a99d1b3169adaad917&amp;serial_number=testing%%_serial_number%%"></http>
+			</request>
+			
+			<thinktime value="0.01" random="true"></thinktime>
+			
+			<request subst="true">
+				<http
+					url="http://neatocloud1.rajatogo.com/api/rest/json/?method=robot.set_profile_details3"
+					method="POST" version="1.1"
+					contents="api_key=1e26686d806d82144a71ea9a99d1b3169adaad917&amp;serial_number=testing%%_serial_number%%&amp;source_serial_number=testing%%_serial_number%%&amp;cause_agent_id=testing%%_serial_number%%&amp;notification_flag=1&amp;profile[cleaningCommand]=&lt;?xml version='1.0' encoding='UTF-8' standalone='yes' ?&gt;&lt;packet&gt;&lt;header&gt;&lt;version&gt;1&lt;/version&gt;&lt;signature&gt;0xcafebabe&lt;/signature&gt;&lt;/header&gt;&lt;payload&gt;&lt;request&gt;&lt;command&gt;101&lt;/command&gt;&lt;requestId&gt;&lt;/requestId&gt;&lt;timeStamp&gt;&lt;/timeStamp&gt;&lt;retryCount&gt;0&lt;/retryCount&gt;&lt;responseRequired&gt;false&lt;/responseRequired&gt;&lt;distributionMode&gt;2&lt;/distributionMode&gt;&lt;replyTo&gt;9&lt;/replyTo&gt;&lt;params&gt;&lt;cleaningModifier&gt;1&lt;/cleaningModifier&gt;&lt;cleaningMode&gt;1&lt;/cleaningMode&gt;&lt;cleaningCategory&gt;2&lt;/cleaningCategory&gt;&lt;/params&gt;&lt;/request&gt;&lt;/payload&gt;&lt;/packet&gt;"></http>
+			</request>
+			
+		</session>
+	</sessions>
+
+</tsung>

@@ -1,0 +1,115 @@
+High level overview of Tests
+
+Raja Software
+07/23/2014
+
+This is a high level overview of the different tests we ran - individual test details are also found in the last tab of the Excel spreadsheets.
+
+Test1 - this was discarded because of an error in the test script.
+
+Test2
+- 3 servers: Apache 2GB RAM, MySql 2GM RAM, eJabberD - 2GB and 4GB RAM variations
+- Script 1: Bring robots online, send HTTP_Ping and XMPP presence status once every 1 minute
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+
+Results: 
+- 2GB RAM machine can support max 22K connections, whereas 4GB RAM machine supports 28K robot connections.
+
+Test3
+- 3 servers: Apache 2GB RAM, MySql 2GM RAM, eJabberD - 2GB and 4GB RAM variations
+- This is similar to Test #2 except that we give send the XMPP presence packet over a 5 minute interval.
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. But the XMPP presence status is sent to all robots over a 5 minute interval. (So, if there are XX robots, the script sends presence packets to XX/5 robots every minute).
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+
+Results: 
+- 2GB RAM machine can now support max 30K connections, whereas 4GB RAM machine supports 60K robot connections.
+- The big boost in numbers was due to sending presence packets at a slower frequency (spread over 5 minutes, instead every minute).
+
+Test4
+- 3 servers: 
+  Config 1: Apache 2GB RAM, MySql 2GB RAM, eJabberD 4GB RAM
+  Config 2: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM
+- This is similar to Test#3 except that we realized that we should not be sending XMPP presence packets to keep the connection alive - this is a heavy weight operation, and we should instead be using eJabber IQ (info/query) packets. So, we ran the same test similar to Test#3 but instead of using XMPP Presence packets, we used IQ packets.
+- At the same time, we realized that we were sending presence packets spread over 5 minutes. Instead, we changed the script to send all the IQ packets in 1 minute, and then have a 4 minute cooling off period.
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. Send eJabber IQ packets to all robots over a 1 minute interval. (So, if there are XX robots, the script sends IQ packets to XX robots every minute). Then, wait 4 minutes, repeat loop.
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+
+Results: 
+- 4GB RAM machine can support 50K connections, whereas 8GB RAM machine supports 65K connections.
+- Switching to IQ packets did not significantly impact performance.
+- Sending IQ packets in 1 minute stressed the system more than sending them over a 5 minute period.
+- We hit the 64K limit on sockets on the server (this is something we still need to investigate).
+
+Test5
+- 3 servers: 
+  Config 1: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM
+- This is similar to Test#4, The only difference between what we have done in Test#4 case and this one is, we have collected these numbers AFTER enabling --concurrent option for ejabberdctl.
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. Send eJabber IQ packets to all robots over a 1 minute interval. (So, if there are XX robots, the script sends IQ packets to XX robots every minute). Then, wait 4 minutes, repeat loop.
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+
+Results: 
+- 8GB RAM machine supports 65K connections.
+- Enabling --concurrent option for ejabberdctl did not significantly impact performance, but we did not get any crash dump in ejabberd log.
+- We hit the 64K limit on sockets on the server (this is something we still need to investigate).
+
+Test6
+- 3 servers: 
+  Config 1: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM
+- This is similar to Test#5, The main difference in this test is, we have spawned multiple XMPP consumers for improved performance of the Ejabberd message delivery. We ran this test with 5 XMPP notification consumers running simultaneously.
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. Send eJabber IQ packets to all robots over a 1 minute interval. (So, if there are XX robots, the script sends IQ packets to XX robots every minute). Then, wait 4 minutes, repeat loop.
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+
+Results: 
+- 8GB RAM machine supports 65K connections.
+- With 5 concurrent XMPP notification consumers, MySQL CPU usage significantly increased but other instances do not see much change in the usage.
+- We hit the 64K limit on sockets on the server (this is something we still need to investigate).
+
+Test7
+- 3 servers: 
+  Config 1: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM
+- This is similar to Test#6. The key difference is that we have scheduled a cron job that checks for robots that have been inactive and logs them out. (The test just simulates if running the cron job has any effect on scalability).
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. Send eJabber IQ packets to all robots over a 1 minute interval. (So, if there are XX robots, the script sends IQ packets to XX robots every minute). Then, wait 4 minutes, repeat loop.
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+- A cron job to check for inactive robots gets triggered once every 1 minute while the script is running.
+
+Results: 
+- 8GB RAM machine supports 65K connections.
+- With cron job, we did not get any significant difference in the performance numbers, as it was just querying the DB but was NOT actually logging off any robots because all of them are anyway pinging every minute.
+- We hit the 64K limit on sockets on the server (this is something we still need to investigate).
+
+Test8
+- 3 servers: 
+  Config 1: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM
+- This is similar to Test#7, The primary difference in that in this test we have only 1 XMPP notification consumer running (as opposed to 5). There is a scheduled cron job that checks for robots that have been inactive and logs them out. (The test just simulates if running the cron job has any effect on scalability).
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. Send eJabber IQ packets to all robots over a 1 minute interval. (So, if there are XX robots, the script sends IQ packets to XX robots every minute). Then, wait 4 minutes, repeat loop.
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+- A cron job to check for inactive robots gets triggered once every 1 minute while the script is running.
+
+Results: 
+- 8GB RAM machine supports 65K connections.
+- With 1 XMPP notification consumers, MySQL CPU usage significantly decreased as compare to previous results.
+- We hit the 64K limit on sockets on the server (this is something we still need to investigate).
+
+~~~~
+
+Getting Past the 64K Limit
+
+The default configuration on Ubuntu 12.04 has a restriction on the number of simultaneous connections. To increase this, we need to update a netfilter setting in /etc/sysctl.conf as follows
+      	net.netfilter.nf_conntrack_max=131072
+
+Once we updated the nf_conntrack_max setting, we ran the following test:
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. Send eJabber IQ packets to all robots over a 1 minute interval. (So, if there are XX robots, the script sends IQ packets to XX robots every minute). Then, wait 4 minutes, repeat loop.
+
+Results:
+- Config 1: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM: 125K concurrent connections with RAM at 90% utilization.
+- Config 2: Apache 4GB RAM, MySql 2GB RAM, eJabberD 16GB RAM: 165K concurrent connections with RAM at 55% utilization - we stopped running tests at this point.
+
+
+End.
