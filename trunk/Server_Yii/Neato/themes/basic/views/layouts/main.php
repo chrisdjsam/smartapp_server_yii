@@ -107,9 +107,6 @@ $is_wp_enabled = Yii::app()->params['is_wp_enabled'];
 						<li>
 							<a href="<?php echo $this->createUrl('/robot/types')?>" title="Robot Types">Types</a>
 						</li>
-						<li>
-							<a href="<?php echo $this->createUrl('/app/list')?>" title="List of all available app versions ">Version Control</a>
-						</li>
 						<?php } ?>
 						<?php }?>
 						<?php if($userRole != 2){ ?>

@@ -24,17 +24,15 @@ function send_xmpp_notification($notification_id) {
 	$password = DB_PASSWORD;
 	$hostname = DB_HOSTNAME;
 	$dbname = DB_NAME;
+	$ejabberdctl = EJABBERDCTL;
 
 	//connection to the database
 	$dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
 
-	if ($dbhandle === false) {
-		echo("Stale DB Connection");
-		$dbhandle = mysql_connect($hostname, $username, $password, true) or die("Unable to connect to MySQL");
-	}
-	if ($dbhandle === false) {
-		echo("DB Connection Failed");
-		return;
+	// If the connection has gone stale, reconnect
+	if (!mysql_ping($dbhandle))	{
+	    mysql_close($dbhandle);
+	    $dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
 	}
 
 	mysql_select_db($dbname, $dbhandle);
@@ -43,12 +41,14 @@ function send_xmpp_notification($notification_id) {
 	$from = $notification_data['from'];
 	$to = $notification_data['to'];
 	$message = $notification_data['message'];
-	$message = str_replace("<", "\<", $message);
-	$message = str_replace(">", "\>", $message);
-    $message = str_replace(" ", "\ ", $message);
-    $message = str_replace('"', '\"', $message);
 
-	$cmd = Yii::app()->params['ejabberdctl'] . " send-message-chat " . $from . " " . $to . " " . $message;
+	if(strpos($ejabberdctl, "--node") !== false){
+		$message = str_replace("<", "\<", $message);
+		$message = str_replace(">", "\>", $message);
+		$message = str_replace(" ", "\ ", $message);
+		$message = str_replace('"', '\"', $message);
+	}
+	$cmd = $ejabberdctl . " send-message-chat " . $from . " " . $to . " " . $message;
 	$output = shell_exec($cmd);
 	mysql_query("UPDATE `xmpp_notification_via_mq` SET  `response`='".strval($output)."',`status`=1, `end_time`='".round(microtime(true) * 1000)."' WHERE xmpp_uid = '$notification_id'");
 }
@@ -64,5 +64,6 @@ function send_smtp_notification($notification_id) {
 	var_dump(curl_call($url, array(), $data_string));
 	echo "++++++++++++++++++++++++++++++++++++++++++++";
 }
+
 
 ?>

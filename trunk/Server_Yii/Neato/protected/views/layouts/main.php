@@ -106,9 +106,6 @@ $cs->registerScript('app_base_url', 'var app_base_url = "' . Yii::app()->request
 						<li>
 							<a href="<?php echo $this->createUrl('/robot/types')?>" title="Robot Types">Types</a>
 						</li>
-						<li>
-							<a href="<?php echo $this->createUrl('/app/list')?>" title="List of all available app versions ">Version Control</a>
-						</li>
 						<?php }?>
 						<li>
 							<a href="<?php echo $this->createUrl('/user/userprofile')?>" title="My Profile" class="neato_tab_my_profile">My Profile</a>

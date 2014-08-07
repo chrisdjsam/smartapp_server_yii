@@ -1,10 +1,11 @@
 <?php
 
-define('APIPROTOCOL', 'http://');
-define('APIHOSTNAME', 'neatodev.rajatogo.com/');
+define('APIPROTOCOL', '<YOUR_SERVER_API_PROTOCOL_HERE>');
+define('APIHOSTNAME', '<YOUR_SERVER_HOSTNAME_HERE>');
 define('APICONTROLLER', 'api/consumer/');
 
 define('DB_USERNAME', '<YOUR_DATABASE_USERNAME_HERE>');
 define('DB_PASSWORD', '<YOUR_DATABASE_PASSWORD_HERE>');
 define('DB_HOSTNAME', '<YOUR_DATABASE_HOSTNAME_HERE>');
 define('DB_NAME', '<YOUR_DATABASE_NAME_HERE>');
+define('EJABBERDCTL', '<YOUR EJABBERDCTL COMMAND HERE>');

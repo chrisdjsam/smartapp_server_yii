@@ -98,18 +98,6 @@ class RestController extends APIController {
 				false);
 
 
-		self::expose_function('user.check_for_upgrades',
-				"app/CheckForUpgrades",
-				array('app_id' => array ('type' => 'string', 'required' => true),
-						'current_appversion' => array ('type' => 'string', 'required' => false),
-						'os_type' => array ('type' => 'string', 'required' => false),
-						'os_version' => array ('type' => 'string', 'required' => false),
-				),
-				"Check for upgrade for application.",
-				'POST',
-				true,
-				false);
-
 		self::expose_function('user.create',
 				"user/create",
 				array('name' => array ('type' => 'string'),
@@ -760,56 +748,6 @@ class RestController extends APIController {
 						'schedule_type' => array ('type' => 'string','required' => true),
 				),
 				"Get Schedule Based On Type",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.post_custom_data',
-				"robotCustom/PostData",
-				array('serial_number' => array ('type' => 'string', 'required' => true),
-						'encoded_blob_data' => array ('type' => 'array','required' => false),
-						'blob_data' => array ('type' => 'array','required' => false),
-				),
-				"Set robot custom data",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.get_customs',
-				"robotCustom/GetCustoms",
-				array('serial_number' => array ('type' => 'string', 'required' => true),
-				),
-				"Pass on a robot serial number",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.get_custom_data',
-				"robotCustom/GetData",
-				array('robot_custom_id' => array ('type' => 'string', 'required' => true),
-				),
-				"Pass on a robot custom id ",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.update_custom_data',
-				"robotCustom/UpdateData",
-				array('robot_custom_id' => array ('type' => 'string', 'required' => true),
-						'blob_data_version' => array ('type' => 'string', 'required' => false),
-						'encoded_blob_data' => array ('type' => 'array','required' => false),
-						'blob_data' => array ('type' => 'array','required' => false),
-				),
-				"Pass on a robot custom id, data version, encoded_blob_data, blob_data",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.delete_custom_data',
-				"robotCustom/DeleteData",
-				array('robot_custom_id' => array ('type' => 'string', 'required' => true),
-				),
-				"Delete robot custom data",
 				'POST',
 				true,
 				false);

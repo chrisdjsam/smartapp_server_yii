@@ -298,22 +298,6 @@ class APIController extends Controller {
 	 * @param int $robot_custom_id
 	 * @return object of cactiverecord for robot custom
 	 */
-	protected function verify_for_robot_custom_id_existence($robot_custom_id){
-		$robot_custom = RobotCustom::model()->findByAttributes(array('id' => $robot_custom_id));
-		if($robot_custom !== null ){
-			return $robot_custom;
-		}
-		else{
-			$response_message = self::yii_api_echo('Robot custom id does not exist');
-			self::terminate(-1, $response_message, APIConstant::ROBOT_CUSTOM_ID_NOT_EXIST);
-		}
-	}
-
-	/**
-	 * Common code to all API Controllers to check existence of robot custom for provided custom id, if not terminate with error messge
-	 * @param int $robot_custom_id
-	 * @return object of cactiverecord for robot custom
-	 */
 	protected function verify_for_atlas_id_existence($id_atlas){
 		$robotAtlas = RobotAtlas::model()->findByPk($id_atlas);
 		if($robotAtlas !== null ){
