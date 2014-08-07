@@ -68,7 +68,6 @@ class BaseRobot extends GxActiveRecord
 				'usersRobots' => array(self::HAS_MANY, 'UsersRobot', 'id_robot'),
 				'robotMaps' => array(self::HAS_MANY, 'RobotMap', 'id_robot'),
 				'robotSchedules' => array(self::HAS_MANY, 'RobotSchedule', 'id_robot', 'order'=>'robotSchedules.id DESC'),
-				'robotCustoms' => array(self::HAS_MANY, 'RobotCustom', 'id_robot'),
 				'robotAtlas' => array(self::HAS_ONE, 'RobotAtlas', 'id_robot'),
 				'robotRobotTypes' => array(self::HAS_ONE, 'RobotRobotTypes', 'robot_id'),
 				'RobotKeyValues' => array(self::HAS_MANY, 'RobotKeyValues', 'robot_id'),

@@ -41,8 +41,6 @@ a.new-api {
 			<tr>
 				<th align="left">
 					<h3>API Test Console Quick Links</h3>
-
-
 				<th>
 
 			</tr>
@@ -78,9 +76,6 @@ a.new-api {
 											</li>
 											<li>
 												<a href="user.php#Get API Version">Get API Version</a>
-											</li>
-											<li>
-												<a href="user.php#Check For Upgrades">Check For Upgrades</a>
 											</li>
 											<li>
 												<a href="user.php#Create User">Create User</a>
@@ -318,12 +313,6 @@ a.new-api {
 			</td>
 		</tr>
 		<tr>
-			<td class='entry-td'></td>
-		</tr>
-		<tr>
-			<td class='entry-td'></td>
-		</tr>
-		<tr>
 			<td class='entry-td'>
 				<table id='api_entry'>
 					<tr>
@@ -357,50 +346,6 @@ a.new-api {
 											</li>
 											<li>
 												<a href="robot_schedule.php#Get Schedule Based On Type">Get Schedule Based On Type</a>
-											</li>
-										</ul>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td class='entry-td'></td>
-		</tr>
-		<tr>
-			<td class='entry-td'>
-				<table id='api_entry'>
-					<tr>
-						<td>
-							<a href="robot_custom.php">Robot custom test console</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table>
-								<tr>
-									<td>On this page, you can test all the web services APIs that are used for handling custom data. Available methods are:</td>
-								</tr>
-								<tr>
-									<td>
-										<ul>
-											<li>
-												<a href="robot_custom.php#Post Robot Custom Data">Post Robot Custom Data</a>
-											</li>
-											<li>
-												<a href="robot_custom.php#Get Robot Customs">Get Robot Customs</a>
-											</li>
-											<li>
-												<a href="robot_custom.php#Get Robot Custom Data">Get Robot Custom Data</a>
-											</li>
-											<li>
-												<a href="robot_custom.php#Update Robot Custom Data">Update Robot Custom Data</a>
-											</li>
-											<li>
-												<a href="robot_custom.php#Delete Robot Custom Data">Delete Robot Custom Data</a>
 											</li>
 										</ul>
 									</td>

@@ -1589,3 +1589,7 @@ div.form label {
     text-align: center;
     width: 100%;
 }
+
+.robot_edit_element{
+	margin: 0px 8px;	
+}

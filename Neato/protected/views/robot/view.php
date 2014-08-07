@@ -38,7 +38,7 @@ if($isAdmin || in_array(Yii::app()->user->email, $associated_users_array)){
 		<!-- 'Health check button is hide temp through css' -->
 		<?php
 			print '<a href="#" id="is-robot-alive" class="neato-button" title="Is robot alive" robot-serail-no = "'.$model->serial_number.'">Health Check</a>';
-			print '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($model->id))).'" class="neato-button" title="Edit" robot-serail-no = "'.$model->serial_number.'">Edit</a>';
+			print '<a href="'.$this->createUrl('/robot/update',array('h'=>AppHelper::two_way_string_encrypt($model->id))).'" class="neato-button robot_edit_element" title="Edit" robot-serail-no = "'.$model->serial_number.'">Edit</a>';
 			print '<a href="#" id="refresh-robot-details" class="neato-button" title="Refresh">Refresh</a>';
 		?>
 	</div>

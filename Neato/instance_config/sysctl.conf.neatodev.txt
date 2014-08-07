@@ -103,7 +103,7 @@ net.core.wmem_default = 31457280
 net.core.wmem_max = 12582912
 
 # Increase number of incoming connections
-net.core.somaxconn = 65536
+net.core.somaxconn = 65535
 
 # Increase number of incoming connections backlog
 net.core.netdev_max_backlog = 65536
@@ -133,5 +133,7 @@ net.ipv4.tcp_tw_reuse = 1
 
 # RSL 06/12/2014 - disable TCP timestamps to improve connection speeds
 net.ipv4.tcp_timestamps = 0
+# RSL 08/05/2014 - increased max conntrack value to breach the limit of 65K concurrent TCP connections.  
+net.netfilter.nf_conntrack_max = 131072
 
 ### End RSL changes

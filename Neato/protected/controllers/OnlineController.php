@@ -100,7 +100,16 @@ class OnlineController extends Controller
 				'aaData' => array()
 		);
 
-		foreach (array_unique($result['rResult']) as $robot) {
+		$serial_number_arr = array();
+
+		foreach ($result['rResult'] as $robot) {
+
+			if ( in_array($robot['serial_number'], $serial_number_arr)) {
+				$output['iTotalRecords'] = $output['iTotalRecords'] - 1;
+				$output['iTotalDisplayRecords'] = $output['iTotalDisplayRecords'] - 1;
+				continue;
+			}
+			$serial_number_arr[] = $robot['serial_number'];
 
 			$robot = Robot::model()->findByPk($robot['id']);
 
