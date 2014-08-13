@@ -1432,3 +1432,95 @@ div.form label {
     text-align: center;
     width: 100%;
 }
+
+.success {
+	color: #4F8A10;
+}
+
+.error {
+	color: #D8000C;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.diagnostics {
+	margin: 0px auto;
+	width: 85%;
+}
+
+.diagnostics-box {
+	text-align: center;
+	width: 45%;
+	border:1px solid #CCCCCC;
+	padding:20px 0px;
+	margin-bottom: 30px;
+}
+
+.diagnostics-box-left {
+	float: left;
+}
+
+.diagnostics-box-right {
+	float: right;
+}
+
+.diagnostics-block {
+	border: 3px solid #808080;
+	border-radius: 100%;
+	height: 150px;
+	text-align: center;
+	width: 150px;
+	margin: 0px auto;
+}
+
+.diagnostics-block-success-backgroud {
+	background-color: #DFF2BF;
+}
+
+.diagnostics-block-error-backgroud {
+	background-color: #FFBABA;
+}
+
+.diagnostics-block a {
+	line-height: 145px;
+	padding: 65px 45px;
+	text-decoration: none;
+	cursor: default;
+}
+
+.status-block {
+	margin-left: 6px;
+}
+
+div.last-ran-at {
+	color: black;
+	font-size: 12px;
+	font-style: italic;
+}
+
+.status-box {
+	line-height: 20px;
+	margin-top: 8px;
+}
+
+.button-box {
+    margin: 5px auto;
+    width: 56%;
+}
+
+.running-consumers-box-a {
+	width: 50%; 
+	text-align: end;
+}
+
+.running-consumers-box-b {
+	text-align: start; 
+	padding-left: 4%; 
+	width: 46%;
+}
