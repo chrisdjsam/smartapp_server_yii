@@ -86,4 +86,10 @@ class AppController extends Controller
 
 	}
 
+	public function actionDiagnostics(){
+		if (Yii::app()->user->getIsGuest()) {
+			$this->redirect(Yii::app()->request->baseUrl.'/user/login');
+		}
+		$this->render('diagnostics');
+	}
 }

@@ -126,9 +126,6 @@ a.new-api {
 												<a href="user.php#Resend Validation Email">Resend Validation Email</a>
 											</li>
 											<li>
-												<a href="user.php#Get Error Code">Get Error Detail By Error Code</a>
-											</li>
-											<li>
 												<a href="user.php#Create User 3">Create User 3</a>
 											</li>
 										</ul>
@@ -200,9 +197,6 @@ a.new-api {
 												<a href="robot.php#Ping From Robot">Ping From Robot</a>
 											</li>
 											<li>
-												<a href="robot.php#Is Robot Online Virtual">Is Robot Online Virtual</a>
-											</li>
-											<li>
 												<a href="robot.php#Get Robot Type Metadata Using Robot Type">Get Robot Type Metadata Using Robot Type</a>
 											</li>
 											<li>
@@ -224,22 +218,10 @@ a.new-api {
 												<a href="robot.php#Request Link Code">Request Link Code</a>
 											</li>
 											<li>
-												<a href="robot.php#Initiate Link To Robot">Initiate Link To Robot</a>
-											</li>
-											<li>
-												<a href="robot.php#Confirm Linking">Confirm Linking</a>
-											</li>
-											<li>
-												<a href="robot.php#Reject Linking">Reject Linking</a>
-											</li>
-											<li>
 												<a href="robot.php#Cancel Linking">Cancel Linking</a>
 											</li>
 											<li>
 												<a href="robot.php#Link To Robot">Link To Robot</a>
-											</li>
-											<li>
-												<a href="robot.php#Robot Health Check responder">Respond to Robot's Health Check</a>
 											</li>
 											<li>
 												<a href="robot.php#Get Timestamp Delta" class="new-api">Get Timestamp Delta</a>

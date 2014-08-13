@@ -1901,23 +1901,6 @@ class AppCore {
 		return $result;
 	}
 
-	public static function getVirtuallyOnlinRobots($serial_number, $robot_ping_interval) {
-
-		$data = RobotCore::getLatestPingTimestampFromRobot($serial_number);
-
-		if (!empty($data)) {
-			$latest_ping_timestamp = strtotime($data[0]->ping_timestamp);
-
-			$current_system_timestamp = time();
-			$time_diff = ($current_system_timestamp - $latest_ping_timestamp);
-
-			if ($time_diff < $robot_ping_interval) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public static function setRobotKeyValue($key_value){
 		$command_key = ($key_value['key']);
 		$command_value = ($key_value['value']);

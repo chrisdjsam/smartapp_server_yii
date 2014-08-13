@@ -154,8 +154,9 @@ return array(
 		'schedule_enforce_versioning' => false,
 		'api_verbosity' => array(),  // Note: Here you can specify 3 verbosity levels: 0 - none, 1 - low, 2 - high for each API. Example: array('site.get_api_version'=>0,'robot.is_online'=>1,)
 		'default_api_verbosity'=>'<SET DEFUALT VERBOSITY LEVEL HERE>',
-		'ejabberdctl'=>'sudo ejabberdctl --node ejabberd@neatocloud1j ',
+		'ejabberdctl'=>'<YOUR_EJABBERDCTL_PREFIX_HERE>',
 		'interval_to_remove_dysfunctional_chat_ids' => <SET DEFUALT INTERVAL HERE>,
 		'interval_to_remove_outdated_ws_log' => <SET DEFUALT INTERVAL HERE>,
+		'rabbitmqctl'=>'<YOUR_RABBITMQCTL_PREFIX_HERE>',
 	),
 );

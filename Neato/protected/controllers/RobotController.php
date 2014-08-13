@@ -42,15 +42,6 @@ class RobotController extends Controller
 		if(RobotCore::jabberOnline($model->chat_id)){
 			$isOnline = 1; // 1 for online
 		}
-// 		else {
-
-// 			$sleep_lag_time = RobotCore::getSleepLagTime($model);
-// 			$robot_ping_interval = $sleep_lag_time['sleep_time'];
-
-// 			if(AppCore::getVirtuallyOnlinRobots($model->serial_number, $robot_ping_interval)){
-// 				$isOnline = 3; // 3 for virtually online
-// 			}
-// 		}
 
 		$last_ping = RobotCore::getLatestPingTimestampFromRobot($model->serial_number);
 
@@ -528,7 +519,7 @@ class RobotController extends Controller
 						$full_file_path = $uploads_dir. DIRECTORY_SEPARATOR . $file_name;
 					}
 					break;
-					
+
 				default :
 			}
 

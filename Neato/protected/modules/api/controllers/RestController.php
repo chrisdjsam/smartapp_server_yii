@@ -262,15 +262,6 @@ class RestController extends APIController {
 				true,
 				false);
 
-		self::expose_function('user.get_error_code',
-				"user/getErrorCode",
-				array('error_code' => array ('type' => 'string', 'required' => false),
-				),
-				"Error message detail from error code",
-				'POST',
-				true,
-				false);
-
 		self::expose_function('robot.create',
 				"robot/create",
 				array('serial_number' => array ('type' => 'string', 'required' => true),
@@ -306,15 +297,6 @@ class RestController extends APIController {
 				array('serial_number' => array ('type' => 'string', 'required' => true),
 				),
 				"Get Robot Presence Status",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.is_robot_online_virtual',
-				"robot/isRobotOnlineVirtual",
-				array('serial_number' => array ('type' => 'string', 'required' => true),
-				),
-				"Is Robot Online Virtual",
 				'POST',
 				true,
 				false);
@@ -409,16 +391,6 @@ class RestController extends APIController {
 				true,
 				false);
 
-		self::expose_function('robot.initiate_link_to_robot',
-				"robot/InitiateLinkToRobot",
-				array(
-						'email' => array ('type' => 'string', 'required' => true),
-						'linking_code' => array ('type' => 'string', 'required' => true),
-				),
-				"Initiate Link To Robot",
-				'POST',
-				true,
-				false);
 
 		self::expose_function('robot.link_to_robot',
 				"robot/LinkToRobot",
@@ -431,28 +403,6 @@ class RestController extends APIController {
 				true,
 				false);
 
-		self::expose_function('robot.confirm_linking',
-				"robot/ConfirmLinking",
-				array(
-						'serial_number' => array ('type' => 'string', 'required' => true),
-						'linking_code' => array ('type' => 'string', 'required' => true),
-				),
-				"Confirm Linking",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.reject_linking',
-				"robot/RejectLinking",
-				array(
-						'serial_number' => array ('type' => 'string', 'required' => true),
-						'linking_code' => array ('type' => 'string', 'required' => true),
-				),
-				"Reject Linking",
-				'POST',
-				true,
-				false);
-
 		self::expose_function('robot.cancel_linking',
 				"robot/CancelLinking",
 				array(
@@ -460,16 +410,6 @@ class RestController extends APIController {
 						//                                    'token' => array ('type' => 'string', 'required' => true),
 				),
 				"Cancel Linking",
-				'POST',
-				true,
-				false);
-
-		self::expose_function('robot.health_check',
-				"robot/AliveRobot",
-				array(
-						'serial_number' => array ('type' => 'string', 'required' => true),
-				),
-				"Alive Robot",
 				'POST',
 				true,
 				false);
