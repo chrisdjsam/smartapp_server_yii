@@ -1,0 +1,92 @@
+Tsung Setup Verification
+
+Raja Software
+
+Created: 08/05/2014
+Last Updated: 08/14/2014
+
+This folder contains 2 basic Tsung test scripts to verify that Tsung has been setup correctly, and that it can access the Neato Backend Servers.
+
+The setup verification tests use neatostaging.rajatogo.com as the backend server. However, you will need to update it to point to your own backend server - instructions are provided below.
+
+1. Test_Setup_1.xml
+
+How to customize it?
+- Search for the test neatostaging.rajatogo.com and replace it with your hostname.
+- Let's say you want to run it against dev.neatorobotics.com, you should be replacing neatostaging.rajatogo.com with dev.neatorobotics.com
+
+
+How to run?
+- Inside this directory, type "tsung -f Test_Setup_1.xml start"
+
+What this test does? 
+- It makes 1 API request (getApiVersion()) and prints the response of this ping request.
+- The idea behind this test is to verify that your basic Tsung set up is working as expected.
+
+What is expected?
+	In the log file, you should see the JSON output of this API call. The sample response would look like:
+	
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	HTTP/1.1 200 OK
+	Date: Thu, 07 Aug 2014 17:17:05 GMT
+	Server: Apache/2.2.22 (Ubuntu)
+	X-Powered-By: PHP/5.3.10-1ubuntu3.2
+	Set-Cookie: PHPSESSID=q2klgt07udt9uigac2v09rd2b7; path=/
+	Expires: Thu, 19 Nov 1981 08:52:00 GMT
+	Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+	Pragma: no-cache
+	Content-Length: 23
+	Content-Type: text/javascript; charset=UTF-8
+	
+	{"status":0,"result":1}
+	
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Note that the whole HTTP response is printed here but the most important bit is that JSON {"status":0,"result":1}
+	If you do NOT see this in the output, it means your set up is NOT working correctly.
+
+~~~
+
+2. Test_Setup_2.xml
+
+How to customize it?
+- Search for the test neatostaging.rajatogo.com and replace it with your hostname.
+- Let's say you want to run it against dev.neatorobotics.com, you should be replacing neatostaging.rajatogo.com with dev.neatorobotics.com
+- Change the Robot Serial Number by replacing the value in the query string for the API call. Basically change the value against after the serial_number=<YOUR ROBOT SERIAL NUMBER HERE>
+- Change the Robot Chat ID by replacing the value against the "username" key
+- Change the Robot Chat Password by replacing the value against the "passwd" key
+- Change the jabber hostname (i.e. the one displayed AFTER @ sign on the robot details page) the value against the "domain" key
+
+How to run?
+- Inside this directory, type "tsung -f Test_Setup_2.xml start"
+
+What this test does? 
+- It brings 1 robot online on the ejabberd and makes an API call to know if the robot actually came online.
+
+
+What is expected?
+- In the log file, you should see the JSON output of this API call. The sample response would look like:
+	
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	HTTP/1.1 200 OK
+	Date: Thu, 07 Aug 2014 16:57:33 GMT
+	Server: Apache/2.2.22 (Ubuntu)
+	X-Powered-By: PHP/5.3.10-1ubuntu3.2
+	Set-Cookie: PHPSESSID=nu9ttr06tabr7g1g706pqal371; path=/
+	Expires: Thu, 19 Nov 1981 08:52:00 GMT
+	Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+	Pragma: no-cache
+	Content-Length: 73
+	Content-Type: text/javascript; charset=UTF-8
+
+	{"status":0,"result":{"online":true,"message":"Robot neato1 is online."}}
+	
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Note that the whole HTTP response is printed here but the most important bit is that JSON {"status":0,"result":{"online":true,"message":"Robot neato1 is online."}}
+- If you do NOT see this in the output OR the response is that the robot is offline (i.e. online is returned false), it means your set up is NOT working correctly.
+
+~~
+
+End.
