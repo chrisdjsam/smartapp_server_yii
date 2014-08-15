@@ -1,7 +1,8 @@
 High level overview of Tests
 
 Raja Software
-07/23/2014
+Created: 07/23/2014
+Last Updated: 08/14/2014
 
 This is a high level overview of the different tests we ran - individual test details are also found in the last tab of the Excel spreadsheets.
 
@@ -97,6 +98,10 @@ Results:
 - With 1 XMPP notification consumers, MySQL CPU usage significantly decreased as compare to previous results.
 - We hit the 64K limit on sockets on the server (this is something we still need to investigate).
 
+
+Test9 - this was discarded.
+
+
 ~~~~
 
 Getting Past the 64K Limit
@@ -111,5 +116,31 @@ Results:
 - Config 1: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM: 125K concurrent connections with RAM at 90% utilization.
 - Config 2: Apache 4GB RAM, MySql 2GB RAM, eJabberD 16GB RAM: 165K concurrent connections with RAM at 55% utilization - we stopped running tests at this point.
 
+~~~~
+
+Bug in Test Scripts #2 - #8
+
+The implementation in scripts for Tests 2-8 are slightly different than what we originally intended. Our intent was to bring all the robots online, and then send http_ping and IQ packets to ALL robots over a period of 1 minute, pause for 4 minutes, and then resend http_ping and IQ packets again (and repeat this process).
+
+However, there was a bug in the scripts that caused it to only send http_ping and IQ packets to 15% of the robots (and not to ALL robots).
+
+Root cause of the bug: In the jabber_IQ_packets_1min.xml script, we have 2 sessions: one to bring the robots online, and another to send the http_ping and IQ packets. We incorrectly assumed that the "arrival rate" would be 100 for both sessions - in reality, the arrival rates also gets divided by the probability in each session - this causes only 15% of the robots to get the http_ping packets.
+
+Impact: The RAM and CPU numbers reported in tests #2-#8 are incorrect since they measured only 15% of the pings. However, the primary goal of verifying the number of concurrent eJabberd connections (simulating the number of concurrent robots being online) is NOT affected. 
+
+See below for Test10 which uses updated scripts
+
+~~~~
+
+Test10
+- 3 servers: 
+  Config 1: Apache 4GB RAM, MySql 2GB RAM, eJabberD 8GB RAM
+- This is similar to Test6 - the only difference is an updated test script, where the probability of each session is set to 50% - this ensures that ALL robots send the http_ping and IQ packets (see "Bug in Test Scripts" above for the specific issue this test fixes). Just like Test6, we ran this test with 5 XMPP notification consumers running simultaneously.
+- Script 1: Bring robots online, send HTTP_Ping packet every 1 minute. Send eJabber IQ packets to all robots over a 1 minute interval. (So, if there are XX robots, the script sends IQ packets to XX robots every minute). Then, wait 4 minutes, repeat loop.
+- Script 2: Make robot get/set data calls in a loop
+- Run Script 1, once all robots are online and stable, start script 2.
+
+~~~
 
 End.
+
