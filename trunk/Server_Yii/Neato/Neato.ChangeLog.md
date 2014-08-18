@@ -3,10 +3,29 @@ Neato Change Log
 ___________________________________________________________________________________
 Raja Software 
 
-Last Updated: 05/01/2014
+Last Updated: 08/14/2014
 
-Latest RSL SVN Version: 463
+Latest RSL SVN Version: 562
 ___________________________________________________________________________________
+
+Changes deployed on NeatoStaging
+------------------------------------------------------
+RSL SVN Version: 562
+
+- Added "{acce ss, max_user_offline_messages, [{5000, admin}, {1, all}]}." in the ejabberd.cfg file to improves the touch point between Apache and XMPP/Ejabberd.
+- Checked in nodejs test scripts with README file.
+- Added 3 levels of logverbosity: 0 - none, 1 - low, 2 - high at API level.
+- Modified the UI of app/log page for better view and to improved readability.
+- Updated /etc/sysctl.conf configuration file for improving the connection speed by disabling parameter net.ipv4.tcp_timestamps at the  TCP packet level.
+- Checked in instance's sysctl.conf configuration file in order to improve the scalability.
+- Implemented cron job to logs off ALL inactive robots.
+- Updated SmartApps.Server.Setup.docx document + Network topology diagrams. 
+- Checked in AMQP producers and consumers that are used to handle async processing of XMPP, SMTP and Push notification sending.
+- Checked in Tsung scripts and performance numbers with README file.
+- Checked in WordPress integration doc.
+- Removed all deprecated APIs.
+- Added 'Diagnostics' module in Admin web console.
+__________________________________________________________________________________
 
 Changes deployed on NeatoDev
 ------------------------------------------------------
