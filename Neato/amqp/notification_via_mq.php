@@ -25,6 +25,7 @@ function send_xmpp_notification($notification_id) {
 	$hostname = DB_HOSTNAME;
 	$dbname = DB_NAME;
 	$ejabberdctl = EJABBERDCTL;
+	$escapeXML = ESCAPE_XML;
 
 	//connection to the database
 	$dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
@@ -42,7 +43,7 @@ function send_xmpp_notification($notification_id) {
 	$to = $notification_data['to'];
 	$message = $notification_data['message'];
 
-	if(strpos($ejabberdctl, "--node") !== false){
+    if($escapeXML){
 		$message = str_replace("<", "\<", $message);
 		$message = str_replace(">", "\>", $message);
 		$message = str_replace(" ", "\ ", $message);
